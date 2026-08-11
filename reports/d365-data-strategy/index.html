@@ -15,7 +15,7 @@
 <style>
 :root {
   --paper:#F7F7F3; --surface:#FFFFFF; --surface-2:#EFEFE9;
-  --ink:#101311; --ink-2:#3A403C; --muted:#6E7570;
+  --ink:#101311; --ink-2:#3A403C; --muted:#666D68;
   --rule:#101311; --rule-soft:#D6D7CE;
   --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
   --warn:#B05A00; --warn-wash:#F6E8D8;
@@ -36,7 +36,7 @@
 }
 :root[data-theme="light"] {
   --paper:#F7F7F3; --surface:#FFFFFF; --surface-2:#EFEFE9;
-  --ink:#101311; --ink-2:#3A403C; --muted:#6E7570;
+  --ink:#101311; --ink-2:#3A403C; --muted:#666D68;
   --rule:#101311; --rule-soft:#D6D7CE;
   --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
   --warn:#B05A00; --warn-wash:#F6E8D8;
@@ -139,7 +139,7 @@ section[id]{scroll-margin-top:70px}
 .flow-shell{border:2px solid var(--rule);background:var(--surface)}
 .flow-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding:14px 18px;border-bottom:2px solid var(--rule)}
 .flow-body{padding:18px 18px 6px;overflow-x:auto}
-#flowSvg{width:100%;height:auto;min-width:860px}
+#flowSvg{width:100%;height:auto;min-width:1110px}
 .a-tier{font-family:var(--font-mono);font-size:9px;font-weight:700;fill:var(--muted);letter-spacing:.16em}
 .a-tier-n{fill:var(--accent)}
 .a-rule{stroke:var(--rule-soft);stroke-width:1.5}
@@ -257,6 +257,20 @@ section[id]{scroll-margin-top:70px}
   .reveal.in{opacity:1;transform:none}
 }
 @keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
+/* scroll affordance for wide diagrams */
+.scroll-hint{display:none;font-family:var(--font-mono);font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:0 18px 10px}
+@media (max-width:1100px){.scroll-hint{display:block}}
+/* report series navigation */
+.series-nav{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--rule);background:var(--surface);margin-top:26px}
+@media (max-width:640px){.series-nav{grid-template-columns:1fr}}
+.sn-item{padding:16px 18px;text-decoration:none;border-right:2px solid var(--rule-soft);transition:background .15s}
+.sn-item:last-child{border-right:0}
+@media (max-width:640px){.sn-item{border-right:0;border-bottom:2px solid var(--rule-soft)}.sn-item:last-child{border-bottom:0}}
+.sn-item:hover{background:var(--accent-wash)}
+.sn-item.next{text-align:right}
+.sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+.sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
+.sn-item.empty{opacity:.4;pointer-events:none}
 </style>
 </head>
 <body>
@@ -320,6 +334,7 @@ section[id]{scroll-margin-top:70px}
       <div class="flow-body">
         <svg id="flowSvg" viewBox="0 0 1110 300" role="img" aria-label="Flow diagram: Dataverse objects, Outlook and Graph, SharePoint and call reports are extracted by REST OData, Graph API and webhooks into bronze, silver and gold medallion layers, then activated through an MCP layer, NLQ agents, Power BI and alerts, driving pipeline reviews, territory and pricing moves, and forecast commits."></svg>
       </div>
+      <div class="scroll-hint">↔ Scroll the diagram sideways</div>
       <div class="flow-readout readout" id="flowReadout"><span class="ro-hint">17 components · sources → extract → refine → activate → decide</span></div>
     </div>
   </div>
@@ -391,6 +406,7 @@ section[id]{scroll-margin-top:70px}
   </div>
 </section>
 
+<div class="wrap"><nav class="series-nav" aria-label="Report series"><span class="sn-item empty"><span class="sn-dir">Start of series</span><span class="sn-t">RPT-001 is the first report</span></span><a class="sn-item next" href="../ehs-metrics-command/"><span class="sn-dir">Next · RPT-002 →</span><span class="sn-t">EHS Metrics Command</span></a></nav></div>
 </main>
 
 <footer class="rfooter">

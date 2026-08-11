@@ -15,7 +15,7 @@
 <style>
 :root{
   --paper:#F7F7F3;--surface:#FFFFFF;--surface-2:#EFEFE9;
-  --ink:#101311;--ink-2:#3A403C;--muted:#6E7570;
+  --ink:#101311;--ink-2:#3A403C;--muted:#666D68;
   --rule:#101311;--rule-soft:#D6D7CE;
   --accent:#0F7A52;--accent-2:#0B5C3E;--accent-ink:#FFFFFF;--accent-wash:#E3F0E9;
   --warn:#B05A00;--warn-wash:#F6E8D8;
@@ -36,7 +36,7 @@
 }}
 :root[data-theme="light"]{
   --paper:#F7F7F3;--surface:#FFFFFF;--surface-2:#EFEFE9;
-  --ink:#101311;--ink-2:#3A403C;--muted:#6E7570;
+  --ink:#101311;--ink-2:#3A403C;--muted:#666D68;
   --rule:#101311;--rule-soft:#D6D7CE;
   --accent:#0F7A52;--accent-2:#0B5C3E;--accent-ink:#FFFFFF;--accent-wash:#E3F0E9;
   --warn:#B05A00;--warn-wash:#F6E8D8;
@@ -136,7 +136,7 @@ section[id]{scroll-margin-top:70px}
 .graph-shell{border:2px solid var(--rule);background:var(--surface)}
 .graph-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding:14px 18px;border-bottom:2px solid var(--rule)}
 .graph-body{padding:14px 12px 4px;overflow-x:auto}
-#ontSvg{width:100%;height:auto;min-width:900px}
+#ontSvg{width:100%;height:auto;min-width:1100px}
 .o-link{fill:none;stroke:var(--rule-soft);stroke-width:1.5;transition:stroke .18s,stroke-width .18s,opacity .18s}
 .o-link.hot{stroke:var(--accent);stroke-width:2.6}
 .o-lt{font-family:var(--font-mono);font-size:7.5px;font-weight:600;fill:var(--muted);letter-spacing:.04em;opacity:0;transition:opacity .18s;pointer-events:none}
@@ -324,6 +324,20 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   .reveal.in{opacity:1;transform:none}
 }
 @keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
+/* scroll affordance for wide diagrams */
+.scroll-hint{display:none;font-family:var(--font-mono);font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:0 18px 10px}
+@media (max-width:1100px){.scroll-hint{display:block}}
+/* report series navigation */
+.series-nav{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--rule);background:var(--surface);margin-top:26px}
+@media (max-width:640px){.series-nav{grid-template-columns:1fr}}
+.sn-item{padding:16px 18px;text-decoration:none;border-right:2px solid var(--rule-soft);transition:background .15s}
+.sn-item:last-child{border-right:0}
+@media (max-width:640px){.sn-item{border-right:0;border-bottom:2px solid var(--rule-soft)}.sn-item:last-child{border-bottom:0}}
+.sn-item:hover{background:var(--accent-wash)}
+.sn-item.next{text-align:right}
+.sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+.sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
+.sn-item.empty{opacity:.4;pointer-events:none}
 </style>
 </head>
 <body>
@@ -393,6 +407,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <div class="graph-body">
         <svg id="ontSvg" viewBox="0 0 1100 560" role="img" aria-label="Ontology object graph with seventeen object types across commercial, operations, supply, EHS and workforce domains, connected by twenty-four typed links."></svg>
       </div>
+      <div class="scroll-hint">↔ Scroll the graph sideways</div>
       <div class="obj-panel">
         <div class="op">
           <span class="k">Object type</span>
@@ -523,6 +538,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   </div>
 </section>
 
+<div class="wrap"><nav class="series-nav" aria-label="Report series"><a class="sn-item" href="../ehs-metrics-command/"><span class="sn-dir">← Previous · RPT-002</span><span class="sn-t">EHS Metrics Command</span></a><span class="sn-item next empty"><span class="sn-dir">End of series</span><span class="sn-t">RPT-003 is the latest</span></span></nav></div>
 </main>
 
 <footer class="rfooter">

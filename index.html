@@ -24,7 +24,7 @@
   --surface-2:  #EFEFE9;
   --ink:        #101311;
   --ink-2:      #3A403C;
-  --muted:      #6E7570;
+  --muted:      #666D68;
   --rule:       #101311;
   --rule-soft:  #D6D7CE;
   --accent:     #0F7A52;
@@ -57,7 +57,7 @@
 }
 :root[data-theme="light"] {
   --paper:#F7F7F3; --surface:#FFFFFF; --surface-2:#EFEFE9;
-  --ink:#101311; --ink-2:#3A403C; --muted:#6E7570;
+  --ink:#101311; --ink-2:#3A403C; --muted:      #666D68;
   --rule:#101311; --rule-soft:#D6D7CE;
   --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
   --grid-dot: rgba(16, 19, 17, 0.10); --shadow: rgba(16, 19, 17, 0.08);
@@ -237,7 +237,7 @@ section[id] { scroll-margin-top: 76px; }
 .arch-title { font-size: clamp(1.05rem, 2vw, 1.25rem); letter-spacing: -0.01em; }
 .arch-body { max-width: var(--maxw); margin: 0 auto; padding: 22px 30px 8px; overflow-x: auto; }
 @media (max-width: 640px) { .arch-body { padding: 14px 18px 6px; } }
-#archSvg { width: 100%; height: auto; min-width: 880px; display: block; }
+#archSvg { width: 100%; height: auto; min-width: 1110px; display: block; }
 
 .a-tier   { font-family: var(--font-mono); font-size: 9px; font-weight: 700; fill: var(--muted); letter-spacing: .16em; }
 .a-tier-n { fill: var(--accent); }
@@ -366,7 +366,18 @@ section[id] { scroll-margin-top: 76px; }
   text-decoration: none; transition: background .18s;
 }
 .report-row:last-child { border-bottom: 0; }
+a.report-row { cursor: pointer; }
 a.report-row:hover { background: var(--accent-wash); }
+a.report-row:hover .report-t { color: var(--accent); }
+.report-t { transition: color .18s; }
+.report-open {
+  grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: .625rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+  margin-top: 10px;
+}
+.report-open .arw { display: inline-block; transition: transform .2s cubic-bezier(.2,.7,.3,1); }
+a.report-row:hover .report-open .arw { transform: translateX(5px); }
 .report-code { font-family: var(--font-mono); font-size: .71rem; font-weight: 700; color: var(--accent); letter-spacing: .06em; }
 .report-t { font-size: 1rem; font-weight: 800; letter-spacing: -.015em; }
 .report-st { font-family: var(--font-mono); font-size: .5625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 3px 7px; border: 1.5px solid var(--accent); color: var(--accent); align-self: center; white-space: nowrap; }
@@ -658,7 +669,7 @@ a.report-row:hover { background: var(--accent-wash); }
     <div class="section-rail reveal">
       <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 06</span><span class="rail-rule"></span></div>
       <h2 class="display">Reports</h2>
-      <p class="rail-note">Interactive strategy reports on synthetic data — the thinking, demonstrated.</p>
+      <p class="rail-note">Three interactive reports built on synthetic data. Open one &mdash; every diagram responds.</p>
     </div>
     <div class="reports reveal">
       <a class="report-row" href="reports/d365-data-strategy/">
@@ -666,18 +677,21 @@ a.report-row:hover { background: var(--accent-wash); }
         <span class="report-t">D365 Data Strategy — Raw Objects to Revenue Moves</span>
         <span class="report-st">Live</span>
         <span class="report-d">The 40-object layer, Graph/REST/MCP signal flow, funnel physics with a modeled-uplift scenario, KPI instrument panel, and a sequenced action plan.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
       </a>
       <a class="report-row" href="reports/ehs-metrics-command/">
         <span class="report-code">RPT-002</span>
         <span class="report-t">EHS Metrics Command — Leading Signal Over Lagging Autopsy</span>
         <span class="report-st">Live</span>
         <span class="report-d">Incident pyramid physics, a 14-indicator leading/lagging board, 40 routed KPI alerts including silence alarms, a KPI-filterable cadence grid, site command view, and the regulatory clock.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
       </a>
       <a class="report-row" href="reports/value-chain-twin/">
         <span class="report-code">RPT-003</span>
         <span class="report-t">Value-Chain Twin — Ontology, Links, and Unstructured Data</span>
         <span class="report-st">Live</span>
         <span class="report-d">A 17-object / 24-link ontology graph, live extraction turning contracts and incident narratives into typed links, an interactive entity-resolution model, cross-system traversal, write-back actions, and a disruption twin.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
       </a>
     </div>
   </div>
