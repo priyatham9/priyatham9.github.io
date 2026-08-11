@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Priyatham Chimmani — EHS &amp; ESG Data and Systems</title>
+<meta name="description" content="Priyatham Chimmani — EHS/ESG data and systems leader. Enterprise EHS platforms, data engineering, and applied AI for a global chemicals manufacturer." />
+<style>
+/* ============ tokens ============ */
+:root {
+  --paper:      #F7F7F3;
+  --surface:    #FFFFFF;
+  --surface-2:  #EFEFE9;
+  --ink:        #101311;
+  --ink-2:      #3A403C;
+  --muted:      #6E7570;
+  --rule:       #101311;
+  --rule-soft:  #D6D7CE;
+  --accent:     #0F7A52;
+  --accent-2:   #0B5C3E;
+  --accent-ink: #FFFFFF;
+  --accent-wash:#E3F0E9;
+  --grid-dot:   rgba(16, 19, 17, 0.10);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --maxw: 1180px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #0A0D0B;
+    --surface:    #121712;
+    --surface-2:  #171D18;
+    --ink:        #EAEFEA;
+    --ink-2:      #BFC7C1;
+    --muted:      #838C86;
+    --rule:       #EAEFEA;
+    --rule-soft:  #262E28;
+    --accent:     #3FCB88;
+    --accent-2:   #2AA96C;
+    --accent-ink: #06130C;
+    --accent-wash:#10241A;
+    --grid-dot:   rgba(234, 239, 234, 0.09);
+  }
+}
+:root[data-theme="light"] {
+  --paper:#F7F7F3; --surface:#FFFFFF; --surface-2:#EFEFE9;
+  --ink:#101311; --ink-2:#3A403C; --muted:#6E7570;
+  --rule:#101311; --rule-soft:#D6D7CE;
+  --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
+  --grid-dot: rgba(16, 19, 17, 0.10);
+}
+:root[data-theme="dark"] {
+  --paper:#0A0D0B; --surface:#121712; --surface-2:#171D18;
+  --ink:#EAEFEA; --ink-2:#BFC7C1; --muted:#838C86;
+  --rule:#EAEFEA; --rule-soft:#262E28;
+  --accent:#3FCB88; --accent-2:#2AA96C; --accent-ink:#06130C; --accent-wash:#10241A;
+  --grid-dot: rgba(234, 239, 234, 0.09);
+}
+
+/* ============ base ============ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-sans); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0; text-wrap: balance; line-height: 1.05; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+svg { display: block; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 30px; }
+@media (max-width: 640px) { .wrap { padding: 0 18px; } }
+
+.label {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600;
+}
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* scroll progress */
+#progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: var(--accent); z-index: 60; transition: width .08s linear;
+}
+
+/* ============ top bar ============ */
+.topbar { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 2px solid var(--rule); }
+.topbar-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 14px 30px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+@media (max-width: 640px) { .topbar-inner { padding: 12px 18px; } }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.brand-mark { width: 14px; height: 14px; background: var(--accent); flex: none; }
+.topnav { display: flex; align-items: center; gap: 2px; }
+.topnav a {
+  text-decoration: none; padding: 7px 11px;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); transition: color .15s, background .15s;
+}
+.topnav a:hover { color: var(--accent-ink); background: var(--accent); }
+@media (max-width: 900px) { .topnav { display: none; } }
+.toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; flex: none;
+  background: var(--paper); border: 2px solid var(--rule); border-radius: 0;
+  color: var(--ink); cursor: pointer; transition: background .15s, color .15s, border-color .15s;
+}
+.toggle:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.toggle svg { width: 16px; height: 16px; }
+.icon-sun, .icon-moon { display: none; }
+@media (prefers-color-scheme: dark) { .icon-moon { display: block; } }
+@media (prefers-color-scheme: light) { .icon-sun { display: block; } }
+:root[data-theme="light"] .icon-sun { display: block; }
+:root[data-theme="light"] .icon-moon { display: none; }
+:root[data-theme="dark"] .icon-moon { display: block; }
+:root[data-theme="dark"] .icon-sun { display: none; }
+
+/* ============ hero ============ */
+.hero {
+  position: relative; padding: 80px 0 64px; border-bottom: 2px solid var(--rule);
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+@media (max-width: 640px) { .hero { padding: 46px 0 40px; } }
+.hero-grid { display: grid; grid-template-columns: 1fr 440px; gap: 56px; align-items: center; }
+@media (max-width: 1040px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; align-items: start; } }
+
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; }
+.pulse { width: 9px; height: 9px; background: var(--accent); flex: none; }
+@media (prefers-reduced-motion: no-preference) { .pulse { animation: pulse 2.4s steps(1, end) infinite; } }
+@keyframes pulse { 0%, 62% { opacity: 1; } 63%, 100% { opacity: .22; } }
+
+.hero h1 {
+  font-size: clamp(2.9rem, 8.4vw, 5.8rem);
+  font-weight: 900; letter-spacing: -0.05em;
+  text-transform: uppercase; margin-bottom: 18px;
+}
+.hero-role {
+  font-family: var(--font-mono); font-weight: 600;
+  font-size: clamp(0.75rem, 1.4vw, 0.875rem);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--accent); margin-bottom: 22px;
+  padding-bottom: 20px; border-bottom: 2px solid var(--rule-soft);
+}
+.hero-lede { font-size: 1.125rem; color: var(--ink-2); max-width: 54ch; margin-bottom: 30px; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 0; }
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 12px 18px; border: 2px solid var(--rule); margin: 0 -2px -2px 0;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  text-decoration: none; background: var(--paper); color: var(--ink);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.btn svg { width: 14px; height: 14px; flex: none; }
+
+/* ---- flow schematic ---- */
+.schematic { border: 2px solid var(--rule); background: var(--surface); padding: 16px 14px 12px; }
+.schematic-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 12px; padding: 0 4px 12px; border-bottom: 2px solid var(--rule-soft); margin-bottom: 12px;
+}
+.schematic svg { width: 100%; height: auto; }
+.n-box { fill: var(--surface-2); stroke: var(--rule-soft); stroke-width: 1.5; }
+.n-core { fill: var(--accent); stroke: var(--accent); stroke-width: 1.5; }
+.n-out  { fill: var(--surface-2); stroke: var(--accent); stroke-width: 1.5; }
+.n-text { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--ink-2); letter-spacing: 0.02em; }
+.n-text-core { font-family: var(--font-mono); font-size: 10px; font-weight: 700; fill: var(--accent-ink); letter-spacing: 0.04em; }
+.n-cap { font-family: var(--font-mono); font-size: 8px; font-weight: 600; fill: var(--muted); letter-spacing: 0.14em; }
+.wire { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 7; opacity: .85; }
+@media (prefers-reduced-motion: no-preference) {
+  .wire { animation: flow 1.4s linear infinite; }
+  .node { opacity: 0; animation: nodein .5s cubic-bezier(.2,.7,.3,1) forwards; }
+}
+@keyframes flow { to { stroke-dashoffset: -24; } }
+@keyframes nodein { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+
+/* ============ metrics ============ */
+.metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--rule); }
+@media (max-width: 860px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
+.metric { padding: 32px 30px; border-left: 2px solid var(--rule-soft); }
+.metric:first-child { border-left: 0; }
+@media (max-width: 860px) {
+  .metric { padding: 24px 18px; }
+  .metric:nth-child(odd) { border-left: 0; }
+  .metric:nth-child(n+3) { border-top: 2px solid var(--rule-soft); }
+}
+.metric-value {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: clamp(2.1rem, 5vw, 3.1rem); font-weight: 700;
+  letter-spacing: -0.05em; line-height: 1; margin-bottom: 12px;
+}
+.metric-bar { height: 3px; background: var(--accent); width: 0; margin-bottom: 10px; }
+@media (prefers-reduced-motion: no-preference) { .metric-bar { transition: width .9s cubic-bezier(.16,.84,.3,1); } }
+
+/* ============ sections ============ */
+.section { padding: 76px 0; border-bottom: 2px solid var(--rule); }
+@media (max-width: 640px) { .section { padding: 48px 0; } }
+.section-grid { display: grid; grid-template-columns: 210px 1fr; gap: 54px; }
+@media (max-width: 940px) { .section-grid { grid-template-columns: 1fr; gap: 28px; } }
+.section-rail { position: sticky; top: 96px; align-self: start; }
+@media (max-width: 940px) { .section-rail { position: static; } }
+.rail-num {
+  display: inline-block; background: var(--accent); color: var(--accent-ink);
+  font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700;
+  letter-spacing: 0.12em; padding: 4px 8px; margin-bottom: 12px;
+}
+.section h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; }
+.rail-note { margin-top: 14px; font-size: 0.8125rem; color: var(--muted); max-width: 24ch; }
+
+/* focus cards */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); border: 2px solid var(--rule); }
+@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+.card { padding: 26px; border-right: 2px solid var(--rule-soft); border-bottom: 2px solid var(--rule-soft); position: relative; }
+.card:nth-child(2n) { border-right: 0; }
+.card:nth-last-child(-n+2) { border-bottom: 0; }
+@media (max-width: 700px) {
+  .card { border-right: 0; }
+  .card:nth-last-child(-n+2) { border-bottom: 2px solid var(--rule-soft); }
+  .card:last-child { border-bottom: 0; }
+}
+.card::after { content: ""; position: absolute; left: 0; top: 0; width: 3px; height: 0; background: var(--accent); transition: height .28s cubic-bezier(.2,.7,.3,1); }
+.card:hover::after { height: 100%; }
+.card h3 { font-size: 0.9375rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 10px; }
+.card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+  padding: 4px 7px; background: var(--surface-2);
+  border: 1px solid var(--rule-soft); color: var(--ink-2); white-space: nowrap;
+}
+
+/* projects */
+.projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 760px) { .projects { grid-template-columns: 1fr; } }
+.project {
+  display: flex; flex-direction: column; position: relative;
+  border: 2px solid var(--rule); padding: 24px; background: var(--surface);
+  transition: transform .2s cubic-bezier(.2,.7,.3,1), box-shadow .2s;
+}
+.project:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); }
+.project-kicker {
+  display: inline-flex; align-self: flex-start; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
+  border: 1px solid var(--accent); padding: 3px 7px; margin-bottom: 14px;
+}
+.project h3 { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 9px; line-height: 1.22; }
+.project p { font-size: 0.875rem; color: var(--ink-2); margin-bottom: 16px; flex: 1; }
+
+/* experience */
+.role { padding: 28px 0; border-top: 2px solid var(--rule-soft); }
+.role:first-child { border-top: 0; padding-top: 0; }
+.role-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 18px; align-items: baseline; }
+.role-title { font-size: 1.125rem; font-weight: 800; letter-spacing: -0.028em; }
+.role-org { color: var(--muted); font-size: 0.9375rem; margin-bottom: 14px; }
+.role-org strong { color: var(--ink); font-weight: 700; }
+.role ul { display: flex; flex-direction: column; gap: 9px; }
+.role li { position: relative; padding-left: 18px; color: var(--ink-2); font-size: 0.9375rem; }
+.role li::before { content: ""; position: absolute; left: 0; top: 0.56em; width: 8px; height: 2px; background: var(--accent); }
+
+/* wins */
+.wins { border: 2px solid var(--rule); }
+.win { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; padding: 22px 24px; border-bottom: 2px solid var(--rule-soft); transition: background .18s; }
+.win:last-child { border-bottom: 0; }
+.win:hover { background: var(--accent-wash); }
+.win-mark { width: 36px; height: 36px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; flex: none; }
+.win-mark svg { width: 18px; height: 18px; }
+.win h3 { font-size: 0.9375rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 4px; }
+.win p { font-size: 0.875rem; color: var(--muted); }
+
+/* education */
+.edu-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; align-items: baseline; padding: 17px 0; border-bottom: 2px solid var(--rule-soft); }
+.edu-item:last-child { border-bottom: 0; }
+.edu-degree { font-size: 0.9375rem; font-weight: 700; }
+.edu-school { color: var(--muted); font-size: 0.875rem; grid-column: 1 / -1; }
+
+/* footer */
+.footer { padding: 56px 0 68px; }
+.footer h2 { font-size: clamp(1.9rem, 5.4vw, 3.2rem); font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase; margin-bottom: 22px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 28px; }
+.footer-note { color: var(--muted); font-size: 0.8125rem; }
+
+/* reveal */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s cubic-bezier(.16,.84,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-mark"></span>Chimmani</div>
+    <nav class="topnav">
+      <a href="#focus">Focus</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#wins">Wins</a>
+      <a href="#education">Education</a>
+    </nav>
+    <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow"><span class="pulse"></span><span class="label">EHS &amp; ESG Data and Systems</span></div>
+      <h1>Priyatham<br />Chimmani</h1>
+      <div class="hero-role">EHS Data Analyst · Hexion Inc. · Columbus, Ohio</div>
+      <p class="hero-lede">
+        I turn plant, safety, and operational data into decisions executives can act on — owning the
+        enterprise EHS management system end to end, building the data and AI platforms underneath it,
+        and leading the people who ship it.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16"></rect><path d="m2 7 10 6 10-6"></path></svg>
+          Get in touch
+        </a>
+        <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95 4.02 0 4.76 2.5 4.76 5.75V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21h-4z"></path></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="https://github.com/priyatham9" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="schematic">
+      <div class="schematic-head">
+        <span class="label">EHS data architecture</span>
+        <span class="label">Source → Governed → Decision</span>
+      </div>
+      <svg viewBox="0 0 420 258" role="img" aria-label="Diagram: enterprise source systems including Gensuite, SAP, Dynamics 365, Icertis and site data flow through medallion pipelines with Unity Catalog governance, producing board reporting, regulatory filings and site action.">
+        <!-- wires: sources -> core -->
+        <g class="wires">
+          <path class="wire" d="M104 30  C 140 30, 140 108, 168 118" style="animation-delay:.00s"></path>
+          <path class="wire" d="M104 74  C 140 74, 142 116, 168 124" style="animation-delay:.12s"></path>
+          <path class="wire" d="M104 118 C 132 118, 146 129, 168 129" style="animation-delay:.24s"></path>
+          <path class="wire" d="M104 162 C 140 162, 142 142, 168 134" style="animation-delay:.36s"></path>
+          <path class="wire" d="M104 206 C 140 206, 140 150, 168 140" style="animation-delay:.48s"></path>
+          <!-- wires: core -> outputs -->
+          <path class="wire" d="M252 118 C 280 108, 282 74,  310 74"  style="animation-delay:.20s"></path>
+          <path class="wire" d="M252 129 C 282 129, 284 129, 310 129" style="animation-delay:.32s"></path>
+          <path class="wire" d="M252 140 C 280 150, 282 184, 310 184" style="animation-delay:.44s"></path>
+        </g>
+
+        <!-- source nodes -->
+        <g class="node" style="animation-delay:.05s"><rect class="n-box" x="6"  y="16"  width="98" height="28"></rect><text class="n-text" x="55" y="34" text-anchor="middle">Gensuite</text></g>
+        <g class="node" style="animation-delay:.12s"><rect class="n-box" x="6"  y="60"  width="98" height="28"></rect><text class="n-text" x="55" y="78" text-anchor="middle">SAP</text></g>
+        <g class="node" style="animation-delay:.19s"><rect class="n-box" x="6"  y="104" width="98" height="28"></rect><text class="n-text" x="55" y="122" text-anchor="middle">Dynamics 365</text></g>
+        <g class="node" style="animation-delay:.26s"><rect class="n-box" x="6"  y="148" width="98" height="28"></rect><text class="n-text" x="55" y="166" text-anchor="middle">Icertis</text></g>
+        <g class="node" style="animation-delay:.33s"><rect class="n-box" x="6"  y="192" width="98" height="28"></rect><text class="n-text" x="55" y="210" text-anchor="middle">Site data</text></g>
+        <text class="n-cap" x="6" y="238">SOURCE SYSTEMS</text>
+
+        <!-- core -->
+        <g class="node" style="animation-delay:.42s">
+          <rect class="n-core" x="168" y="84" width="84" height="90"></rect>
+          <text class="n-text-core" x="210" y="116" text-anchor="middle">MEDALLION</text>
+          <text class="n-text-core" x="210" y="130" text-anchor="middle">PIPELINES</text>
+          <line x1="182" y1="140" x2="238" y2="140" stroke="currentColor" style="stroke:var(--accent-ink);opacity:.45;stroke-width:1"></line>
+          <text class="n-text-core" x="210" y="156" text-anchor="middle">UNITY CAT.</text>
+        </g>
+        <text class="n-cap" x="168" y="238">GOVERNED MODEL</text>
+
+        <!-- output nodes -->
+        <g class="node" style="animation-delay:.56s"><rect class="n-out" x="310" y="60"  width="104" height="28"></rect><text class="n-text" x="362" y="78"  text-anchor="middle">Board &amp; ELT</text></g>
+        <g class="node" style="animation-delay:.63s"><rect class="n-out" x="310" y="115" width="104" height="28"></rect><text class="n-text" x="362" y="133" text-anchor="middle">Regulatory</text></g>
+        <g class="node" style="animation-delay:.70s"><rect class="n-out" x="310" y="170" width="104" height="28"></rect><text class="n-text" x="362" y="188" text-anchor="middle">Site action</text></g>
+        <text class="n-cap" x="310" y="238">DECISIONS</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-value" data-count="80" data-suffix="+">0</div>
+        <div class="metric-bar" data-w="80"></div>
+        <div class="label">Platform enhancements</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" data-count="40" data-suffix="+">0</div>
+        <div class="metric-bar" data-w="55"></div>
+        <div class="label">Automated alerting KPIs</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" data-count="30" data-suffix="%">0</div>
+        <div class="metric-bar" data-w="40"></div>
+        <div class="label">Reporting time removed</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" data-count="3" data-suffix="">0</div>
+        <div class="metric-bar" data-w="24"></div>
+        <div class="label">Company awards</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="focus">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <span class="rail-num">01</span>
+      <h2>Focus</h2>
+      <p class="rail-note">Where I spend my time, and what I own outright.</p>
+    </div>
+    <div class="cards reveal">
+      <div class="card">
+        <h3>EHS &amp; ESG Systems</h3>
+        <p>Global owner of the enterprise EHS management system and the regulatory reporting that depends on it.</p>
+        <div class="chips"><span class="chip">Benchmark ESG / Gensuite</span><span class="chip">OSHA</span><span class="chip">MSHA</span><span class="chip">ACC</span><span class="chip">Encamp</span><span class="chip">Diligent</span></div>
+      </div>
+      <div class="card">
+        <h3>Data Engineering</h3>
+        <p>Production pipelines that turn scattered source systems into governed, audit-ready reporting.</p>
+        <div class="chips"><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">Unity Catalog</span><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">SAP</span><span class="chip">Dynamics 365</span><span class="chip">Foundry</span></div>
+      </div>
+      <div class="card">
+        <h3>Applied AI</h3>
+        <p>Agents that let people ask questions of enterprise data in plain language — grounded, auditable, cost-aware.</p>
+        <div class="chips"><span class="chip">Copilot Studio</span><span class="chip">Claude Code</span><span class="chip">OpenAI API</span><span class="chip">Codex</span><span class="chip">MCP</span><span class="chip">NLQ agents</span></div>
+      </div>
+      <div class="card">
+        <h3>Decision Support</h3>
+        <p>Board-level reporting, safety strategy, and optimization models used by leadership across the business.</p>
+        <div class="chips"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Microsoft Fabric</span><span class="chip">Tableau</span><span class="chip">LP optimization</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <span class="rail-num">02</span>
+      <h2>Selected Work</h2>
+      <p class="rail-note">Platforms, models, and systems shipped into production.</p>
+    </div>
+    <div class="projects reveal">
+
+      <article class="project">
+        <div class="project-kicker">In flight</div>
+        <h3>Enterprise Ontology &amp; Digital Twin</h3>
+        <p>Leading the company's migration to Palantir Foundry — a single ontology and digital twin spanning EHS, supply chain, procurement, and finance, replacing scattered reporting with one governed model.</p>
+        <div class="chips"><span class="chip">Palantir Foundry</span><span class="chip">Ontology</span><span class="chip">Digital twin</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-kicker">Award winner</div>
+        <h3>Micro Market Model</h3>
+        <p>A Python linear-programming engine that pinpoints competitive opportunities across micro markets. Earned the company's Transformation Bonus Award.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">LP optimization</span><span class="chip">Market analytics</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-kicker">Platform</div>
+        <h3>Gensuite Refresh — Phase 1 &amp; 2</h3>
+        <p>Led an end-to-end refresh of the enterprise EHS application, delivering 80+ feature enhancements that reshaped how every global site captures safety data.</p>
+        <div class="chips"><span class="chip">Benchmark ESG</span><span class="chip">Requirements</span><span class="chip">Global rollout</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-kicker">AI</div>
+        <h3>Enterprise Agent Layer</h3>
+        <p>Natural-language-query and summarization agents on Copilot Studio, Claude Code, and Codex, with an MCP architecture grounding them in live systems and deterministic algorithms keeping answers reproducible.</p>
+        <div class="chips"><span class="chip">MCP</span><span class="chip">OpenAI API</span><span class="chip">Copilot Studio</span><span class="chip">Claude Code</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-kicker">Data platform</div>
+        <h3>Medallion Pipelines &amp; Unity Catalog</h3>
+        <p>Production Databricks pipelines unifying Icertis contracts, a 40-entity Dynamics 365 model, SAP, and Gensuite warehouse feeds into audit-ready reporting — then migrated wholesale to Unity Catalog governance.</p>
+        <div class="chips"><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">CI/CD</span><span class="chip">REST &amp; GraphQL</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-kicker">Personal build</div>
+        <h3>Resin &amp; Wood Market Weather Brief</h3>
+        <p>A static decision-support app tracking public operating signals for chemicals, resins, engineered wood, and construction demand — EPA, Census, and BLS data turned into state-level action scores and scenario models.</p>
+        <div class="chips"><span class="chip">Astro</span><span class="chip">JavaScript</span><span class="chip">Public data</span><span class="chip">Leaflet</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <span class="rail-num">03</span>
+      <h2>Experience</h2>
+      <p class="rail-note">Six years across chemicals, retail operations, and global e-commerce.</p>
+    </div>
+    <div class="reveal">
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">EHS Data Analyst</div>
+          <div class="label mono">Nov 2025 — Present</div>
+        </div>
+        <div class="role-org"><strong>Hexion Inc.</strong> · Columbus, OH</div>
+        <ul>
+          <li>Lead the enterprise migration to Palantir Foundry across every business function.</li>
+          <li>Guide a blended five-person delivery team of internal analysts and vendor partners.</li>
+          <li>Author board meeting decks and safety strategy presentations; advise the ELT and C-suite daily.</li>
+          <li>Selected by the CIO, VP, and General Manager for a two-week assignment at the Pernis site in the Port of Rotterdam, assessing every data flow at a 24/7 plant.</li>
+          <li>Modernized org-wide Power BI architecture and led the migration to Microsoft Fabric with Microsoft.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">EHS Metrics and Systems Specialist</div>
+          <div class="label mono">Sep 2023 — Nov 2025</div>
+        </div>
+        <div class="role-org"><strong>Hexion Inc.</strong> · Columbus, OH</div>
+        <ul>
+          <li>Sole global administrator of Benchmark ESG (Gensuite), owning the platform and vendor relationship end to end.</li>
+          <li>Built the core Power BI dashboard suite — Safety, Product Stewardship, Spills — as the single source of truth for EHS performance.</li>
+          <li>Owned OSHA, MSHA, and ACC regulatory compliance reporting and government submissions.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">Data Analyst — Network Operations Center</div>
+          <div class="label mono">Nov 2021 — Jan 2022</div>
+        </div>
+        <div class="role-org"><strong>Amazon</strong> · Hyderabad, India</div>
+        <ul>
+          <li>Delivered analytics for Prime expansion across North America and Europe, supporting measurable subscriber and ROI growth.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">CRM Analyst</div>
+          <div class="label mono">Jul 2019 — Oct 2021</div>
+        </div>
+        <div class="role-org"><strong>Decathlon</strong> · Hyderabad, India</div>
+        <ul>
+          <li>Built Qlik and Tableau reporting for executive KPIs, driving measurable gains in retention and operational efficiency.</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="wins">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <span class="rail-num">04</span>
+      <h2>Wins</h2>
+      <p class="rail-note">Recognized by Hexion leadership.</p>
+    </div>
+    <div class="wins reveal">
+      <div class="win">
+        <div class="win-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"></path></svg></div>
+        <div><h3>Leadership Award</h3><p>International IT leadership assignment — Pernis site, Port of Rotterdam, Netherlands</p></div>
+      </div>
+      <div class="win">
+        <div class="win-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg></div>
+        <div><h3>Transformation Bonus Award</h3><p>Micro Market Model — Python LP optimization for competitive market opportunity</p></div>
+      </div>
+      <div class="win">
+        <div class="win-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+        <div><h3>STAR Award</h3><p>End-to-end design and implementation of site safety incentive program metrics</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="education">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <span class="rail-num">05</span>
+      <h2>Education</h2>
+      <p class="rail-note">Statistics and decision analytics, now applied AI.</p>
+    </div>
+    <div class="reveal">
+      <div class="edu-item">
+        <span class="edu-degree">Ph.D. — Technology and Artificial Intelligence</span>
+        <span class="label mono">Started 2026</span>
+        <span class="edu-school">Southwest Baptist University · Springfield, MO</span>
+      </div>
+      <div class="edu-item">
+        <span class="edu-degree">M.S. — Applied Statistics and Decision Analytics</span>
+        <span class="label mono">2022 — 2023</span>
+        <span class="edu-school">Western Illinois University · Macomb, IL</span>
+      </div>
+      <div class="edu-item">
+        <span class="edu-degree">Post-Baccalaureate Certificate — Business Analytics</span>
+        <span class="label mono">2023</span>
+        <span class="edu-school">Western Illinois University · Macomb, IL</span>
+      </div>
+      <div class="edu-item">
+        <span class="edu-degree">B.Tech — Computer Science and Engineering</span>
+        <span class="label mono">2016 — 2020</span>
+        <span class="edu-school">Jawaharlal Nehru Technological University · Hyderabad, India</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <h2>Let's talk</h2>
+    <div class="footer-links">
+      <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">priyatham9@gmail.com</a>
+      <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="btn" href="https://github.com/priyatham9" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+    <p class="footer-note">Columbus, Ohio · Open to EHS &amp; ESG leadership and implementation roles</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var root = document.documentElement;
+  var toggle = document.getElementById("themeToggle");
+  var stored = null;
+  try { stored = localStorage.getItem("pc-theme"); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+
+  toggle.addEventListener("click", function () {
+    var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var current = root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
+    var next = current === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("pc-theme", next); } catch (e) {}
+  });
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* scroll progress */
+  var progress = document.getElementById("progress");
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    progress.style.width = pct.toFixed(2) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* reveal */
+  var revealables = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    Array.prototype.forEach.call(revealables, function (el) { el.classList.add("in"); });
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    Array.prototype.forEach.call(revealables, function (el) { ro.observe(el); });
+  }
+
+  /* metrics: counter + bar */
+  var metrics = document.querySelectorAll(".metric");
+  function runMetric(m) {
+    var el = m.querySelector("[data-count]");
+    var bar = m.querySelector(".metric-bar");
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    var suffix = el.getAttribute("data-suffix") || "";
+    if (bar) bar.style.width = bar.getAttribute("data-w") + "%";
+    if (reduced) { el.textContent = target + suffix; return; }
+    var start = performance.now(), dur = 1000;
+    function step(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (!("IntersectionObserver" in window)) {
+    Array.prototype.forEach.call(metrics, runMetric);
+  } else {
+    var co = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { runMetric(e.target); co.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+    Array.prototype.forEach.call(metrics, function (m) { co.observe(m); });
+  }
+})();
+</script>
+
+</body>
+</html>
