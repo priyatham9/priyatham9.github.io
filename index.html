@@ -301,8 +301,8 @@ section[id] { scroll-margin-top: 76px; }
   font-size: clamp(2.3rem, 5.4vw, 3.4rem);
   letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px;
 }
-.metric-bar { height: 4px; background: var(--accent); width: 0; margin-bottom: 12px; }
-@media (prefers-reduced-motion: no-preference) { .metric-bar { transition: width .9s cubic-bezier(.16,.84,.3,1); } }
+/* bar growth is small, informative, and non-vestibular — kept in both modes */
+.metric-bar { height: 4px; background: var(--accent); width: 0; margin-bottom: 12px; transition: width .9s cubic-bezier(.16,.84,.3,1); }
 
 /* ============ sections ============ */
 .section { padding: 78px 0; border-bottom: 2px solid var(--rule); }
@@ -443,21 +443,29 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
 .footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 30px; }
 .footer-note { color: var(--muted); font-size: 0.8125rem; }
 
-/* reveal + load choreography (motion only when allowed) */
+/* ---- motion, in two tiers ----
+   Tier 1 (always on): opacity and colour only. These carry no vestibular
+   risk, so a reduced-motion visitor still gets a page that breathes.
+   Tier 2 (no-preference only): translation, scaling, and looping motion. */
+.reveal { opacity: 0; transition: opacity .55s ease; }
+.reveal.in { opacity: 1; }
+.fx { opacity: 0; animation: fadein .6s ease forwards; }
+.fx-1 { animation-delay: .05s; } .fx-2 { animation-delay: .3s; }
+.fx-3 { animation-delay: .42s; } .fx-4 { animation-delay: .54s; } .fx-5 { animation-delay: .68s; }
+
 @media (prefers-reduced-motion: no-preference) {
   .pulse { animation: pulse 2.4s steps(1, end) infinite; }
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s cubic-bezier(.16,.84,.3,1); }
-  .reveal.in { opacity: 1; transform: none; }
+  .reveal { transform: translateY(16px); transition: opacity .55s ease, transform .55s cubic-bezier(.16,.84,.3,1); }
+  .reveal.in { transform: none; }
   .line-in { transform: translateY(112%); animation: lineup .75s cubic-bezier(.16,.84,.3,1) forwards; }
   .line:nth-child(2) .line-in { animation-delay: .1s; }
-  .fx { opacity: 0; animation: fadeup .6s cubic-bezier(.16,.84,.3,1) forwards; }
-  .fx-1 { animation-delay: .05s; } .fx-2 { animation-delay: .3s; }
-  .fx-3 { animation-delay: .42s; } .fx-4 { animation-delay: .54s; } .fx-5 { animation-delay: .68s; }
+  .fx { animation-name: fadeup; animation-timing-function: cubic-bezier(.16,.84,.3,1); }
   .ticker-track { animation: tick 34s linear infinite; }
   .ticker:hover .ticker-track { animation-play-state: paused; }
 }
 @keyframes pulse  { 0%, 62% { opacity: 1; } 63%, 100% { opacity: .22; } }
 @keyframes lineup { to { transform: translateY(0); } }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes tick   { to { transform: translateX(-50%); } }
 </style>
@@ -908,7 +916,7 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
         if (n === null) throw new Error("shape");
         try { sessionStorage.setItem("pc-visit", "1"); } catch (e) {}
         function fmt(v) { var s = String(v); while (s.length < 5) s = "0" + s; return s; }
-        if (reduced) { out.textContent = fmt(n); return; }
+        /* a counting digit is not vestibular motion — runs in both modes */
         var start = performance.now(), dur = 900;
         function step(now) {
           var p = Math.min((now - start) / dur, 1);
@@ -1128,7 +1136,7 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
 
   /* reveal */
   var revealables = document.querySelectorAll(".reveal");
-  if (reduced || !("IntersectionObserver" in window)) {
+  if (!("IntersectionObserver" in window)) {
     Array.prototype.forEach.call(revealables, function (el) { el.classList.add("in"); });
   } else {
     var ro = new IntersectionObserver(function (entries) {
@@ -1147,7 +1155,7 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
     var target = parseInt(el.getAttribute("data-count"), 10);
     var suffix = el.getAttribute("data-suffix") || "";
     if (bar) bar.style.width = bar.getAttribute("data-w") + "%";
-    if (reduced) { el.textContent = target + suffix; return; }
+    /* counter runs in both modes; only transform-based motion is gated */
     var start = performance.now(), dur = 1000;
     function step(now) {
       var p = Math.min((now - start) / dur, 1);

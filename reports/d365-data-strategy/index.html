@@ -251,10 +251,14 @@ section[id]{scroll-margin-top:70px}
 .btn:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 
 /* motion */
+/* tier 1: opacity only, safe under reduced motion */
+.reveal{opacity:0;transition:opacity .5s ease}
+.reveal.in{opacity:1}
+
 @media (prefers-reduced-motion: no-preference){
   .pulse{animation:pulse 2.4s steps(1,end) infinite}
-  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.16,.84,.3,1)}
-  .reveal.in{opacity:1;transform:none}
+  .reveal{transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.16,.84,.3,1)}
+  .reveal.in{transform:none}
 }
 @keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
 /* scroll affordance for wide diagrams */
@@ -769,7 +773,7 @@ section[id]{scroll-margin-top:70px}
 
   /* reveal */
   var revealables = document.querySelectorAll(".reveal");
-  if (reduced || !("IntersectionObserver" in window)) {
+  if (!("IntersectionObserver" in window)) {
     Array.prototype.forEach.call(revealables, function (el) { el.classList.add("in"); });
   } else {
     var ro = new IntersectionObserver(function (es) {
