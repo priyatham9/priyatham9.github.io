@@ -214,6 +214,18 @@ section[id] { scroll-margin-top: 76px; }
 .st-k { font-family: var(--font-mono); font-size: .5625rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; white-space: nowrap; }
 .st-v { font-family: var(--font-mono); font-size: .71rem; font-weight: 700; color: var(--ink); letter-spacing: .02em; white-space: nowrap; }
 .st-v.accent { color: var(--accent); }
+/* narrow screens: let long values wrap instead of spilling into the next cell.
+   Must follow the base .st-v rule — equal specificity, so source order decides. */
+@media (max-width: 900px) {
+  .st-v { white-space: normal; overflow-wrap: anywhere; line-height: 1.35; }
+  .st-k { white-space: normal; }
+  .st-cell { align-content: start; }
+}
+/* the long "Open to" value gets the full row on phones so it reads on one line */
+@media (max-width: 768px) {
+  .st-cell:nth-child(3) { grid-column: 1 / -1; border-left: 0; border-top: 2px solid var(--rule-soft); }
+  .st-cell:nth-child(4) { grid-column: 1 / -1; border-left: 0; border-top: 2px solid var(--rule-soft); }
+}
 
 /* ============ ticker ============ */
 .ticker { overflow: hidden; border-bottom: 2px solid var(--rule); background: var(--surface); }
