@@ -369,6 +369,19 @@ section[id] { scroll-margin-top: 76px; }
 }
 .project h3 { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 9px; line-height: 1.22; }
 .project p { font-size: 0.875rem; color: var(--ink-2); margin-bottom: 16px; flex: 1; }
+.project-live {
+  display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+  margin-top: 14px; padding: 9px 13px; border: 2px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink);
+  font-family: var(--font-mono); font-size: .625rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+  transition: background .16s, color .16s;
+}
+.project-live:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.project-live .arw { display: inline-block; transition: transform .2s cubic-bezier(.2,.7,.3,1); }
+.project-live:hover .arw { transform: translateX(4px); }
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+@media (prefers-reduced-motion: no-preference) { .live-dot { animation: pulse 2.4s steps(1, end) infinite; } }
 
 /* reports */
 .reports { border: 2px solid var(--rule); background: var(--surface); }
@@ -668,8 +681,11 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
         <span class="project-idx">W-06</span>
         <div class="project-kicker">Personal build</div>
         <h3>Resin &amp; Wood Market Weather Brief</h3>
-        <p>A static decision-support app tracking public operating signals for chemicals, resins, engineered wood, and construction demand — EPA, Census, and BLS data turned into state-level action scores and scenario models.</p>
+        <p>A live decision-support app tracking public operating signals for chemicals, resins, engineered wood, and construction demand — EPA, Census, and BLS data turned into scored, tiered state-level actions and scenario models.</p>
         <div class="chips"><span class="chip">Astro</span><span class="chip">JavaScript</span><span class="chip">Public data</span><span class="chip">Leaflet</span></div>
+        <a class="project-live" href="https://resin-wood-market-weather-brief.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <span class="live-dot"></span>Open the live app <span class="arw">&rarr;</span>
+        </a>
       </article>
 
     </div>
