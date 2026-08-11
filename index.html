@@ -358,6 +358,22 @@ section[id] { scroll-margin-top: 76px; }
 .project h3 { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 9px; line-height: 1.22; }
 .project p { font-size: 0.875rem; color: var(--ink-2); margin-bottom: 16px; flex: 1; }
 
+/* reports */
+.reports { border: 2px solid var(--rule); background: var(--surface); }
+.report-row {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 4px 18px; align-items: baseline;
+  padding: 20px 22px; border-bottom: 2px solid var(--rule-soft);
+  text-decoration: none; transition: background .18s;
+}
+.report-row:last-child { border-bottom: 0; }
+a.report-row:hover { background: var(--accent-wash); }
+.report-code { font-family: var(--font-mono); font-size: .71rem; font-weight: 700; color: var(--accent); letter-spacing: .06em; }
+.report-t { font-size: 1rem; font-weight: 800; letter-spacing: -.015em; }
+.report-st { font-family: var(--font-mono); font-size: .5625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 3px 7px; border: 1.5px solid var(--accent); color: var(--accent); align-self: center; white-space: nowrap; }
+.report-row.ghost { opacity: .55; }
+.report-row.ghost .report-st { border-color: var(--rule-soft); color: var(--muted); }
+.report-d { grid-column: 2 / 4; font-size: .8438rem; color: var(--muted); }
+
 /* experience */
 .role { padding: 28px 0; border-top: 2px solid var(--rule-soft); }
 .role:first-child { border-top: 0; padding-top: 0; }
@@ -421,6 +437,7 @@ section[id] { scroll-margin-top: 76px; }
       <a href="#architecture">Architecture</a>
       <a href="#focus">Focus</a>
       <a href="#work">Work</a>
+      <a href="#reports">Reports</a>
       <a href="#experience">Experience</a>
       <a href="#wins">Wins</a>
       <a href="#education">Education</a>
@@ -542,7 +559,7 @@ section[id] { scroll-margin-top: 76px; }
 <section class="section" id="focus">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 06</span><span class="rail-rule"></span></div>
       <h2 class="display">Focus</h2>
       <p class="rail-note">Where I spend my time, and what I own outright.</p>
     </div>
@@ -578,7 +595,7 @@ section[id] { scroll-margin-top: 76px; }
 <section class="section" id="work">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 06</span><span class="rail-rule"></span></div>
       <h2 class="display">Selected Work</h2>
       <p class="rail-note">Platforms, models, and systems shipped into production.</p>
     </div>
@@ -636,10 +653,40 @@ section[id] { scroll-margin-top: 76px; }
   </div>
 </section>
 
+<section class="section" id="reports">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 06</span><span class="rail-rule"></span></div>
+      <h2 class="display">Reports</h2>
+      <p class="rail-note">Interactive strategy reports on synthetic data — the thinking, demonstrated.</p>
+    </div>
+    <div class="reports reveal">
+      <a class="report-row" href="reports/d365-data-strategy/">
+        <span class="report-code">RPT-001</span>
+        <span class="report-t">D365 Data Strategy — Raw Objects to Revenue Moves</span>
+        <span class="report-st">Live</span>
+        <span class="report-d">The 40-object layer, Graph/REST/MCP signal flow, funnel physics with a modeled-uplift scenario, KPI instrument panel, and a sequenced action plan.</span>
+      </a>
+      <div class="report-row ghost">
+        <span class="report-code">RPT-002</span>
+        <span class="report-t">EHS Metrics Command</span>
+        <span class="report-st">Next</span>
+        <span class="report-d">Leading &amp; lagging safety indicators, alerting KPIs, and regulatory readiness as one instrument panel.</span>
+      </div>
+      <div class="report-row ghost">
+        <span class="report-code">RPT-003</span>
+        <span class="report-t">Value-Chain Twin — Finance × Palantir</span>
+        <span class="report-st">Queued</span>
+        <span class="report-d">Orders to invoices to margin inside the ontology — the digital twin as a finance instrument.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="experience">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 06</span><span class="rail-rule"></span></div>
       <h2 class="display">Experience</h2>
       <p class="rail-note">Six years across chemicals, retail operations, and global e-commerce.</p>
     </div>
@@ -702,7 +749,7 @@ section[id] { scroll-margin-top: 76px; }
 <section class="section" id="wins">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 06</span><span class="rail-rule"></span></div>
       <h2 class="display">Wins</h2>
       <p class="rail-note">Recognized by Hexion leadership.</p>
     </div>
@@ -726,7 +773,7 @@ section[id] { scroll-margin-top: 76px; }
 <section class="section" id="education">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">06</span><span class="rail-of">/ 06</span><span class="rail-rule"></span></div>
       <h2 class="display">Education</h2>
       <p class="rail-note">Statistics and decision analytics, now applied AI.</p>
     </div>
