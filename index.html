@@ -130,8 +130,7 @@ svg { display: block; }
   background-size: 22px 22px;
 }
 @media (max-width: 640px) { .hero { padding: 46px 0 40px; } }
-.hero-grid { display: grid; grid-template-columns: 1fr 440px; gap: 56px; align-items: center; }
-@media (max-width: 1040px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; align-items: start; } }
+.hero-grid { display: block; }
 
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; }
 .pulse { width: 9px; height: 9px; background: var(--accent); flex: none; }
@@ -179,50 +178,51 @@ svg { display: block; }
 .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .btn svg { width: 14px; height: 14px; flex: none; }
 
-/* ---- P&ID schematic ---- */
-.schematic { border: 2px solid var(--rule); background: var(--surface); }
-.schematic-head {
-  display: flex; justify-content: space-between; align-items: baseline;
-  gap: 12px; padding: 12px 16px; border-bottom: 2px solid var(--rule);
+/* ---- interactive architecture map ---- */
+.arch { border-bottom: 2px solid var(--rule); background: var(--surface); }
+.arch-head {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+  gap: 10px; padding: 18px 30px; border-bottom: 2px solid var(--rule);
+  max-width: var(--maxw); margin: 0 auto;
 }
-.schematic-body { padding: 14px 16px 8px; overflow-x: auto; }
-.schematic svg { width: 100%; height: auto; min-width: 400px; }
+@media (max-width: 640px) { .arch-head { padding: 14px 18px; } }
+.arch-title { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; }
+.arch-body { max-width: var(--maxw); margin: 0 auto; padding: 20px 30px 8px; overflow-x: auto; }
+@media (max-width: 640px) { .arch-body { padding: 14px 18px 6px; } }
+#archSvg { width: 100%; height: auto; min-width: 880px; display: block; }
 
-/* equipment + line work */
-.eq       { fill: var(--surface-2); stroke: var(--ink); stroke-width: 1.6; }
-.eq-line  { fill: none; stroke: var(--ink); stroke-width: 1.4; }
-.pipe     { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: square; }
-.pipe-flow{ fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-dasharray: 6 10; stroke-linecap: butt; }
-.sig      { fill: none; stroke: var(--accent); stroke-width: 1.3; stroke-dasharray: 3 4; }
-.tap      { fill: none; stroke: var(--ink); stroke-width: 1.2; }
-.bub      { fill: var(--surface); stroke: var(--accent); stroke-width: 1.8; }
-.bus      { stroke: var(--accent); stroke-width: 3.5; stroke-linecap: square; }
-.t-tag    { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; fill: var(--accent); letter-spacing: .02em; }
-.t-num    { font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; fill: var(--muted); }
-.t-eq     { font-family: var(--font-mono); font-size: 8.5px; font-weight: 700; fill: var(--ink-2); letter-spacing: .1em; }
-.t-flow   { font-family: var(--font-mono); font-size: 8px;   font-weight: 600; fill: var(--muted); letter-spacing: .12em; }
-.t-bus    { font-family: var(--font-mono); font-size: 8.5px; font-weight: 700; fill: var(--accent); letter-spacing: .14em; }
+.a-tier   { font-family: var(--font-mono); font-size: 9px; font-weight: 700; fill: var(--muted); letter-spacing: .16em; }
+.a-rule   { stroke: var(--rule-soft); stroke-width: 1.5; }
+.a-box    { fill: var(--surface-2); stroke: var(--rule-soft); stroke-width: 1.6; transition: fill .18s, stroke .18s; }
+.a-label  { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--ink-2); letter-spacing: .01em; transition: fill .18s; pointer-events: none; }
+.a-edge   { fill: none; stroke: var(--rule-soft); stroke-width: 1.5; transition: stroke .18s, stroke-width .18s, opacity .18s; }
+.a-pt     { fill: var(--accent); transition: opacity .18s; }
+.a-node   { cursor: pointer; }
+.a-node rect { pointer-events: all; }
 
-@media (prefers-reduced-motion: no-preference) {
-  .pipe-flow { animation: flow 1.6s linear infinite; }
-  .sig       { animation: flowdown 1.9s linear infinite; }
-  .grp       { opacity: 0; animation: fadein .55s cubic-bezier(.2,.7,.3,1) forwards; }
+/* hover state: trace the path through the architecture */
+#archSvg.dim .a-node:not(.hot) .a-box   { opacity: .28; }
+#archSvg.dim .a-node:not(.hot) .a-label { opacity: .28; }
+#archSvg.dim .a-edge:not(.hot)          { opacity: .10; }
+#archSvg.dim .a-pt:not(.hot)            { opacity: .10; }
+.a-node.hot .a-box   { fill: var(--accent); stroke: var(--accent); }
+.a-node.hot .a-label { fill: var(--accent-ink); }
+.a-node.near .a-box  { stroke: var(--accent); stroke-width: 2; }
+.a-edge.hot { stroke: var(--accent); stroke-width: 2.4; }
+
+.arch-readout {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 30px 20px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; min-height: 44px;
 }
-@keyframes flow     { to { stroke-dashoffset: -32; } }
-@keyframes flowdown { to { stroke-dashoffset: -14; } }
-@keyframes fadein   { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 640px) { .arch-readout { padding: 0 18px 16px; } }
+.ro-key { font-family: var(--font-mono); font-size: .75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+.ro-val { font-size: .875rem; color: var(--ink-2); }
+.ro-hint { font-family: var(--font-mono); font-size: .6875rem; color: var(--muted); letter-spacing: .06em; }
 
-/* drawing title block */
-.titleblock { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--rule); }
-@media (max-width: 520px) { .titleblock { grid-template-columns: repeat(2, 1fr); } }
-.tb-cell { padding: 9px 12px; border-left: 1px solid var(--rule-soft); }
-.tb-cell:first-child { border-left: 0; }
-@media (max-width: 520px) {
-  .tb-cell:nth-child(odd) { border-left: 0; }
-  .tb-cell:nth-child(n+3) { border-top: 1px solid var(--rule-soft); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-.tb-k { font-family: var(--font-mono); font-size: .5625rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px; }
-.tb-v { font-family: var(--font-mono); font-size: .6875rem; font-weight: 700; color: var(--ink); }
 
 /* ============ metrics ============ */
 .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--rule); }
@@ -389,129 +389,28 @@ svg { display: block; }
         </a>
       </div>
     </div>
-
-    <div class="schematic">
-      <div class="schematic-head">
-        <span class="label">Process → Instrument → Decision</span>
-        <span class="label">EHS-DATA-001</span>
-      </div>
-      <div class="schematic-body">
-      <svg viewBox="0 0 420 242" role="img" aria-label="Process and instrumentation schematic: feed enters a stirred reactor, passes through a heat exchanger and a distillation column to product. Temperature, pressure, flow and analysis instruments tap each unit and send signals down into a governed data layer.">
-
-        <!-- ============ process line ============ -->
-        <g class="grp" style="animation-delay:.05s">
-          <!-- feed -->
-          <path class="pipe" d="M12 78 H34"></path>
-          <path class="pipe" d="M26 72 L34 78 L26 84" fill="none"></path>
-          <text class="t-flow" x="12" y="98">FEED</text>
-        </g>
-
-        <!-- reactor R-101 -->
-        <g class="grp" style="animation-delay:.16s">
-          <ellipse class="eq" cx="62" cy="100" rx="28" ry="8"></ellipse>
-          <rect class="eq" x="34" y="58" width="56" height="42" stroke-dasharray="0"></rect>
-          <ellipse class="eq" cx="62" cy="58" rx="28" ry="8"></ellipse>
-          <!-- agitator -->
-          <path class="eq-line" d="M62 52 V86"></path>
-          <path class="eq-line" d="M50 86 H74"></path>
-          <path class="eq-line" d="M54 92 H70"></path>
-          <text class="t-eq" x="62" y="44" text-anchor="middle">R-101</text>
-        </g>
-
-        <!-- pipe R -> E -->
-        <g class="grp" style="animation-delay:.24s"><path class="pipe" d="M90 78 H132"></path></g>
-
-        <!-- exchanger E-102 -->
-        <g class="grp" style="animation-delay:.30s">
-          <rect class="eq" x="132" y="64" width="52" height="28"></rect>
-          <path class="eq-line" d="M138 70 L150 86 L162 70 L174 86"></path>
-          <text class="t-eq" x="158" y="58" text-anchor="middle">E-102</text>
-        </g>
-
-        <!-- pipe E -> C -->
-        <g class="grp" style="animation-delay:.36s"><path class="pipe" d="M184 78 H222"></path></g>
-
-        <!-- column C-103 -->
-        <g class="grp" style="animation-delay:.42s">
-          <ellipse class="eq" cx="241" cy="130" rx="19" ry="6"></ellipse>
-          <rect class="eq" x="222" y="26" width="38" height="104"></rect>
-          <ellipse class="eq" cx="241" cy="26" rx="19" ry="6"></ellipse>
-          <path class="eq-line" d="M222 46 H260 M222 64 H260 M222 82 H260 M222 100 H260 M222 118 H260"></path>
-          <text class="t-eq" x="241" y="16" text-anchor="middle">C-103</text>
-        </g>
-
-        <!-- product out -->
-        <g class="grp" style="animation-delay:.50s">
-          <path class="pipe" d="M260 78 H326"></path>
-          <path class="pipe" d="M318 72 L326 78 L318 84" fill="none"></path>
-          <text class="t-flow" x="332" y="81">PRODUCT</text>
-        </g>
-
-        <!-- flowing fluid overlay -->
-        <g class="grp" style="animation-delay:.55s">
-          <path class="pipe-flow" d="M12 78 H34"></path>
-          <path class="pipe-flow" d="M90 78 H132"></path>
-          <path class="pipe-flow" d="M184 78 H222"></path>
-          <path class="pipe-flow" d="M260 78 H326"></path>
-        </g>
-
-        <!-- ============ instrumentation ============ -->
-        <g class="grp" style="animation-delay:.64s">
-          <path class="tap" d="M62 108 V155"></path>
-          <circle class="bub" cx="62" cy="170" r="15"></circle>
-          <text class="t-tag" x="62" y="169" text-anchor="middle">TI</text>
-          <text class="t-num" x="62" y="179" text-anchor="middle">101</text>
-        </g>
-        <g class="grp" style="animation-delay:.71s">
-          <path class="tap" d="M152 92 V155"></path>
-          <circle class="bub" cx="152" cy="170" r="15"></circle>
-          <text class="t-tag" x="152" y="169" text-anchor="middle">PI</text>
-          <text class="t-num" x="152" y="179" text-anchor="middle">102</text>
-        </g>
-        <g class="grp" style="animation-delay:.78s">
-          <path class="tap" d="M202 78 V155"></path>
-          <circle class="bub" cx="202" cy="170" r="15"></circle>
-          <text class="t-tag" x="202" y="169" text-anchor="middle">FI</text>
-          <text class="t-num" x="202" y="179" text-anchor="middle">103</text>
-        </g>
-        <g class="grp" style="animation-delay:.85s">
-          <path class="tap" d="M241 136 V155"></path>
-          <circle class="bub" cx="241" cy="170" r="15"></circle>
-          <text class="t-tag" x="241" y="169" text-anchor="middle">AI</text>
-          <text class="t-num" x="241" y="179" text-anchor="middle">104</text>
-        </g>
-        <g class="grp" style="animation-delay:.90s">
-          <path class="tap" d="M326 84 V155"></path>
-          <circle class="bub" cx="326" cy="170" r="15"></circle>
-          <text class="t-tag" x="326" y="169" text-anchor="middle">QI</text>
-          <text class="t-num" x="326" y="179" text-anchor="middle">105</text>
-        </g>
-
-        <!-- signal drops to bus -->
-        <g class="grp" style="animation-delay:.96s">
-          <path class="sig" d="M62 185 V206"></path>
-          <path class="sig" d="M152 185 V206"></path>
-          <path class="sig" d="M202 185 V206"></path>
-          <path class="sig" d="M241 185 V206"></path>
-          <path class="sig" d="M326 185 V206"></path>
-        </g>
-
-        <!-- ============ governed data layer ============ -->
-        <g class="grp" style="animation-delay:1.02s">
-          <path class="bus" d="M12 207 H408"></path>
-          <text class="t-bus" x="12" y="226">GOVERNED DATA LAYER — UNITY CATALOG</text>
-          <text class="t-flow" x="408" y="226" text-anchor="end">24/7 · GLOBAL SITES</text>
-        </g>
-      </svg>
-      </div>
-      <div class="titleblock">
-        <div class="tb-cell"><span class="tb-k">Sources</span><span class="tb-v">SAP · D365 · Gensuite</span></div>
-        <div class="tb-cell"><span class="tb-k">Pipeline</span><span class="tb-v">Databricks</span></div>
-        <div class="tb-cell"><span class="tb-k">Governance</span><span class="tb-v">Unity Catalog</span></div>
-        <div class="tb-cell"><span class="tb-k">Output</span><span class="tb-v">Board · Regulatory</span></div>
-      </div>
-    </div>
   </div>
+</section>
+
+<section class="arch" id="architecture">
+  <div class="arch-head">
+    <span class="arch-title">Architecture I've built</span>
+    <span class="label">Hover any block to trace its path</span>
+  </div>
+  <div class="arch-body">
+    <svg id="archSvg" viewBox="0 0 1110 360" role="img"
+         aria-label="Architecture diagram in five tiers. Source systems — SAP, Dynamics 365, Icertis, Benchmark ESG and site data — feed a Databricks medallion pipeline of bronze, silver and gold layers. That flows into governance: Unity Catalog, a Palantir Foundry ontology and a digital twin. Those feed an intelligence tier of MCP architecture, natural-language-query agents, linear-programming optimization and Power BI with Microsoft Fabric, which produce board reporting, regulatory filings, site safety action and spend analytics."></svg>
+  </div>
+  <div class="arch-readout" id="archReadout">
+    <span class="ro-hint">19 components · 5 tiers · source systems through to executive decisions</span>
+  </div>
+  <ul class="sr-only">
+    <li>Source systems: SAP, Dynamics 365, Icertis, Benchmark ESG (Gensuite), site and plant data.</li>
+    <li>Databricks medallion pipeline: bronze, silver, gold.</li>
+    <li>Governance: Unity Catalog, Foundry ontology, digital twin.</li>
+    <li>Intelligence: MCP architecture, NLQ agents, LP optimization, Power BI and Fabric.</li>
+    <li>Decisions: board and ELT reporting, regulatory filings, site action, spend analytics.</li>
+  </ul>
 </section>
 
 <section>
@@ -780,6 +679,199 @@ svg { display: block; }
   });
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ============ interactive architecture map ============ */
+  (function buildArch() {
+    var svg = document.getElementById("archSvg");
+    var readout = document.getElementById("archReadout");
+    if (!svg) return;
+    var NS = "http://www.w3.org/2000/svg";
+    var W = 162, H = 34, PITCH = 46, MID = 179;
+
+    var TIERS = [
+      { x: 24,  label: "SOURCE SYSTEMS" },
+      { x: 248, label: "MEDALLION / DATABRICKS" },
+      { x: 472, label: "GOVERNANCE" },
+      { x: 696, label: "INTELLIGENCE" },
+      { x: 920, label: "DECISIONS" }
+    ];
+
+    var NODES = [
+      [ { t: "SAP",            d: "ERP master and transactional data" },
+        { t: "Dynamics 365",   d: "40-entity relationship model, integrated by API" },
+        { t: "Icertis",        d: "Contract data through the ICI Business API" },
+        { t: "Benchmark ESG",  d: "Enterprise EHS management system — sole global administrator" },
+        { t: "Site & plant",   d: "Operational feeds from global manufacturing sites" } ],
+      [ { t: "Bronze",         d: "Raw landing zone — PySpark ingestion under CI/CD" },
+        { t: "Silver",         d: "Conformed, deduplicated, quality-checked" },
+        { t: "Gold",           d: "Curated marts that power every downstream report" } ],
+      [ { t: "Unity Catalog",  d: "Governance, lineage, and access control across all workloads" },
+        { t: "Foundry Ontology", d: "One enterprise ontology spanning every business function" },
+        { t: "Digital Twin",   d: "Operational model of the company, built in Palantir Foundry" } ],
+      [ { t: "MCP Layer",      d: "Grounds AI agents in live enterprise systems, auditable and reproducible" },
+        { t: "NLQ Agents",     d: "Ask questions of enterprise data in plain language" },
+        { t: "LP Optimization",d: "Micro Market Model — award-winning Python optimization" },
+        { t: "Power BI / Fabric", d: "Org-wide semantic layer, architecture, and distribution" } ],
+      [ { t: "Board & ELT",    d: "Board decks and executive reporting" },
+        { t: "Regulatory",     d: "OSHA, MSHA, and ACC submissions" },
+        { t: "Site Action",    d: "40+ alerting KPIs driving site-level response" },
+        { t: "Spend Analytics",d: "Spend under contract and daily order tracking" } ]
+    ];
+
+    var EDGES = [
+      [0,0,1,0],[0,1,1,0],[0,2,1,0],[0,3,1,0],[0,4,1,0],
+      [1,0,1,1],[1,1,1,2],
+      [1,2,2,0],
+      [2,0,2,1],[2,1,2,2],
+      [2,0,3,3],[2,1,3,0],[2,1,3,1],[2,2,3,2],
+      [3,0,3,1],
+      [3,1,4,0],[3,1,4,2],[3,2,4,0],[3,2,4,3],
+      [3,3,4,0],[3,3,4,1],[3,3,4,2]
+    ];
+
+    function yOf(tier, i) {
+      var n = NODES[tier].length;
+      var total = n * H + (n - 1) * (PITCH - H);
+      return MID - total / 2 + i * PITCH;
+    }
+    function el(name, attrs) {
+      var e = document.createElementNS(NS, name);
+      for (var k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    var gEdges = el("g", {}), gNodes = el("g", {}), gPts = el("g", {});
+
+    /* tier headers */
+    TIERS.forEach(function (tier) {
+      var t = el("text", { class: "a-tier", x: tier.x, y: 34 });
+      t.textContent = tier.label;
+      svg.appendChild(t);
+      svg.appendChild(el("line", { class: "a-rule", x1: tier.x, y1: 44, x2: tier.x + W, y2: 44 }));
+    });
+
+    /* edges */
+    var edgeEls = [];
+    EDGES.forEach(function (e, idx) {
+      var a = { x: TIERS[e[0]].x, y: yOf(e[0], e[1]) };
+      var b = { x: TIERS[e[2]].x, y: yOf(e[2], e[3]) };
+      var d;
+      if (e[0] === e[2]) {
+        var cx = a.x + W / 2;
+        d = "M" + cx + "," + (a.y + H) + " L" + cx + "," + b.y;
+      } else {
+        var ax = a.x + W, ay = a.y + H / 2, bx = b.x, by = b.y + H / 2;
+        var mx = (ax + bx) / 2;
+        d = "M" + ax + "," + ay + " C" + mx + "," + ay + " " + mx + "," + by + " " + bx + "," + by;
+      }
+      var p = el("path", { class: "a-edge", d: d, "data-edge": idx });
+      gEdges.appendChild(p);
+      edgeEls.push({ el: p, from: e[0] + "-" + e[1], to: e[2] + "-" + e[3], pts: null });
+    });
+
+    /* nodes */
+    var nodeEls = {};
+    NODES.forEach(function (col, ti) {
+      col.forEach(function (n, ni) {
+        var key = ti + "-" + ni;
+        var y = yOf(ti, ni);
+        var g = el("g", { class: "a-node", "data-key": key });
+        g.appendChild(el("rect", { class: "a-box", x: TIERS[ti].x, y: y, width: W, height: H }));
+        var label = el("text", { class: "a-label", x: TIERS[ti].x + 12, y: y + H / 2 + 3.5 });
+        label.textContent = n.t;
+        g.appendChild(label);
+        gNodes.appendChild(g);
+        nodeEls[key] = { g: g, data: n };
+      });
+    });
+
+    svg.appendChild(gEdges);
+    svg.appendChild(gPts);
+    svg.appendChild(gNodes);
+
+    /* ---- hover: trace connections ---- */
+    function clear() {
+      svg.classList.remove("dim");
+      Array.prototype.forEach.call(svg.querySelectorAll(".hot,.near"), function (n) {
+        n.classList.remove("hot"); n.classList.remove("near");
+      });
+      readout.innerHTML = '<span class="ro-hint">19 components · 5 tiers · source systems through to executive decisions</span>';
+    }
+    function focusNode(key) {
+      clear();
+      svg.classList.add("dim");
+      nodeEls[key].g.classList.add("hot");
+      edgeEls.forEach(function (e, i) {
+        if (e.from === key || e.to === key) {
+          e.el.classList.add("hot");
+          var other = e.from === key ? e.to : e.from;
+          if (nodeEls[other]) nodeEls[other].g.classList.add("near");
+          Array.prototype.forEach.call(gPts.querySelectorAll('[data-edge="' + i + '"]'), function (p) {
+            p.classList.add("hot");
+          });
+        }
+      });
+      var d = nodeEls[key].data;
+      readout.innerHTML = '<span class="ro-key"></span><span class="ro-val"></span>';
+      readout.firstChild.textContent = d.t;
+      readout.lastChild.textContent = d.d;
+    }
+    Object.keys(nodeEls).forEach(function (key) {
+      var g = nodeEls[key].g;
+      g.addEventListener("pointerenter", function () { focusNode(key); });
+      g.addEventListener("click", function () { focusNode(key); });
+    });
+    svg.addEventListener("pointerleave", clear);
+
+    /* ---- particles along the edges ---- */
+    if (reduced) return;
+    var SAMPLES = 48;
+    edgeEls.forEach(function (e) {
+      var len = e.el.getTotalLength();
+      var pts = [];
+      for (var i = 0; i <= SAMPLES; i++) {
+        var pt = e.el.getPointAtLength((i / SAMPLES) * len);
+        pts.push([pt.x, pt.y]);
+      }
+      e.pts = pts;
+    });
+
+    var particles = [];
+    edgeEls.forEach(function (e, i) {
+      var count = e.pts.length > 2 ? 2 : 1;
+      for (var k = 0; k < count; k++) {
+        var c = el("circle", { class: "a-pt", r: 2.6, cx: -10, cy: -10, "data-edge": i });
+        gPts.appendChild(c);
+        particles.push({
+          el: c, edge: e,
+          p: (k / count) + (i % 5) * 0.11,
+          speed: 0.0022 + ((i % 4) * 0.0004)
+        });
+      }
+    });
+
+    var running = true;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { running = en.isIntersecting; });
+    }, { threshold: 0 });
+    io.observe(svg);
+
+    function tick() {
+      if (running) {
+        for (var i = 0; i < particles.length; i++) {
+          var pa = particles[i];
+          pa.p += pa.speed;
+          if (pa.p > 1) pa.p -= 1;
+          var pts = pa.edge.pts;
+          var pt = pts[Math.floor(pa.p * SAMPLES)];
+          pa.el.setAttribute("cx", pt[0]);
+          pa.el.setAttribute("cy", pt[1]);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
 
   /* scroll progress */
   var progress = document.getElementById("progress");
