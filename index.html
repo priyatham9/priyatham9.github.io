@@ -156,7 +156,7 @@ section[id] { scroll-margin-top: 76px; }
   letter-spacing: -0.028em; line-height: 0.95;
   margin-bottom: 22px;
 }
-.line { display: block; overflow: hidden; padding: 0.045em 0; }
+.line { display: block; overflow: hidden; padding: 0.045em 0.06em; margin: 0 -0.06em; }
 .line-in { display: inline-block; }
 .h1-outline { color: var(--ink); }
 @supports (-webkit-text-stroke: 1px black) {
@@ -197,19 +197,22 @@ section[id] { scroll-margin-top: 76px; }
 
 /* status board */
 .status {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr;
   border: 2px solid var(--rule); background: var(--surface);
-  margin-top: 34px; max-width: 900px;
+  margin-top: 34px; max-width: 940px;
 }
-@media (max-width: 700px) { .status { grid-template-columns: repeat(2, 1fr); } }
-.st-cell { padding: 13px 16px; border-left: 2px solid var(--rule-soft); }
+@media (max-width: 768px) {
+  .status { grid-template-columns: repeat(2, 1fr); }
+  .st-v { white-space: normal; }
+}
+.st-cell { padding: 13px 16px; border-left: 2px solid var(--rule-soft); min-width: 0; }
 .st-cell:first-child { border-left: 0; }
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .st-cell:nth-child(odd) { border-left: 0; }
   .st-cell:nth-child(n+3) { border-top: 2px solid var(--rule-soft); }
 }
-.st-k { font-family: var(--font-mono); font-size: .5625rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
-.st-v { font-family: var(--font-mono); font-size: .75rem; font-weight: 700; color: var(--ink); letter-spacing: .02em; }
+.st-k { font-family: var(--font-mono); font-size: .5625rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; white-space: nowrap; }
+.st-v { font-family: var(--font-mono); font-size: .71rem; font-weight: 700; color: var(--ink); letter-spacing: .02em; white-space: nowrap; }
 .st-v.accent { color: var(--accent); }
 
 /* ============ ticker ============ */
@@ -227,7 +230,7 @@ section[id] { scroll-margin-top: 76px; }
 .arch { border-bottom: 2px solid var(--rule); background: var(--surface); }
 .arch-head {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
-  gap: 10px; padding: 20px 30px 18px; border-bottom: 2px solid var(--rule);
+  gap: 10px; padding: 18px 30px; border-bottom: 2px solid var(--rule);
   max-width: var(--maxw); margin: 0 auto;
 }
 @media (max-width: 640px) { .arch-head { padding: 14px 18px; } }
@@ -462,7 +465,7 @@ section[id] { scroll-margin-top: 76px; }
     <div class="status fx fx-5">
       <div class="st-cell"><span class="st-k">Location</span><span class="st-v">Columbus, OH</span></div>
       <div class="st-cell"><span class="st-k">Current</span><span class="st-v">Hexion Inc.</span></div>
-      <div class="st-cell"><span class="st-k">Open to</span><span class="st-v accent">EHS/ESG Leadership</span></div>
+      <div class="st-cell"><span class="st-k">Open to · Lead / Owner</span><span class="st-v accent">AI · EHS · Enterprise Analytics</span></div>
       <div class="st-cell"><span class="st-k">Site visits</span><span class="st-v mono" id="visitCount">·····</span></div>
     </div>
   </div>
@@ -494,7 +497,7 @@ section[id] { scroll-margin-top: 76px; }
     <span class="label">Hover or tap any block to trace its path</span>
   </div>
   <div class="arch-body">
-    <svg id="archSvg" viewBox="0 0 1110 360" role="img"
+    <svg id="archSvg" viewBox="0 0 1110 312" role="img"
          aria-label="Architecture diagram in five tiers. Source systems — SAP, Dynamics 365, Icertis, Benchmark ESG and site data — feed a Databricks medallion pipeline of bronze, silver and gold layers. That flows into governance: Unity Catalog, a Palantir Foundry ontology and a digital twin. Those feed an intelligence tier of MCP architecture, natural-language-query agents, linear-programming optimization and Power BI with Microsoft Fabric, which produce board reporting, regulatory filings, site safety action and spend analytics."></svg>
   </div>
   <div class="arch-readout" id="archReadout">
@@ -762,7 +765,7 @@ section[id] { scroll-margin-top: 76px; }
       <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <a class="btn" href="https://github.com/priyatham9" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
-    <p class="footer-note">Columbus, Ohio · Open to EHS &amp; ESG leadership and implementation roles</p>
+    <p class="footer-note">Columbus, Ohio · Open to lead and owner roles across AI, EHS, and enterprise analytics</p>
   </div>
 </footer>
 
