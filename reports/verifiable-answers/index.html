@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RPT-004 · Verifiable Answers — Priyatham Chimmani</title>
+<meta name="description" content="An architecture for AI answers you can sign: deterministic cores, claim ledgers with replay, ontology-constrained generation, and a trust budget for model right-sizing." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" />
+<style>
+:root{
+  --paper:#F7F7F3;--surface:#FFFFFF;--surface-2:#EFEFE9;
+  --ink:#101311;--ink-2:#3A403C;--muted:#666D68;
+  --rule:#101311;--rule-soft:#D6D7CE;
+  --accent:#0F7A52;--accent-2:#0B5C3E;--accent-ink:#FFFFFF;--accent-wash:#E3F0E9;
+  --warn:#B05A00;--warn-wash:#F6E8D8;
+  --bad:#A32116;--bad-wash:#F7E2E0;
+  --grid-dot:rgba(16,19,17,.10);
+  --font-sans:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --maxw:1180px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#0A0D0B;--surface:#121712;--surface-2:#171D18;
+  --ink:#EAEFEA;--ink-2:#BFC7C1;--muted:#838C86;
+  --rule:#EAEFEA;--rule-soft:#262E28;
+  --accent:#3FCB88;--accent-2:#2AA96C;--accent-ink:#06130C;--accent-wash:#10241A;
+  --warn:#E09B4C;--warn-wash:#2A2013;
+  --bad:#F08076;--bad-wash:#2C1512;
+  --grid-dot:rgba(234,239,234,.09);
+}}
+:root[data-theme="light"]{
+  --paper:#F7F7F3;--surface:#FFFFFF;--surface-2:#EFEFE9;
+  --ink:#101311;--ink-2:#3A403C;--muted:#666D68;
+  --rule:#101311;--rule-soft:#D6D7CE;
+  --accent:#0F7A52;--accent-2:#0B5C3E;--accent-ink:#FFFFFF;--accent-wash:#E3F0E9;
+  --warn:#B05A00;--warn-wash:#F6E8D8;--bad:#A32116;--bad-wash:#F7E2E0;
+  --grid-dot:rgba(16,19,17,.10);
+}
+:root[data-theme="dark"]{
+  --paper:#0A0D0B;--surface:#121712;--surface-2:#171D18;
+  --ink:#EAEFEA;--ink-2:#BFC7C1;--muted:#838C86;
+  --rule:#EAEFEA;--rule-soft:#262E28;
+  --accent:#3FCB88;--accent-2:#2AA96C;--accent-ink:#06130C;--accent-wash:#10241A;
+  --warn:#E09B4C;--warn-wash:#2A2013;--bad:#F08076;--bad-wash:#2C1512;
+  --grid-dot:rgba(234,239,234,.09);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.05}
+p{margin:0}ul{margin:0;padding:0;list-style:none}a{color:inherit}svg{display:block}
+::selection{background:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section[id]{scroll-margin-top:70px}
+.display{font-stretch:125%;font-weight:900;text-transform:uppercase}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
+@media (max-width:640px){.wrap{padding:0 18px}}
+.label{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+
+.topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:2px solid var(--rule)}
+.topbar-inner{max-width:var(--maxw);margin:0 auto;padding:12px 30px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+@media (max-width:640px){.topbar-inner{padding:11px 18px}}
+.crumb{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.crumb .bk{color:var(--muted)}.crumb:hover .bk{color:var(--accent)}
+.brand-mark{width:14px;height:14px;background:var(--accent);flex:none}
+.top-right{display:flex;align-items:center;gap:10px}
+.demo-chip{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--warn);border:1.5px solid var(--warn);padding:4px 8px;background:var(--warn-wash)}
+.toggle{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;background:var(--paper);border:2px solid var(--rule);color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
+.toggle:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.toggle svg{width:15px;height:15px}
+.icon-sun,.icon-moon{display:none}
+@media (prefers-color-scheme:dark){.icon-moon{display:block}}
+@media (prefers-color-scheme:light){.icon-sun{display:block}}
+:root[data-theme="light"] .icon-sun{display:block}:root[data-theme="light"] .icon-moon{display:none}
+:root[data-theme="dark"] .icon-moon{display:block}:root[data-theme="dark"] .icon-sun{display:none}
+
+.hero{position:relative;padding:64px 0 48px;border-bottom:2px solid var(--rule);background-image:radial-gradient(var(--grid-dot) 1px,transparent 1px);background-size:22px 22px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:20px}
+.pulse{width:9px;height:9px;background:var(--accent);flex:none}
+.hero h1{font-size:clamp(2rem,5.6vw,3.9rem);letter-spacing:-.028em;line-height:.98;margin-bottom:20px}
+.h1-outline{color:var(--ink)}
+@supports (-webkit-text-stroke:1px black){.h1-outline{color:transparent;-webkit-text-stroke:2px var(--ink)}}
+.hero-lede{font-size:clamp(1rem,1.7vw,1.125rem);color:var(--ink-2);max-width:68ch;margin-bottom:26px}
+.hero-lede strong{color:var(--ink)}
+.jumps{display:flex;flex-wrap:wrap;gap:0}
+.jump{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:2px solid var(--rule);margin:0 -2px -2px 0;font-family:var(--font-mono);font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s}
+.jump:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.jump b{color:var(--accent);font-weight:700}.jump:hover b{color:inherit}
+
+.section{padding:64px 0;border-bottom:2px solid var(--rule)}
+@media (max-width:640px){.section{padding:44px 0}}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:8px}
+.sec-num{display:inline-block;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.12em;padding:4px 8px}
+.sec-head h2{font-size:clamp(1.4rem,3vw,1.9rem);font-stretch:118%;letter-spacing:-.015em}
+.sec-sub{color:var(--muted);font-size:.9375rem;max-width:74ch;margin-bottom:28px}
+.sec-sub strong{color:var(--ink-2)}
+.callout{display:grid;grid-template-columns:auto 1fr;gap:14px;border:2px solid var(--accent);background:var(--accent-wash);padding:16px 18px;margin-top:18px}
+.callout .bar{width:4px;background:var(--accent)}
+.callout .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+.callout p{font-size:.875rem;color:var(--ink-2)}
+.callout p strong{color:var(--ink)}
+
+/* S1 failure modes */
+.fails{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.fails{grid-template-columns:1fr}}
+.fail{border:2px solid var(--rule);background:var(--surface);padding:20px}
+.fail-n{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.14em;color:var(--bad);margin-bottom:10px;display:block}
+.fail h3{font-size:1rem;font-weight:800;letter-spacing:-.015em;margin-bottom:8px}
+.fail p{font-size:.85rem;color:var(--muted);margin-bottom:12px}
+.fail .ex{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-2);background:var(--surface-2);border-left:3px solid var(--bad);padding:9px 11px}
+
+/* S2 split architecture */
+.split{border:2px solid var(--rule);background:var(--surface);overflow-x:auto}
+.split-inner{min-width:820px;padding:20px}
+#splitSvg{width:100%;height:auto;min-width:780px}
+.sp-box{stroke-width:2}
+.sp-det{fill:var(--accent-wash);stroke:var(--accent)}
+.sp-gen{fill:var(--warn-wash);stroke:var(--warn)}
+.sp-neutral{fill:var(--surface-2);stroke:var(--rule-soft)}
+.sp-t{font-family:var(--font-mono);font-size:10px;font-weight:700;fill:var(--ink)}
+.sp-s{font-family:var(--font-mono);font-size:8px;font-weight:600;fill:var(--muted);letter-spacing:.06em}
+.sp-band{font-family:var(--font-mono);font-size:8.5px;font-weight:700;letter-spacing:.16em}
+.sp-arrow{fill:none;stroke:var(--rule-soft);stroke-width:2}
+
+/* S3 ledger */
+.va{border:2px solid var(--rule);background:var(--surface)}
+.va-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;border-bottom:2px solid var(--rule)}
+.qpick{display:flex;flex-direction:column;border-bottom:2px solid var(--rule)}
+.qb{text-align:left;padding:12px 18px;background:var(--paper);border:0;border-bottom:1.5px solid var(--rule-soft);cursor:pointer;font-family:inherit;font-size:.9rem;font-weight:600;color:var(--ink-2);transition:background .14s,color .14s}
+.qb:last-child{border-bottom:0}
+.qb:hover{background:var(--accent-wash)}
+.qb.on{background:var(--accent);color:var(--accent-ink)}
+.va-grid{display:grid;grid-template-columns:1fr 1fr}
+@media (max-width:900px){.va-grid{grid-template-columns:1fr}}
+.va-plan{padding:18px;border-right:2px solid var(--rule-soft)}
+@media (max-width:900px){.va-plan{border-right:0;border-bottom:2px solid var(--rule-soft)}}
+.va-out{padding:18px}
+.step{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule-soft);font-family:var(--font-mono);font-size:.72rem}
+.step:last-child{border-bottom:0}
+.step-i{color:var(--accent);font-weight:700}
+.step-op{color:var(--ink-2)}
+.step-op b{color:var(--ink);font-weight:700}
+.step-r{color:var(--accent);font-weight:700}
+.answer{border:2px solid var(--accent);background:var(--accent-wash);padding:14px 16px;margin-bottom:14px}
+.answer .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+.answer p{font-size:.95rem;color:var(--ink);font-weight:600}
+.answer .num{background:var(--accent);color:var(--accent-ink);padding:1px 5px;font-family:var(--font-mono);font-weight:700}
+.ledger{border:1.5px solid var(--rule-soft);background:var(--surface-2);padding:13px 15px}
+.lg-row{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;font-family:var(--font-mono);font-size:.68rem;padding:3px 0}
+.lg-k{color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-size:.56rem;font-weight:700;padding-top:2px}
+.lg-v{color:var(--ink-2);overflow-wrap:anywhere}
+.lg-v.hash{color:var(--accent);font-weight:700}
+.va-ctl{display:flex;flex-wrap:wrap;gap:0;padding:14px 18px;border-top:2px solid var(--rule);background:var(--surface-2);align-items:center}
+.vb{display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border:2px solid var(--rule);margin:0 -2px 0 0;font-family:var(--font-mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:var(--paper);color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
+.vb:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.vb.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.vb.danger:hover{background:var(--bad);border-color:var(--bad);color:#fff}
+.verdict-line{margin-left:auto;font-family:var(--font-mono);font-size:.7rem;font-weight:700;letter-spacing:.06em;padding:8px 0}
+.vok{color:var(--accent)}.vdrift{color:var(--bad)}.vidle{color:var(--muted)}
+.modelsel{display:flex;border:2px solid var(--rule)}
+.ms{font-family:var(--font-mono);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 9px;background:var(--paper);color:var(--muted);cursor:pointer;border:0;border-right:2px solid var(--rule-soft)}
+.ms:last-child{border-right:0}
+.ms.on{background:var(--warn);color:#1A0E00}
+
+/* S4 constrained generation */
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--rule);background:var(--surface)}
+@media (max-width:900px){.cg{grid-template-columns:1fr}}
+.cg-pane{padding:18px;border-right:2px solid var(--rule-soft)}
+.cg-pane:last-child{border-right:0}
+@media (max-width:900px){.cg-pane{border-right:0;border-bottom:2px solid var(--rule-soft)}.cg-pane:last-child{border-bottom:0}}
+.cg-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1.5px solid var(--rule-soft)}
+.cg-title{font-family:var(--font-mono);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.cg-title.bad{color:var(--bad)}.cg-title.good{color:var(--accent)}
+.stream{font-family:var(--font-mono);font-size:.78rem;line-height:2;min-height:120px}
+.tok{padding:1px 3px;transition:background .2s,color .2s}
+.tok.ent{background:var(--accent-wash);border-bottom:2px solid var(--accent)}
+.tok.invalid{background:var(--bad-wash);border-bottom:2px solid var(--bad);color:var(--bad);font-weight:700}
+.tok.rejected{background:transparent;color:var(--muted);text-decoration:line-through;opacity:.6;border:0}
+.cg-count{font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.06em}
+.cg-count.bad{color:var(--bad)}.cg-count.good{color:var(--accent)}
+.grammar{border:2px solid var(--rule);border-top:0;background:var(--surface-2);padding:14px 18px}
+.grammar .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.gtoks{display:flex;flex-wrap:wrap;gap:5px}
+.gt{font-family:var(--font-mono);font-size:.66rem;padding:3px 7px;background:var(--surface);border:1px solid var(--accent);color:var(--accent)}
+.cg-ctl{display:flex;flex-wrap:wrap;gap:0;padding:14px 18px;border:2px solid var(--rule);border-top:0;background:var(--surface-2);align-items:center}
+.sim-note{margin-left:auto;font-family:var(--font-mono);font-size:.62rem;color:var(--muted);letter-spacing:.04em}
+
+/* S5 trust budget */
+.tb{display:grid;grid-template-columns:1fr 380px;gap:16px;align-items:start}
+@media (max-width:980px){.tb{grid-template-columns:1fr}}
+.tb-ctl{border:2px solid var(--rule);background:var(--surface)}
+.tb-row{padding:16px 18px;border-bottom:2px solid var(--rule-soft)}
+.tb-row:last-child{border-bottom:0}
+.tb-row .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:9px}
+.taskgrid{display:flex;flex-wrap:wrap;border:2px solid var(--rule-soft)}
+.tk{font-family:var(--font-mono);font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;background:var(--paper);color:var(--muted);cursor:pointer;border:0;border-right:1.5px solid var(--rule-soft);border-bottom:1.5px solid var(--rule-soft);flex:1 1 auto;transition:background .14s,color .14s}
+.tk:hover{color:var(--ink)}
+.tk.on{background:var(--accent);color:var(--accent-ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.rng-lab{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.6rem;color:var(--muted);margin-top:5px;letter-spacing:.06em}
+.rng-val{font-family:var(--font-mono);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px;display:block}
+.tb-out{border:2px solid var(--rule);background:var(--surface);padding:18px;display:flex;flex-direction:column;gap:13px}
+.rec-tier{font-stretch:118%;font-weight:900;font-size:1.5rem;line-height:1.1}
+.rec-chip{font-family:var(--font-mono);font-size:.62rem;font-weight:700;letter-spacing:.12em;padding:5px 9px;border:2px solid;align-self:flex-start}
+.rec-why{font-size:.85rem;color:var(--ink-2)}
+.rec-why strong{color:var(--ink)}
+.cost-row{display:grid;grid-template-columns:1fr auto;gap:8px;font-family:var(--font-mono);font-size:.72rem;padding:6px 0;border-bottom:1px solid var(--rule-soft)}
+.cost-row:last-of-type{border-bottom:0}
+.cost-row .cl{color:var(--muted)}
+.cost-row .cv{font-weight:700;color:var(--ink)}
+.cost-row.total .cv{color:var(--accent);font-size:.95rem}
+.ladder{display:flex;flex-direction:column;gap:0;border:2px solid var(--rule);margin-top:16px;background:var(--surface)}
+.ld{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:13px 18px;border-bottom:2px solid var(--rule-soft);transition:background .15s}
+.ld:last-child{border-bottom:0}
+.ld.active{background:var(--accent-wash)}
+.ld-n{font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.06em;color:var(--ink)}
+.ld.active .ld-n{color:var(--accent)}
+.ld-d{font-size:.8rem;color:var(--muted)}
+
+/* series nav + footer */
+.series-nav{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--rule);background:var(--surface);margin-top:26px}
+@media (max-width:640px){.series-nav{grid-template-columns:1fr}}
+.sn-item{padding:16px 18px;text-decoration:none;border-right:2px solid var(--rule-soft);transition:background .15s}
+.sn-item:last-child{border-right:0}
+@media (max-width:640px){.sn-item{border-right:0;border-bottom:2px solid var(--rule-soft)}.sn-item:last-child{border-bottom:0}}
+.sn-item:hover{background:var(--accent-wash)}
+.sn-item.next{text-align:right}
+.sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+.sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
+.sn-item.empty{opacity:.4;pointer-events:none}
+.rfooter{padding:44px 0 60px}
+.rfooter-inner{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border:2px solid var(--rule);font-family:var(--font-mono);font-size:.71rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+@media (prefers-reduced-motion:no-preference){
+  .pulse{animation:pulse 2.4s steps(1,end) infinite}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.16,.84,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+}
+@keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="crumb" href="../../"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-004</a>
+    <div class="top-right">
+      <span class="demo-chip">Synthetic demo data</span>
+      <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow"><span class="pulse"></span><span class="label">Report 004 · Architecture · Trustworthy AI over enterprise data</span></div>
+    <h1 class="display">Getting an answer is easy.<br /><span class="h1-outline">Verifiable is the fun part.</span></h1>
+    <p class="hero-lede">
+      Enterprise AI gets genuinely interesting the moment an answer has to hold up — in a board pack,
+      in a filing, in a room with an auditor. That bar is a gift to an architect, because it rules out
+      guesswork and points straight at a design. Three ideas I've been exploring: let the model choose
+      and phrase while a <strong>deterministic core owns every number</strong>; give each answer a
+      <strong>ledger it can be replayed from</strong>; and derive the vocabulary of entities from the
+      ontology itself, so generation happens inside a space where only real things exist. Then size the
+      model to the task on purpose. Everything below runs live — have a play.
+    </p>
+    <nav class="jumps" aria-label="Report sections">
+      <a class="jump" href="#failures"><b>S1</b> Why answers fail audit</a>
+      <a class="jump" href="#split"><b>S2</b> The split</a>
+      <a class="jump" href="#ledger"><b>S3</b> Claim ledger &amp; replay</a>
+      <a class="jump" href="#constrained"><b>S4</b> Constrained generation</a>
+      <a class="jump" href="#budget"><b>S5</b> Trust budget</a>
+    </nav>
+  </div>
+</section>
+
+<section class="section" id="failures">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S1</span><h2 class="display">Three properties worth designing for</h2></div>
+    <p class="sec-sub">"Trustworthy" is vague until you decompose it. These three properties are specific enough to build toward and to test for — and each one turns out to be an engineering problem rather than a modelling one, which is what makes them tractable.</p>
+    <div class="fails reveal">
+      <div class="fail">
+        <span class="fail-n">P1 · REPRODUCIBLE</span>
+        <h3>Same question, same answer</h3>
+        <p>Ask on Monday and on Thursday and get an identical figure, or a precise account of what moved. Achieved by routing every number through a versioned plan rather than a sampled generation.</p>
+        <div class="ex">Design target<br />Q: "TRIR for NL-03?"<br />Mon → 1.65 &nbsp;·&nbsp; Thu → 1.65<br />or a named delta.</div>
+      </div>
+      <div class="fail">
+        <span class="fail-n">P2 · ATTRIBUTABLE</span>
+        <h3>Chain of custody by default</h3>
+        <p>Every figure carries the records that produced it, the period definition applied, and what was excluded — so a reviewer can follow it down to source without asking anyone.</p>
+        <div class="ex">Design target<br />"€4.12M at risk"<br />→ 38 orders, listed<br />→ plan + hash attached.</div>
+      </div>
+      <div class="fail">
+        <span class="fail-n">P3 · GROUNDED</span>
+        <h3>Only real things sayable</h3>
+        <p>Entity names come from the ontology's own registry, so a plausible-but-invented identifier isn't something the system has to catch — it's something it can't produce.</p>
+        <div class="ex">Design target<br />Vocabulary = registry<br />ACME-0042 ✓<br />NORDIC-118 not emittable.</div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="bar"></div>
+      <div><span class="k">The encouraging part</span><p>None of the three depends on a better model — they're properties of the system built <em>around</em> the model. That means they're reachable today with ordinary engineering, and they get <strong>more</strong> valuable as models improve, not less.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="split">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S2</span><h2 class="display">The split</h2></div>
+    <p class="sec-sub">One rule carries the whole design, and it's a liberating one: <strong>the model chooses the plan and phrases the result; a deterministic core computes every number.</strong> Green is deterministic code over the ontology, amber is generative. Drawing the line here means the model gets to do what it's genuinely excellent at — understanding intent and writing well — while arithmetic stays somewhere it can be checked.</p>
+    <div class="split reveal">
+      <div class="split-inner">
+        <svg id="splitSvg" viewBox="0 0 900 250" role="img" aria-label="Architecture diagram: a natural language question goes to a generative planner, which selects a declarative query plan. A deterministic executor runs the plan over the ontology to produce a computed value and a claim ledger. The generative phraser then wraps the value in prose without altering it."></svg>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="bar"></div>
+      <div><span class="k">The payoff</span><p>Swap the model and the prose changes while the number holds. That one property is what makes an output <strong>auditable</strong>, and it means you can adopt a better model tomorrow without re-validating a single figure. Try it live in the next section.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ledger">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S3</span><h2 class="display">Claim ledger &amp; replay</h2></div>
+    <p class="sec-sub">This one is a working engine, not a mockup — the values below are computed in your browser from a synthetic object store, and every answer emits a ledger with a content hash over the plan and its resolved inputs. <strong>Replay</strong> re-executes and compares. <strong>Mutate</strong> nudges a source record so you can watch the drift get caught and named.</p>
+    <div class="va reveal">
+      <div class="va-head">
+        <span class="label">Question → plan → value → prose</span>
+        <div class="modelsel" id="modelSel" role="group" aria-label="Phrasing model"></div>
+      </div>
+      <div class="qpick" id="qPick"></div>
+      <div class="va-grid">
+        <div class="va-plan">
+          <span class="label" style="display:block;margin-bottom:10px">Deterministic plan</span>
+          <div id="planSteps"></div>
+        </div>
+        <div class="va-out">
+          <div class="answer">
+            <span class="k">Answer</span>
+            <p id="answerText">—</p>
+          </div>
+          <span class="label" style="display:block;margin-bottom:8px">Claim ledger</span>
+          <div class="ledger" id="ledgerBox"></div>
+        </div>
+      </div>
+      <div class="va-ctl">
+        <button class="vb primary" id="btnReplay" type="button">↻ Replay &amp; verify</button>
+        <button class="vb danger" id="btnMutate" type="button">⚠ Mutate a source record</button>
+        <button class="vb" id="btnReset" type="button">Reset store</button>
+        <span class="verdict-line vidle" id="verdict">Not yet replayed</span>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="bar"></div>
+      <div><span class="k">Try this</span><p>Switch the phrasing model at the top right. The wording changes; the <strong>value hash stays identical</strong>. Then mutate a record and replay — the ledger names exactly which input moved and by how much.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="constrained">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S4</span><h2 class="display">Constrained generation</h2></div>
+    <p class="sec-sub">Prompting a model not to invent things is a request it will mostly honour. Deriving the permitted vocabulary from the ontology and rejecting anything outside it is a <strong>guarantee</strong> — and the nice part is how little machinery it takes. Same question, same intended output, two decoders.</p>
+    <div class="reveal">
+      <div class="cg">
+        <div class="cg-pane">
+          <div class="cg-h"><span class="cg-title bad">Unconstrained</span><span class="cg-count bad" id="cntBad">—</span></div>
+          <div class="stream" id="streamBad"></div>
+        </div>
+        <div class="cg-pane">
+          <div class="cg-h"><span class="cg-title good">Ontology-constrained</span><span class="cg-count good" id="cntGood">—</span></div>
+          <div class="stream" id="streamGood"></div>
+        </div>
+      </div>
+      <div class="grammar">
+        <span class="k">Permitted entity tokens — derived from the ontology registry, not from a prompt</span>
+        <div class="gtoks" id="gTokens"></div>
+      </div>
+      <div class="cg-ctl">
+        <button class="vb primary" id="btnGen" type="button">▶ Generate both</button>
+        <span class="sim-note">Scripted token stream illustrating the mechanism — no model runs in this page</span>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="bar"></div>
+      <div><span class="k">Why the structural version wins</span><p>Notice that the unconstrained output doesn't look wrong — the invented IDs are <strong>well-formed and entirely plausible</strong>, which is exactly what makes them hard to spot by eye. Deriving the vocabulary from the registry turns a review burden into a property of the system, and it costs almost nothing to implement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="budget">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S5</span><h2 class="display">Trust budget</h2></div>
+    <p class="sec-sub">Model right-sizing as a deliberate decision rather than a default. The rule this encodes surprises people: <strong>as consequence rises, you move work out of the model rather than into a bigger one.</strong> It's a cheerful finding — the highest-stakes work is usually the most deterministic, so the safest option is also the least expensive.</p>
+    <div class="tb reveal">
+      <div class="tb-ctl">
+        <div class="tb-row">
+          <span class="k">Task</span>
+          <div class="taskgrid" id="taskGrid"></div>
+        </div>
+        <div class="tb-row">
+          <span class="k">Monthly volume</span>
+          <span class="rng-val" id="volVal">5,000 items</span>
+          <input type="range" id="volRange" min="0" max="5" value="2" step="1" aria-label="Monthly volume" />
+          <div class="rng-lab"><span>100</span><span>1K</span><span>5K</span><span>25K</span><span>100K</span><span>500K</span></div>
+        </div>
+        <div class="tb-row">
+          <span class="k">Consequence of being wrong</span>
+          <span class="rng-val" id="consVal">Operational</span>
+          <input type="range" id="consRange" min="0" max="3" value="1" step="1" aria-label="Consequence tier" />
+          <div class="rng-lab"><span>Informational</span><span>Operational</span><span>Financial</span><span>Regulatory</span></div>
+        </div>
+      </div>
+      <div class="tb-out">
+        <span class="label">Recommendation</span>
+        <div class="rec-tier" id="recTier">—</div>
+        <span class="rec-chip" id="recChip">—</span>
+        <p class="rec-why" id="recWhy">—</p>
+        <div style="margin-top:4px">
+          <div class="cost-row"><span class="cl">Unit cost</span><span class="cv" id="cUnit">—</span></div>
+          <div class="cost-row"><span class="cl">Volume / mo</span><span class="cv" id="cVol">—</span></div>
+          <div class="cost-row"><span class="cl">Review overhead</span><span class="cv" id="cRev">—</span></div>
+          <div class="cost-row total"><span class="cl">Monthly cost</span><span class="cv" id="cTot">—</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ladder reveal" id="ladder"></div>
+  </div>
+</section>
+
+</main>
+
+<div class="wrap">
+  <nav class="series-nav" aria-label="Report series">
+    <a class="sn-item" href="../value-chain-twin/"><span class="sn-dir">← Previous · RPT-003</span><span class="sn-t">Value-Chain Twin</span></a>
+    <span class="sn-item next empty"><span class="sn-dir">End of series</span><span class="sn-t">RPT-004 is the latest</span></span>
+  </nav>
+</div>
+
+<footer class="rfooter">
+  <div class="wrap rfooter-inner">
+    <a class="btn" href="../../">← Back to site</a>
+    <span class="label">Architecture original · data synthetic · engine real</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var root=document.documentElement,toggle=document.getElementById("themeToggle"),stored=null;
+try{stored=localStorage.getItem("pc-theme")}catch(e){}
+if(stored==="dark"||stored==="light")root.setAttribute("data-theme",stored);
+toggle.addEventListener("click",function(){
+  var sd=window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var cur=root.getAttribute("data-theme")||(sd?"dark":"light");
+  var nx=cur==="dark"?"light":"dark";root.setAttribute("data-theme",nx);
+  try{localStorage.setItem("pc-theme",nx)}catch(e){}
+});
+var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var NS="http://www.w3.org/2000/svg";
+function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+
+/* ============ S2 split diagram ============ */
+(function split(){
+  var svg=document.getElementById("splitSvg");
+  /* bands */
+  svg.appendChild(el("rect",{x:0,y:34,width:900,height:86,fill:"var(--warn-wash)",opacity:.5}));
+  svg.appendChild(el("rect",{x:0,y:120,width:900,height:96,fill:"var(--accent-wash)",opacity:.55}));
+  var b1=el("text",{class:"sp-band",x:8,y:50,fill:"var(--warn)"});b1.textContent="GENERATIVE — MAY NOT COMPUTE";svg.appendChild(b1);
+  var b2=el("text",{class:"sp-band",x:8,y:136,fill:"var(--accent)"});b2.textContent="DETERMINISTIC — SOLE SOURCE OF NUMBERS";svg.appendChild(b2);
+  function box(x,y,w,h,cls,t,s){
+    svg.appendChild(el("rect",{class:"sp-box "+cls,x:x,y:y,width:w,height:h}));
+    var a=el("text",{class:"sp-t",x:x+11,y:y+22});a.textContent=t;svg.appendChild(a);
+    if(s){var c=el("text",{class:"sp-s",x:x+11,y:y+36});c.textContent=s;svg.appendChild(c);}
+  }
+  function arrow(x1,y1,x2,y2){
+    svg.appendChild(el("path",{class:"sp-arrow",d:"M"+x1+","+y1+" L"+x2+","+y2}));
+    var ang=Math.atan2(y2-y1,x2-x1);
+    svg.appendChild(el("path",{class:"sp-arrow",d:"M"+(x2-8*Math.cos(ang-0.4))+","+(y2-8*Math.sin(ang-0.4))+" L"+x2+","+y2+" L"+(x2-8*Math.cos(ang+0.4))+","+(y2-8*Math.sin(ang+0.4))}));
+  }
+  box(14,8,150,44,"sp-neutral","Question","natural language");
+  box(210,58,160,46,"sp-gen","Planner","selects a plan");
+  box(210,144,160,46,"sp-det","Plan registry","versioned, reviewed");
+  box(420,144,160,46,"sp-det","Executor","runs over ontology");
+  box(628,144,160,46,"sp-det","Value + ledger","hashed, replayable");
+  box(628,58,160,46,"sp-gen","Phraser","wraps, never alters");
+  box(806,100,80,44,"sp-neutral","Answer","");
+  arrow(164,30,290,58);
+  arrow(290,104,290,144);
+  arrow(370,167,420,167);
+  arrow(580,167,628,167);
+  arrow(708,144,708,104);
+  arrow(788,81,806,110);
+  arrow(788,167,806,138);
+})();
+
+/* ============ shared: deterministic hash (FNV-1a 32) ============ */
+function hash(str){
+  var h=0x811c9dc5;
+  for(var i=0;i<str.length;i++){h^=str.charCodeAt(i);h=(h+((h<<1)+(h<<4)+(h<<7)+(h<<8)+(h<<24)))>>>0}
+  return ("00000000"+h.toString(16)).slice(-8);
+}
+
+/* ============ S3 object store + plan engine ============ */
+var BASE={
+  "Site:NL-03":{name:"Site NL-03",hours_ytd:486200,region:"EU"},
+  "Site:DE-02":{name:"Site DE-02",hours_ytd:312400,region:"EU"},
+  "Site:OH-01":{name:"Site OH-01",hours_ytd:598050,region:"NA"},
+  "Incidents:NL-03":{recordable_ytd:4,total_ytd:31},
+  "Incidents:DE-02":{recordable_ytd:2,total_ytd:19},
+  "Incidents:OH-01":{recordable_ytd:3,total_ytd:24},
+  "Actions:NL-03":{open:41,overdue:9},
+  "Actions:DE-02":{open:27,overdue:5},
+  "Actions:OH-01":{open:33,overdue:4},
+  "Orders:at-risk":{count:38,value_eur:4118000}
+};
+var store=JSON.parse(JSON.stringify(BASE));
+
+var PLANS=[
+ {id:"PLAN-TRIR-v3",q:"What is the recordable injury rate (TRIR) at Site NL-03 year to date?",
+  unit:"",fmt:function(v){return v.toFixed(2)},
+  steps:function(s){
+    var rec=s["Incidents:NL-03"].recordable_ytd, hrs=s["Site:NL-03"].hours_ytd;
+    var val=(rec*200000)/hrs;
+    return {inputs:{"Incidents:NL-03.recordable_ytd":rec,"Site:NL-03.hours_ytd":hrs},
+      steps:[
+        ["resolve","Site <b>NL-03</b>","1 object"],
+        ["fetch","<b>Site.hours_ytd</b>",hrs.toLocaleString("en-US")],
+        ["traverse","Site &rarr; Incident <b>where recordable</b>",rec],
+        ["compute","(recordable &times; 200,000) &divide; hours",val.toFixed(4)],
+        ["round","2 dp &mdash; OSHA convention",val.toFixed(2)]
+      ],value:val};
+  },
+  prose:{plain:function(v){return "Site NL-03 is running a TRIR of "+v+" year to date."},
+         exec:function(v){return "NL-03 sits at a TRIR of "+v+", against a plan of 1.50 &mdash; above tolerance and worth a paired review."},
+         terse:function(v){return "NL-03 TRIR "+v+" YTD."}}},
+
+ {id:"PLAN-OVERDUE-EU-v2",q:"How many overdue corrective actions are open across EU sites?",
+  unit:" actions",fmt:function(v){return String(v)},
+  steps:function(s){
+    var a=s["Actions:NL-03"].overdue,b=s["Actions:DE-02"].overdue,val=a+b;
+    return {inputs:{"Actions:NL-03.overdue":a,"Actions:DE-02.overdue":b},
+      steps:[
+        ["filter","Site <b>where region = EU</b>","2 sites"],
+        ["fetch","<b>Actions.overdue</b> &middot; NL-03",a],
+        ["fetch","<b>Actions.overdue</b> &middot; DE-02",b],
+        ["aggregate","sum across sites",val]
+      ],value:val};
+  },
+  prose:{plain:function(v){return "There are "+v+" overdue corrective actions across EU sites."},
+         exec:function(v){return v+" corrective actions are past due in the EU &mdash; enough to trip the escalation ladder at two sites."},
+         terse:function(v){return "EU overdue: "+v+"."}}},
+
+ {id:"PLAN-REVRISK-v1",q:"What order value is exposed to the current at-risk supply cases?",
+  unit:"",fmt:function(v){return "€"+(v/1000000).toFixed(2)+"M"},
+  steps:function(s){
+    var c=s["Orders:at-risk"].count,v=s["Orders:at-risk"].value_eur;
+    return {inputs:{"Orders:at-risk.count":c,"Orders:at-risk.value_eur":v},
+      steps:[
+        ["traverse","RiskCase &rarr; Supplier &rarr; Material &rarr; Order","4 hops"],
+        ["filter","Order <b>where status = open</b>",c+" orders"],
+        ["aggregate","sum <b>Order.value</b>",v.toLocaleString("en-US")],
+        ["format","EUR millions, 2 dp","€"+(v/1000000).toFixed(2)+"M"]
+      ],value:v};
+  },
+  prose:{plain:function(v){return "Open orders worth "+v+" are exposed to current supply risk cases."},
+         exec:function(v){return v+" of committed order value sits behind at-risk supply &mdash; the six accounts with delivery penalties come first."},
+         terse:function(v){return "Exposure: "+v+"."}}}
+];
+
+var MODELS=[{id:"plain",n:"Plain"},{id:"exec",n:"Exec brief"},{id:"terse",n:"Terse"}];
+var curPlan=0,curModel="plain",lastLedger=null;
+
+var qPick=document.getElementById("qPick"),planSteps=document.getElementById("planSteps"),
+    answerText=document.getElementById("answerText"),ledgerEl=document.getElementById("ledgerBox"),
+    verdict=document.getElementById("verdict"),modelSel=document.getElementById("modelSel");
+
+function execPlan(i){
+  var p=PLANS[i],r=p.steps(store);
+  var display=p.fmt(r.value);
+  var inputStr=JSON.stringify(r.inputs);
+  return {plan:p,res:r,display:display,
+    valueHash:hash(p.id+"|"+inputStr+"|"+r.value),
+    planHash:hash(p.id+"|"+p.steps.toString().length)};
+}
+function render(){
+  var e=execPlan(curPlan),p=e.plan;
+  planSteps.innerHTML="";
+  e.res.steps.forEach(function(s,i){
+    var d=document.createElement("div");d.className="step";
+    d.innerHTML='<span class="step-i">'+String(i+1).padStart(2,"0")+'</span>'+
+      '<span class="step-op"><b>'+s[0].toUpperCase()+'</b> &nbsp;'+s[1]+' &nbsp;&rarr;&nbsp; <span class="step-r">'+s[2]+'</span></span>';
+    planSteps.appendChild(d);
+  });
+  var proseFn=p.prose[curModel]||p.prose.plain;
+  answerText.innerHTML=proseFn('<span class="num">'+e.display+'</span>');
+  var ts="2026-08-11T09:14:22Z";
+  lastLedger={valueHash:e.valueHash,inputs:e.res.inputs,value:e.res.value,display:e.display};
+  ledgerEl.innerHTML="";
+  [["Plan",p.id],["Inputs",Object.keys(e.res.inputs).map(function(k){return k+" = "+e.res.inputs[k]}).join("  ·  ")],
+   ["Computed",e.display],["Value hash",e.valueHash],["Phrasing model",curModel+" (prose only)"],["Emitted",ts]]
+  .forEach(function(r){
+    var d=document.createElement("div");d.className="lg-row";
+    d.innerHTML='<span class="lg-k"></span><span class="lg-v'+(r[0]==="Value hash"?" hash":"")+'"></span>';
+    d.children[0].textContent=r[0];d.children[1].textContent=r[1];
+    ledgerEl.appendChild(d);
+  });
+}
+PLANS.forEach(function(p,i){
+  var b=document.createElement("button");b.type="button";b.className="qb"+(i===0?" on":"");b.textContent=p.q;
+  b.addEventListener("click",function(){
+    curPlan=i;Array.prototype.forEach.call(qPick.children,function(x,j){x.classList.toggle("on",j===i)});
+    verdict.className="verdict-line vidle";verdict.textContent="Not yet replayed";render();
+  });
+  qPick.appendChild(b);
+});
+MODELS.forEach(function(m,i){
+  var b=document.createElement("button");b.type="button";b.className="ms"+(i===0?" on":"");b.textContent=m.n;
+  b.addEventListener("click",function(){
+    curModel=m.id;Array.prototype.forEach.call(modelSel.children,function(x,j){x.classList.toggle("on",j===i)});
+    var before=lastLedger?lastLedger.valueHash:null;render();
+    verdict.className="verdict-line vok";
+    verdict.textContent=before===lastLedger.valueHash?"✓ Prose changed · value hash unchanged ("+lastLedger.valueHash+")":"✓ Re-rendered";
+  });
+  modelSel.appendChild(b);
+});
+document.getElementById("btnReplay").addEventListener("click",function(){
+  var before=lastLedger?lastLedger.valueHash:null,beforeVal=lastLedger?lastLedger.value:null;
+  var e=execPlan(curPlan);
+  if(before===e.valueHash){
+    verdict.className="verdict-line vok";
+    verdict.textContent="✓ VERIFIED — replay reproduced "+e.valueHash;
+  }else{
+    var diffs=[];
+    Object.keys(e.res.inputs).forEach(function(k){
+      if(lastLedger&&lastLedger.inputs[k]!==e.res.inputs[k])diffs.push(k+": "+lastLedger.inputs[k]+" → "+e.res.inputs[k]);
+    });
+    var p=PLANS[curPlan];
+    verdict.className="verdict-line vdrift";
+    verdict.textContent="✕ DRIFT — "+(diffs.join("; ")||"inputs changed")+" · value "+p.fmt(beforeVal)+" → "+p.fmt(e.res.value);
+    render();
+  }
+});
+document.getElementById("btnMutate").addEventListener("click",function(){
+  var targets=[["Incidents:NL-03","recordable_ytd",1],["Actions:NL-03","overdue",2],["Orders:at-risk","value_eur",240000]];
+  var t=targets[curPlan];
+  store[t[0]][t[1]]+=t[2];
+  verdict.className="verdict-line vdrift";
+  verdict.textContent="Source record changed: "+t[0]+"."+t[1]+" +"+t[2]+" — now hit Replay";
+});
+document.getElementById("btnReset").addEventListener("click",function(){
+  store=JSON.parse(JSON.stringify(BASE));
+  verdict.className="verdict-line vidle";verdict.textContent="Store reset to baseline";render();
+});
+render();
+
+/* ============ S4 constrained generation ============ */
+var REGISTRY=["ACME-0042","MAT-10442","MSA-2025-0114","NL-03","DE-02","P-4471","VDB-0231","WO-556210","B-88213"];
+var STREAM=[
+  ["Suppliers",0],["exposed",0],["to",0],["the",0],["NL-03",1],["outage:",0],
+  ["ACME-0042",1],[",",0],["NORDIC-118",2],[",",0],["BRENNTAG-77",2],[".",0],
+  ["Governing",0],["contract",0],["MSA-2025-0114",1],["covers",0],["MAT-10442",1],
+  ["and",0],["MAT-99820",2],["."],
+];
+(function constrained(){
+  var bad=document.getElementById("streamBad"),good=document.getElementById("streamGood"),
+      cb=document.getElementById("cntBad"),cg=document.getElementById("cntGood"),
+      gt=document.getElementById("gTokens"),btn=document.getElementById("btnGen");
+  REGISTRY.forEach(function(t){var s=document.createElement("span");s.className="gt";s.textContent=t;gt.appendChild(s)});
+  var timers=[];
+  function run(){
+    timers.forEach(clearTimeout);timers=[];
+    bad.innerHTML="";good.innerHTML="";
+    var nBad=0,nGood=0,rejected=0;
+    function emit(i){
+      var t=STREAM[i];if(!t)return;
+      var word=t[0],kind=t[1]||0;
+      var isEntity=kind>0, valid=REGISTRY.indexOf(word)>-1;
+      /* unconstrained: emits everything */
+      var s1=document.createElement("span");
+      s1.className="tok"+(isEntity?(valid?" ent":" invalid"):"");
+      s1.textContent=word+" ";bad.appendChild(s1);
+      if(isEntity&&!valid)nBad++;
+      /* constrained: entity tokens checked against the registry */
+      var s2=document.createElement("span");
+      if(isEntity&&!valid){
+        s2.className="tok rejected";s2.textContent=word+" ";rejected++;
+        good.appendChild(s2);
+        var note=document.createElement("span");
+        note.className="tok";note.style.color="var(--accent)";note.style.fontWeight="700";
+        note.textContent="✕ ";good.appendChild(note);
+      }else{
+        s2.className="tok"+(isEntity?" ent":"");s2.textContent=word+" ";good.appendChild(s2);
+        if(isEntity)nGood++;
+      }
+      cb.textContent=nBad+" invented "+(nBad===1?"entity":"entities");
+      cg.textContent=rejected+" rejected · 0 invented";
+    }
+    if(reduced){STREAM.forEach(function(_,i){emit(i)});return}
+    STREAM.forEach(function(_,i){timers.push(setTimeout(function(){emit(i)},i*110))});
+  }
+  btn.addEventListener("click",run);
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run();io.unobserve(e.target)}})},{threshold:.35});
+  io.observe(document.querySelector(".cg"));
+})();
+
+/* ============ S5 trust budget ============ */
+var TASKS=[
+ {id:"classify",n:"Classify incident",gen:1,base:.00015},
+ {id:"summarize",n:"Summarize narrative",gen:1,base:.0009},
+ {id:"extract",n:"Extract clause",gen:1,base:.0012},
+ {id:"compute",n:"Compute TRIR",gen:0,base:0},
+ {id:"draft",n:"Draft board narrative",gen:1,base:.004},
+ {id:"route",n:"Route an alert",gen:0,base:0}
+];
+var VOLS=[100,1000,5000,25000,100000,500000];
+var CONS=["Informational","Operational","Financial","Regulatory"];
+(function budget(){
+  var tg=document.getElementById("taskGrid"),vr=document.getElementById("volRange"),
+      cr=document.getElementById("consRange"),vv=document.getElementById("volVal"),cv=document.getElementById("consVal"),
+      lad=document.getElementById("ladder");
+  var LADDER=[
+   ["No model","Deterministic code over the ontology. Reproducible by construction, zero inference cost."],
+   ["Small model","Cheap classification and routing where a wrong answer is cheap to correct."],
+   ["Large model","Reserved for genuinely open language work — drafting, synthesis, ambiguity."],
+   ["Model + mandatory review","Generative draft, human sign-off recorded as an object. The only tier permitted to touch a filing."]
+  ];
+  LADDER.forEach(function(l,i){
+    var d=document.createElement("div");d.className="ld";d.setAttribute("data-i",i);
+    d.innerHTML='<span class="ld-n"></span><span class="ld-d"></span>';
+    d.children[0].textContent=(i+1)+" · "+l[0];d.children[1].textContent=l[1];
+    lad.appendChild(d);
+  });
+  var task=0;
+  TASKS.forEach(function(t,i){
+    var b=document.createElement("button");b.type="button";b.className="tk"+(i===0?" on":"");b.textContent=t.n;
+    b.addEventListener("click",function(){task=i;Array.prototype.forEach.call(tg.children,function(x,j){x.classList.toggle("on",j===i)});calc()});
+    tg.appendChild(b);
+  });
+  function calc(){
+    var t=TASKS[task],vol=VOLS[+vr.value],cons=+cr.value;
+    vv.textContent=vol.toLocaleString("en-US")+" items";
+    cv.textContent=CONS[cons];
+    var tier,chip,why,unit,review=0;
+    if(!t.gen){
+      tier="No model";chip="DETERMINISTIC";unit=0;
+      why="This task is arithmetic or a rule. Generating it would introduce variance for zero benefit — it belongs in the deterministic core, whatever the consequence tier.";
+    }else if(cons===3){
+      tier="Model + mandatory review";chip="GATED";unit=t.base*2.2;review=vol*0.04;
+      why="Regulatory consequence. A model may draft, but the numbers come from the plan engine and a named human signs — the approval is recorded as an object.";
+    }else if(cons===2){
+      tier=vol>=25000?"Small model + sampling":"Large model";chip="AUDITED";
+      unit=vol>=25000?t.base*0.28:t.base*2.2;review=vol*(vol>=25000?0.004:0.012);
+      why=vol>=25000
+        ? "Financial consequence at high volume. Distil to a small model, then sample-audit a slice against the large model weekly rather than paying frontier price per item."
+        : "Financial consequence at moderate volume. Frontier model is affordable here, with every output carrying a claim ledger.";
+    }else if(cons===1){
+      tier=vol>=100000?"Small model":"Small model";chip="STANDARD";unit=t.base*0.28;review=vol*0.002;
+      why="Operational consequence. A small model is sufficient and an order of magnitude cheaper; errors are caught downstream and cheap to correct.";
+    }else{
+      tier="Small model";chip="LOW STAKES";unit=t.base*0.18;review=0;
+      why="Informational only. Use the cheapest thing that works and spend nothing on assurance.";
+    }
+    var infer=unit*vol,total=infer+review;
+    document.getElementById("recTier").textContent=tier;
+    var chipEl=document.getElementById("recChip");chipEl.textContent=chip;
+    var col=!t.gen?"var(--accent)":cons===3?"var(--warn)":cons===2?"var(--ink-2)":"var(--muted)";
+    chipEl.style.color=col;chipEl.style.borderColor=col;
+    document.getElementById("recWhy").textContent=why;
+    document.getElementById("cUnit").textContent=unit?"$"+unit.toFixed(5):"$0.00000";
+    document.getElementById("cVol").textContent=vol.toLocaleString("en-US");
+    document.getElementById("cRev").textContent=review?"$"+review.toFixed(0):"$0";
+    document.getElementById("cTot").textContent="$"+total.toFixed(total<100?2:0)+" / mo";
+    var active=!t.gen?0:cons===3?3:(cons===2&&vol<25000)?2:1;
+    Array.prototype.forEach.call(lad.children,function(x,i){x.classList.toggle("active",i===active)});
+  }
+  vr.addEventListener("input",calc);cr.addEventListener("input",calc);calc();
+})();
+
+/* reveal */
+var rv=document.querySelectorAll(".reveal");
+if(reduced||!("IntersectionObserver" in window)){Array.prototype.forEach.call(rv,function(e){e.classList.add("in")})}
+else{var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");ro.unobserve(e.target)}})},{threshold:.06,rootMargin:"0px 0px -30px 0px"});
+Array.prototype.forEach.call(rv,function(e){ro.observe(e)})}
+})();
+</script>
+
+</body>
+</html>
