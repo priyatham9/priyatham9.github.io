@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Priyatham Chimmani — EHS &amp; ESG Data and Systems</title>
 <meta name="description" content="Priyatham Chimmani — EHS/ESG data and systems leader. Enterprise EHS platforms, data engineering, and applied AI for a global chemicals manufacturer." />
+<meta name="robots" content="noindex, nofollow" />
+<meta property="og:title" content="Priyatham Chimmani — EHS &amp; ESG Data and Systems" />
+<meta property="og:description" content="Enterprise EHS platforms, data engineering, and applied AI for a global chemicals manufacturer." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://priyatham9.github.io/" />
+<meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" />
 <style>
 /* ============ tokens ============ */
 :root {
@@ -21,8 +32,9 @@
   --accent-ink: #FFFFFF;
   --accent-wash:#E3F0E9;
   --grid-dot:   rgba(16, 19, 17, 0.10);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --shadow:     rgba(16, 19, 17, 0.08);
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
   --maxw: 1180px;
 }
 @media (prefers-color-scheme: dark) {
@@ -40,6 +52,7 @@
     --accent-ink: #06130C;
     --accent-wash:#10241A;
     --grid-dot:   rgba(234, 239, 234, 0.09);
+    --shadow:     rgba(0, 0, 0, 0.4);
   }
 }
 :root[data-theme="light"] {
@@ -47,14 +60,14 @@
   --ink:#101311; --ink-2:#3A403C; --muted:#6E7570;
   --rule:#101311; --rule-soft:#D6D7CE;
   --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
-  --grid-dot: rgba(16, 19, 17, 0.10);
+  --grid-dot: rgba(16, 19, 17, 0.10); --shadow: rgba(16, 19, 17, 0.08);
 }
 :root[data-theme="dark"] {
   --paper:#0A0D0B; --surface:#121712; --surface-2:#171D18;
   --ink:#EAEFEA; --ink-2:#BFC7C1; --muted:#838C86;
   --rule:#EAEFEA; --rule-soft:#262E28;
   --accent:#3FCB88; --accent-2:#2AA96C; --accent-ink:#06130C; --accent-wash:#10241A;
-  --grid-dot: rgba(234, 239, 234, 0.09);
+  --grid-dot: rgba(234, 239, 234, 0.09); --shadow: rgba(0, 0, 0, 0.4);
 }
 
 /* ============ base ============ */
@@ -63,15 +76,19 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0; background: var(--paper); color: var(--ink);
-  font-family: var(--font-sans); font-size: 16px; line-height: 1.6;
+  font-family: var(--font-sans); font-size: 16px; line-height: 1.62;
   -webkit-font-smoothing: antialiased;
 }
 h1, h2, h3 { margin: 0; text-wrap: balance; line-height: 1.05; }
 p { margin: 0; }
 ul { margin: 0; padding: 0; list-style: none; }
 a { color: inherit; }
-:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 svg { display: block; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+section[id] { scroll-margin-top: 76px; }
+
+.display { font-stretch: 125%; font-weight: 900; text-transform: uppercase; }
 
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 30px; }
 @media (max-width: 640px) { .wrap { padding: 0 18px; } }
@@ -92,10 +109,10 @@ svg { display: block; }
 /* ============ top bar ============ */
 .topbar { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 2px solid var(--rule); }
 .topbar-inner {
-  max-width: var(--maxw); margin: 0 auto; padding: 14px 30px;
+  max-width: var(--maxw); margin: 0 auto; padding: 13px 30px;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-@media (max-width: 640px) { .topbar-inner { padding: 12px 18px; } }
+@media (max-width: 640px) { .topbar-inner { padding: 11px 18px; } }
 .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
 .brand-mark { width: 14px; height: 14px; background: var(--accent); flex: none; }
 .topnav { display: flex; align-items: center; gap: 2px; }
@@ -125,84 +142,113 @@ svg { display: block; }
 
 /* ============ hero ============ */
 .hero {
-  position: relative; padding: 80px 0 64px; border-bottom: 2px solid var(--rule);
+  position: relative; padding: 74px 0 56px; border-bottom: 2px solid var(--rule);
   background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
   background-size: 22px 22px;
 }
-@media (max-width: 640px) { .hero { padding: 46px 0 40px; } }
-.hero-grid { display: block; }
+@media (max-width: 640px) { .hero { padding: 44px 0 36px; } }
 
-.hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 24px; }
 .pulse { width: 9px; height: 9px; background: var(--accent); flex: none; }
-@media (prefers-reduced-motion: no-preference) { .pulse { animation: pulse 2.4s steps(1, end) infinite; } }
-@keyframes pulse { 0%, 62% { opacity: 1; } 63%, 100% { opacity: .22; } }
 
 .hero h1 {
-  font-size: clamp(2.9rem, 8.4vw, 5.8rem);
-  font-weight: 900; letter-spacing: -0.05em;
-  text-transform: uppercase; margin-bottom: 18px;
+  font-size: clamp(3rem, 9.6vw, 6.9rem);
+  letter-spacing: -0.028em; line-height: 0.95;
+  margin-bottom: 22px;
 }
-/* second line drawn as an outline — falls back to solid where unsupported */
+.line { display: block; overflow: hidden; padding: 0.045em 0; }
+.line-in { display: inline-block; }
 .h1-outline { color: var(--ink); }
 @supports (-webkit-text-stroke: 1px black) {
-  .h1-outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+  .h1-outline { color: transparent; -webkit-text-stroke: 2.5px var(--ink); }
 }
 
-/* drawing-sheet registration marks */
 .hero::before, .hero::after {
-  content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none;
+  content: ""; position: absolute; width: 16px; height: 16px; pointer-events: none;
   border-color: var(--accent); border-style: solid;
 }
-.hero::before { top: 16px; left: 16px; border-width: 2px 0 0 2px; }
-.hero::after  { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+.hero::before { top: 18px; left: 18px; border-width: 2px 0 0 2px; }
+.hero::after  { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
 @media (max-width: 640px) { .hero::before, .hero::after { display: none; } }
+
 .hero-role {
   font-family: var(--font-mono); font-weight: 600;
   font-size: clamp(0.75rem, 1.4vw, 0.875rem);
   text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--accent); margin-bottom: 22px;
-  padding-bottom: 20px; border-bottom: 2px solid var(--rule-soft);
+  color: var(--accent); margin-bottom: 24px;
+  padding-bottom: 22px; border-bottom: 2px solid var(--rule-soft);
+  max-width: 760px;
 }
-.hero-lede { font-size: 1.125rem; color: var(--ink-2); max-width: 54ch; margin-bottom: 30px; }
+.hero-lede { font-size: clamp(1.0625rem, 1.8vw, 1.1875rem); color: var(--ink-2); max-width: 56ch; margin-bottom: 32px; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 0; }
 .btn {
   display: inline-flex; align-items: center; gap: 9px;
-  padding: 12px 18px; border: 2px solid var(--rule); margin: 0 -2px -2px 0;
+  padding: 13px 19px; border: 2px solid var(--rule); margin: 0 -2px -2px 0;
   font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.08em;
   text-decoration: none; background: var(--paper); color: var(--ink);
   transition: background .15s, color .15s, border-color .15s;
 }
 .btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .btn svg { width: 14px; height: 14px; flex: none; }
 
-/* ---- interactive architecture map ---- */
+/* status board */
+.status {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 2px solid var(--rule); background: var(--surface);
+  margin-top: 34px; max-width: 900px;
+}
+@media (max-width: 700px) { .status { grid-template-columns: repeat(2, 1fr); } }
+.st-cell { padding: 13px 16px; border-left: 2px solid var(--rule-soft); }
+.st-cell:first-child { border-left: 0; }
+@media (max-width: 700px) {
+  .st-cell:nth-child(odd) { border-left: 0; }
+  .st-cell:nth-child(n+3) { border-top: 2px solid var(--rule-soft); }
+}
+.st-k { font-family: var(--font-mono); font-size: .5625rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+.st-v { font-family: var(--font-mono); font-size: .75rem; font-weight: 700; color: var(--ink); letter-spacing: .02em; }
+.st-v.accent { color: var(--accent); }
+
+/* ============ ticker ============ */
+.ticker { overflow: hidden; border-bottom: 2px solid var(--rule); background: var(--surface); }
+.ticker-track { display: flex; width: max-content; }
+.tick-item {
+  display: inline-flex; align-items: center; gap: 22px;
+  padding: 12px 11px; font-family: var(--font-mono);
+  font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.18em;
+  color: var(--muted); white-space: nowrap; text-transform: uppercase;
+}
+.tick-sep { width: 6px; height: 6px; background: var(--accent); flex: none; }
+
+/* ============ architecture ============ */
 .arch { border-bottom: 2px solid var(--rule); background: var(--surface); }
 .arch-head {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
-  gap: 10px; padding: 18px 30px; border-bottom: 2px solid var(--rule);
+  gap: 10px; padding: 20px 30px 18px; border-bottom: 2px solid var(--rule);
   max-width: var(--maxw); margin: 0 auto;
 }
 @media (max-width: 640px) { .arch-head { padding: 14px 18px; } }
-.arch-title { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; }
-.arch-body { max-width: var(--maxw); margin: 0 auto; padding: 20px 30px 8px; overflow-x: auto; }
+.arch-title { font-size: clamp(1.05rem, 2vw, 1.25rem); letter-spacing: -0.01em; }
+.arch-body { max-width: var(--maxw); margin: 0 auto; padding: 22px 30px 8px; overflow-x: auto; }
 @media (max-width: 640px) { .arch-body { padding: 14px 18px 6px; } }
 #archSvg { width: 100%; height: auto; min-width: 880px; display: block; }
 
 .a-tier   { font-family: var(--font-mono); font-size: 9px; font-weight: 700; fill: var(--muted); letter-spacing: .16em; }
+.a-tier-n { fill: var(--accent); }
 .a-rule   { stroke: var(--rule-soft); stroke-width: 1.5; }
 .a-box    { fill: var(--surface-2); stroke: var(--rule-soft); stroke-width: 1.6; transition: fill .18s, stroke .18s; }
-.a-label  { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--ink-2); letter-spacing: .01em; transition: fill .18s; pointer-events: none; }
+.a-label  { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; fill: var(--ink-2); letter-spacing: .01em; transition: fill .18s; pointer-events: none; }
 .a-edge   { fill: none; stroke: var(--rule-soft); stroke-width: 1.5; transition: stroke .18s, stroke-width .18s, opacity .18s; }
 .a-pt     { fill: var(--accent); transition: opacity .18s; }
-.a-node   { cursor: pointer; }
+.a-node   { cursor: pointer; outline: none; }
 .a-node rect { pointer-events: all; }
+.a-node:focus .a-box, .a-node:focus-visible .a-box { stroke: var(--accent); stroke-width: 2.4; }
 
-/* hover state: trace the path through the architecture */
-#archSvg.dim .a-node:not(.hot) .a-box   { opacity: .28; }
-#archSvg.dim .a-node:not(.hot) .a-label { opacity: .28; }
+#archSvg.dim .a-node:not(.hot) .a-box   { opacity: .26; }
+#archSvg.dim .a-node:not(.hot) .a-label { opacity: .26; }
 #archSvg.dim .a-edge:not(.hot)          { opacity: .10; }
 #archSvg.dim .a-pt:not(.hot)            { opacity: .10; }
 .a-node.hot .a-box   { fill: var(--accent); stroke: var(--accent); }
@@ -211,8 +257,8 @@ svg { display: block; }
 .a-edge.hot { stroke: var(--accent); stroke-width: 2.4; }
 
 .arch-readout {
-  max-width: var(--maxw); margin: 0 auto; padding: 0 30px 20px;
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; min-height: 44px;
+  max-width: var(--maxw); margin: 0 auto; padding: 0 30px 22px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; min-height: 46px;
 }
 @media (max-width: 640px) { .arch-readout { padding: 0 18px 16px; } }
 .ro-key { font-family: var(--font-mono); font-size: .75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
@@ -227,7 +273,7 @@ svg { display: block; }
 /* ============ metrics ============ */
 .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--rule); }
 @media (max-width: 860px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
-.metric { padding: 32px 30px; border-left: 2px solid var(--rule-soft); }
+.metric { padding: 34px 30px; border-left: 2px solid var(--rule-soft); }
 .metric:first-child { border-left: 0; }
 @media (max-width: 860px) {
   .metric { padding: 24px 18px; }
@@ -235,21 +281,22 @@ svg { display: block; }
   .metric:nth-child(n+3) { border-top: 2px solid var(--rule-soft); }
 }
 .metric-value {
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: clamp(2.1rem, 5vw, 3.1rem); font-weight: 700;
-  letter-spacing: -0.05em; line-height: 1; margin-bottom: 12px;
+  font-stretch: 125%; font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.3rem, 5.4vw, 3.4rem);
+  letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px;
 }
-.metric-bar { height: 3px; background: var(--accent); width: 0; margin-bottom: 10px; }
+.metric-bar { height: 4px; background: var(--accent); width: 0; margin-bottom: 12px; }
 @media (prefers-reduced-motion: no-preference) { .metric-bar { transition: width .9s cubic-bezier(.16,.84,.3,1); } }
 
 /* ============ sections ============ */
-.section { padding: 76px 0; border-bottom: 2px solid var(--rule); }
+.section { padding: 78px 0; border-bottom: 2px solid var(--rule); }
 @media (max-width: 640px) { .section { padding: 48px 0; } }
-.section-grid { display: grid; grid-template-columns: 210px 1fr; gap: 54px; }
+.section-grid { display: grid; grid-template-columns: 216px 1fr; gap: 56px; }
 @media (max-width: 940px) { .section-grid { grid-template-columns: 1fr; gap: 28px; } }
 .section-rail { position: sticky; top: 96px; align-self: start; }
 @media (max-width: 940px) { .section-rail { position: static; } }
-.rail-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.rail-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
 .rail-num {
   display: inline-block; background: var(--accent); color: var(--accent-ink);
   font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700;
@@ -257,11 +304,11 @@ svg { display: block; }
 }
 .rail-of { font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600; letter-spacing: .12em; color: var(--muted); }
 .rail-rule { flex: 1; height: 2px; background: var(--rule-soft); }
-.section h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; }
+.section h2 { font-size: clamp(1.55rem, 3.4vw, 2.05rem); letter-spacing: -0.02em; }
 .rail-note { margin-top: 14px; font-size: 0.8125rem; color: var(--muted); max-width: 24ch; }
 
 /* focus cards */
-.cards { display: grid; grid-template-columns: repeat(2, 1fr); border: 2px solid var(--rule); }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); border: 2px solid var(--rule); background: var(--surface); }
 @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
 .card { padding: 26px; border-right: 2px solid var(--rule-soft); border-bottom: 2px solid var(--rule-soft); position: relative; }
 .card:nth-child(2n) { border-right: 0; }
@@ -273,6 +320,13 @@ svg { display: block; }
 }
 .card::after { content: ""; position: absolute; left: 0; top: 0; width: 3px; height: 0; background: var(--accent); transition: height .28s cubic-bezier(.2,.7,.3,1); }
 .card:hover::after { height: 100%; }
+.card-ic {
+  width: 38px; height: 38px; border: 2px solid var(--rule);
+  display: grid; place-items: center; margin-bottom: 16px;
+  color: var(--ink); transition: background .18s, border-color .18s, color .18s;
+}
+.card-ic svg { width: 19px; height: 19px; }
+.card:hover .card-ic { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .card h3 { font-size: 0.9375rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 10px; }
 .card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 14px; }
 .chips { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -291,20 +345,21 @@ svg { display: block; }
   transition: transform .2s cubic-bezier(.2,.7,.3,1), box-shadow .2s;
 }
 .project:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); }
+.project-idx { position: absolute; top: 16px; right: 18px; font-family: var(--font-mono); font-size: .625rem; font-weight: 600; letter-spacing: .12em; color: var(--muted); }
 .project-kicker {
   display: inline-flex; align-self: flex-start; align-items: center; gap: 6px;
   font-family: var(--font-mono); font-size: 0.625rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
   border: 1px solid var(--accent); padding: 3px 7px; margin-bottom: 14px;
 }
-.project h3 { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 9px; line-height: 1.22; }
+.project h3 { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 9px; line-height: 1.22; }
 .project p { font-size: 0.875rem; color: var(--ink-2); margin-bottom: 16px; flex: 1; }
 
 /* experience */
 .role { padding: 28px 0; border-top: 2px solid var(--rule-soft); }
 .role:first-child { border-top: 0; padding-top: 0; }
 .role-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 18px; align-items: baseline; }
-.role-title { font-size: 1.125rem; font-weight: 800; letter-spacing: -0.028em; }
+.role-title { font-size: 1.125rem; font-weight: 800; letter-spacing: -0.018em; }
 .role-org { color: var(--muted); font-size: 0.9375rem; margin-bottom: 14px; }
 .role-org strong { color: var(--ink); font-weight: 700; }
 .role ul { display: flex; flex-direction: column; gap: 9px; }
@@ -312,7 +367,7 @@ svg { display: block; }
 .role li::before { content: ""; position: absolute; left: 0; top: 0.56em; width: 8px; height: 2px; background: var(--accent); }
 
 /* wins */
-.wins { border: 2px solid var(--rule); }
+.wins { border: 2px solid var(--rule); background: var(--surface); }
 .win { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; padding: 22px 24px; border-bottom: 2px solid var(--rule-soft); transition: background .18s; }
 .win:last-child { border-bottom: 0; }
 .win:hover { background: var(--accent-wash); }
@@ -328,16 +383,28 @@ svg { display: block; }
 .edu-school { color: var(--muted); font-size: 0.875rem; grid-column: 1 / -1; }
 
 /* footer */
-.footer { padding: 56px 0 68px; }
-.footer h2 { font-size: clamp(1.9rem, 5.4vw, 3.2rem); font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase; margin-bottom: 22px; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 28px; }
+.footer { padding: 60px 0 72px; }
+.footer h2 { font-size: clamp(2.1rem, 6vw, 3.6rem); letter-spacing: -0.03em; margin-bottom: 24px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 30px; }
 .footer-note { color: var(--muted); font-size: 0.8125rem; }
 
-/* reveal */
+/* reveal + load choreography (motion only when allowed) */
 @media (prefers-reduced-motion: no-preference) {
+  .pulse { animation: pulse 2.4s steps(1, end) infinite; }
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s cubic-bezier(.16,.84,.3,1); }
   .reveal.in { opacity: 1; transform: none; }
+  .line-in { transform: translateY(112%); animation: lineup .75s cubic-bezier(.16,.84,.3,1) forwards; }
+  .line:nth-child(2) .line-in { animation-delay: .1s; }
+  .fx { opacity: 0; animation: fadeup .6s cubic-bezier(.16,.84,.3,1) forwards; }
+  .fx-1 { animation-delay: .05s; } .fx-2 { animation-delay: .3s; }
+  .fx-3 { animation-delay: .42s; } .fx-4 { animation-delay: .54s; } .fx-5 { animation-delay: .68s; }
+  .ticker-track { animation: tick 34s linear infinite; }
+  .ticker:hover .ticker-track { animation-play-state: paused; }
 }
+@keyframes pulse  { 0%, 62% { opacity: 1; } 63%, 100% { opacity: .22; } }
+@keyframes lineup { to { transform: translateY(0); } }
+@keyframes fadeup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes tick   { to { transform: translateX(-50%); } }
 </style>
 </head>
 <body>
@@ -348,11 +415,13 @@ svg { display: block; }
   <div class="topbar-inner">
     <div class="brand"><span class="brand-mark"></span>Chimmani</div>
     <nav class="topnav">
+      <a href="#architecture">Architecture</a>
       <a href="#focus">Focus</a>
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
       <a href="#wins">Wins</a>
       <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
     </nav>
     <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
@@ -364,38 +433,65 @@ svg { display: block; }
 <main>
 
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="hero-eyebrow"><span class="pulse"></span><span class="label">EHS &amp; ESG Data and Systems</span></div>
-      <h1>Priyatham<br /><span class="h1-outline">Chimmani</span></h1>
-      <div class="hero-role">EHS Data Analyst · Hexion Inc. · Columbus, Ohio</div>
-      <p class="hero-lede">
-        I turn plant, safety, and operational data into decisions executives can act on — owning the
-        enterprise EHS management system end to end, building the data and AI platforms underneath it,
-        and leading the people who ship it.
-      </p>
-      <div class="hero-links">
-        <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16"></rect><path d="m2 7 10 6 10-6"></path></svg>
-          Get in touch
-        </a>
-        <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95 4.02 0 4.76 2.5 4.76 5.75V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21h-4z"></path></svg>
-          LinkedIn
-        </a>
-        <a class="btn" href="https://github.com/priyatham9" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"></path></svg>
-          GitHub
-        </a>
-      </div>
+  <div class="wrap">
+    <div class="hero-eyebrow fx fx-1"><span class="pulse"></span><span class="label">EHS &amp; ESG Data and Systems</span></div>
+    <h1 class="display" aria-label="Priyatham Chimmani">
+      <span class="line"><span class="line-in">Priyatham</span></span>
+      <span class="line"><span class="line-in h1-outline">Chimmani</span></span>
+    </h1>
+    <div class="hero-role fx fx-2">EHS Data Analyst · Hexion Inc. · Columbus, Ohio</div>
+    <p class="hero-lede fx fx-3">
+      I turn plant, safety, and operational data into decisions executives can act on — owning the
+      enterprise EHS management system end to end, building the data and AI platforms underneath it,
+      and leading the people who ship it.
+    </p>
+    <div class="hero-links fx fx-4">
+      <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16"></rect><path d="m2 7 10 6 10-6"></path></svg>
+        Get in touch
+      </a>
+      <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95 4.02 0 4.76 2.5 4.76 5.75V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21h-4z"></path></svg>
+        LinkedIn
+      </a>
+      <a class="btn" href="https://github.com/priyatham9" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"></path></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="status fx fx-5">
+      <div class="st-cell"><span class="st-k">Location</span><span class="st-v">Columbus, OH</span></div>
+      <div class="st-cell"><span class="st-k">Current</span><span class="st-v">Hexion Inc.</span></div>
+      <div class="st-cell"><span class="st-k">Open to</span><span class="st-v accent">EHS/ESG Leadership</span></div>
+      <div class="st-cell"><span class="st-k">Site visits</span><span class="st-v mono" id="visitCount">·····</span></div>
     </div>
   </div>
 </section>
 
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="tick-item">Benchmark ESG<span class="tick-sep"></span></span>
+    <span class="tick-item">Databricks<span class="tick-sep"></span></span>
+    <span class="tick-item">Palantir Foundry<span class="tick-sep"></span></span>
+    <span class="tick-item">Power BI<span class="tick-sep"></span></span>
+    <span class="tick-item">Microsoft Fabric<span class="tick-sep"></span></span>
+    <span class="tick-item">SAP<span class="tick-sep"></span></span>
+    <span class="tick-item">Dynamics 365<span class="tick-sep"></span></span>
+    <span class="tick-item">Icertis<span class="tick-sep"></span></span>
+    <span class="tick-item">Unity Catalog<span class="tick-sep"></span></span>
+    <span class="tick-item">PySpark<span class="tick-sep"></span></span>
+    <span class="tick-item">MCP<span class="tick-sep"></span></span>
+    <span class="tick-item">OpenAI<span class="tick-sep"></span></span>
+    <span class="tick-item">Copilot Studio<span class="tick-sep"></span></span>
+    <span class="tick-item">Claude Code<span class="tick-sep"></span></span>
+    <span class="tick-item">OSHA · MSHA · ACC<span class="tick-sep"></span></span>
+  </div>
+</div>
+
 <section class="arch" id="architecture">
   <div class="arch-head">
-    <span class="arch-title">Architecture I've built</span>
-    <span class="label">Hover any block to trace its path</span>
+    <span class="arch-title display">Architecture I've built</span>
+    <span class="label">Hover or tap any block to trace its path</span>
   </div>
   <div class="arch-body">
     <svg id="archSvg" viewBox="0 0 1110 360" role="img"
@@ -444,26 +540,30 @@ svg { display: block; }
   <div class="wrap section-grid">
     <div class="section-rail reveal">
       <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
-      <h2>Focus</h2>
+      <h2 class="display">Focus</h2>
       <p class="rail-note">Where I spend my time, and what I own outright.</p>
     </div>
     <div class="cards reveal">
       <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
         <h3>EHS &amp; ESG Systems</h3>
         <p>Global owner of the enterprise EHS management system and the regulatory reporting that depends on it.</p>
         <div class="chips"><span class="chip">Benchmark ESG / Gensuite</span><span class="chip">OSHA</span><span class="chip">MSHA</span><span class="chip">ACC</span><span class="chip">Encamp</span><span class="chip">Diligent</span></div>
       </div>
       <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z"></path><path d="m2 12 10 5 10-5"></path><path d="m2 17 10 5 10-5"></path></svg></div>
         <h3>Data Engineering</h3>
         <p>Production pipelines that turn scattered source systems into governed, audit-ready reporting.</p>
         <div class="chips"><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">Unity Catalog</span><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">SAP</span><span class="chip">Dynamics 365</span><span class="chip">Foundry</span></div>
       </div>
       <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.8 2.8M16.2 16.2 19 19M5 19l2.8-2.8M16.2 7.8 19 5"></path></svg></div>
         <h3>Applied AI</h3>
         <p>Agents that let people ask questions of enterprise data in plain language — grounded, auditable, cost-aware.</p>
         <div class="chips"><span class="chip">Copilot Studio</span><span class="chip">Claude Code</span><span class="chip">OpenAI API</span><span class="chip">Codex</span><span class="chip">MCP</span><span class="chip">NLQ agents</span></div>
       </div>
       <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15v-4M12 15V7M17 15v-6"></path></svg></div>
         <h3>Decision Support</h3>
         <p>Board-level reporting, safety strategy, and optimization models used by leadership across the business.</p>
         <div class="chips"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Microsoft Fabric</span><span class="chip">Tableau</span><span class="chip">LP optimization</span></div>
@@ -476,12 +576,13 @@ svg { display: block; }
   <div class="wrap section-grid">
     <div class="section-rail reveal">
       <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
-      <h2>Selected Work</h2>
+      <h2 class="display">Selected Work</h2>
       <p class="rail-note">Platforms, models, and systems shipped into production.</p>
     </div>
     <div class="projects reveal">
 
       <article class="project">
+        <span class="project-idx">W-01</span>
         <div class="project-kicker">In flight</div>
         <h3>Enterprise Ontology &amp; Digital Twin</h3>
         <p>Leading the company's migration to Palantir Foundry — a single ontology and digital twin spanning EHS, supply chain, procurement, and finance, replacing scattered reporting with one governed model.</p>
@@ -489,6 +590,7 @@ svg { display: block; }
       </article>
 
       <article class="project">
+        <span class="project-idx">W-02</span>
         <div class="project-kicker">Award winner</div>
         <h3>Micro Market Model</h3>
         <p>A Python linear-programming engine that pinpoints competitive opportunities across micro markets. Earned the company's Transformation Bonus Award.</p>
@@ -496,6 +598,7 @@ svg { display: block; }
       </article>
 
       <article class="project">
+        <span class="project-idx">W-03</span>
         <div class="project-kicker">Platform</div>
         <h3>Gensuite Refresh — Phase 1 &amp; 2</h3>
         <p>Led an end-to-end refresh of the enterprise EHS application, delivering 80+ feature enhancements that reshaped how every global site captures safety data.</p>
@@ -503,6 +606,7 @@ svg { display: block; }
       </article>
 
       <article class="project">
+        <span class="project-idx">W-04</span>
         <div class="project-kicker">AI</div>
         <h3>Enterprise Agent Layer</h3>
         <p>Natural-language-query and summarization agents on Copilot Studio, Claude Code, and Codex, with an MCP architecture grounding them in live systems and deterministic algorithms keeping answers reproducible.</p>
@@ -510,6 +614,7 @@ svg { display: block; }
       </article>
 
       <article class="project">
+        <span class="project-idx">W-05</span>
         <div class="project-kicker">Data platform</div>
         <h3>Medallion Pipelines &amp; Unity Catalog</h3>
         <p>Production Databricks pipelines unifying Icertis contracts, a 40-entity Dynamics 365 model, SAP, and Gensuite warehouse feeds into audit-ready reporting — then migrated wholesale to Unity Catalog governance.</p>
@@ -517,6 +622,7 @@ svg { display: block; }
       </article>
 
       <article class="project">
+        <span class="project-idx">W-06</span>
         <div class="project-kicker">Personal build</div>
         <h3>Resin &amp; Wood Market Weather Brief</h3>
         <p>A static decision-support app tracking public operating signals for chemicals, resins, engineered wood, and construction demand — EPA, Census, and BLS data turned into state-level action scores and scenario models.</p>
@@ -531,7 +637,7 @@ svg { display: block; }
   <div class="wrap section-grid">
     <div class="section-rail reveal">
       <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
-      <h2>Experience</h2>
+      <h2 class="display">Experience</h2>
       <p class="rail-note">Six years across chemicals, retail operations, and global e-commerce.</p>
     </div>
     <div class="reveal">
@@ -594,7 +700,7 @@ svg { display: block; }
   <div class="wrap section-grid">
     <div class="section-rail reveal">
       <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
-      <h2>Wins</h2>
+      <h2 class="display">Wins</h2>
       <p class="rail-note">Recognized by Hexion leadership.</p>
     </div>
     <div class="wins reveal">
@@ -618,7 +724,7 @@ svg { display: block; }
   <div class="wrap section-grid">
     <div class="section-rail reveal">
       <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
-      <h2>Education</h2>
+      <h2 class="display">Education</h2>
       <p class="rail-note">Statistics and decision analytics, now applied AI.</p>
     </div>
     <div class="reveal">
@@ -648,9 +754,9 @@ svg { display: block; }
 
 </main>
 
-<footer class="footer">
+<footer class="footer" id="contact">
   <div class="wrap">
-    <h2>Let's talk</h2>
+    <h2 class="display">Let's talk</h2>
     <div class="footer-links">
       <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">priyatham9@gmail.com</a>
       <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -679,6 +785,42 @@ svg { display: block; }
   });
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* duplicate ticker content for a seamless -50% loop */
+  var track = document.getElementById("tickerTrack");
+  if (track) track.innerHTML += track.innerHTML;
+
+  /* ============ visit meter ============ */
+  (function meter() {
+    var out = document.getElementById("visitCount");
+    if (!out || !window.fetch) return;
+    var base = "https://abacus.jasoncameron.dev/";
+    var counted = null;
+    try { counted = sessionStorage.getItem("pc-visit"); } catch (e) {}
+    fetch(base + (counted ? "get" : "hit") + "/priyatham9-site/visits", { mode: "cors" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var n = null;
+        if (d) {
+          if (typeof d.count === "number") n = d.count;
+          else if (typeof d.value === "number") n = d.value;
+          else if (d.data && typeof d.data.count === "number") n = d.data.count;
+        }
+        if (n === null) throw new Error("shape");
+        try { sessionStorage.setItem("pc-visit", "1"); } catch (e) {}
+        function fmt(v) { var s = String(v); while (s.length < 5) s = "0" + s; return s; }
+        if (reduced) { out.textContent = fmt(n); return; }
+        var start = performance.now(), dur = 900;
+        function step(now) {
+          var p = Math.min((now - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          out.textContent = fmt(Math.round(n * eased));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      })
+      .catch(function () { out.textContent = "—"; });
+  })();
 
   /* ============ interactive architecture map ============ */
   (function buildArch() {
@@ -742,15 +884,17 @@ svg { display: block; }
 
     var gEdges = el("g", {}), gNodes = el("g", {}), gPts = el("g", {});
 
-    /* tier headers */
-    TIERS.forEach(function (tier) {
+    TIERS.forEach(function (tier, ti) {
       var t = el("text", { class: "a-tier", x: tier.x, y: 34 });
-      t.textContent = tier.label;
+      var num = el("tspan", { class: "a-tier-n" });
+      num.textContent = "0" + (ti + 1) + " ";
+      var lab = el("tspan", {});
+      lab.textContent = "· " + tier.label;
+      t.appendChild(num); t.appendChild(lab);
       svg.appendChild(t);
       svg.appendChild(el("line", { class: "a-rule", x1: tier.x, y1: 44, x2: tier.x + W, y2: 44 }));
     });
 
-    /* edges */
     var edgeEls = [];
     EDGES.forEach(function (e, idx) {
       var a = { x: TIERS[e[0]].x, y: yOf(e[0], e[1]) };
@@ -769,13 +913,13 @@ svg { display: block; }
       edgeEls.push({ el: p, from: e[0] + "-" + e[1], to: e[2] + "-" + e[3], pts: null });
     });
 
-    /* nodes */
     var nodeEls = {};
     NODES.forEach(function (col, ti) {
       col.forEach(function (n, ni) {
         var key = ti + "-" + ni;
         var y = yOf(ti, ni);
-        var g = el("g", { class: "a-node", "data-key": key });
+        var g = el("g", { class: "a-node", "data-key": key, tabindex: "0", role: "button" });
+        g.setAttribute("aria-label", n.t + " — " + n.d);
         g.appendChild(el("rect", { class: "a-box", x: TIERS[ti].x, y: y, width: W, height: H }));
         var label = el("text", { class: "a-label", x: TIERS[ti].x + 12, y: y + H / 2 + 3.5 });
         label.textContent = n.t;
@@ -789,7 +933,6 @@ svg { display: block; }
     svg.appendChild(gPts);
     svg.appendChild(gNodes);
 
-    /* ---- hover: trace connections ---- */
     function clear() {
       svg.classList.remove("dim");
       Array.prototype.forEach.call(svg.querySelectorAll(".hot,.near"), function (n) {
@@ -820,10 +963,11 @@ svg { display: block; }
       var g = nodeEls[key].g;
       g.addEventListener("pointerenter", function () { focusNode(key); });
       g.addEventListener("click", function () { focusNode(key); });
+      g.addEventListener("focus", function () { focusNode(key); });
+      g.addEventListener("blur", clear);
     });
     svg.addEventListener("pointerleave", clear);
 
-    /* ---- particles along the edges ---- */
     if (reduced) return;
     var SAMPLES = 48;
     edgeEls.forEach(function (e) {
@@ -896,7 +1040,7 @@ svg { display: block; }
     Array.prototype.forEach.call(revealables, function (el) { ro.observe(el); });
   }
 
-  /* metrics: counter + bar */
+  /* metric counters */
   var metrics = document.querySelectorAll(".metric");
   function runMetric(m) {
     var el = m.querySelector("[data-count]");
