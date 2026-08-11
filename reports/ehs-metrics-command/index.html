@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RPT-002 · EHS Metrics Command — Priyatham Chimmani</title>
+<meta name="description" content="Interactive EHS strategy report: leading and lagging indicators, a 40-KPI alert taxonomy, site command grid, and regulatory readiness. Synthetic demo data." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" />
+<style>
+:root {
+  --paper:#F7F7F3; --surface:#FFFFFF; --surface-2:#EFEFE9;
+  --ink:#101311; --ink-2:#3A403C; --muted:#6E7570;
+  --rule:#101311; --rule-soft:#D6D7CE;
+  --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
+  --warn:#B05A00; --warn-wash:#F6E8D8;
+  --heat-0:#EDEDE6; --heat-edge:#DCDCD3;
+  --heat-1:#FBDCA8; --heat-2:#F5A93C; --heat-3:#E27C08; --heat-4:#FF8A00;
+  --heat-glow:rgba(255,138,0,.62); --heat-glow-s:rgba(226,124,8,.42); --heat-ink:#1A0E00;
+  --grid-dot: rgba(16,19,17,.10);
+  --font-sans:"Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --maxw:1180px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:#0A0D0B; --surface:#121712; --surface-2:#171D18;
+    --ink:#EAEFEA; --ink-2:#BFC7C1; --muted:#838C86;
+    --rule:#EAEFEA; --rule-soft:#262E28;
+    --accent:#3FCB88; --accent-2:#2AA96C; --accent-ink:#06130C; --accent-wash:#10241A;
+    --warn:#E09B4C; --warn-wash:#2A2013;
+    --heat-0:#1A1F1B; --heat-edge:#262E28;
+    --heat-1:#4A2C08; --heat-2:#95590C; --heat-3:#D8830F; --heat-4:#FFA425;
+    --heat-glow:rgba(255,164,37,.75); --heat-glow-s:rgba(216,131,15,.5); --heat-ink:#1A0E00;
+    --grid-dot: rgba(234,239,234,.09);
+  }
+}
+:root[data-theme="light"] {
+  --paper:#F7F7F3; --surface:#FFFFFF; --surface-2:#EFEFE9;
+  --ink:#101311; --ink-2:#3A403C; --muted:#6E7570;
+  --rule:#101311; --rule-soft:#D6D7CE;
+  --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
+  --warn:#B05A00; --warn-wash:#F6E8D8;
+  --heat-0:#EDEDE6; --heat-edge:#DCDCD3;
+  --heat-1:#FBDCA8; --heat-2:#F5A93C; --heat-3:#E27C08; --heat-4:#FF8A00;
+  --heat-glow:rgba(255,138,0,.62); --heat-glow-s:rgba(226,124,8,.42); --heat-ink:#1A0E00;
+  --grid-dot: rgba(16,19,17,.10);
+}
+:root[data-theme="dark"] {
+  --paper:#0A0D0B; --surface:#121712; --surface-2:#171D18;
+  --ink:#EAEFEA; --ink-2:#BFC7C1; --muted:#838C86;
+  --rule:#EAEFEA; --rule-soft:#262E28;
+  --accent:#3FCB88; --accent-2:#2AA96C; --accent-ink:#06130C; --accent-wash:#10241A;
+  --warn:#E09B4C; --warn-wash:#2A2013;
+  --heat-0:#1A1F1B; --heat-edge:#262E28;
+  --heat-1:#4A2C08; --heat-2:#95590C; --heat-3:#D8830F; --heat-4:#FFA425;
+  --heat-glow:rgba(255,164,37,.75); --heat-glow-s:rgba(216,131,15,.5); --heat-ink:#1A0E00;
+  --grid-dot: rgba(234,239,234,.09);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.05}
+p{margin:0} ul{margin:0;padding:0;list-style:none} a{color:inherit} svg{display:block}
+::selection{background:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section[id]{scroll-margin-top:70px}
+.display{font-stretch:125%;font-weight:900;text-transform:uppercase}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
+@media (max-width:640px){.wrap{padding:0 18px}}
+.label{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+
+.topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:2px solid var(--rule)}
+.topbar-inner{max-width:var(--maxw);margin:0 auto;padding:12px 30px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+@media (max-width:640px){.topbar-inner{padding:11px 18px}}
+.crumb{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.crumb .bk{color:var(--muted)}
+.crumb:hover .bk{color:var(--accent)}
+.brand-mark{width:14px;height:14px;background:var(--accent);flex:none}
+.top-right{display:flex;align-items:center;gap:10px}
+.demo-chip{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--warn);border:1.5px solid var(--warn);padding:4px 8px;background:var(--warn-wash)}
+.toggle{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;background:var(--paper);border:2px solid var(--rule);color:var(--ink);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.toggle:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.toggle svg{width:15px;height:15px}
+.icon-sun,.icon-moon{display:none}
+@media (prefers-color-scheme: dark){.icon-moon{display:block}}
+@media (prefers-color-scheme: light){.icon-sun{display:block}}
+:root[data-theme="light"] .icon-sun{display:block}
+:root[data-theme="light"] .icon-moon{display:none}
+:root[data-theme="dark"] .icon-moon{display:block}
+:root[data-theme="dark"] .icon-sun{display:none}
+
+.hero{position:relative;padding:64px 0 48px;border-bottom:2px solid var(--rule);background-image:radial-gradient(var(--grid-dot) 1px,transparent 1px);background-size:22px 22px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:20px}
+.pulse{width:9px;height:9px;background:var(--accent);flex:none}
+.hero h1{font-size:clamp(2rem,6vw,4.1rem);letter-spacing:-.028em;line-height:.98;margin-bottom:20px}
+.h1-outline{color:var(--ink)}
+@supports (-webkit-text-stroke:1px black){.h1-outline{color:transparent;-webkit-text-stroke:2px var(--ink)}}
+.hero-lede{font-size:clamp(1rem,1.7vw,1.125rem);color:var(--ink-2);max-width:66ch;margin-bottom:26px}
+.hero-lede strong{color:var(--ink)}
+.jumps{display:flex;flex-wrap:wrap;gap:0}
+.jump{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:2px solid var(--rule);margin:0 -2px -2px 0;font-family:var(--font-mono);font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s,border-color .15s}
+.jump:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.jump b{color:var(--accent);font-weight:700}
+.jump:hover b{color:inherit}
+
+.section{padding:64px 0;border-bottom:2px solid var(--rule)}
+@media (max-width:640px){.section{padding:44px 0}}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:8px}
+.sec-num{display:inline-block;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.12em;padding:4px 8px}
+.sec-head h2{font-size:clamp(1.4rem,3vw,1.9rem);font-stretch:118%;letter-spacing:-.015em}
+.sec-sub{color:var(--muted);font-size:.9375rem;max-width:72ch;margin-bottom:28px}
+.sec-sub strong{color:var(--ink-2)}
+
+.readout{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;min-height:46px;padding:12px 0 0}
+.ro-key{font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.ro-val{font-size:.875rem;color:var(--ink-2)}
+.ro-act{font-size:.875rem;color:var(--accent);font-weight:600}
+.ro-hint{font-family:var(--font-mono);font-size:.6875rem;color:var(--muted);letter-spacing:.06em}
+
+/* S1 pyramid */
+.pyr-wrap{display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:stretch}
+@media (max-width:960px){.pyr-wrap{grid-template-columns:1fr}}
+.pyr-shell{border:2px solid var(--rule);background:var(--surface);padding:18px 18px 8px}
+#pyrSvg{width:100%;height:auto}
+.pyr-band{stroke:var(--paper);stroke-width:3;cursor:pointer;transition:opacity .15s}
+#pyrSvg.dim .pyr-band:not(.on){opacity:.3}
+.pyr-lab{font-family:var(--font-mono);font-weight:700;pointer-events:none}
+.pyr-count{font-size:13px;fill:var(--ink)}
+.pyr-name{font-size:8.5px;fill:var(--muted);letter-spacing:.12em}
+.pyr-side{border:2px solid var(--rule);background:var(--surface-2);padding:18px;display:flex;flex-direction:column;gap:10px}
+.pyr-side .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pyr-side .band-name{font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
+.pyr-side .band-count{font-family:var(--font-mono);font-size:1.7rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.pyr-side .band-what{font-size:.875rem;color:var(--ink-2)}
+.pyr-side .band-act{font-size:.875rem;color:var(--ink);font-weight:600;border-top:1.5px solid var(--rule-soft);padding-top:10px}
+.pyr-side .band-act b{color:var(--accent);font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;margin-right:6px}
+
+/* S2 indicators */
+.mix{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;border:2px solid var(--rule);background:var(--surface);padding:13px 16px;margin-bottom:16px}
+.mix-bar{flex:1;min-width:220px;height:14px;background:var(--surface-2);border:1.5px solid var(--rule-soft);position:relative}
+.mix-lead{position:absolute;left:0;top:0;bottom:0;background:var(--accent);width:0}
+@media (prefers-reduced-motion: no-preference){.mix-lead{transition:width .8s cubic-bezier(.16,.84,.3,1)}}
+.mix-tgt{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--warn);left:70%}
+.ind-groups{display:flex;flex-direction:column;gap:14px}
+.ind-group{display:grid;grid-template-columns:170px 1fr;border:2px solid var(--rule);background:var(--surface)}
+@media (max-width:760px){.ind-group{grid-template-columns:1fr}}
+.ig-name{padding:14px 16px;border-right:2px solid var(--rule-soft);display:flex;flex-direction:column;gap:4px}
+@media (max-width:760px){.ig-name{border-right:0;border-bottom:2px solid var(--rule-soft)}}
+.ig-title{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.ig-count{font-family:var(--font-mono);font-size:.625rem;color:var(--muted);letter-spacing:.08em}
+.ig-chips{padding:12px 14px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.obj{font-family:var(--font-mono);font-size:.71rem;font-weight:600;padding:6px 10px;background:var(--surface-2);border:1.5px solid var(--rule-soft);color:var(--ink-2);cursor:pointer;transition:background .14s,border-color .14s,color .14s}
+.obj:hover,.obj.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ind-detail{border:2px solid var(--rule);border-top:0;background:var(--surface-2);padding:16px 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:900px){.ind-detail{grid-template-columns:repeat(2,1fr)}}
+.od-cell .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+.od-cell .v{font-size:.8125rem;color:var(--ink-2)}
+.od-cell .v.mono{font-size:.75rem}
+.od-cell .v.act{color:var(--ink);font-weight:600}
+
+/* S3 alert wall */
+.wall-note{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;border:2px solid var(--rule);background:var(--accent-wash);padding:13px 18px;margin-bottom:16px}
+.wall-note .label{color:var(--accent)}
+.wall-note p{font-size:.85rem;color:var(--ink-2)}
+
+/* S4 cadence calendar */
+.cal-shell{border:2px solid var(--rule);background:var(--surface)}
+.cal-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--rule)}
+.kpi-filter{display:flex;flex-wrap:wrap;border:2px solid var(--rule)}
+.kf{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:8px 11px;background:var(--paper);color:var(--muted);cursor:pointer;border:0;border-right:2px solid var(--rule-soft);transition:background .14s,color .14s}
+.kf:last-child{border-right:0}
+.kf:hover{color:var(--ink)}
+.kf.on{background:var(--heat-4);color:var(--heat-ink)}
+.cal-body{padding:18px 18px 8px;overflow-x:auto}
+.cal-inner{min-width:820px}
+.cal-months{display:grid;grid-auto-flow:column;grid-auto-columns:13px;gap:3px;margin-left:30px;margin-bottom:5px;height:13px}
+.cal-mo{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+.cal-main{display:flex;gap:6px}
+.cal-days{display:grid;grid-template-rows:repeat(7,13px);gap:3px;width:24px}
+.cal-dl{font-family:var(--font-mono);font-size:.5rem;font-weight:600;color:var(--muted);line-height:13px}
+.cal-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,13px);grid-auto-columns:13px;gap:3px}
+.cal-cell{width:13px;height:13px;background:var(--heat-0);border:1px solid var(--heat-edge);cursor:pointer;transition:transform .1s,box-shadow .18s,background .18s}
+.cal-cell:hover{transform:scale(1.45);z-index:2;position:relative}
+.cal-cell[data-l="1"]{background:var(--heat-1);border-color:var(--heat-1)}
+.cal-cell[data-l="2"]{background:var(--heat-2);border-color:var(--heat-2)}
+.cal-cell[data-l="3"]{background:var(--heat-3);border-color:var(--heat-3);box-shadow:0 0 4px var(--heat-glow-s)}
+.cal-cell[data-l="4"]{background:var(--heat-4);border-color:var(--heat-4);box-shadow:0 0 9px var(--heat-glow),0 0 3px var(--heat-4)}
+.cal-cell.void{background:transparent;border-color:transparent;cursor:default}
+.cal-cell.void:hover{transform:none}
+.cal-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px 0}
+.cal-legend{display:flex;align-items:center;gap:5px}
+.cal-legend .label{margin:0 3px}
+.lg{width:13px;height:13px;border:1px solid var(--heat-edge)}
+.lg[data-l="1"]{background:var(--heat-1);border-color:var(--heat-1)}
+.lg[data-l="2"]{background:var(--heat-2);border-color:var(--heat-2)}
+.lg[data-l="3"]{background:var(--heat-3);border-color:var(--heat-3)}
+.lg[data-l="4"]{background:var(--heat-4);border-color:var(--heat-4);box-shadow:0 0 7px var(--heat-glow)}
+.lg[data-l="0"]{background:var(--heat-0)}
+.cal-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--rule);margin-top:14px}
+@media (max-width:700px){.cal-stats{grid-template-columns:repeat(2,1fr)}}
+.cst{padding:13px 18px;border-left:2px solid var(--rule-soft)}
+.cst:first-child{border-left:0}
+@media (max-width:700px){.cst:nth-child(odd){border-left:0}.cst:nth-child(n+3){border-top:2px solid var(--rule-soft)}}
+.cst .label{white-space:nowrap}
+.cst .v{font-family:var(--font-mono);font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2;white-space:nowrap}
+.cal-readout{padding:0 18px 14px}
+.ro-heat{font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--heat-3);text-transform:uppercase;letter-spacing:.08em}
+
+/* S5 sites */
+.sites{border:2px solid var(--rule);background:var(--surface);overflow-x:auto}
+.site-head,.site-row{display:grid;grid-template-columns:90px 110px 1fr 110px 150px 92px;gap:14px;align-items:center;min-width:720px;padding:11px 16px}
+.site-head{border-bottom:2px solid var(--rule);position:sticky;top:0}
+.site-row{border-bottom:2px solid var(--rule-soft);cursor:pointer;transition:background .14s}
+.site-row:last-child{border-bottom:0}
+.site-row:hover,.site-row.on{background:var(--accent-wash)}
+.sh{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sc{font-family:var(--font-mono);font-size:.75rem;font-weight:700}
+.sr{font-size:.8125rem;color:var(--muted)}
+.sv{display:flex;align-items:center;gap:8px}
+.sv-bar{flex:1;height:10px;background:var(--surface-2);border:1px solid var(--rule-soft);position:relative}
+.sv-fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
+.sv-num{font-family:var(--font-mono);font-size:.6875rem;font-weight:700;width:52px;text-align:right;font-variant-numeric:tabular-nums}
+.sn{font-family:var(--font-mono);font-size:.75rem;font-weight:700;font-variant-numeric:tabular-nums}
+.st-chip{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.12em;padding:3px 7px;border:1.5px solid;text-align:center}
+.st-stable{color:var(--accent);border-color:var(--accent);background:var(--accent-wash)}
+.st-drift{color:var(--muted);border-color:var(--rule-soft);background:var(--surface-2)}
+.st-alert{color:var(--warn);border-color:var(--warn);background:var(--warn-wash)}
+
+/* S5 filings */
+.dues{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media (max-width:1000px){.dues{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.dues{grid-template-columns:1fr}}
+.due{border:2px solid var(--rule);background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:8px}
+.due-name{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.due-days{font-stretch:120%;font-weight:900;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.due-days small{font-size:.85rem;font-weight:700;color:var(--muted)}
+.due-win{font-family:var(--font-mono);font-size:.625rem;color:var(--muted)}
+.due-st{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.12em;padding:3px 7px;border:1.5px solid;align-self:flex-start}
+.due-note{font-size:.78rem;color:var(--ink-2);border-top:1.5px solid var(--rule-soft);padding-top:8px}
+
+/* S6 plan */
+.plan{display:grid;grid-template-columns:1fr 380px;gap:16px;align-items:start}
+@media (max-width:980px){.plan{grid-template-columns:1fr}}
+.plays{border:2px solid var(--rule);background:var(--surface)}
+.play{display:grid;grid-template-columns:auto 1fr auto;gap:6px 14px;padding:15px 18px;border-bottom:2px solid var(--rule-soft);cursor:pointer;transition:background .15s}
+.play:last-child{border-bottom:0}
+.play:hover,.play.on{background:var(--accent-wash)}
+.play-id{font-family:var(--font-mono);font-size:.71rem;font-weight:700;color:var(--accent)}
+.play-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em}
+.play-q{font-family:var(--font-mono);font-size:.625rem;font-weight:700;color:var(--muted);letter-spacing:.1em;align-self:center}
+.play-d{grid-column:2/4;font-size:.8125rem;color:var(--muted)}
+.matrix{border:2px solid var(--rule);background:var(--surface);padding:16px}
+.matrix .label{display:block;margin-bottom:10px}
+#matSvg{width:100%;height:auto}
+.m-axis{stroke:var(--rule-soft);stroke-width:1.5}
+.m-lab{font-family:var(--font-mono);font-size:8.5px;font-weight:600;fill:var(--muted);letter-spacing:.12em}
+.m-dot{fill:var(--surface-2);stroke:var(--accent);stroke-width:2;cursor:pointer;transition:fill .15s}
+.m-dot.on,.m-dot:hover{fill:var(--accent)}
+.m-id{font-family:var(--font-mono);font-size:9px;font-weight:700;fill:var(--ink);pointer-events:none}
+.m-dot.on + .m-id{fill:var(--accent-ink)}
+.seq{margin-top:14px;padding:12px 14px;border:2px solid var(--rule);background:var(--surface-2)}
+.seq .label{color:var(--accent);display:block;margin-bottom:6px}
+.seq p{font-family:var(--font-mono);font-size:.78rem;font-weight:600;letter-spacing:.03em}
+
+.rfooter{padding:44px 0 60px}
+.rfooter-inner{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+.next-report{font-family:var(--font-mono);font-size:.71rem;color:var(--muted);letter-spacing:.06em}
+.next-report b{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border:2px solid var(--rule);font-family:var(--font-mono);font-size:.71rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s,border-color .15s}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+@media (prefers-reduced-motion: no-preference){
+  .pulse{animation:pulse 2.4s steps(1,end) infinite}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.16,.84,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+}
+@keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="crumb" href="../../"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-002</a>
+    <div class="top-right">
+      <span class="demo-chip">Synthetic demo data</span>
+      <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow"><span class="pulse"></span><span class="label">Report 002 · EHS Metrics Command · Benchmark ESG / Gensuite</span></div>
+    <h1 class="display">Lagging tells you what happened.<br /><span class="h1-outline">Leading lets you act.</span></h1>
+    <p class="hero-lede">
+      Most safety reporting is an autopsy: TRIR arrives weeks after the injuries it describes.
+      Command means instrumenting the indicators that still have <strong>time on the clock</strong> —
+      observation velocity, closure discipline, reporting culture — and wiring
+      <strong>40 alerting KPIs</strong> so the right owner hears about drift while it is still cheap
+      to fix. Built on the same governed spine as RPT-001; every number traces to a record.
+    </p>
+    <nav class="jumps" aria-label="Report sections">
+      <a class="jump" href="#pyramid"><b>S1</b> Signal physics</a>
+      <a class="jump" href="#indicators"><b>S2</b> Indicator board</a>
+      <a class="jump" href="#alerts"><b>S3</b> Alert wall</a>
+      <a class="jump" href="#cadence"><b>S4</b> Cadence grid</a>
+      <a class="jump" href="#sites"><b>S5</b> Site command</a>
+      <a class="jump" href="#filings"><b>S6</b> Regulatory clock</a>
+      <a class="jump" href="#plan"><b>S7</b> Action plan</a>
+    </nav>
+  </div>
+</section>
+
+<section class="section" id="pyramid">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S1</span><h2 class="display">Signal physics</h2></div>
+    <p class="sec-sub">One synthetic year, stacked the way risk actually works. The strategy is not to stare at the top of the pyramid — it is to <strong>instrument the base so aggressively that the top starves</strong>. Click a band.</p>
+    <div class="pyr-wrap reveal">
+      <div class="pyr-shell">
+        <svg id="pyrSvg" viewBox="0 0 560 330" role="img" aria-label="Incident pyramid: 1 serious incident, 31 recordables, 292 near misses, 3140 observations, 18600 raw data points captured."></svg>
+      </div>
+      <div class="pyr-side" id="pyrSide">
+        <span class="k">Band</span>
+        <span class="band-name" id="pbName">Select a band</span>
+        <span class="band-count mono" id="pbCount">—</span>
+        <span class="band-what" id="pbWhat">Every layer you instrument at the bottom removes events at the top.</span>
+        <span class="band-act" id="pbAct"><b>Move</b>—</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="indicators">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S2</span><h2 class="display">Indicator board</h2></div>
+    <p class="sec-sub">Fourteen indicators, split by when they let you act. The quiet scandal of EHS reporting: leadership attention goes to the lagging six because they are easy to rank. <strong>The board exists to invert that ratio.</strong></p>
+    <div class="mix reveal">
+      <span class="label">Attention mix · leading share</span>
+      <div class="mix-bar"><div class="mix-lead" data-w="42"></div><div class="mix-tgt"></div></div>
+      <span class="label"><span class="mono" style="color:var(--ink)">42%</span> today → <span class="mono" style="color:var(--warn)">70%</span> target</span>
+    </div>
+    <div class="ind-groups reveal" id="indGroups"></div>
+    <div class="ind-detail" id="indDetail">
+      <div class="od-cell"><span class="k">Indicator</span><span class="v act" id="idName">Select an indicator above</span></div>
+      <div class="od-cell"><span class="k">Reading (synthetic)</span><span class="v mono" id="idNow">—</span></div>
+      <div class="od-cell"><span class="k">Alert rule</span><span class="v mono" id="idRule">—</span></div>
+      <div class="od-cell"><span class="k">Owner action</span><span class="v act" id="idAct">—</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="alerts">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S3</span><h2 class="display">The alert wall</h2></div>
+    <p class="sec-sub">Forty KPI alerts in five classes. The class that matters most is the one nobody builds: <strong>silence alarms</strong> — because a site that stops reporting hasn't become safe, it has become invisible.</p>
+    <div class="wall-note reveal"><span class="label">Doctrine</span><p>An alert that doesn't name an owner and an SLA is a notification. All forty route to a person, with a clock.</p></div>
+    <div class="ind-groups reveal" id="alertGroups"></div>
+    <div class="ind-detail" id="alertDetail">
+      <div class="od-cell"><span class="k">Alert</span><span class="v act" id="alName">Select an alert above</span></div>
+      <div class="od-cell"><span class="k">Trigger</span><span class="v mono" id="alTrig">—</span></div>
+      <div class="od-cell"><span class="k">Routes to</span><span class="v" id="alWho">—</span></div>
+      <div class="od-cell"><span class="k">Response SLA</span><span class="v mono" id="alSla">—</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cadence">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S4</span><h2 class="display">Cadence grid</h2></div>
+    <p class="sec-sub">A year of EHS activity, one cell per day, <strong>filtered by KPI</strong>. Intensity is volume; the glow marks top-decile days. What you are looking for is not the bright cells — it is the <strong>cold stretches</strong>, because those are the weeks nobody was looking.</p>
+    <div class="cal-shell reveal">
+      <div class="cal-head">
+        <span class="label">Trailing 12 months · daily volume</span>
+        <div class="kpi-filter" id="kpiFilter" role="group" aria-label="Filter calendar by KPI"></div>
+      </div>
+      <div class="cal-body">
+        <div class="cal-inner">
+          <div class="cal-months" id="calMonths"></div>
+          <div class="cal-main">
+            <div class="cal-days">
+              <span class="cal-dl"></span><span class="cal-dl">Mon</span><span class="cal-dl"></span>
+              <span class="cal-dl">Wed</span><span class="cal-dl"></span><span class="cal-dl">Fri</span><span class="cal-dl"></span>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+        </div>
+        <div class="cal-foot">
+          <span class="label" id="calTotal">—</span>
+          <div class="cal-legend">
+            <span class="label">Less</span>
+            <span class="lg" data-l="0"></span><span class="lg" data-l="1"></span><span class="lg" data-l="2"></span><span class="lg" data-l="3"></span><span class="lg" data-l="4"></span>
+            <span class="label">More</span>
+          </div>
+        </div>
+      </div>
+      <div class="cal-readout readout" id="calReadout"><span class="ro-hint">Hover any day for its reading · switch KPI to re-scan the same year</span></div>
+      <div class="cal-stats">
+        <div class="cst"><span class="label">Active days</span><div class="v" id="csActive">—</div></div>
+        <div class="cst"><span class="label">Longest streak</span><div class="v" id="csStreak">—</div></div>
+        <div class="cst"><span class="label">Cold gap</span><div class="v" id="csGap">—</div></div>
+        <div class="cst"><span class="label">Peak day</span><div class="v" id="csPeak">—</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sites">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S5</span><h2 class="display">Site command grid</h2></div>
+    <p class="sec-sub">Ten synthetic sites, ranked by what leading signal says is coming — not by whose last incident was most recent. <strong>Hover a row for the command action already in motion.</strong></p>
+    <div class="sites reveal" id="siteGrid">
+      <div class="site-head">
+        <span class="sh">Site</span><span class="sh">Region</span><span class="sh">Observation velocity vs plan</span><span class="sh">Action closure</span><span class="sh">Days since recordable</span><span class="sh">Status</span>
+      </div>
+    </div>
+    <div class="readout" id="siteReadout"><span class="ro-hint">Status is computed from leading drift, never from luck-of-the-draw incident timing</span></div>
+  </div>
+</section>
+
+<section class="section" id="filings">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S6</span><h2 class="display">Regulatory clock</h2></div>
+    <p class="sec-sub">Filing season is not an event, it is a countdown that never stops. Every filing below assembles itself from the governed layer — <strong>the deadline play is review, not archaeology</strong>.</p>
+    <div class="dues reveal" id="dueGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="plan">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S7</span><h2 class="display">Action plan</h2></div>
+    <p class="sec-sub">Six plays. Same doctrine as RPT-001: <strong>cheapest signal first</strong> — silence alarms cost almost nothing and change site behavior overnight.</p>
+    <div class="plan reveal">
+      <div class="plays" id="playList"></div>
+      <div class="matrix">
+        <span class="label">Impact vs effort</span>
+        <svg id="matSvg" viewBox="0 0 340 300" role="img" aria-label="Impact versus effort matrix of the six EHS plays. E2 silence alarms is highest impact for lowest effort; E6 predictive site risk is highest impact and highest effort."></svg>
+        <div class="seq"><span class="label">Recommended sequence</span><p>E2 → E1 → E3 → E4 → E5 → E6</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="rfooter">
+  <div class="wrap rfooter-inner">
+    <a class="btn" href="../../">← Back to site</a>
+    <span class="next-report">Prev: <b>RPT-001</b> D365 Data Strategy · Next: <b>RPT-003</b> Value-Chain Twin (Palantir)</span>
+    <span class="label">All figures synthetic · methodology real</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var root = document.documentElement;
+  var toggle = document.getElementById("themeToggle");
+  var stored = null;
+  try { stored = localStorage.getItem("pc-theme"); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  toggle.addEventListener("click", function () {
+    var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var current = root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
+    var next = current === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("pc-theme", next); } catch (e) {}
+  });
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ============ S1 · pyramid ============ */
+  var BANDS = [
+    { n: "Serious incident", c: "1",      w: "The event every layer below exists to prevent. Lagging by definition — and already paid for.", a: "Full learning review, agent-drafted within 48h, findings routed as tracked actions.", warn: true },
+    { n: "Recordables", c: "31",          w: "OSHA-recordable injuries. The number leadership ranks sites by — weeks after it could be changed.", a: "Stop ranking by it. Pair every recordable with its leading-signal trail in the review." },
+    { n: "Near misses reported", c: "292", w: "Free lessons. A healthy ratio to recordables (~9:1 here) is a reporting-culture gauge, not a hazard gauge.", a: "Reward the report, never punish it — ratio below 6:1 fires a culture alert, not a blame hunt." },
+    { n: "Observations logged", c: "3,140", w: "The base that predicts. Velocity and coverage here move weeks before anything above moves.", a: "Mobile-first capture; observation velocity per site is the #1 watched leading KPI." },
+    { n: "Data points captured", c: "18,600", w: "Every walk, training record, permit, and inspection field — the raw layer the medallion refines.", a: "Zero manual re-entry: if it was captured once, it is never typed again." }
+  ];
+  var pyr = document.getElementById("pyrSvg");
+  var NS = "http://www.w3.org/2000/svg";
+  function el(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  var CX = 280, TOPW = 70, BOTW = 520, TOP = 14, BH = 58, GAP = 4;
+  var pb = { name: document.getElementById("pbName"), count: document.getElementById("pbCount"), what: document.getElementById("pbWhat"), act: document.getElementById("pbAct") };
+  function wAt(row) { return TOPW + (BOTW - TOPW) * (row / 5); }
+  BANDS.forEach(function (b, i) {
+    var y0 = TOP + i * (BH + GAP), y1 = y0 + BH;
+    var w0 = wAt(i), w1 = wAt(i + 1);
+    var path = el("path", {
+      class: "pyr-band",
+      d: "M" + (CX - w0 / 2) + "," + y0 + " L" + (CX + w0 / 2) + "," + y0 + " L" + (CX + w1 / 2) + "," + y1 + " L" + (CX - w1 / 2) + "," + y1 + " Z",
+      fill: b.warn ? "var(--warn)" : "var(--accent)",
+      "fill-opacity": b.warn ? 0.9 : (0.28 + i * 0.17)
+    });
+    var count = el("text", { class: "pyr-lab pyr-count", x: CX, y: y0 + BH / 2 + 1, "text-anchor": "middle" });
+    count.textContent = b.c;
+    var name = el("text", { class: "pyr-lab pyr-name", x: CX, y: y0 + BH / 2 + 15, "text-anchor": "middle" });
+    name.textContent = b.n.toUpperCase();
+    pyr.appendChild(path); pyr.appendChild(count); pyr.appendChild(name);
+    function show() {
+      Array.prototype.forEach.call(pyr.querySelectorAll(".pyr-band.on"), function (x) { x.classList.remove("on"); });
+      path.classList.add("on"); pyr.classList.add("dim");
+      pb.name.textContent = b.n;
+      pb.count.textContent = b.c;
+      pb.what.textContent = b.w;
+      pb.act.innerHTML = "<b>Move</b>";
+      pb.act.appendChild(document.createTextNode(b.a));
+    }
+    path.addEventListener("pointerenter", show);
+    path.addEventListener("click", show);
+  });
+  pyr.addEventListener("pointerleave", function () {
+    pyr.classList.remove("dim");
+    Array.prototype.forEach.call(pyr.querySelectorAll(".pyr-band.on"), function (x) { x.classList.remove("on"); });
+  });
+
+  /* ============ chip-group builder (shared S2/S3) ============ */
+  function buildGroups(hostId, groups, note, onSelect) {
+    var host = document.getElementById(hostId);
+    groups.forEach(function (g) {
+      var row = document.createElement("div"); row.className = "ind-group";
+      var name = document.createElement("div"); name.className = "ig-name";
+      name.innerHTML = '<span class="ig-title"></span><span class="ig-count"></span>';
+      name.querySelector(".ig-title").textContent = g.name;
+      name.querySelector(".ig-count").textContent = g.items.length + (note ? " · " + g.note : " alerts · " + g.note);
+      var chips = document.createElement("div"); chips.className = "ig-chips";
+      g.items.forEach(function (it) {
+        var b = document.createElement("button"); b.type = "button"; b.className = "obj"; b.textContent = it.n;
+        function sel() {
+          Array.prototype.forEach.call(host.querySelectorAll(".obj.on"), function (x) { x.classList.remove("on"); });
+          b.classList.add("on"); onSelect(it, g);
+        }
+        b.addEventListener("click", sel);
+        b.addEventListener("pointerenter", sel);
+        chips.appendChild(b);
+      });
+      row.appendChild(name); row.appendChild(chips); host.appendChild(row);
+    });
+  }
+
+  /* ============ S2 · indicators ============ */
+  var IND = [
+    { name: "Lagging", note: "what already happened", items: [
+      { n: "TRIR 0.82", now: "0.82 · plan 0.75", rule: "> plan for 2 consecutive months", act: "Site deep-dive paired with its leading trail — never the number alone." },
+      { n: "LTIR 0.31", now: "0.31 · plan 0.30", rule: "> plan, any month", act: "Case review with return-to-work plan inside 5 days." },
+      { n: "DART 0.54", now: "0.54 · plan 0.50", rule: "3-mo slope rising", act: "Job-task analysis on the top two contributing roles." },
+      { n: "Severity rate", now: "14.2 days/case", rule: "> 12 days rolling", act: "Early-intervention physio protocol at flagged sites." },
+      { n: "Reportable spills 7", now: "7 YTD · plan ≤6", rule: "any reportable event", act: "Containment audit + root cause into the tracked-action engine." },
+      { n: "Agency findings 2", now: "2 open", rule: "any open finding > 30d", act: "Weekly countdown review until closed — no exceptions." }
+    ]},
+    { name: "Leading", note: "what you can still change", items: [
+      { n: "Obs rate 9.4/100", now: "9.4 per 100 workers · plan 8", rule: "< 8, per site, monthly", act: "Site lead notified; capture friction audit before culture blame." },
+      { n: "Near-miss ratio 9:1", now: "9.4 : 1 vs recordables", rule: "< 6:1 per site", act: "Culture alert — reward reporting, check for quiet suppression." },
+      { n: "Closure on-time 84%", now: "84% · plan 90%", rule: "< 90% or aging p75 > 21d", act: "Overdue queue to owner's manager after 7 days. Automatic." },
+      { n: "Overdue actions 63", now: "63 open past due", rule: "> 5 per site", act: "Escalation ladder: owner → manager → site lead at 7/14/21 days." },
+      { n: "Training currency 91%", now: "91% · plan 95%", rule: "person expiring < 30d", act: "Auto-scheduled refresh; site % published monthly." },
+      { n: "Walk completion 87%", now: "87% of scheduled", rule: "leader gap > 14d", act: "Silence alarm to the leader — visibility is a leading control." },
+      { n: "Hazard ID velocity", now: "+12% QoQ", rule: "negative slope 2 mo", act: "Field prompt refresh; stale checklists kill reporting." },
+      { n: "Permit compliance 98.6%", now: "98.6% audited", rule: "< 98% any site", act: "Same-week re-training for issuing supervisors." }
+    ]}
+  ];
+  var idc = { name: document.getElementById("idName"), now: document.getElementById("idNow"), rule: document.getElementById("idRule"), act: document.getElementById("idAct") };
+  buildGroups("indGroups", IND, true, function (it, g) {
+    idc.name.textContent = it.n + "  ·  " + g.name;
+    idc.now.textContent = it.now;
+    idc.rule.textContent = it.rule;
+    idc.act.textContent = it.act;
+  });
+
+  /* ============ S3 · alert wall (40) ============ */
+  function A(n, t, w, s) { return { n: n, t: t, w: w, s: s }; }
+  var ALERTS = [
+    { name: "Threshold", note: "a line was crossed", items: [
+      A("TRIR > plan", "site TRIR exceeds plan", "Site EHS lead", "review in 5d"),
+      A("DART > plan", "site DART exceeds plan", "Site EHS lead", "review in 5d"),
+      A("Severity > 12d", "avg days/case above 12", "Regional EHS mgr", "plan in 7d"),
+      A("Spill ≥ reportable", "volume at agency threshold", "Site lead + Corp EHS", "notify same day"),
+      A("Overdue > 5", "open past-due actions per site", "Action owners' mgr", "clear in 7d"),
+      A("Training < 90%", "site currency below 90%", "Site training coord", "plan in 5d"),
+      A("Obs rate < 8", "monthly rate under plan", "Site EHS lead", "respond in 5d"),
+      A("NM ratio < 6:1", "near-miss ratio collapsing", "Site lead", "culture check 10d"),
+      A("Permit < 98%", "audited compliance dip", "Issuing supervisor", "retrain same week"),
+      A("Contractor hrs gap", "unlogged hours > 2%", "Contractor coord", "reconcile in 5d"),
+      A("Manifest exception", "waste manifest mismatch", "Env specialist", "resolve in 3d"),
+      A("PPE audit fails > 2", "repeat failures one area", "Area supervisor", "corrective in 5d")
+    ]},
+    { name: "Trend", note: "the slope is the story", items: [
+      A("TRIR slope ↑ 3mo", "three rising months", "Regional EHS mgr", "deep-dive in 10d"),
+      A("Obs velocity −25%", "month-over-month drop", "Site EHS lead", "respond in 3d"),
+      A("Closure time ↑", "p75 aging worsens 2mo", "Site lead", "process fix 10d"),
+      A("Repeat-cause ↑", "same root cause 3× in 90d", "Corp EHS", "systemic review"),
+      A("FA:REC drift", "first-aid ratio degrading", "Site EHS lead", "watch + verify 10d"),
+      A("Drift index > 0.6", "composite leading drift", "Regional + site lead", "command call 48h"),
+      A("Hazard aging ↑", "IDs older unclosed", "Area owners", "sweep in 7d"),
+      A("Reopen rate ↑", "closed actions bouncing", "QA on closures", "audit in 10d")
+    ]},
+    { name: "Silence", note: "quiet isn't safe — it's unreported", items: [
+      A("No obs 7d", "site logs nothing for a week", "Site EHS lead", "check-in 24h"),
+      A("No walk 14d", "leader walk gap", "That leader", "walk in 48h"),
+      A("No near-miss 30d", "a month of 'perfection'", "Site lead", "culture probe 5d"),
+      A("No minutes 30d", "safety committee silent", "Committee chair", "meet in 7d"),
+      A("Contractor gap 14d", "no contractor obs logged", "Contractor coord", "verify 48h"),
+      A("Login gap 10d", "site stopped entering data", "System admin (me)", "call same day")
+    ]},
+    { name: "Deadline", note: "the clock is the trigger", items: [
+      A("300A T-30", "OSHA 300A prep window", "Corp EHS + sites", "draft ready T-14"),
+      A("300A T-7", "final review window", "Certifying exec", "sign by T-2"),
+      A("Tier II T-45", "chemical inventory window", "Env specialist", "draft T-21"),
+      A("RCRA biennial T-60", "waste report window", "Env specialist", "data locked T-30"),
+      A("ACC metrics T-30", "Responsible Care submission", "Corp EHS", "QA’d T-10"),
+      A("Air report T-30", "permit reporting window", "Site env lead", "draft T-14"),
+      A("Stormwater T-14", "sampling due", "Site env lead", "sampled T-3"),
+      A("CAPA T-7", "corrective action due", "Action owner", "close or escalate"),
+      A("Mgmt review T-21", "quarterly review prep", "EHS director", "pack ready T-7")
+    ]},
+    { name: "Data quality", note: "bad data is a hazard too", items: [
+      A("Missing classification", "incident lacks category", "Reporting site", "fix in 48h"),
+      A("Obs w/o location", "observation not geo-tagged", "Reporting user", "fix in 48h"),
+      A("Action w/o owner", "tracked action unassigned", "Creating manager", "assign in 24h"),
+      A("Duplicate suspect", "two records, one event", "System admin (me)", "merge in 5d"),
+      A("Unit mismatch", "waste entry unit anomaly", "Env specialist", "verify in 48h")
+    ]}
+  ];
+  var alc = { name: document.getElementById("alName"), trig: document.getElementById("alTrig"), who: document.getElementById("alWho"), sla: document.getElementById("alSla") };
+  buildGroups("alertGroups", ALERTS, false, function (it, g) {
+    alc.name.textContent = it.n + "  ·  " + g.name;
+    alc.trig.textContent = it.t;
+    alc.who.textContent = it.w;
+    alc.sla.textContent = it.s;
+  });
+
+  /* ============ S4 · cadence calendar ============ */
+  (function calendar() {
+    var KPIS = [
+      { id:"obs",   n:"Observations",    unit:"observations logged",   base:26, wk:0.18, seed:1741, cold:0.03, dip:[196,232] },
+      { id:"nm",    n:"Near misses",     unit:"near misses reported",  base:4,  wk:0.22, seed:9317, cold:0.34, dip:[210,238] },
+      { id:"close", n:"Actions closed",  unit:"actions closed",        base:11, wk:0.10, seed:4402, cold:0.16, dip:[120,140] },
+      { id:"walks", n:"Safety walks",    unit:"leader walks completed",base:7,  wk:0.06, seed:6655, cold:0.22, dip:[250,276] },
+      { id:"train", n:"Training",        unit:"training completions",  base:15, wk:0.12, seed:2288, cold:0.28, dip:[60,74] },
+      { id:"perm",  n:"Permits",         unit:"permits issued",        base:19, wk:0.30, seed:5093, cold:0.08, dip:[300,312] }
+    ];
+    var DAY = 86400000;
+    var grid = document.getElementById("calGrid");
+    var months = document.getElementById("calMonths");
+    var filter = document.getElementById("kpiFilter");
+    var readout = document.getElementById("calReadout");
+    var totalEl = document.getElementById("calTotal");
+    var MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    /* deterministic PRNG so the pattern is stable across loads */
+    function rng(seed) {
+      return function () {
+        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+        var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+
+    /* build the date spine: 53 weeks back, aligned to Sunday */
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var end = today.getTime();
+    var start = end - 364 * DAY;
+    var sd = new Date(start); start -= sd.getDay() * DAY;
+    var days = [];
+    for (var t = start; t <= end; t += DAY) days.push(new Date(t));
+
+    /* month labels aligned to the week column where each month starts */
+    var lastMo = -1;
+    for (var c = 0; c < Math.ceil(days.length / 7); c++) {
+      var first = days[c * 7];
+      var span = document.createElement("span"); span.className = "cal-mo";
+      if (first && first.getMonth() !== lastMo && first.getDate() <= 7) {
+        span.textContent = MO[first.getMonth()]; lastMo = first.getMonth();
+      }
+      months.appendChild(span);
+    }
+
+    var cells = [];
+    /* leading blanks so row 0 is always Sunday */
+    var lead = days[0].getDay();
+    for (var b = 0; b < lead; b++) {
+      var v = document.createElement("span"); v.className = "cal-cell void"; grid.appendChild(v);
+    }
+    days.forEach(function (d) {
+      var el2 = document.createElement("span");
+      el2.className = "cal-cell"; el2.setAttribute("data-l", "0");
+      grid.appendChild(el2);
+      cells.push({ el: el2, date: d, val: 0 });
+    });
+
+    function series(k) {
+      var r = rng(k.seed), out = [];
+      cells.forEach(function (c, i) {
+        var dow = c.date.getDay();
+        var weekend = (dow === 0 || dow === 6);
+        var seasonal = 1 + 0.22 * Math.sin(i / 58);
+        var v = k.base * seasonal * (weekend ? k.wk : 1) * (0.55 + r() * 0.9);
+        if (i >= k.dip[0] && i <= k.dip[1]) v *= 0.18;      /* the cold stretch worth noticing */
+        if (r() < k.cold) v = 0;
+        if (weekend && r() < 0.55) v = 0;
+        out.push(Math.max(0, Math.round(v)));
+      });
+      return out;
+    }
+
+    function render(k) {
+      var vals = series(k);
+      var max = Math.max.apply(null, vals) || 1;
+      var total = 0, active = 0, streak = 0, bestStreak = 0, gap = 0, bestGap = 0, peak = 0, peakDate = null;
+      vals.forEach(function (v, i) {
+        var c = cells[i]; c.val = v; total += v;
+        var lvl = v === 0 ? 0 : v / max > 0.75 ? 4 : v / max > 0.5 ? 3 : v / max > 0.25 ? 2 : 1;
+        c.el.setAttribute("data-l", lvl);
+        c.el.setAttribute("aria-label", v + " " + k.unit + " on " + c.date.toDateString());
+        if (v > 0) { active++; streak++; bestStreak = Math.max(bestStreak, streak); gap = 0; }
+        else { gap++; bestGap = Math.max(bestGap, gap); streak = 0; }
+        if (v > peak) { peak = v; peakDate = c.date; }
+      });
+      totalEl.textContent = total.toLocaleString("en-US") + " " + k.unit + " in the last year";
+      document.getElementById("csActive").textContent = active + " / " + cells.length;
+      document.getElementById("csStreak").textContent = bestStreak + " days";
+      document.getElementById("csGap").textContent = bestGap + " days";
+      document.getElementById("csPeak").textContent = peak + (peakDate ? " · " + MO[peakDate.getMonth()] + " " + peakDate.getDate() : "");
+    }
+
+    var current = KPIS[0];
+    KPIS.forEach(function (k, i) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "kf" + (i === 0 ? " on" : ""); b.textContent = k.n;
+      b.addEventListener("click", function () {
+        Array.prototype.forEach.call(filter.querySelectorAll(".kf"), function (x) { x.classList.remove("on"); });
+        b.classList.add("on"); current = k; render(k);
+      });
+      filter.appendChild(b);
+    });
+
+    cells.forEach(function (c) {
+      function show() {
+        readout.innerHTML = '<span class="ro-heat"></span><span class="ro-val"></span>';
+        readout.firstChild.textContent = DOW[c.date.getDay()] + ", " + MO[c.date.getMonth()] + " " + c.date.getDate();
+        readout.lastChild.textContent = c.val === 0
+          ? "No " + current.unit.split(" ")[0] + " activity recorded — a cold day is a reporting signal, not a safe one."
+          : c.val + " " + current.unit;
+      }
+      c.el.addEventListener("pointerenter", show);
+      c.el.addEventListener("click", show);
+    });
+    grid.addEventListener("pointerleave", function () {
+      readout.innerHTML = '<span class="ro-hint">Hover any day for its reading · switch KPI to re-scan the same year</span>';
+    });
+
+    render(current);
+  })();
+
+  /* ============ S5 · site grid ============ */
+  var SITES = [
+    ["OHI-1", "N. America", 112, 93, 148, "STABLE", "Model site — its capture playbook is the template for E1."],
+    ["TEX-2", "N. America", 96, 88, 212, "STABLE", "Healthy; watch closure aging creeping past 14 days."],
+    ["LOU-3", "N. America", 61, 74, 302, "ALERT", "Obs velocity −39% with a 'perfect' streak — classic silence pattern. Command call held, capture friction audit running."],
+    ["NLD-1", "Europe", 104, 91, 87, "STABLE", "Post-assignment cadence holding; walk completion 96%."],
+    ["DEU-2", "Europe", 83, 79, 164, "DRIFT", "Trend alert fired on closure slope; process fix due in 10 days."],
+    ["BRA-1", "S. America", 118, 95, 129, "STABLE", "Best near-miss ratio in the network (11:1). Localized dashboards credited."],
+    ["IND-1", "APAC", 77, 68, 96, "DRIFT", "Overdue actions at 9; escalation ladder engaged at manager level."],
+    ["CHN-2", "APAC", 90, 85, 178, "STABLE", "Steady; contractor observation gap alert cleared last week."],
+    ["CAN-1", "N. America", 70, 81, 44, "DRIFT", "Recent recordable plus falling obs rate — paired review scheduled."],
+    ["MEX-2", "N. America", 58, 62, 251, "ALERT", "Two silence alarms in 30 days; regional lead on site this week."]
+  ];
+  var grid = document.getElementById("siteGrid");
+  var sReadout = document.getElementById("siteReadout");
+  SITES.forEach(function (s) {
+    var r = document.createElement("div"); r.className = "site-row"; r.tabIndex = 0;
+    var stCls = s[5] === "STABLE" ? "st-stable" : s[5] === "DRIFT" ? "st-drift" : "st-alert";
+    r.innerHTML = '<span class="sc"></span><span class="sr"></span>' +
+      '<span class="sv"><span class="sv-bar"><span class="sv-fill"></span></span><span class="sv-num"></span></span>' +
+      '<span class="sn"></span><span class="sn"></span><span class="st-chip ' + stCls + '"></span>';
+    r.children[0].textContent = s[0];
+    r.children[1].textContent = s[1];
+    r.querySelector(".sv-fill").style.width = Math.min(100, s[2] / 1.3) + "%";
+    r.querySelector(".sv-num").textContent = s[2] + "%";
+    r.children[3].textContent = s[3] + "%";
+    r.children[4].textContent = s[4];
+    r.children[5].textContent = s[5];
+    function show() {
+      Array.prototype.forEach.call(grid.querySelectorAll(".site-row.on"), function (x) { x.classList.remove("on"); });
+      r.classList.add("on");
+      sReadout.innerHTML = '<span class="ro-key"></span><span class="ro-val"></span>';
+      sReadout.firstChild.textContent = s[0] + " · " + s[5];
+      sReadout.lastChild.textContent = s[6];
+    }
+    r.addEventListener("pointerenter", show);
+    r.addEventListener("focus", show);
+    r.addEventListener("click", show);
+    grid.appendChild(r);
+  });
+  grid.addEventListener("pointerleave", function () {
+    Array.prototype.forEach.call(grid.querySelectorAll(".site-row.on"), function (x) { x.classList.remove("on"); });
+    sReadout.innerHTML = '<span class="ro-hint">Status is computed from leading drift, never from luck-of-the-draw incident timing</span>';
+  });
+
+  /* ============ S5 · filings ============ */
+  var DUES = [
+    ["OSHA 300A", 68, "Post Feb 1 – Apr 30", "ASSEMBLING", "Injury log rolls up from incident records — zero re-keying."],
+    ["EPCRA Tier II", 96, "Due Mar 1", "ASSEMBLING", "Chemical inventory joins the same governed spine as procurement."],
+    ["ACC Responsible Care", 41, "Annual metrics window", "READY", "Metrics QA'd against gold — submission is a review, not a scramble."],
+    ["RCRA Biennial", 154, "Even-year cycle", "TRACKING", "Waste tracker module feeds manifest-level detail continuously."],
+    ["Air permit report", 23, "Site-specific window", "READY", "Deviation log auto-compiled; env lead signs off T-14."]
+  ];
+  var dg = document.getElementById("dueGrid");
+  DUES.forEach(function (d) {
+    var c = document.createElement("div"); c.className = "due";
+    var stStyle = d[3] === "READY" ? "color:var(--accent);border-color:var(--accent);background:var(--accent-wash)"
+      : d[3] === "ASSEMBLING" ? "color:var(--warn);border-color:var(--warn);background:var(--warn-wash)"
+      : "color:var(--muted);border-color:var(--rule-soft);background:var(--surface-2)";
+    c.innerHTML = '<span class="due-name"></span><div class="due-days"><span class="n"></span><small> days</small></div>' +
+      '<span class="due-win mono"></span><span class="due-st" style="' + stStyle + '"></span><span class="due-note"></span>';
+    c.querySelector(".due-name").textContent = d[0];
+    c.querySelector(".n").textContent = d[1];
+    c.querySelector(".due-win").textContent = d[2];
+    c.querySelector(".due-st").textContent = d[3];
+    c.querySelector(".due-note").textContent = d[4];
+    dg.appendChild(c);
+  });
+
+  /* ============ S6 · plays + matrix ============ */
+  var PLAYS = [
+    { id: "E1", t: "Instrument the base — mobile-first capture", q: "Q1", e: 2, i: 5, d: "Observations and walks in under 30 seconds from a phone. Velocity becomes the flagship leading KPI." },
+    { id: "E2", t: "Silence alarms across all sites", q: "Q1", e: 1, i: 4, d: "Quiet sites get a call, not a compliment. Cheapest behavioral change in the whole program." },
+    { id: "E3", t: "Action-closure SLA engine", q: "Q2", e: 2, i: 5, d: "Overdue actions escalate on a ladder automatically — closure discipline is the strongest single predictor." },
+    { id: "E4", t: "Rebalance leadership attention 70/30", q: "Q2", e: 3, i: 4, d: "Reviews and ICP weighting move to leading indicators; lagging stays context, not headline." },
+    { id: "E5", t: "Agent-drafted regulatory filings", q: "Q3", e: 4, i: 4, d: "300A, Tier II, and ACC drafts assembled from gold by MCP-grounded agents; humans review and sign." },
+    { id: "E6", t: "Predictive site-risk model", q: "Q4", e: 5, i: 5, d: "Drift index graduates to a forecasting model — intervention lands before the pyramid's top layer does." }
+  ];
+  var list = document.getElementById("playList");
+  var mat = document.getElementById("matSvg");
+  var MX = 46, MY = 16, MW = 270, MH = 230;
+  mat.appendChild(el("line", { class: "m-axis", x1: MX, y1: MY, x2: MX, y2: MY + MH }));
+  mat.appendChild(el("line", { class: "m-axis", x1: MX, y1: MY + MH, x2: MX + MW, y2: MY + MH }));
+  var yl = el("text", { class: "m-lab", x: 14, y: MY + 8 }); yl.textContent = "IMPACT ↑"; mat.appendChild(yl);
+  var xl = el("text", { class: "m-lab", x: MX + MW, y: MY + MH + 22, "text-anchor": "end" }); xl.textContent = "EFFORT →"; mat.appendChild(xl);
+  var dots = {}, rowsP = {};
+  PLAYS.forEach(function (p) {
+    var cx = MX + ((p.e - 0.6) / 5.2) * MW, cy = MY + MH - ((p.i - 3.2) / 2.2) * MH;
+    var dot = el("circle", { class: "m-dot", cx: cx, cy: cy, r: 13 });
+    var id = el("text", { class: "m-id", x: cx, y: cy + 3.2, "text-anchor": "middle" }); id.textContent = p.id;
+    mat.appendChild(dot); mat.appendChild(id);
+    dots[p.id] = dot;
+    dot.addEventListener("pointerenter", function () { hi(p.id); });
+    dot.addEventListener("click", function () { hi(p.id); });
+  });
+  PLAYS.forEach(function (p) {
+    var r = document.createElement("div"); r.className = "play"; r.tabIndex = 0;
+    r.innerHTML = '<span class="play-id"></span><span class="play-t"></span><span class="play-q mono"></span><span class="play-d"></span>';
+    r.querySelector(".play-id").textContent = p.id;
+    r.querySelector(".play-t").textContent = p.t;
+    r.querySelector(".play-q").textContent = p.q + " · I" + p.i + "/E" + p.e;
+    r.querySelector(".play-d").textContent = p.d;
+    list.appendChild(r); rowsP[p.id] = r;
+    r.addEventListener("pointerenter", function () { hi(p.id); });
+    r.addEventListener("focus", function () { hi(p.id); });
+  });
+  function hi(id) {
+    Object.keys(rowsP).forEach(function (k) {
+      rowsP[k].classList.toggle("on", k === id);
+      dots[k].classList.toggle("on", k === id);
+    });
+  }
+  list.addEventListener("pointerleave", function () {
+    Object.keys(rowsP).forEach(function (k) { rowsP[k].classList.remove("on"); dots[k].classList.remove("on"); });
+  });
+
+  /* attention mix bar */
+  var mixIO = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (en.isIntersecting) {
+        var f = en.target.querySelector(".mix-lead");
+        if (f) f.style.width = f.getAttribute("data-w") + "%";
+        mixIO.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  var mixEl = document.querySelector(".mix");
+  if (mixEl) mixIO.observe(mixEl);
+
+  /* reveal */
+  var revealables = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    Array.prototype.forEach.call(revealables, function (el2) { el2.classList.add("in"); });
+  } else {
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+    Array.prototype.forEach.call(revealables, function (el2) { ro.observe(el2); });
+  }
+})();
+</script>
+
+</body>
+</html>
