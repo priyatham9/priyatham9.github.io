@@ -143,6 +143,20 @@ svg { display: block; }
   font-weight: 900; letter-spacing: -0.05em;
   text-transform: uppercase; margin-bottom: 18px;
 }
+/* second line drawn as an outline — falls back to solid where unsupported */
+.h1-outline { color: var(--ink); }
+@supports (-webkit-text-stroke: 1px black) {
+  .h1-outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+}
+
+/* drawing-sheet registration marks */
+.hero::before, .hero::after {
+  content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none;
+  border-color: var(--accent); border-style: solid;
+}
+.hero::before { top: 16px; left: 16px; border-width: 2px 0 0 2px; }
+.hero::after  { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+@media (max-width: 640px) { .hero::before, .hero::after { display: none; } }
 .hero-role {
   font-family: var(--font-mono); font-weight: 600;
   font-size: clamp(0.75rem, 1.4vw, 0.875rem);
@@ -165,26 +179,50 @@ svg { display: block; }
 .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .btn svg { width: 14px; height: 14px; flex: none; }
 
-/* ---- flow schematic ---- */
-.schematic { border: 2px solid var(--rule); background: var(--surface); padding: 16px 14px 12px; }
+/* ---- P&ID schematic ---- */
+.schematic { border: 2px solid var(--rule); background: var(--surface); }
 .schematic-head {
   display: flex; justify-content: space-between; align-items: baseline;
-  gap: 12px; padding: 0 4px 12px; border-bottom: 2px solid var(--rule-soft); margin-bottom: 12px;
+  gap: 12px; padding: 12px 16px; border-bottom: 2px solid var(--rule);
 }
-.schematic svg { width: 100%; height: auto; }
-.n-box { fill: var(--surface-2); stroke: var(--rule-soft); stroke-width: 1.5; }
-.n-core { fill: var(--accent); stroke: var(--accent); stroke-width: 1.5; }
-.n-out  { fill: var(--surface-2); stroke: var(--accent); stroke-width: 1.5; }
-.n-text { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--ink-2); letter-spacing: 0.02em; }
-.n-text-core { font-family: var(--font-mono); font-size: 10px; font-weight: 700; fill: var(--accent-ink); letter-spacing: 0.04em; }
-.n-cap { font-family: var(--font-mono); font-size: 8px; font-weight: 600; fill: var(--muted); letter-spacing: 0.14em; }
-.wire { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 7; opacity: .85; }
+.schematic-body { padding: 14px 16px 8px; overflow-x: auto; }
+.schematic svg { width: 100%; height: auto; min-width: 400px; }
+
+/* equipment + line work */
+.eq       { fill: var(--surface-2); stroke: var(--ink); stroke-width: 1.6; }
+.eq-line  { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.pipe     { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: square; }
+.pipe-flow{ fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-dasharray: 6 10; stroke-linecap: butt; }
+.sig      { fill: none; stroke: var(--accent); stroke-width: 1.3; stroke-dasharray: 3 4; }
+.tap      { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+.bub      { fill: var(--surface); stroke: var(--accent); stroke-width: 1.8; }
+.bus      { stroke: var(--accent); stroke-width: 3.5; stroke-linecap: square; }
+.t-tag    { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; fill: var(--accent); letter-spacing: .02em; }
+.t-num    { font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; fill: var(--muted); }
+.t-eq     { font-family: var(--font-mono); font-size: 8.5px; font-weight: 700; fill: var(--ink-2); letter-spacing: .1em; }
+.t-flow   { font-family: var(--font-mono); font-size: 8px;   font-weight: 600; fill: var(--muted); letter-spacing: .12em; }
+.t-bus    { font-family: var(--font-mono); font-size: 8.5px; font-weight: 700; fill: var(--accent); letter-spacing: .14em; }
+
 @media (prefers-reduced-motion: no-preference) {
-  .wire { animation: flow 1.4s linear infinite; }
-  .node { opacity: 0; animation: nodein .5s cubic-bezier(.2,.7,.3,1) forwards; }
+  .pipe-flow { animation: flow 1.6s linear infinite; }
+  .sig       { animation: flowdown 1.9s linear infinite; }
+  .grp       { opacity: 0; animation: fadein .55s cubic-bezier(.2,.7,.3,1) forwards; }
 }
-@keyframes flow { to { stroke-dashoffset: -24; } }
-@keyframes nodein { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+@keyframes flow     { to { stroke-dashoffset: -32; } }
+@keyframes flowdown { to { stroke-dashoffset: -14; } }
+@keyframes fadein   { from { opacity: 0; } to { opacity: 1; } }
+
+/* drawing title block */
+.titleblock { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--rule); }
+@media (max-width: 520px) { .titleblock { grid-template-columns: repeat(2, 1fr); } }
+.tb-cell { padding: 9px 12px; border-left: 1px solid var(--rule-soft); }
+.tb-cell:first-child { border-left: 0; }
+@media (max-width: 520px) {
+  .tb-cell:nth-child(odd) { border-left: 0; }
+  .tb-cell:nth-child(n+3) { border-top: 1px solid var(--rule-soft); }
+}
+.tb-k { font-family: var(--font-mono); font-size: .5625rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px; }
+.tb-v { font-family: var(--font-mono); font-size: .6875rem; font-weight: 700; color: var(--ink); }
 
 /* ============ metrics ============ */
 .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--rule); }
@@ -211,11 +249,14 @@ svg { display: block; }
 @media (max-width: 940px) { .section-grid { grid-template-columns: 1fr; gap: 28px; } }
 .section-rail { position: sticky; top: 96px; align-self: start; }
 @media (max-width: 940px) { .section-rail { position: static; } }
+.rail-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .rail-num {
   display: inline-block; background: var(--accent); color: var(--accent-ink);
   font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700;
-  letter-spacing: 0.12em; padding: 4px 8px; margin-bottom: 12px;
+  letter-spacing: 0.12em; padding: 4px 8px;
 }
+.rail-of { font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600; letter-spacing: .12em; color: var(--muted); }
+.rail-rule { flex: 1; height: 2px; background: var(--rule-soft); }
 .section h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; }
 .rail-note { margin-top: 14px; font-size: 0.8125rem; color: var(--muted); max-width: 24ch; }
 
@@ -326,7 +367,7 @@ svg { display: block; }
   <div class="wrap hero-grid">
     <div>
       <div class="hero-eyebrow"><span class="pulse"></span><span class="label">EHS &amp; ESG Data and Systems</span></div>
-      <h1>Priyatham<br />Chimmani</h1>
+      <h1>Priyatham<br /><span class="h1-outline">Chimmani</span></h1>
       <div class="hero-role">EHS Data Analyst · Hexion Inc. · Columbus, Ohio</div>
       <p class="hero-lede">
         I turn plant, safety, and operational data into decisions executives can act on — owning the
@@ -351,47 +392,124 @@ svg { display: block; }
 
     <div class="schematic">
       <div class="schematic-head">
-        <span class="label">EHS data architecture</span>
-        <span class="label">Source → Governed → Decision</span>
+        <span class="label">Process → Instrument → Decision</span>
+        <span class="label">EHS-DATA-001</span>
       </div>
-      <svg viewBox="0 0 420 258" role="img" aria-label="Diagram: enterprise source systems including Gensuite, SAP, Dynamics 365, Icertis and site data flow through medallion pipelines with Unity Catalog governance, producing board reporting, regulatory filings and site action.">
-        <!-- wires: sources -> core -->
-        <g class="wires">
-          <path class="wire" d="M104 30  C 140 30, 140 108, 168 118" style="animation-delay:.00s"></path>
-          <path class="wire" d="M104 74  C 140 74, 142 116, 168 124" style="animation-delay:.12s"></path>
-          <path class="wire" d="M104 118 C 132 118, 146 129, 168 129" style="animation-delay:.24s"></path>
-          <path class="wire" d="M104 162 C 140 162, 142 142, 168 134" style="animation-delay:.36s"></path>
-          <path class="wire" d="M104 206 C 140 206, 140 150, 168 140" style="animation-delay:.48s"></path>
-          <!-- wires: core -> outputs -->
-          <path class="wire" d="M252 118 C 280 108, 282 74,  310 74"  style="animation-delay:.20s"></path>
-          <path class="wire" d="M252 129 C 282 129, 284 129, 310 129" style="animation-delay:.32s"></path>
-          <path class="wire" d="M252 140 C 280 150, 282 184, 310 184" style="animation-delay:.44s"></path>
+      <div class="schematic-body">
+      <svg viewBox="0 0 420 242" role="img" aria-label="Process and instrumentation schematic: feed enters a stirred reactor, passes through a heat exchanger and a distillation column to product. Temperature, pressure, flow and analysis instruments tap each unit and send signals down into a governed data layer.">
+
+        <!-- ============ process line ============ -->
+        <g class="grp" style="animation-delay:.05s">
+          <!-- feed -->
+          <path class="pipe" d="M12 78 H34"></path>
+          <path class="pipe" d="M26 72 L34 78 L26 84" fill="none"></path>
+          <text class="t-flow" x="12" y="98">FEED</text>
         </g>
 
-        <!-- source nodes -->
-        <g class="node" style="animation-delay:.05s"><rect class="n-box" x="6"  y="16"  width="98" height="28"></rect><text class="n-text" x="55" y="34" text-anchor="middle">Gensuite</text></g>
-        <g class="node" style="animation-delay:.12s"><rect class="n-box" x="6"  y="60"  width="98" height="28"></rect><text class="n-text" x="55" y="78" text-anchor="middle">SAP</text></g>
-        <g class="node" style="animation-delay:.19s"><rect class="n-box" x="6"  y="104" width="98" height="28"></rect><text class="n-text" x="55" y="122" text-anchor="middle">Dynamics 365</text></g>
-        <g class="node" style="animation-delay:.26s"><rect class="n-box" x="6"  y="148" width="98" height="28"></rect><text class="n-text" x="55" y="166" text-anchor="middle">Icertis</text></g>
-        <g class="node" style="animation-delay:.33s"><rect class="n-box" x="6"  y="192" width="98" height="28"></rect><text class="n-text" x="55" y="210" text-anchor="middle">Site data</text></g>
-        <text class="n-cap" x="6" y="238">SOURCE SYSTEMS</text>
-
-        <!-- core -->
-        <g class="node" style="animation-delay:.42s">
-          <rect class="n-core" x="168" y="84" width="84" height="90"></rect>
-          <text class="n-text-core" x="210" y="116" text-anchor="middle">MEDALLION</text>
-          <text class="n-text-core" x="210" y="130" text-anchor="middle">PIPELINES</text>
-          <line x1="182" y1="140" x2="238" y2="140" stroke="currentColor" style="stroke:var(--accent-ink);opacity:.45;stroke-width:1"></line>
-          <text class="n-text-core" x="210" y="156" text-anchor="middle">UNITY CAT.</text>
+        <!-- reactor R-101 -->
+        <g class="grp" style="animation-delay:.16s">
+          <ellipse class="eq" cx="62" cy="100" rx="28" ry="8"></ellipse>
+          <rect class="eq" x="34" y="58" width="56" height="42" stroke-dasharray="0"></rect>
+          <ellipse class="eq" cx="62" cy="58" rx="28" ry="8"></ellipse>
+          <!-- agitator -->
+          <path class="eq-line" d="M62 52 V86"></path>
+          <path class="eq-line" d="M50 86 H74"></path>
+          <path class="eq-line" d="M54 92 H70"></path>
+          <text class="t-eq" x="62" y="44" text-anchor="middle">R-101</text>
         </g>
-        <text class="n-cap" x="168" y="238">GOVERNED MODEL</text>
 
-        <!-- output nodes -->
-        <g class="node" style="animation-delay:.56s"><rect class="n-out" x="310" y="60"  width="104" height="28"></rect><text class="n-text" x="362" y="78"  text-anchor="middle">Board &amp; ELT</text></g>
-        <g class="node" style="animation-delay:.63s"><rect class="n-out" x="310" y="115" width="104" height="28"></rect><text class="n-text" x="362" y="133" text-anchor="middle">Regulatory</text></g>
-        <g class="node" style="animation-delay:.70s"><rect class="n-out" x="310" y="170" width="104" height="28"></rect><text class="n-text" x="362" y="188" text-anchor="middle">Site action</text></g>
-        <text class="n-cap" x="310" y="238">DECISIONS</text>
+        <!-- pipe R -> E -->
+        <g class="grp" style="animation-delay:.24s"><path class="pipe" d="M90 78 H132"></path></g>
+
+        <!-- exchanger E-102 -->
+        <g class="grp" style="animation-delay:.30s">
+          <rect class="eq" x="132" y="64" width="52" height="28"></rect>
+          <path class="eq-line" d="M138 70 L150 86 L162 70 L174 86"></path>
+          <text class="t-eq" x="158" y="58" text-anchor="middle">E-102</text>
+        </g>
+
+        <!-- pipe E -> C -->
+        <g class="grp" style="animation-delay:.36s"><path class="pipe" d="M184 78 H222"></path></g>
+
+        <!-- column C-103 -->
+        <g class="grp" style="animation-delay:.42s">
+          <ellipse class="eq" cx="241" cy="130" rx="19" ry="6"></ellipse>
+          <rect class="eq" x="222" y="26" width="38" height="104"></rect>
+          <ellipse class="eq" cx="241" cy="26" rx="19" ry="6"></ellipse>
+          <path class="eq-line" d="M222 46 H260 M222 64 H260 M222 82 H260 M222 100 H260 M222 118 H260"></path>
+          <text class="t-eq" x="241" y="16" text-anchor="middle">C-103</text>
+        </g>
+
+        <!-- product out -->
+        <g class="grp" style="animation-delay:.50s">
+          <path class="pipe" d="M260 78 H326"></path>
+          <path class="pipe" d="M318 72 L326 78 L318 84" fill="none"></path>
+          <text class="t-flow" x="332" y="81">PRODUCT</text>
+        </g>
+
+        <!-- flowing fluid overlay -->
+        <g class="grp" style="animation-delay:.55s">
+          <path class="pipe-flow" d="M12 78 H34"></path>
+          <path class="pipe-flow" d="M90 78 H132"></path>
+          <path class="pipe-flow" d="M184 78 H222"></path>
+          <path class="pipe-flow" d="M260 78 H326"></path>
+        </g>
+
+        <!-- ============ instrumentation ============ -->
+        <g class="grp" style="animation-delay:.64s">
+          <path class="tap" d="M62 108 V155"></path>
+          <circle class="bub" cx="62" cy="170" r="15"></circle>
+          <text class="t-tag" x="62" y="169" text-anchor="middle">TI</text>
+          <text class="t-num" x="62" y="179" text-anchor="middle">101</text>
+        </g>
+        <g class="grp" style="animation-delay:.71s">
+          <path class="tap" d="M152 92 V155"></path>
+          <circle class="bub" cx="152" cy="170" r="15"></circle>
+          <text class="t-tag" x="152" y="169" text-anchor="middle">PI</text>
+          <text class="t-num" x="152" y="179" text-anchor="middle">102</text>
+        </g>
+        <g class="grp" style="animation-delay:.78s">
+          <path class="tap" d="M202 78 V155"></path>
+          <circle class="bub" cx="202" cy="170" r="15"></circle>
+          <text class="t-tag" x="202" y="169" text-anchor="middle">FI</text>
+          <text class="t-num" x="202" y="179" text-anchor="middle">103</text>
+        </g>
+        <g class="grp" style="animation-delay:.85s">
+          <path class="tap" d="M241 136 V155"></path>
+          <circle class="bub" cx="241" cy="170" r="15"></circle>
+          <text class="t-tag" x="241" y="169" text-anchor="middle">AI</text>
+          <text class="t-num" x="241" y="179" text-anchor="middle">104</text>
+        </g>
+        <g class="grp" style="animation-delay:.90s">
+          <path class="tap" d="M326 84 V155"></path>
+          <circle class="bub" cx="326" cy="170" r="15"></circle>
+          <text class="t-tag" x="326" y="169" text-anchor="middle">QI</text>
+          <text class="t-num" x="326" y="179" text-anchor="middle">105</text>
+        </g>
+
+        <!-- signal drops to bus -->
+        <g class="grp" style="animation-delay:.96s">
+          <path class="sig" d="M62 185 V206"></path>
+          <path class="sig" d="M152 185 V206"></path>
+          <path class="sig" d="M202 185 V206"></path>
+          <path class="sig" d="M241 185 V206"></path>
+          <path class="sig" d="M326 185 V206"></path>
+        </g>
+
+        <!-- ============ governed data layer ============ -->
+        <g class="grp" style="animation-delay:1.02s">
+          <path class="bus" d="M12 207 H408"></path>
+          <text class="t-bus" x="12" y="226">GOVERNED DATA LAYER — UNITY CATALOG</text>
+          <text class="t-flow" x="408" y="226" text-anchor="end">24/7 · GLOBAL SITES</text>
+        </g>
       </svg>
+      </div>
+      <div class="titleblock">
+        <div class="tb-cell"><span class="tb-k">Sources</span><span class="tb-v">SAP · D365 · Gensuite</span></div>
+        <div class="tb-cell"><span class="tb-k">Pipeline</span><span class="tb-v">Databricks</span></div>
+        <div class="tb-cell"><span class="tb-k">Governance</span><span class="tb-v">Unity Catalog</span></div>
+        <div class="tb-cell"><span class="tb-k">Output</span><span class="tb-v">Board · Regulatory</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -426,7 +544,7 @@ svg { display: block; }
 <section class="section" id="focus">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <span class="rail-num">01</span>
+      <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
       <h2>Focus</h2>
       <p class="rail-note">Where I spend my time, and what I own outright.</p>
     </div>
@@ -458,7 +576,7 @@ svg { display: block; }
 <section class="section" id="work">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <span class="rail-num">02</span>
+      <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
       <h2>Selected Work</h2>
       <p class="rail-note">Platforms, models, and systems shipped into production.</p>
     </div>
@@ -513,7 +631,7 @@ svg { display: block; }
 <section class="section" id="experience">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <span class="rail-num">03</span>
+      <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
       <h2>Experience</h2>
       <p class="rail-note">Six years across chemicals, retail operations, and global e-commerce.</p>
     </div>
@@ -576,7 +694,7 @@ svg { display: block; }
 <section class="section" id="wins">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <span class="rail-num">04</span>
+      <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
       <h2>Wins</h2>
       <p class="rail-note">Recognized by Hexion leadership.</p>
     </div>
@@ -600,7 +718,7 @@ svg { display: block; }
 <section class="section" id="education">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <span class="rail-num">05</span>
+      <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 05</span><span class="rail-rule"></span></div>
       <h2>Education</h2>
       <p class="rail-note">Statistics and decision analytics, now applied AI.</p>
     </div>
