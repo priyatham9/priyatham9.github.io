@@ -230,6 +230,25 @@ section[id] { scroll-margin-top: 76px; }
   .st-cell:nth-child(4) { grid-column: 1 / -1; border-left: 0; border-top: 2px solid var(--rule-soft); }
 }
 
+/* "now" strip - one-cell status board under the hero board */
+a.status-now { grid-template-columns: 1fr; margin-top: -2px; text-decoration: none; transition: background .16s; }
+a.status-now:hover { background: var(--accent-wash); }
+a.status-now .st-v.accent::after { content: '\2197'; margin-left: 5px; font-size: .9em; opacity: .75; }
+
+/* research intro - headline number + next step, sits above the RES rows */
+.research-intro { display: grid; grid-template-columns: 1fr 1fr; border: 2px solid var(--rule); border-bottom: 0; background: var(--surface); }
+@media (max-width: 700px) { .research-intro { grid-template-columns: 1fr; } }
+.ri-cell { padding: 26px 24px; min-width: 0; }
+.ri-cell + .ri-cell { border-left: 2px solid var(--rule-soft); }
+@media (max-width: 700px) { .ri-cell + .ri-cell { border-left: 0; border-top: 2px solid var(--rule-soft); } }
+.ri-num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: clamp(2.2rem, 4.6vw, 3.1rem); font-weight: 700; line-height: 1; color: var(--accent); letter-spacing: -.02em; margin: 8px 0 10px; }
+.ri-num small { font-size: .42em; color: var(--ink); font-weight: 600; letter-spacing: 0; }
+.ri-text { font-size: .9375rem; color: var(--ink-2); max-width: 44ch; }
+.ri-text strong { color: var(--ink); }
+.ri-foot { font-family: var(--font-mono); font-size: .625rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+.ri-cta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 0; }
+.ri-cta .btn::after { content: '\2197'; font-size: .9em; opacity: .8; }
+
 /* ============ ticker ============ */
 .ticker { overflow: hidden; border-bottom: 2px solid var(--rule); background: var(--surface); }
 .ticker-track { display: flex; width: max-content; }
@@ -534,6 +553,9 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
       <div class="st-cell"><span class="st-k">Open to · Lead / Owner</span><span class="st-v accent">AI · EHS · Enterprise Analytics</span></div>
       <div class="st-cell"><span class="st-k">Site visits</span><span class="st-v mono" id="visitCount">·····</span></div>
     </div>
+    <a class="status status-now fx fx-5" href="https://priyatham9.github.io/grounded/">
+      <div class="st-cell"><span class="st-k">Now</span><span class="st-v accent">Research: Grounded - draft paper, six public repos</span></div>
+    </a>
   </div>
 </section>
 
@@ -759,7 +781,23 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
       <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
       <h2 class="display">Research</h2>
       <p class="rail-note">Six public repositories on grounded reasoning for safety-critical AI, each with its own site. Real OSHA data where claimed, simulation where labelled, and a draft paper that says plainly what it has not yet established.</p>
-      <p class="rail-note"><a href="https://priyatham9.github.io/grounded/">Enter the research site &rarr;</a></p>
+    </div>
+    <div>
+    <div class="research-intro reveal">
+      <div class="ri-cell">
+        <span class="label">Headline finding · OSHA ITA, nine years</span>
+        <div class="ri-num"><span data-ri="2.07">2.07</span>%<small> of filings carry </small><span data-ri="96.7">96.7</span>%<small> of hours</small></div>
+        <p class="ri-text">Strip those filings and the TRIR correction swings from <strong>1.4x to 249x</strong> between years. It is not a portable constant, and any benchmark that treats it as one is wrong by an amount nobody has measured.</p>
+        <div class="ri-foot">Real public data · reproducible from the repo</div>
+      </div>
+      <div class="ri-cell">
+        <span class="label">What is there</span>
+        <p class="ri-text" style="margin-top:8px">A draft paper, six public repositories with their own sites, and a plain statement of what has and has not been established. Real OSHA data where claimed, simulation where labelled.</p>
+        <div class="ri-cta">
+          <a class="btn btn-primary" href="https://priyatham9.github.io/grounded/">Enter the research site</a>
+          <a class="btn" href="https://priyatham9.github.io/grounded/paper.html">Read the paper</a>
+        </div>
+      </div>
     </div>
     <div class="reports reveal">
       <a class="report-row" href="https://priyatham9.github.io/grounded/">
@@ -804,6 +842,7 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
         <span class="report-d">Counting lost time, retraining, productivity and morale alongside booked costs roughly doubles the measured return on a safety investment. Sensitivity and Monte Carlo modes.</span>
         <span class="report-open">Open <span class="arw">&rarr;</span></span>
       </a>
+    </div>
     </div>
   </div>
 </section>
@@ -1241,6 +1280,29 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
       });
     }, { threshold: 0.4 });
     Array.prototype.forEach.call(metrics, function (m) { co.observe(m); });
+  }
+
+  /* research headline numbers: count up once on entry, skipped under reduced motion */
+  var riNums = document.querySelectorAll("[data-ri]");
+  function runRi(el) {
+    var target = parseFloat(el.getAttribute("data-ri"));
+    var decimals = (el.getAttribute("data-ri").split(".")[1] || "").length;
+    var start = performance.now(), dur = 1100;
+    function step(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = (target * eased).toFixed(decimals);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (riNums.length && !reduced && "IntersectionObserver" in window) {
+    var rio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { runRi(e.target); rio.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    Array.prototype.forEach.call(riNums, function (el) { rio.observe(el); });
   }
 })();
 </script>
