@@ -123,6 +123,9 @@ section[id] { scroll-margin-top: 76px; }
   color: var(--muted); transition: color .15s, background .15s;
 }
 .topnav a:hover { color: var(--accent-ink); background: var(--accent); }
+.topnav a.nav-external{color:var(--accent);font-weight:600}
+.topnav a.nav-external::after{content:'\2197';margin-left:3px;font-size:.85em;opacity:.75}
+.topnav a.nav-external:hover{background:var(--accent-wash);color:var(--accent-2)}
 @media (max-width: 900px) { .topnav { display: none; } }
 .toggle {
   display: inline-flex; align-items: center; justify-content: center;
@@ -486,6 +489,7 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
       <a href="#wins">Wins</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
+      <a href="https://priyatham9.github.io/grounded/" class="nav-external">Research</a>
     </nav>
     <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
