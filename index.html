@@ -431,6 +431,47 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
 .report-row.ghost .report-st { border-color: var(--rule-soft); color: var(--muted); }
 .report-d { grid-column: 2 / 4; font-size: .8438rem; color: var(--muted); }
 
+
+/* ============ estate switcher ============ */
+.estate{display:flex;gap:0;font-family:var(--font-mono);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--rule);background:var(--surface-2)}
+.estate a{padding:6px 14px;text-decoration:none;color:var(--muted)}
+.estate a[aria-current="true"]{color:var(--accent);font-weight:700;box-shadow:inset 0 -2px 0 var(--accent)}
+.estate-sep{width:2px;background:var(--rule-soft)}
+.estate a:hover{color:var(--accent)}
+
+/* ============ research feature chart ============ */
+.rfeat{border:2px solid var(--rule);background:var(--surface);margin-bottom:22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}
+.rfeat-head{padding:26px 24px;border-right:2px solid var(--rule-soft);display:flex;flex-direction:column;gap:12px}
+.rfeat-t{font-stretch:125%;font-size:clamp(1.4rem,2.6vw,2rem);font-weight:900;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase;color:var(--accent)}
+.rfeat-take{font-size:.875rem;color:var(--ink-2);line-height:1.5}
+.rfeat-cta{grid-column:1 / -1;padding:16px 24px;border-top:2px solid var(--rule-soft)}
+.rfeat-cta .arw{display:inline-block;margin-left:6px;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.rfeat-cta .btn:hover .arw{transform:translateX(4px)}
+.tc{padding:18px 18px 14px;min-width:0}
+.tc-svg{display:block;width:100%;height:auto;aspect-ratio:640/300;overflow:visible}
+.tc-grid{stroke:var(--rule-soft);stroke-width:1}
+.tc-axis{stroke:var(--rule);stroke-width:2}
+.tc-ax{font-family:var(--font-mono);font-size:10px;font-weight:600;fill:var(--muted);letter-spacing:.04em}
+.tc-line{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:square}
+.tc-line.tc-scr{stroke:var(--accent)}
+.tc-line.tc-uns{stroke:var(--muted);stroke-dasharray:5 4}
+.tc-pt{fill:var(--surface);stroke-width:2.5;cursor:default;transition:r .15s}
+.tc-pt.tc-scr{stroke:var(--accent)}
+.tc-pt.tc-uns{stroke:var(--muted)}
+.tc-pt:hover,.tc-pt:focus-visible{r:6;fill:var(--accent);stroke:var(--ink);outline:none}
+.tc-legend{display:flex;gap:18px;margin-top:10px;font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.tc-key{display:inline-flex;align-items:center;gap:7px;color:var(--ink-2)}
+.tc-key::before{content:"";width:18px;height:0;border-top:3px solid var(--accent)}
+.tc-key.tc-uns::before{border-top-style:dashed;border-top-color:var(--muted)}
+.tc-src{margin-top:10px;font-family:var(--font-mono);font-size:.625rem;color:var(--muted);letter-spacing:.02em;line-height:1.5}
+@media (max-width:820px){.rfeat{grid-template-columns:1fr}.rfeat-head{border-right:0;border-bottom:2px solid var(--rule-soft)}}
+@media (prefers-reduced-motion: reduce){.tc-pt,.rfeat-cta .arw{transition:none}}
+
+/* research status chips */
+.report-st[data-st="apparatus"]{border-color:var(--ink-2);color:var(--ink-2);border-style:dashed}
+.report-st[data-st="simulation"]{border-color:var(--muted);color:var(--muted);background:var(--surface-2)}
+.report-st[data-st="live"]::before{content:"";display:inline-block;width:6px;height:6px;background:var(--accent);margin-right:6px;vertical-align:1px}
+
 /* experience */
 .role { padding: 28px 0; border-top: 2px solid var(--rule-soft); }
 .role:first-child { border-top: 0; padding-top: 0; }
@@ -537,6 +578,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     </button>
   </div>
 </header>
+<div class="estate" aria-label="Site switcher"><a href="https://priyatham9.github.io/" data-site="personal" aria-current="true">Priyatham Chimmani</a><span class="estate-sep"></span><a href="https://priyatham9.github.io/grounded/" data-site="research">Grounded research</a></div>
 
 <main>
 
@@ -803,6 +845,19 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <p class="rail-note">Six public repositories on grounded reasoning for safety-critical AI, each with its own site. Real OSHA data where claimed, simulation where labelled, and a draft paper that says plainly what it has not yet established.</p>
     </div>
     <div>
+    <div class="rfeat reveal" aria-labelledby="rfeatTitle">
+      <div class="rfeat-head">
+        <span class="label">Feature · OSHA ITA, 2016 to 2024</span>
+        <h3 class="rfeat-t" id="rfeatTitle">Screening turns noise into a series</h3>
+        <p class="rfeat-take">Unscreened TRIR collapses to 0.016 in 2019 and 0.280 in 2024. The screened series stays between 3.1 and 4.6 across all nine years.</p>
+      </div>
+      <div class="tc" data-chart="trir-by-year">
+        <svg class="tc-svg" viewBox="0 0 640 300" role="img" aria-labelledby="tcTitle" preserveAspectRatio="xMidYMid meet"><title id="tcTitle">TRIR by year, 2016 to 2024, screened versus unscreened</title><line class="tc-grid" x1="44" x2="624" y1="260.0" y2="260.0"/><text class="tc-ax" x="36" y="263.0" text-anchor="end">0</text><line class="tc-grid" x1="44" x2="624" y1="211.6" y2="211.6"/><text class="tc-ax" x="36" y="214.6" text-anchor="end">1</text><line class="tc-grid" x1="44" x2="624" y1="163.2" y2="163.2"/><text class="tc-ax" x="36" y="166.2" text-anchor="end">2</text><line class="tc-grid" x1="44" x2="624" y1="114.8" y2="114.8"/><text class="tc-ax" x="36" y="117.8" text-anchor="end">3</text><line class="tc-grid" x1="44" x2="624" y1="66.4" y2="66.4"/><text class="tc-ax" x="36" y="69.4" text-anchor="end">4</text><line class="tc-grid" x1="44" x2="624" y1="18.0" y2="18.0"/><text class="tc-ax" x="36" y="21.0" text-anchor="end">5</text><line class="tc-axis" x1="44" x2="624" y1="260.0" y2="260.0"/><text class="tc-ax" x="44.0" y="286" text-anchor="middle">2016</text><text class="tc-ax" x="116.5" y="286" text-anchor="middle">2017</text><text class="tc-ax" x="189.0" y="286" text-anchor="middle">2018</text><text class="tc-ax" x="261.5" y="286" text-anchor="middle">2019</text><text class="tc-ax" x="334.0" y="286" text-anchor="middle">2020</text><text class="tc-ax" x="406.5" y="286" text-anchor="middle">2021</text><text class="tc-ax" x="479.0" y="286" text-anchor="middle">2022</text><text class="tc-ax" x="551.5" y="286" text-anchor="middle">2023</text><text class="tc-ax" x="624.0" y="286" text-anchor="middle">2024</text><path class="tc-line tc-uns" d="M44.0,127.9 L116.5,132.5 L189.0,118.7 L261.5,259.2 L334.0,124.9 L406.5,144.6 L479.0,131.2 L551.5,193.2 L624.0,246.4"/><path class="tc-line tc-scr" d="M44.0,70.2 L116.5,66.5 L189.0,63.1 L261.5,65.5 L334.0,42.6 L406.5,48.6 L479.0,37.1 L551.5,107.7 L624.0,83.7"/><circle class="tc-pt tc-uns" cx="44.0" cy="127.9" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2016: 2.729"><title>Unscreened TRIR 2016: 2.729</title></circle><circle class="tc-pt tc-uns" cx="116.5" cy="132.5" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2017: 2.634"><title>Unscreened TRIR 2017: 2.634</title></circle><circle class="tc-pt tc-uns" cx="189.0" cy="118.7" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2018: 2.920"><title>Unscreened TRIR 2018: 2.920</title></circle><circle class="tc-pt tc-uns" cx="261.5" cy="259.2" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2019: 0.016"><title>Unscreened TRIR 2019: 0.016</title></circle><circle class="tc-pt tc-uns" cx="334.0" cy="124.9" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2020: 2.792"><title>Unscreened TRIR 2020: 2.792</title></circle><circle class="tc-pt tc-uns" cx="406.5" cy="144.6" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2021: 2.385"><title>Unscreened TRIR 2021: 2.385</title></circle><circle class="tc-pt tc-uns" cx="479.0" cy="131.2" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2022: 2.661"><title>Unscreened TRIR 2022: 2.661</title></circle><circle class="tc-pt tc-uns" cx="551.5" cy="193.2" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2023: 1.380"><title>Unscreened TRIR 2023: 1.380</title></circle><circle class="tc-pt tc-uns" cx="624.0" cy="246.4" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2024: 0.280"><title>Unscreened TRIR 2024: 0.280</title></circle><circle class="tc-pt tc-scr" cx="44.0" cy="70.2" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2016: 3.921"><title>Screened TRIR 2016: 3.921</title></circle><circle class="tc-pt tc-scr" cx="116.5" cy="66.5" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2017: 3.998"><title>Screened TRIR 2017: 3.998</title></circle><circle class="tc-pt tc-scr" cx="189.0" cy="63.1" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2018: 4.069"><title>Screened TRIR 2018: 4.069</title></circle><circle class="tc-pt tc-scr" cx="261.5" cy="65.5" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2019: 4.018"><title>Screened TRIR 2019: 4.018</title></circle><circle class="tc-pt tc-scr" cx="334.0" cy="42.6" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2020: 4.491"><title>Screened TRIR 2020: 4.491</title></circle><circle class="tc-pt tc-scr" cx="406.5" cy="48.6" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2021: 4.368"><title>Screened TRIR 2021: 4.368</title></circle><circle class="tc-pt tc-scr" cx="479.0" cy="37.1" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2022: 4.605"><title>Screened TRIR 2022: 4.605</title></circle><circle class="tc-pt tc-scr" cx="551.5" cy="107.7" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2023: 3.147"><title>Screened TRIR 2023: 3.147</title></circle><circle class="tc-pt tc-scr" cx="624.0" cy="83.7" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2024: 3.642"><title>Screened TRIR 2024: 3.642</title></circle></svg>
+        <div class="tc-legend"><span class="tc-key tc-scr">Screened</span><span class="tc-key tc-uns">Unscreened</span></div>
+        <p class="tc-src">Source: ehs-osha-analysis, committed summary of screened and unscreened TRIR by year. Hover or tab across points for values.</p>
+      </div>
+      <div class="rfeat-cta"><a class="btn btn-primary" href="https://priyatham9.github.io/grounded/">Open the research site <span class="arw">&rarr;</span></a></div>
+    </div>
     <div class="research-intro reveal">
       <div class="ri-cell">
         <span class="label">Headline finding · OSHA ITA, nine years</span>
@@ -823,42 +878,42 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <a class="report-row" href="https://priyatham9.github.io/grounded/">
         <span class="report-code">RES-001</span>
         <span class="report-t">Grounded - the research site</span>
-        <span class="report-st">Live</span>
+        <span class="report-st" data-st="live">Live</span>
         <span class="report-d">The programme home: why ungrounded retrieval fails structurally in safety-critical work, what was built in response, and the full draft paper with 197 verified references.</span>
         <span class="report-open">Open <span class="arw">&rarr;</span></span>
       </a>
       <a class="report-row" href="https://priyatham9.github.io/ehs-osha-analysis/">
         <span class="report-code">RES-002</span>
         <span class="report-t">OSHA data quality - 2.8M establishment filings</span>
-        <span class="report-st">Live</span>
+        <span class="report-st" data-st="live">Live</span>
         <span class="report-d">Nine years of real ITA data. 2.07% of filings carry 96.7% of reported hours; the resulting TRIR correction swings from 1.4x to 249x between years and is not a portable constant.</span>
         <span class="report-open">Open <span class="arw">&rarr;</span></span>
       </a>
       <a class="report-row" href="https://priyatham9.github.io/ehs-ai-grounding-eval/">
         <span class="report-code">RES-003</span>
         <span class="report-t">Grounding evaluation benchmark</span>
-        <span class="report-st">Apparatus</span>
+        <span class="report-st" data-st="apparatus">Apparatus</span>
         <span class="report-d">A question corpus built around plausible-but-dangerous adjacent answers, with scoring that rewards abstention over confabulation. No baseline results yet; preregistered.</span>
         <span class="report-open">Open <span class="arw">&rarr;</span></span>
       </a>
       <a class="report-row" href="https://priyatham9.github.io/ehs-human-factors-ontology/">
         <span class="report-code">RES-004</span>
         <span class="report-t">Human factors ontology</span>
-        <span class="report-st">Live</span>
+        <span class="report-st" data-st="live">Live</span>
         <span class="report-d">Contextual error-risk factors as an OWL ontology, crosswalked to SPAR-H, CREAM, HFACS and HSE PIFs, with a rule engine that emits a derivation trace for every conclusion.</span>
         <span class="report-open">Open <span class="arw">&rarr;</span></span>
       </a>
       <a class="report-row" href="https://priyatham9.github.io/ehs-risk-sem/">
         <span class="report-code">RES-005</span>
         <span class="report-t">SEM for safety risk - what it can and cannot tell you</span>
-        <span class="report-st">Simulation</span>
+        <span class="report-st" data-st="simulation">Simulation</span>
         <span class="report-d">A from-scratch estimator and simulation studies on coefficient recovery, rare-event calibration and model equivalence. Everything simulated by design; nothing is a claim about a real site.</span>
         <span class="report-open">Open <span class="arw">&rarr;</span></span>
       </a>
       <a class="report-row" href="https://priyatham9.github.io/ehs-capitals-calculator/">
         <span class="report-code">RES-006</span>
         <span class="report-t">Human-capital cost-benefit calculator</span>
-        <span class="report-st">Live</span>
+        <span class="report-st" data-st="live">Live</span>
         <span class="report-d">Counting lost time, retraining, productivity and morale alongside booked costs roughly doubles the measured return on a safety investment. Sensitivity and Monte Carlo modes.</span>
         <span class="report-open">Open <span class="arw">&rarr;</span></span>
       </a>
