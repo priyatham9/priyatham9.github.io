@@ -187,6 +187,7 @@ section[id] { scroll-margin-top: 76px; }
   max-width: 760px;
 }
 .hero-lede { font-size: clamp(1.0625rem, 1.8vw, 1.1875rem); color: var(--ink-2); max-width: 56ch; margin-bottom: 32px; }
+.hero-thesis { font-family: var(--font-mono); font-size: .8125rem; color: var(--muted); max-width: 52ch; margin-bottom: 16px; }
 .hero-proof { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
 .proof-chip {
   display: inline-flex; align-items: baseline; gap: 5px;
@@ -213,7 +214,7 @@ section[id] { scroll-margin-top: 76px; }
 
 /* status board */
 .status {
-  display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
   border: 2px solid var(--rule); background: var(--surface);
   margin-top: 34px; max-width: 940px;
 }
@@ -237,10 +238,9 @@ section[id] { scroll-margin-top: 76px; }
   .st-k { white-space: normal; }
   .st-cell { align-content: start; }
 }
-/* the long "Open to" value gets the full row on phones so it reads on one line */
+/* the odd third cell gets the full row on phones so it reads on one line */
 @media (max-width: 768px) {
   .st-cell:nth-child(3) { grid-column: 1 / -1; border-left: 0; border-top: 2px solid var(--rule-soft); }
-  .st-cell:nth-child(4) { grid-column: 1 / -1; border-left: 0; border-top: 2px solid var(--rule-soft); }
 }
 
 /* "now" strip - one-cell status board under the hero board */
@@ -625,15 +625,16 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <span class="line"><span class="line-in">Priyatham</span></span>
       <span class="line"><span class="line-in h1-outline">Chimmani</span></span>
     </h1>
-    <div class="hero-role fx fx-2">EHS Data Analyst · Hexion Inc. · Columbus, Ohio</div>
+    <div class="hero-role fx fx-2">Owns the enterprise EHS system end to end, leads the team · Hexion Inc., global chemicals manufacturer · Columbus, Ohio</div>
     <p class="hero-lede fx fx-3">
       I own the enterprise EHS management system for a global chemicals manufacturer end to end,
       build the data and AI platforms underneath it, and lead the people who ship it.
     </p>
+    <p class="hero-thesis fx fx-3">Safety numbers are only as good as the denominator and the citation underneath them.</p>
     <div class="hero-proof fx fx-3">
-      <a class="proof-chip" href="#experience"><strong>Sole</strong> global administrator, enterprise EHS system</a>
-      <a class="proof-chip" href="#research"><strong>2.8M</strong> OSHA filings analysed</a>
-      <a class="proof-chip" href="#work"><strong>80+</strong> Gensuite enhancements shipped</a>
+      <a class="proof-chip" href="#experience"><strong>Sole</strong> global EHS administrator</a>
+      <a class="proof-chip" href="#research"><strong>2.8M</strong> filings analysed</a>
+      <a class="proof-chip" href="#work"><strong>80+</strong> enhancements shipped</a>
     </div>
     <div class="hero-links fx fx-4">
       <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">
@@ -652,7 +653,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     <div class="status fx fx-5">
       <div class="st-cell"><span class="st-k">Location</span><span class="st-v">Columbus, OH</span></div>
       <div class="st-cell"><span class="st-k">Current</span><span class="st-v">Hexion Inc.</span></div>
-      <div class="st-cell"><span class="st-k">Open to · Lead / Owner</span><span class="st-v accent">AI · EHS · Enterprise Analytics</span></div>
       <div class="st-cell"><span class="st-k">Site visits</span><span class="st-v mono" id="visitCount">·····</span></div>
     </div>
     <a class="status status-now fx fx-5" href="https://priyatham9.github.io/grounded/">
@@ -771,6 +771,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   <div class="wrap section-grid">
     <div class="section-rail reveal">
       <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="project-kicker">Safety numbers are only as good as the denominator and the citation underneath them.</div>
       <h2 class="display">Research</h2>
       <p class="rail-note">Real OSHA data says the screening step every EHS team assumes is optional actually decides the number.</p>
     </div>
@@ -803,6 +804,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         <div class="ri-cta">
           <a class="btn btn-primary" href="https://priyatham9.github.io/grounded/">Enter the research site</a>
           <a class="btn" href="https://priyatham9.github.io/grounded/paper.html">Read the paper</a>
+          <a class="btn" href="https://priyatham9.github.io/grounded/start.html">Start here</a>
         </div>
       </div>
     </div>
@@ -1127,6 +1129,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   <div class="wrap">
     <h2 class="display">Let's talk</h2>
     <p class="footer-ask">I want to talk with people building EHS data platforms, grounded AI for safety-critical work, or organizing a talk on either.</p>
+    <div class="status footer-open" style="grid-template-columns:1fr;margin-top:0;margin-bottom:26px;max-width:420px">
+      <div class="st-cell"><span class="st-k">Open to · Lead / Owner</span><span class="st-v accent">AI · EHS · Enterprise Analytics</span></div>
+    </div>
     <div class="footer-links">
       <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">priyatham9@gmail.com</a>
       <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">LinkedIn</a>
