@@ -793,7 +793,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       </div>
       <div class="ri-cell">
         <span class="label">What is there</span>
-        <p class="ri-text" style="margin-top:8px">A draft paper, six public repositories with their own sites, and a plain statement of what has and has not been established. Real OSHA data where claimed, simulation where labelled.</p>
+        <p class="ri-text" style="margin-top:8px">A draft paper, <span id="ptRepoCount">six</span> public repositories with their own sites, and a plain statement of what has and has not been established. Real OSHA data where claimed, simulation where labelled.</p>
+        <p class="ri-text" id="ptStatusLine" style="margin-top:8px;font-family:var(--font-mono);font-size:.8125rem;color:var(--muted)">Programme status: <span id="ptTests">810</span> tests passing, screened TRIR <span id="ptTrir">3.98</span>.</p>
         <div class="ri-cta">
           <a class="btn btn-primary" href="https://priyatham9.github.io/grounded/">Enter the research site</a>
           <a class="btn" href="https://priyatham9.github.io/grounded/paper.html">Read the paper</a>
@@ -1457,6 +1458,23 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     }, { threshold: 0.5 });
     Array.prototype.forEach.call(riNums, function (el) { rio.observe(el); });
   }
+})();
+</script>
+<script>
+(function () {
+  var statusUrl = location.hostname === 'priyatham9.github.io'
+    ? 'https://priyatham9.github.io/grounded/status.json'
+    : '../grounded/docs/status.json';
+  fetch(statusUrl).then(function (r) { return r.json(); }).then(function (s) {
+    var testsEl = document.getElementById('ptTests');
+    var trirEl = document.getElementById('ptTrir');
+    var repoEl = document.getElementById('ptRepoCount');
+    if (testsEl && typeof s.total_tests === 'number') testsEl.textContent = s.total_tests;
+    var trir = s.repos && s.repos['ehs-osha-analysis'] && s.repos['ehs-osha-analysis'].headline &&
+      s.repos['ehs-osha-analysis'].headline.trir_screened;
+    if (trirEl && typeof trir === 'number') trirEl.textContent = trir.toFixed(2);
+    if (repoEl && s.repos) repoEl.textContent = Object.keys(s.repos).length;
+  }).catch(function () {});
 })();
 </script>
 
