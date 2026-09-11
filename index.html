@@ -152,6 +152,10 @@ section[id] { scroll-margin-top: 76px; }
 
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 24px; }
 .pulse { width: 9px; height: 9px; background: var(--accent); flex: none; }
+.hero-statement {
+  font-size: clamp(1.0625rem, 1.9vw, 1.25rem); font-weight: 600; color: var(--ink);
+  max-width: 46ch; margin-bottom: 18px; letter-spacing: -0.005em;
+}
 
 .hero h1 {
   font-size: clamp(3rem, 9.6vw, 6.9rem);
@@ -183,6 +187,15 @@ section[id] { scroll-margin-top: 76px; }
   max-width: 760px;
 }
 .hero-lede { font-size: clamp(1.0625rem, 1.8vw, 1.1875rem); color: var(--ink-2); max-width: 56ch; margin-bottom: 32px; }
+.hero-proof { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.proof-chip {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-2);
+  padding: 7px 11px; border: 1.5px solid var(--rule-soft); text-decoration: none;
+  transition: border-color .16s, color .16s;
+}
+.proof-chip strong { color: var(--accent); font-weight: 700; }
+.proof-chip:hover { border-color: var(--accent); color: var(--ink); }
 .hero-links { display: flex; flex-wrap: wrap; gap: 0; }
 .btn {
   display: inline-flex; align-items: center; gap: 9px;
@@ -405,6 +418,23 @@ a.status-now .st-v.accent::after { content: '\2197'; margin-left: 5px; font-size
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
 @media (prefers-reduced-motion: no-preference) { .live-dot { animation: pulse 2.4s steps(1, end) infinite; } }
 
+/* impact */
+.impact-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 940px) { .impact-cards { grid-template-columns: 1fr; } }
+.impact-card {
+  display: flex; flex-direction: column; gap: 14px; position: relative;
+  border: 2px solid var(--rule); padding: 24px; background: var(--surface);
+  transition: transform .2s cubic-bezier(.2,.7,.3,1), box-shadow .2s;
+}
+.impact-card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); }
+.impact-row { display: flex; flex-direction: column; gap: 3px; }
+.impact-k {
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+}
+.impact-row p { font-size: 0.875rem; color: var(--ink-2); line-height: 1.4; }
+.impact-row:last-child p { color: var(--ink); font-weight: 600; }
+
 /* reports */
 .reports { border: 2px solid var(--rule); background: var(--surface); }
 .report-row {
@@ -502,7 +532,8 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
 
 /* footer */
 .footer { padding: 60px 0 72px; }
-.footer h2 { font-size: clamp(2.1rem, 6vw, 3.6rem); letter-spacing: -0.03em; margin-bottom: 24px; }
+.footer h2 { font-size: clamp(2.1rem, 6vw, 3.6rem); letter-spacing: -0.03em; margin-bottom: 18px; }
+.footer-ask { font-size: clamp(1rem, 1.8vw, 1.125rem); color: var(--ink-2); max-width: 54ch; margin-bottom: 26px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 30px; }
 .footer-note { color: var(--muted); font-size: 0.8125rem; }
 
@@ -562,12 +593,13 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   <div class="topbar-inner">
     <div class="brand"><span class="brand-mark"></span>Chimmani</div>
     <nav class="topnav">
+      <a href="#impact">Impact</a>
       <a href="#architecture">Architecture</a>
-      <a href="#focus">Focus</a>
-      <a href="#work">Work</a>
-      <a href="#reports">Reports</a>
       <a href="#research">Research</a>
+      <a href="#work">Work</a>
       <a href="#experience">Experience</a>
+      <a href="#reports">Reports</a>
+      <a href="#focus">Focus</a>
       <a href="#wins">Wins</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
@@ -586,16 +618,21 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="hero" id="main" tabindex="-1">
   <div class="wrap">
     <div class="hero-eyebrow fx fx-1"><span class="pulse"></span><span class="label">EHS &amp; ESG Data and Systems</span></div>
+    <p class="hero-statement fx fx-1">I turn plant, safety, and operational data into decisions executives can act on.</p>
     <h1 class="display" aria-label="Priyatham Chimmani">
       <span class="line"><span class="line-in">Priyatham</span></span>
       <span class="line"><span class="line-in h1-outline">Chimmani</span></span>
     </h1>
     <div class="hero-role fx fx-2">EHS Data Analyst · Hexion Inc. · Columbus, Ohio</div>
     <p class="hero-lede fx fx-3">
-      I turn plant, safety, and operational data into decisions executives can act on - owning the
-      enterprise EHS management system end to end, building the data and AI platforms underneath it,
-      and leading the people who ship it.
+      I own the enterprise EHS management system for a global chemicals manufacturer end to end,
+      build the data and AI platforms underneath it, and lead the people who ship it.
     </p>
+    <div class="hero-proof fx fx-3">
+      <a class="proof-chip" href="#experience"><strong>Sole</strong> global administrator, enterprise EHS system</a>
+      <a class="proof-chip" href="#research"><strong>2.8M</strong> OSHA filings analysed</a>
+      <a class="proof-chip" href="#work"><strong>80+</strong> Gensuite enhancements shipped</a>
+    </div>
     <div class="hero-links fx fx-4">
       <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16"></rect><path d="m2 7 10 6 10-6"></path></svg>
@@ -617,10 +654,11 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <div class="st-cell"><span class="st-k">Site visits</span><span class="st-v mono" id="visitCount">·····</span></div>
     </div>
     <a class="status status-now fx fx-5" href="https://priyatham9.github.io/grounded/">
-      <div class="st-cell"><span class="st-k">Now</span><span class="st-v accent">Research: Grounded - draft paper, six public repos</span></div>
+      <div class="st-cell"><span class="st-k">Now</span><span class="st-v accent">Running: Foundry ontology migration at Hexion, six Grounded repos in public draft</span></div>
     </a>
   </div>
 </section>
+
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track" id="tickerTrack">
@@ -642,25 +680,38 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   </div>
 </div>
 
-<section class="arch" id="architecture">
-  <div class="arch-head">
-    <span class="arch-title display">Architecture I've built</span>
-    <span class="label">Hover or tap any block to trace its path</span>
+<section class="section" id="impact">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <h2 class="display">Impact</h2>
+      <p class="rail-note">Three systems now running in daily use at Hexion.</p>
+    </div>
+    <div class="impact-cards reveal">
+
+      <article class="impact-card">
+        <span class="project-idx">I-01</span>
+        <div class="impact-row"><span class="impact-k">Situation</span><p>Every global site needed a modernized way to capture safety data inside an aging enterprise EHS application.</p></div>
+        <div class="impact-row"><span class="impact-k">Built</span><p>Led an end-to-end refresh of the application across two phases, from requirements through global rollout.</p></div>
+        <div class="impact-row"><span class="impact-k">Changed</span><p>80+ feature enhancements shipped, reshaping how every global site captures safety data.</p></div>
+      </article>
+
+      <article class="impact-card">
+        <span class="project-idx">I-02</span>
+        <div class="impact-row"><span class="impact-k">Situation</span><p>Leadership needed to see where competitive opportunity sat across dozens of micro markets, without a shared model.</p></div>
+        <div class="impact-row"><span class="impact-k">Built</span><p>A Python linear-programming engine that scores and ranks those markets.</p></div>
+        <div class="impact-row"><span class="impact-k">Changed</span><p>Adopted company-wide and awarded the Transformation Award.</p></div>
+      </article>
+
+      <article class="impact-card">
+        <span class="project-idx">I-03</span>
+        <div class="impact-row"><span class="impact-k">Situation</span><p>Contract, ERP, and warehouse data sat in separate systems nobody could audit together.</p></div>
+        <div class="impact-row"><span class="impact-k">Built</span><p>Databricks medallion pipelines unifying Icertis, Dynamics 365, SAP, and Gensuite feeds.</p></div>
+        <div class="impact-row"><span class="impact-k">Changed</span><p>Migrated the platform to Unity Catalog governance, making every downstream report audit-ready.</p></div>
+      </article>
+
+    </div>
   </div>
-  <div class="arch-body">
-    <svg id="archSvg" viewBox="0 0 1110 312" role="img"
-         aria-label="Architecture diagram in five tiers. Source systems - SAP, Dynamics 365, Icertis, Benchmark ESG and site data - feed a Databricks medallion pipeline of bronze, silver and gold layers. That flows into governance: Unity Catalog, a Palantir Foundry ontology and a digital twin. Those feed an intelligence tier of MCP architecture, natural-language-query agents, linear-programming optimization and Power BI with Microsoft Fabric, which produce board reporting, regulatory filings, site safety action and spend analytics."></svg>
-  </div>
-  <div class="arch-readout" id="archReadout">
-    <span class="ro-hint">19 components · 5 tiers · source systems through to executive decisions</span>
-  </div>
-  <ul class="sr-only">
-    <li>Source systems: SAP, Dynamics 365, Icertis, Benchmark ESG (Gensuite), site and plant data.</li>
-    <li>Databricks medallion pipeline: bronze, silver, gold.</li>
-    <li>Governance: Unity Catalog, Foundry ontology, digital twin.</li>
-    <li>Intelligence: MCP architecture, NLQ agents, LP optimization, Power BI and Fabric.</li>
-    <li>Decisions: board and ELT reporting, regulatory filings, site action, spend analytics.</li>
-  </ul>
 </section>
 
 <section>
@@ -690,160 +741,33 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   </div>
 </section>
 
-<section class="section" id="focus">
-  <div class="wrap section-grid">
-    <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
-      <h2 class="display">Focus</h2>
-      <p class="rail-note">Where I spend my time, and what I own outright.</p>
-    </div>
-    <div class="cards reveal">
-      <div class="card">
-        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
-        <h3>EHS &amp; ESG Systems</h3>
-        <p>Global owner of the enterprise EHS management system and the regulatory reporting that depends on it.</p>
-        <div class="chips"><span class="chip">Benchmark ESG / Gensuite</span><span class="chip">OSHA</span><span class="chip">MSHA</span><span class="chip">ACC</span><span class="chip">Encamp</span><span class="chip">Diligent</span></div>
-      </div>
-      <div class="card">
-        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z"></path><path d="m2 12 10 5 10-5"></path><path d="m2 17 10 5 10-5"></path></svg></div>
-        <h3>Data Engineering</h3>
-        <p>Production pipelines that turn scattered source systems into governed, audit-ready reporting.</p>
-        <div class="chips"><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">Unity Catalog</span><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">SAP</span><span class="chip">Dynamics 365</span><span class="chip">Foundry</span></div>
-      </div>
-      <div class="card">
-        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.8 2.8M16.2 16.2 19 19M5 19l2.8-2.8M16.2 7.8 19 5"></path></svg></div>
-        <h3>Applied AI</h3>
-        <p>Agents that let people ask questions of enterprise data in plain language - grounded, auditable, cost-aware.</p>
-        <div class="chips"><span class="chip">Copilot Studio</span><span class="chip">Claude Code</span><span class="chip">OpenAI API</span><span class="chip">Codex</span><span class="chip">MCP</span><span class="chip">NLQ agents</span></div>
-      </div>
-      <div class="card">
-        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15v-4M12 15V7M17 15v-6"></path></svg></div>
-        <h3>Decision Support</h3>
-        <p>Board-level reporting, safety strategy, and optimization models used by leadership across the business.</p>
-        <div class="chips"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Microsoft Fabric</span><span class="chip">Tableau</span><span class="chip">LP optimization</span></div>
-      </div>
-    </div>
+<section class="arch" id="architecture">
+  <div class="arch-head">
+    <span class="arch-title display">Architecture I've built</span>
+    <span class="label">Nine source systems, one governed path to a report. Hover or tap any block to trace it.</span>
   </div>
-</section>
-
-<section class="section" id="work">
-  <div class="wrap section-grid">
-    <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
-      <h2 class="display">Selected Work</h2>
-      <p class="rail-note">Platforms, models, and systems shipped into production.</p>
-    </div>
-    <div class="projects reveal">
-
-      <article class="project">
-        <span class="project-idx">W-01</span>
-        <div class="project-kicker">In flight</div>
-        <h3>Enterprise Ontology &amp; Digital Twin</h3>
-        <p>Leading the company's migration to Palantir Foundry - a single ontology and digital twin spanning EHS, supply chain, procurement, and finance, replacing scattered reporting with one governed model.</p>
-        <div class="chips"><span class="chip">Palantir Foundry</span><span class="chip">Ontology</span><span class="chip">Digital twin</span></div>
-      </article>
-
-      <article class="project">
-        <span class="project-idx">W-02</span>
-        <div class="project-kicker">Award winner</div>
-        <h3>Micro Market Model</h3>
-        <p>A Python linear-programming engine that pinpoints competitive opportunities across micro markets. Earned the company's Transformation Award.</p>
-        <div class="chips"><span class="chip">Python</span><span class="chip">LP optimization</span><span class="chip">Market analytics</span></div>
-      </article>
-
-      <article class="project">
-        <span class="project-idx">W-03</span>
-        <div class="project-kicker">Platform</div>
-        <h3>Gensuite Refresh - Phase 1 &amp; 2</h3>
-        <p>Led an end-to-end refresh of the enterprise EHS application, delivering 80+ feature enhancements that reshaped how every global site captures safety data.</p>
-        <div class="chips"><span class="chip">Benchmark ESG</span><span class="chip">Requirements</span><span class="chip">Global rollout</span></div>
-      </article>
-
-      <article class="project">
-        <span class="project-idx">W-04</span>
-        <div class="project-kicker">AI</div>
-        <h3>Enterprise Agent Layer</h3>
-        <p>Natural-language-query and summarization agents on Copilot Studio, Claude Code, and Codex, with an MCP architecture grounding them in live systems and deterministic algorithms keeping answers reproducible.</p>
-        <div class="chips"><span class="chip">MCP</span><span class="chip">OpenAI API</span><span class="chip">Copilot Studio</span><span class="chip">Claude Code</span></div>
-      </article>
-
-      <article class="project">
-        <span class="project-idx">W-05</span>
-        <div class="project-kicker">Data platform</div>
-        <h3>Medallion Pipelines &amp; Unity Catalog</h3>
-        <p>Production Databricks pipelines unifying Icertis contracts, a 40-entity Dynamics 365 model, SAP, and Gensuite warehouse feeds into audit-ready reporting - then migrated wholesale to Unity Catalog governance.</p>
-        <div class="chips"><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">CI/CD</span><span class="chip">REST &amp; GraphQL</span></div>
-      </article>
-
-      <article class="project">
-        <span class="project-idx">W-06</span>
-        <div class="project-kicker">Personal build</div>
-        <h3>Resin &amp; Wood Market Weather Brief</h3>
-        <p>A live decision-support app tracking public operating signals for chemicals, resins, engineered wood, and construction demand - EPA, Census, and BLS data turned into scored, tiered state-level actions and scenario models.</p>
-        <div class="chips"><span class="chip">Astro</span><span class="chip">JavaScript</span><span class="chip">Public data</span><span class="chip">Leaflet</span></div>
-        <a class="project-live" href="https://resin-wood-market-weather-brief.vercel.app/" target="_blank" rel="noopener noreferrer">
-          <span class="live-dot"></span>Open the live app <span class="arw">&rarr;</span>
-        </a>
-      </article>
-
-    </div>
+  <div class="arch-body">
+    <svg id="archSvg" viewBox="0 0 1110 312" role="img"
+         aria-label="Architecture diagram in five tiers. Source systems - SAP, Dynamics 365, Icertis, Benchmark ESG and site data - feed a Databricks medallion pipeline of bronze, silver and gold layers. That flows into governance: Unity Catalog, a Palantir Foundry ontology and a digital twin. Those feed an intelligence tier of MCP architecture, natural-language-query agents, linear-programming optimization and Power BI with Microsoft Fabric, which produce board reporting, regulatory filings, site safety action and spend analytics."></svg>
   </div>
-</section>
-
-<section class="section" id="reports">
-  <div class="wrap section-grid">
-    <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
-      <h2 class="display">Reports</h2>
-      <p class="rail-note">Five interactive reports. Four are built on synthetic data; RPT-005 runs on 1.18&nbsp;million real OSHA filings. Open one - every diagram responds.</p>
-    </div>
-    <div class="reports reveal">
-      <a class="report-row" href="reports/d365-data-strategy/">
-        <span class="report-code">RPT-001</span>
-        <span class="report-t">D365 Data Strategy - Raw Objects to Revenue Moves</span>
-        <span class="report-st">Live</span>
-        <span class="report-d">The 40-object layer, Graph/REST/MCP signal flow, funnel physics with a modeled-uplift scenario, KPI instrument panel, and a sequenced action plan.</span>
-        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
-      </a>
-      <a class="report-row" href="reports/ehs-metrics-command/">
-        <span class="report-code">RPT-002</span>
-        <span class="report-t">EHS Metrics Command - Leading Signal Over Lagging Autopsy</span>
-        <span class="report-st">Live</span>
-        <span class="report-d">Incident pyramid physics, a 14-indicator leading/lagging board, 40 routed KPI alerts including silence alarms, a KPI-filterable cadence grid, site command view, and the regulatory clock.</span>
-        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
-      </a>
-      <a class="report-row" href="reports/value-chain-twin/">
-        <span class="report-code">RPT-003</span>
-        <span class="report-t">Value-Chain Twin - Ontology, Links, and Unstructured Data</span>
-        <span class="report-st">Live</span>
-        <span class="report-d">A 17-object / 24-link ontology graph, live extraction turning contracts and incident narratives into typed links, an interactive entity-resolution model, cross-system traversal, write-back actions, and a disruption twin.</span>
-        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
-      </a>
-      <a class="report-row" href="reports/verifiable-answers/">
-        <span class="report-code">RPT-004</span>
-        <span class="report-t">Verifiable Answers - Architecture for AI You Can Sign Off</span>
-        <span class="report-st">Live</span>
-        <span class="report-d">A live plan engine with content-hashed claim ledgers and replay, ontology-constrained generation shown side by side against an unconstrained decoder, and a trust-budget model for right-sizing.</span>
-        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
-      </a>
-      <a class="report-row" href="/ehs-benchmarks/">
-        <span class="report-code">RPT-005</span>
-        <span class="report-t">EHS Benchmarks - Real OSHA Data, and What It Gets Wrong</span>
-        <span class="report-st">New</span>
-        <span class="report-d">Not synthetic. 1.18&nbsp;million public OSHA establishment filings and 688,367 OIICS-coded injury cases: a percentile calculator against 3,842 real peer groups, search across 228,584 employers resolved by EIN, and the finding that 1.53% of records hold 87% of all reported hours - making the raw national rate wrong by 7.6&times;.</span>
-        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
-      </a>
-    </div>
+  <div class="arch-readout" id="archReadout">
+    <span class="ro-hint">19 components · 5 tiers · source systems through to executive decisions</span>
   </div>
+  <ul class="sr-only">
+    <li>Source systems: SAP, Dynamics 365, Icertis, Benchmark ESG (Gensuite), site and plant data.</li>
+    <li>Databricks medallion pipeline: bronze, silver, gold.</li>
+    <li>Governance: Unity Catalog, Foundry ontology, digital twin.</li>
+    <li>Intelligence: MCP architecture, NLQ agents, LP optimization, Power BI and Fabric.</li>
+    <li>Decisions: board and ELT reporting, regulatory filings, site action, spend analytics.</li>
+  </ul>
 </section>
-
 
 <section class="section" id="research">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
       <h2 class="display">Research</h2>
-      <p class="rail-note">Six public repositories on grounded reasoning for safety-critical AI, each with its own site. Real OSHA data where claimed, simulation where labelled, and a draft paper that says plainly what it has not yet established.</p>
+      <p class="rail-note">Real OSHA data says the screening step every EHS team assumes is optional actually decides the number.</p>
     </div>
     <div>
     <div class="rfeat reveal" aria-labelledby="rfeatTitle">
@@ -851,6 +775,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         <span class="label">Feature · OSHA ITA, 2016 to 2024</span>
         <h3 class="rfeat-t" id="rfeatTitle">Screening turns noise into a series</h3>
         <p class="rfeat-take">Unscreened TRIR collapses to 0.016 in 2019 and 0.280 in 2024. The screened series stays between 3.1 and 4.6 across all nine years.</p>
+        <p class="rfeat-take">Why it matters: a benchmark or peer-group comparison built on the unscreened series is reading a data artifact, not a safety trend.</p>
       </div>
       <div class="tc" data-chart="trir-by-year">
         <svg class="tc-svg" viewBox="0 0 640 300" role="img" aria-labelledby="tcTitle" preserveAspectRatio="xMidYMid meet"><title id="tcTitle">TRIR by year, 2016 to 2024, screened versus unscreened</title><line class="tc-grid" x1="44" x2="624" y1="260.0" y2="260.0"/><text class="tc-ax" x="36" y="263.0" text-anchor="end">0</text><line class="tc-grid" x1="44" x2="624" y1="211.6" y2="211.6"/><text class="tc-ax" x="36" y="214.6" text-anchor="end">1</text><line class="tc-grid" x1="44" x2="624" y1="163.2" y2="163.2"/><text class="tc-ax" x="36" y="166.2" text-anchor="end">2</text><line class="tc-grid" x1="44" x2="624" y1="114.8" y2="114.8"/><text class="tc-ax" x="36" y="117.8" text-anchor="end">3</text><line class="tc-grid" x1="44" x2="624" y1="66.4" y2="66.4"/><text class="tc-ax" x="36" y="69.4" text-anchor="end">4</text><line class="tc-grid" x1="44" x2="624" y1="18.0" y2="18.0"/><text class="tc-ax" x="36" y="21.0" text-anchor="end">5</text><line class="tc-axis" x1="44" x2="624" y1="260.0" y2="260.0"/><text class="tc-ax" x="44.0" y="286" text-anchor="middle">2016</text><text class="tc-ax" x="116.5" y="286" text-anchor="middle">2017</text><text class="tc-ax" x="189.0" y="286" text-anchor="middle">2018</text><text class="tc-ax" x="261.5" y="286" text-anchor="middle">2019</text><text class="tc-ax" x="334.0" y="286" text-anchor="middle">2020</text><text class="tc-ax" x="406.5" y="286" text-anchor="middle">2021</text><text class="tc-ax" x="479.0" y="286" text-anchor="middle">2022</text><text class="tc-ax" x="551.5" y="286" text-anchor="middle">2023</text><text class="tc-ax" x="624.0" y="286" text-anchor="middle">2024</text><path class="tc-line tc-uns" d="M44.0,127.9 L116.5,132.5 L189.0,118.7 L261.5,259.2 L334.0,124.9 L406.5,144.6 L479.0,131.2 L551.5,193.2 L624.0,246.4"/><path class="tc-line tc-scr" d="M44.0,70.2 L116.5,66.5 L189.0,63.1 L261.5,65.5 L334.0,42.6 L406.5,48.6 L479.0,37.1 L551.5,107.7 L624.0,83.7"/><circle class="tc-pt tc-uns" cx="44.0" cy="127.9" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2016: 2.729"><title>Unscreened TRIR 2016: 2.729</title></circle><circle class="tc-pt tc-uns" cx="116.5" cy="132.5" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2017: 2.634"><title>Unscreened TRIR 2017: 2.634</title></circle><circle class="tc-pt tc-uns" cx="189.0" cy="118.7" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2018: 2.920"><title>Unscreened TRIR 2018: 2.920</title></circle><circle class="tc-pt tc-uns" cx="261.5" cy="259.2" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2019: 0.016"><title>Unscreened TRIR 2019: 0.016</title></circle><circle class="tc-pt tc-uns" cx="334.0" cy="124.9" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2020: 2.792"><title>Unscreened TRIR 2020: 2.792</title></circle><circle class="tc-pt tc-uns" cx="406.5" cy="144.6" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2021: 2.385"><title>Unscreened TRIR 2021: 2.385</title></circle><circle class="tc-pt tc-uns" cx="479.0" cy="131.2" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2022: 2.661"><title>Unscreened TRIR 2022: 2.661</title></circle><circle class="tc-pt tc-uns" cx="551.5" cy="193.2" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2023: 1.380"><title>Unscreened TRIR 2023: 1.380</title></circle><circle class="tc-pt tc-uns" cx="624.0" cy="246.4" r="4" tabindex="0" role="img" aria-label="Unscreened TRIR 2024: 0.280"><title>Unscreened TRIR 2024: 0.280</title></circle><circle class="tc-pt tc-scr" cx="44.0" cy="70.2" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2016: 3.921"><title>Screened TRIR 2016: 3.921</title></circle><circle class="tc-pt tc-scr" cx="116.5" cy="66.5" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2017: 3.998"><title>Screened TRIR 2017: 3.998</title></circle><circle class="tc-pt tc-scr" cx="189.0" cy="63.1" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2018: 4.069"><title>Screened TRIR 2018: 4.069</title></circle><circle class="tc-pt tc-scr" cx="261.5" cy="65.5" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2019: 4.018"><title>Screened TRIR 2019: 4.018</title></circle><circle class="tc-pt tc-scr" cx="334.0" cy="42.6" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2020: 4.491"><title>Screened TRIR 2020: 4.491</title></circle><circle class="tc-pt tc-scr" cx="406.5" cy="48.6" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2021: 4.368"><title>Screened TRIR 2021: 4.368</title></circle><circle class="tc-pt tc-scr" cx="479.0" cy="37.1" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2022: 4.605"><title>Screened TRIR 2022: 4.605</title></circle><circle class="tc-pt tc-scr" cx="551.5" cy="107.7" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2023: 3.147"><title>Screened TRIR 2023: 3.147</title></circle><circle class="tc-pt tc-scr" cx="624.0" cy="83.7" r="4" tabindex="0" role="img" aria-label="Screened TRIR 2024: 3.642"><title>Screened TRIR 2024: 3.642</title></circle></svg>
@@ -922,12 +847,77 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     </div>
   </div>
 </section>
+
+<section class="section" id="work">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <h2 class="display">Selected Work</h2>
+      <p class="rail-note">Six systems shipped, from an enterprise ontology to a live public app.</p>
+    </div>
+    <div class="projects reveal">
+
+      <article class="project">
+        <span class="project-idx">W-01</span>
+        <div class="project-kicker">In flight</div>
+        <h3>Enterprise Ontology &amp; Digital Twin</h3>
+        <p>Leading the company's migration to Palantir Foundry - a single ontology and digital twin spanning EHS, supply chain, procurement, and finance, replacing scattered reporting with one governed model.</p>
+        <div class="chips"><span class="chip">Palantir Foundry</span><span class="chip">Ontology</span><span class="chip">Digital twin</span></div>
+      </article>
+
+      <article class="project">
+        <span class="project-idx">W-02</span>
+        <div class="project-kicker">Award winner</div>
+        <h3>Micro Market Model</h3>
+        <p>A Python linear-programming engine that pinpoints competitive opportunities across micro markets. Earned the company's Transformation Award.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">LP optimization</span><span class="chip">Market analytics</span></div>
+      </article>
+
+      <article class="project">
+        <span class="project-idx">W-03</span>
+        <div class="project-kicker">Platform</div>
+        <h3>Gensuite Refresh - Phase 1 &amp; 2</h3>
+        <p>Led an end-to-end refresh of the enterprise EHS application, delivering 80+ feature enhancements that reshaped how every global site captures safety data.</p>
+        <div class="chips"><span class="chip">Benchmark ESG</span><span class="chip">Requirements</span><span class="chip">Global rollout</span></div>
+      </article>
+
+      <article class="project">
+        <span class="project-idx">W-04</span>
+        <div class="project-kicker">AI</div>
+        <h3>Enterprise Agent Layer</h3>
+        <p>Natural-language-query and summarization agents on Copilot Studio, Claude Code, and Codex, with an MCP architecture grounding them in live systems and deterministic algorithms keeping answers reproducible.</p>
+        <div class="chips"><span class="chip">MCP</span><span class="chip">OpenAI API</span><span class="chip">Copilot Studio</span><span class="chip">Claude Code</span></div>
+      </article>
+
+      <article class="project">
+        <span class="project-idx">W-05</span>
+        <div class="project-kicker">Data platform</div>
+        <h3>Medallion Pipelines &amp; Unity Catalog</h3>
+        <p>Production Databricks pipelines unifying Icertis contracts, a 40-entity Dynamics 365 model, SAP, and Gensuite warehouse feeds into audit-ready reporting - then migrated wholesale to Unity Catalog governance.</p>
+        <div class="chips"><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">CI/CD</span><span class="chip">REST &amp; GraphQL</span></div>
+      </article>
+
+      <article class="project">
+        <span class="project-idx">W-06</span>
+        <div class="project-kicker">Personal build</div>
+        <h3>Resin &amp; Wood Market Weather Brief</h3>
+        <p>A live decision-support app tracking public operating signals for chemicals, resins, engineered wood, and construction demand - EPA, Census, and BLS data turned into scored, tiered state-level actions and scenario models.</p>
+        <div class="chips"><span class="chip">Astro</span><span class="chip">JavaScript</span><span class="chip">Public data</span><span class="chip">Leaflet</span></div>
+        <a class="project-live" href="https://resin-wood-market-weather-brief.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <span class="live-dot"></span>Open the live app <span class="arw">&rarr;</span>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <section class="section" id="experience">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
       <h2 class="display">Experience</h2>
-      <p class="rail-note">Six years across chemicals, retail operations, and global e-commerce.</p>
+      <p class="rail-note">From CRM reporting to owning a chemicals manufacturer's global safety system in six years.</p>
     </div>
     <div class="reveal">
 
@@ -985,12 +975,95 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   </div>
 </section>
 
+<section class="section" id="reports">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <h2 class="display">Reports</h2>
+      <p class="rail-note">Every diagram here responds to real input, including 1.18&nbsp;million actual OSHA filings.</p>
+    </div>
+    <div class="reports reveal">
+      <a class="report-row" href="reports/d365-data-strategy/">
+        <span class="report-code">RPT-001</span>
+        <span class="report-t">D365 Data Strategy - Raw Objects to Revenue Moves</span>
+        <span class="report-st">Live</span>
+        <span class="report-d">The 40-object layer, Graph/REST/MCP signal flow, funnel physics with a modeled-uplift scenario, KPI instrument panel, and a sequenced action plan.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
+      </a>
+      <a class="report-row" href="reports/ehs-metrics-command/">
+        <span class="report-code">RPT-002</span>
+        <span class="report-t">EHS Metrics Command - Leading Signal Over Lagging Autopsy</span>
+        <span class="report-st">Live</span>
+        <span class="report-d">Incident pyramid physics, a 14-indicator leading/lagging board, 40 routed KPI alerts including silence alarms, a KPI-filterable cadence grid, site command view, and the regulatory clock.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
+      </a>
+      <a class="report-row" href="reports/value-chain-twin/">
+        <span class="report-code">RPT-003</span>
+        <span class="report-t">Value-Chain Twin - Ontology, Links, and Unstructured Data</span>
+        <span class="report-st">Live</span>
+        <span class="report-d">A 17-object / 24-link ontology graph, live extraction turning contracts and incident narratives into typed links, an interactive entity-resolution model, cross-system traversal, write-back actions, and a disruption twin.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
+      </a>
+      <a class="report-row" href="reports/verifiable-answers/">
+        <span class="report-code">RPT-004</span>
+        <span class="report-t">Verifiable Answers - Architecture for AI You Can Sign Off</span>
+        <span class="report-st">Live</span>
+        <span class="report-d">A live plan engine with content-hashed claim ledgers and replay, ontology-constrained generation shown side by side against an unconstrained decoder, and a trust-budget model for right-sizing.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
+      </a>
+      <a class="report-row" href="/ehs-benchmarks/">
+        <span class="report-code">RPT-005</span>
+        <span class="report-t">EHS Benchmarks - Real OSHA Data, and What It Gets Wrong</span>
+        <span class="report-st">New</span>
+        <span class="report-d">Not synthetic. 1.18&nbsp;million public OSHA establishment filings and 688,367 OIICS-coded injury cases: a percentile calculator against 3,842 real peer groups, search across 228,584 employers resolved by EIN, and the finding that 1.53% of records hold 87% of all reported hours - making the raw national rate wrong by 7.6&times;.</span>
+        <span class="report-open">Open report <span class="arw">&rarr;</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="focus">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <div class="rail-head"><span class="rail-num">06</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <h2 class="display">Focus</h2>
+      <p class="rail-note">Four disciplines, each owned end to end.</p>
+    </div>
+    <div class="cards reveal">
+      <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
+        <h3>EHS &amp; ESG Systems</h3>
+        <p>Global owner of the enterprise EHS management system and the regulatory reporting that depends on it.</p>
+        <div class="chips"><span class="chip">Benchmark ESG / Gensuite</span><span class="chip">OSHA</span><span class="chip">MSHA</span><span class="chip">ACC</span><span class="chip">Encamp</span><span class="chip">Diligent</span></div>
+      </div>
+      <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z"></path><path d="m2 12 10 5 10-5"></path><path d="m2 17 10 5 10-5"></path></svg></div>
+        <h3>Data Engineering</h3>
+        <p>Production pipelines that turn scattered source systems into governed, audit-ready reporting.</p>
+        <div class="chips"><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">Unity Catalog</span><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">SAP</span><span class="chip">Dynamics 365</span><span class="chip">Foundry</span></div>
+      </div>
+      <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.8 2.8M16.2 16.2 19 19M5 19l2.8-2.8M16.2 7.8 19 5"></path></svg></div>
+        <h3>Applied AI</h3>
+        <p>Agents that let people ask questions of enterprise data in plain language - grounded, auditable, cost-aware.</p>
+        <div class="chips"><span class="chip">Copilot Studio</span><span class="chip">Claude Code</span><span class="chip">OpenAI API</span><span class="chip">Codex</span><span class="chip">MCP</span><span class="chip">NLQ agents</span></div>
+      </div>
+      <div class="card">
+        <div class="card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15v-4M12 15V7M17 15v-6"></path></svg></div>
+        <h3>Decision Support</h3>
+        <p>Board-level reporting, safety strategy, and optimization models used by leadership across the business.</p>
+        <div class="chips"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Microsoft Fabric</span><span class="chip">Tableau</span><span class="chip">LP optimization</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="wins">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">06</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">07</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
       <h2 class="display">Wins</h2>
-      <p class="rail-note">Recognized by Hexion leadership.</p>
+      <p class="rail-note">Leadership singled this work out three separate times.</p>
     </div>
     <div class="wins reveal">
       <div class="win">
@@ -1012,9 +1085,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="education">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">07</span><span class="rail-of">/ 07</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">08</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
       <h2 class="display">Education</h2>
-      <p class="rail-note">Statistics and decision analytics, now applied AI.</p>
+      <p class="rail-note">The statistics kept up with the job; a PhD in applied AI is next.</p>
     </div>
     <div class="reveal">
       <div class="edu-item">
@@ -1041,11 +1114,13 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   </div>
 </section>
 
+
 </main>
 
 <footer class="footer" id="contact">
   <div class="wrap">
     <h2 class="display">Let's talk</h2>
+    <p class="footer-ask">I want to talk with people building EHS data platforms, grounded AI for safety-critical work, or organizing a talk on either.</p>
     <div class="footer-links">
       <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">priyatham9@gmail.com</a>
       <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">LinkedIn</a>
