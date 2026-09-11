@@ -1,0 +1,28 @@
+name: Site Health Check
+
+on:
+  schedule:
+    # Run every Monday at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  site-health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run link check
+        continue-on-error: true
+        run: |
+          python3 tools/linkcheck.py >> $GITHUB_STEP_SUMMARY 2>&1
+
+      - name: Run HTML validation
+        continue-on-error: true
+        run: |
+          python3 tools/htmlcheck.py >> $GITHUB_STEP_SUMMARY 2>&1
