@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RPT-003 · Value-Chain Twin — Priyatham Chimmani</title>
-<meta name="description" content="Interactive report: Palantir-style ontology — typed object links, entity resolution across scattered systems, unstructured documents turned into queryable relationships, and write-back actions. Synthetic demo data." />
+<title>RPT-003 · Value-Chain Twin - Priyatham Chimmani</title>
+<meta name="description" content="Interactive report: Palantir-style ontology - typed object links, entity resolution across scattered systems, unstructured documents turned into queryable relationships, and write-back actions. Synthetic demo data." />
 <meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
@@ -343,12 +343,22 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sn-item.empty{opacity:.4;pointer-events:none}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/value-chain-twin/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta property="og:title" content="RPT-003 · Value-Chain Twin - Priyatham Chimmani" />
+<meta property="og:description" content="Interactive report: Palantir-style ontology - typed object links, entity resolution across scattered systems, unstructured documents turned into queryable relationships, and write-back actions. Synthetic demo data." />
+<meta property="og:url" content="https://priyatham9.github.io/reports/value-chain-twin/" />
+<meta property="og:image" content="https://priyatham9.github.io/og.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="author" content="Priyatham Chimmani" />
+<link rel="stylesheet" href="../../assets/kit.css" />
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="crumb" href="../../"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-003</a>
+    <a class="crumb" href="../../" aria-label="Priyatham Chimmani, home"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-003</a>
     <div class="top-right">
       <span class="demo-chip">Synthetic demo data</span>
       <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
@@ -357,9 +367,13 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       </button>
     </div>
   </div>
+  <nav class="storybar" aria-label="Report contents">
+    <div class="storybar-inner"><span class="sb-label">RPT-003</span><ul class="sb-list"><li><a href="#scattered"><b>S1</b> Scattered truth</a></li><li><a href="#ontology"><b>S2</b> Objects &amp; links</a></li><li><a href="#unstructured"><b>S3</b> Unstructured → links</a></li><li><a href="#resolution"><b>S4</b> Entity resolution</a></li><li><a href="#traversal"><b>S5</b> Traversal</a></li><li><a href="#twin"><b>S6</b> Actions &amp; twin</a></li><li><a href="#plan"><b>S7</b> Action plan</a></li></ul><span class="sb-pct" aria-hidden="true">0%</span></div>
+    <div class="sb-progress" aria-hidden="true"></div>
+  </nav>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 
 <section class="hero">
   <div class="wrap">
@@ -367,7 +381,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <h1 class="display">A warehouse stores rows.<br /><span class="h1-outline">An ontology knows things.</span></h1>
     <p class="hero-lede">
       Nine systems each held a true fragment of the same company and none of them could see each other.
-      An ontology is not a nicer schema — it is a <strong>typed model of the real world</strong> where objects
+      An ontology is not a nicer schema - it is a <strong>typed model of the real world</strong> where objects
       carry links you can traverse, where a PDF clause and a maintenance note become
       <strong>queryable relationships</strong>, and where the answer to a question writes back to the
       system that has to act on it. This report shows the mechanics, not the marketing.
@@ -387,7 +401,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="scattered">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S1</span><h2 class="display">Scattered truth</h2></div>
-    <p class="sec-sub">One supplier. Eight systems. Eight different primary keys, none of which agree — and two of the richest sources aren't tables at all, they're <strong>documents nobody can query</strong>.</p>
+    <p class="sec-sub">One supplier. Eight systems. Eight different primary keys, none of which agree - and two of the richest sources aren't tables at all, they're <strong>documents nobody can query</strong>.</p>
     <div class="reveal">
       <div class="frag" id="fragGrid"></div>
       <div class="q-strip">
@@ -397,7 +411,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     </div>
     <div class="callout">
       <div class="bar"></div>
-      <div><span class="k">The real problem</span><p>Every system is internally correct. The failure is in the <strong>space between them</strong> — nobody owns the relationships, so the relationships don't exist. An ontology's job is to make those relationships first-class, typed, and permanent.</p></div>
+      <div><span class="k">The real problem</span><p>Every system is internally correct. The failure is in the <strong>space between them</strong> - nobody owns the relationships, so the relationships don't exist. An ontology's job is to make those relationships first-class, typed, and permanent.</p></div>
     </div>
   </div>
 </section>
@@ -405,7 +419,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="ontology">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S2</span><h2 class="display">Objects &amp; links</h2></div>
-    <p class="sec-sub">Seventeen object types, twenty-four typed links. A warehouse would call these foreign keys and make you write the join. Here the link <em>is</em> the model: named, directional, cardinality-aware, and traversable from either end. <strong>Click any object</strong> — orange properties are ones derived from unstructured sources.</p>
+    <p class="sec-sub">Seventeen object types, twenty-four typed links. A warehouse would call these foreign keys and make you write the join. Here the link <em>is</em> the model: named, directional, cardinality-aware, and traversable from either end. <strong>Click any object</strong> - orange properties are ones derived from unstructured sources.</p>
     <div class="graph-shell reveal">
       <div class="graph-head"><span class="label">Enterprise ontology · object graph</span><span class="label">Click an object to trace its links</span></div>
       <div class="graph-body">
@@ -416,13 +430,13 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <div class="op">
           <span class="k">Object type</span>
           <div class="op-name" id="opName">Select an object</div>
-          <div class="op-cnt" id="opCnt">—</div>
+          <div class="op-cnt" id="opCnt">-</div>
           <p style="font-size:.8125rem;color:var(--muted);margin-top:8px" id="opDesc">Every object is one real-world thing, assembled from every system that knows about it.</p>
         </div>
-        <div class="op"><span class="k">Properties</span><div class="plist" id="opProps"><span class="prow"><span class="pn" style="color:var(--muted)">—</span></span></div></div>
+        <div class="op"><span class="k">Properties</span><div class="plist" id="opProps"><span class="prow"><span class="pn" style="color:var(--muted)">-</span></span></div></div>
         <div class="op">
-          <span class="k">Links</span><div class="llist" id="opLinks"><span class="lrow" style="color:var(--muted)">—</span></div>
-          <span class="k" style="margin-top:12px">Sourced from</span><div class="srcs" id="opSrcs"><span class="src">—</span></div>
+          <span class="k">Links</span><div class="llist" id="opLinks"><span class="lrow" style="color:var(--muted)">-</span></div>
+          <span class="k" style="margin-top:12px">Sourced from</span><div class="srcs" id="opSrcs"><span class="src">-</span></div>
         </div>
       </div>
     </div>
@@ -432,7 +446,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="unstructured">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S3</span><h2 class="display">Unstructured → links</h2></div>
-    <p class="sec-sub">This is the part people mean when they say an ontology is different. A contract PDF, an incident narrative, a call report — <strong>prose that no query could reach</strong>. Extraction pulls entities, resolution matches them to objects that already exist, and what lands is not text: it is <strong>links</strong>. Pick a document and run it.</p>
+    <p class="sec-sub">This is the part people mean when they say an ontology is different. A contract PDF, an incident narrative, a call report - <strong>prose that no query could reach</strong>. Extraction pulls entities, resolution matches them to objects that already exist, and what lands is not text: it is <strong>links</strong>. Pick a document and run it.</p>
     <div class="ex-shell reveal">
       <div class="ex-head">
         <span class="label">Document → entities → resolved objects → links</span>
@@ -455,7 +469,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     </div>
     <div class="callout">
       <div class="bar"></div>
-      <div><span class="k">The link that pays for the whole programme</span><p>The Gensuite <strong>incident narrative</strong> and the SAP <strong>work-order note</strong> are written by different people, in different systems, in different languages of practice. Both mention pump <strong>P-4471</strong>. Once both resolve to the same Equipment object, "seal weep observed on rounds" and "third seal failure this year" become <strong>one story about one pump</strong> — and that story was previously unreachable by any query in the company.</p></div>
+      <div><span class="k">The link that pays for the whole programme</span><p>The Gensuite <strong>incident narrative</strong> and the SAP <strong>work-order note</strong> are written by different people, in different systems, in different languages of practice. Both mention pump <strong>P-4471</strong>. Once both resolve to the same Equipment object, "seal weep observed on rounds" and "third seal failure this year" become <strong>one story about one pump</strong> - and that story was previously unreachable by any query in the company.</p></div>
     </div>
   </div>
 </section>
@@ -490,16 +504,16 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="traversal">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S5</span><h2 class="display">Traversal</h2></div>
-    <p class="sec-sub">With links in place, questions stop being projects. Each path below crosses systems that have never spoken to each other — and two of them traverse links that <strong>only exist because a document was read</strong>.</p>
+    <p class="sec-sub">With links in place, questions stop being projects. Each path below crosses systems that have never spoken to each other - and two of them traverse links that <strong>only exist because a document was read</strong>.</p>
     <div class="trav-shell reveal">
       <div class="q-tabs" id="qTabs"></div>
       <div class="hops"><div class="hop-chain" id="hopChain"></div></div>
-      <div class="ans"><span class="k">Answer</span><p id="ansText">—</p></div>
+      <div class="ans"><span class="k">Answer</span><p id="ansText">-</p></div>
       <div class="trav-stats">
-        <div class="tst"><span class="label">Hops</span><div class="v" id="tHops">—</div></div>
-        <div class="tst"><span class="label">Systems crossed</span><div class="v" id="tSys">—</div></div>
-        <div class="tst"><span class="label">Before ontology</span><div class="v old" id="tOld">—</div></div>
-        <div class="tst"><span class="label">Now</span><div class="v" id="tNew">—</div></div>
+        <div class="tst"><span class="label">Hops</span><div class="v" id="tHops">-</div></div>
+        <div class="tst"><span class="label">Systems crossed</span><div class="v" id="tSys">-</div></div>
+        <div class="tst"><span class="label">Before ontology</span><div class="v old" id="tOld">-</div></div>
+        <div class="tst"><span class="label">Now</span><div class="v" id="tNew">-</div></div>
       </div>
     </div>
   </div>
@@ -508,7 +522,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="twin">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S6</span><h2 class="display">Actions &amp; the twin</h2></div>
-    <p class="sec-sub">An ontology that can only be read is a very expensive report. <strong>Actions write back</strong> — permissioned, validated, audited, and recorded as objects themselves, so the decision becomes part of the model. And once the model is complete enough, you can ask it what happens next.</p>
+    <p class="sec-sub">An ontology that can only be read is a very expensive report. <strong>Actions write back</strong> - permissioned, validated, audited, and recorded as objects themselves, so the decision becomes part of the model. And once the model is complete enough, you can ask it what happens next.</p>
     <div class="act-grid reveal" id="actGrid"></div>
     <div class="twin reveal">
       <div class="twin-head"><span class="label">Disruption simulator · NL-03 Unit 3</span><span class="label">Propagated through the link graph</span></div>
@@ -518,10 +532,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <span class="twin-days" id="twinDays">10 days</span>
       </div>
       <div class="twin-out">
-        <div class="two"><span class="label">Batches at risk</span><div class="v" id="twBatch">—</div></div>
-        <div class="two"><span class="label">Orders impacted</span><div class="v" id="twOrders">—</div></div>
-        <div class="two"><span class="label">Customers to call</span><div class="v hot" id="twCust">—</div></div>
-        <div class="two"><span class="label">Revenue at risk</span><div class="v hot" id="twRev">—</div></div>
+        <div class="two"><span class="label">Batches at risk</span><div class="v" id="twBatch">-</div></div>
+        <div class="two"><span class="label">Orders impacted</span><div class="v" id="twOrders">-</div></div>
+        <div class="two"><span class="label">Customers to call</span><div class="v hot" id="twCust">-</div></div>
+        <div class="two"><span class="label">Revenue at risk</span><div class="v hot" id="twRev">-</div></div>
       </div>
     </div>
   </div>
@@ -542,13 +556,13 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   </div>
 </section>
 
-<a class="sn-item next" href="../verifiable-answers/"><span class="sn-dir">Next · RPT-004 →</span><span class="sn-t">Verifiable Answers</span></a>
+<div class="wrap series-wrap"><nav class="series-nav" aria-label="Report series"><a class="sn-item" href="../ehs-metrics-command/" rel="prev"><span class="sn-dir">&larr; Previous &middot; RPT-002</span><span class="sn-t">EHS Metrics Command</span></a><a class="sn-item next" href="../verifiable-answers/" rel="next"><span class="sn-dir">Next &middot; RPT-004 &rarr;</span><span class="sn-t">Verifiable Answers</span></a></nav>
+<section class="series" aria-labelledby="seriesHead"><div class="series-head"><span class="label" id="seriesHead">The RPT series &middot; five reports</span><a class="label" href="../../#reports">All reports on the home page &rarr;</a></div><ol class="series-list"><li><a href="../d365-data-strategy/"><span class="sl-code">RPT-001</span><span class="sl-t">D365 Data Strategy</span><span class="sl-d">Raw objects to revenue moves &middot; Synthetic demo data</span></a></li><li><a href="../ehs-metrics-command/"><span class="sl-code">RPT-002</span><span class="sl-t">EHS Metrics Command</span><span class="sl-d">Leading signal over lagging autopsy &middot; Synthetic demo data</span></a></li><li><a href="../value-chain-twin/" aria-current="page"><span class="sl-code">RPT-003</span><span class="sl-t">Value-Chain Twin</span><span class="sl-d">Ontology, links and unstructured data &middot; Synthetic demo data</span></a></li><li><a href="../verifiable-answers/"><span class="sl-code">RPT-004</span><span class="sl-t">Verifiable Answers</span><span class="sl-d">Architecture for AI you can sign off &middot; Synthetic demo data</span></a></li><li><a href="https://priyatham9.github.io/ehs-benchmarks/"><span class="sl-code">RPT-005</span><span class="sl-t">EHS Benchmarks</span><span class="sl-d">Real OSHA data, and what it gets wrong &middot; Real public OSHA data</span></a></li></ol></section></div>
 </main>
 
 <footer class="rfooter">
   <div class="wrap rfooter-inner">
     <a class="btn" href="../../">← Back to site</a>
-    <span class="next-report">Series: <b>RPT-001</b> D365 Strategy · <b>RPT-002</b> EHS Command · <b>RPT-003</b> Value-Chain Twin</span>
     <span class="label">All figures synthetic · methodology real</span>
   </div>
 </footer>
@@ -574,7 +588,7 @@ function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttrib
 var FRAG=[
   ["SAP ECC","Vendor master, POs, invoices, payment terms","vendor 100234"],
   ["Dynamics 365","Account, contacts, opportunities, call reports","acct 8f2a-…-c91"],
-  ["Icertis CLM","Executed contracts — as PDFs","party ACM-0042"],
+  ["Icertis CLM","Executed contracts - as PDFs","party ACM-0042"],
   ["Coupa","Requisitions and spend under contract","supplier 88-2"],
   ["Benchmark ESG","Incidents, observations, permits","site party 'ACME'"],
   ["SAP PM","Work orders, equipment history, notes","vendor 100234"],
@@ -600,24 +614,24 @@ var OBJ=[
    props:[["order_no","string"],["value","currency"],["promise_date","date"],["margin","derived"]],srcs:[["SAP",0],["D365",0]]},
   {id:"ship",n:"Shipment",dom:"COMMERCIAL",x:406,y:60,cnt:"61,400 objects",desc:"Physical movement of batches to a customer location.",
    props:[["shipment_no","string"],["carrier","string"],["eta","date"],["temp_excursion","boolean"]],srcs:[["SAP",0],["Carrier EDI",0]]},
-  {id:"inv",n:"Invoice",dom:"FINANCE",x:590,y:60,cnt:"52,900 objects",desc:"Billed revenue — the join between commercial promise and financial truth.",
+  {id:"inv",n:"Invoice",dom:"FINANCE",x:590,y:60,cnt:"52,900 objects",desc:"Billed revenue - the join between commercial promise and financial truth.",
    props:[["invoice_no","string"],["billed","currency"],["cogs","currency"],["margin_pct","derived"]],srcs:[["SAP",0]]},
-  {id:"call",n:"Call Report",dom:"UNSTRUCTURED",x:774,y:60,cnt:"9,610 objects",desc:"Field visit narratives — prose turned into structured risk and intent.",
+  {id:"call",n:"Call Report",dom:"UNSTRUCTURED",x:774,y:60,cnt:"9,610 objects",desc:"Field visit narratives - prose turned into structured risk and intent.",
    props:[["visit_date","date"],["narrative","text"],["risk_volume","derived ⟵ NLP",1],["competitor_named","derived ⟵ NLP",1]],
    srcs:[["D365",0],["NLP extract",1]]},
   {id:"prod",n:"Product",dom:"OPERATIONS",x:590,y:212,cnt:"1,240 objects",desc:"A saleable grade with stewardship and regulatory attributes.",
    props:[["grade","string"],["cas_no","string"],["hazard_class","derived ⟵ SDS",1],["spec_range","json"]],
    srcs:[["SAP",0],["SDS docs",1]]},
-  {id:"batch",n:"Batch",dom:"OPERATIONS",x:406,y:212,cnt:"186,300 objects",desc:"A produced lot — the genealogy spine linking raw material to customer.",
+  {id:"batch",n:"Batch",dom:"OPERATIONS",x:406,y:212,cnt:"186,300 objects",desc:"A produced lot - the genealogy spine linking raw material to customer.",
    props:[["batch_no","string"],["qty_mt","number"],["coa_result","derived ⟵ OCR",1],["produced_on","date"]],
    srcs:[["SAP",0],["LIMS",0],["COA scans",1]]},
-  {id:"site",n:"Site",dom:"OPERATIONS",x:222,y:212,cnt:"38 objects",desc:"A manufacturing plant — the hub almost every other object routes through.",
+  {id:"site",n:"Site",dom:"OPERATIONS",x:222,y:212,cnt:"38 objects",desc:"A manufacturing plant - the hub almost every other object routes through.",
    props:[["site_code","string"],["country","string"],["capacity_mt","number"],["permit_status","enum"]],
    srcs:[["SAP",0],["Gensuite",0]]},
   {id:"equip",n:"Equipment",dom:"OPERATIONS",x:222,y:340,cnt:"24,700 objects",desc:"A tagged asset. The object where EHS and maintenance finally meet.",
    props:[["tag","string"],["type","enum"],["criticality","enum"],["failure_count","derived ⟵ WO notes",1]],
    srcs:[["SAP PM",0],["Gensuite",0],["WO notes",1]]},
-  {id:"wo",n:"Work Order",dom:"UNSTRUCTURED",x:406,y:340,cnt:"71,800 objects",desc:"Maintenance jobs — the technician's free-text note is the richest field.",
+  {id:"wo",n:"Work Order",dom:"UNSTRUCTURED",x:406,y:340,cnt:"71,800 objects",desc:"Maintenance jobs - the technician's free-text note is the richest field.",
    props:[["wo_no","string"],["downtime_hrs","number"],["root_cause","derived ⟵ NLP",1],["recommendation","derived ⟵ NLP",1]],
    srcs:[["SAP PM",0],["NLP extract",1]]},
   {id:"inc",n:"Incident",dom:"EHS",x:222,y:468,cnt:"3,180 objects",desc:"An EHS event. Its narrative is where the equipment link is hiding.",
@@ -632,13 +646,13 @@ var OBJ=[
   {id:"mat",n:"Material",dom:"SUPPLY",x:38,y:340,cnt:"8,900 objects",desc:"A purchased input, with single-source exposure computed from contracts.",
    props:[["mat_no","string"],["cas_no","string"],["single_source","derived"],["lead_time_d","number"]],
    srcs:[["SAP",0],["Coupa",0]]},
-  {id:"supp",n:"Supplier",dom:"SUPPLY",x:38,y:212,cnt:"4,120 objects",desc:"A vendor legal entity — the S4 resolution example.",
+  {id:"supp",n:"Supplier",dom:"SUPPLY",x:38,y:212,cnt:"4,120 objects",desc:"A vendor legal entity - the S4 resolution example.",
    props:[["legal_name","string"],["tax_id","string"],["risk_tier","derived"],["spend_ytd","currency"]],
    srcs:[["SAP",0],["Coupa",0],["Icertis",0]]},
   {id:"cont",n:"Contract",dom:"UNSTRUCTURED",x:38,y:468,cnt:"6,740 objects",desc:"An executed agreement. Every clause below was a sentence in a PDF.",
    props:[["contract_no","string"],["fm_notice_days","derived ⟵ clause",1],["term_notice_days","derived ⟵ clause",1],["price_index","derived ⟵ clause",1]],
    srcs:[["Icertis",0],["Clause extract",1]]},
-  {id:"emp",n:"Employee",dom:"WORKFORCE",x:774,y:340,cnt:"9,200 objects",desc:"People — training currency and shift assignment link into EHS risk.",
+  {id:"emp",n:"Employee",dom:"WORKFORCE",x:774,y:340,cnt:"9,200 objects",desc:"People - training currency and shift assignment link into EHS risk.",
    props:[["emp_id","string"],["role","string"],["training_current","boolean"],["site_ref","link"]],
    srcs:[["Workday",0],["Gensuite",0]]}
 ];
@@ -671,7 +685,7 @@ var LINK=[
   });
   var nodeEls={};
   OBJ.forEach(function(o){
-    var g=el("g",{class:"o-node",tabindex:"0",role:"button","aria-label":o.n+" — "+o.desc});
+    var g=el("g",{class:"o-node",tabindex:"0",role:"button","aria-label":o.n+" - "+o.desc});
     g.appendChild(el("rect",{class:"o-box",x:o.x,y:o.y,width:W,height:H}));
     var n=el("text",{class:"o-name",x:o.x+11,y:o.y+18});n.textContent=o.n;g.appendChild(n);
     var d=el("text",{class:"o-dom",x:o.x+11,y:o.y+31});d.textContent=o.dom;g.appendChild(d);
@@ -736,7 +750,7 @@ var DOCS=[
         ["WORK ORDER","WO-556210",".99","Incident","triggered","WorkOrder WO-556210",0]]},
  {tab:"Work order note",sys:"SAP PM",type:"Technician long text",id:"WO-556210",
   toks:[["Mech seal replaced on pump "],["P-4471","equip"],[". "],["Third seal failure this year","signal"],
-   [" on this tag — see "],["WO-551903 / WO-548772","wo"],[". Recommend upgrade to "],
+   [" on this tag - see "],["WO-551903 / WO-548772","wo"],[". Recommend upgrade to "],
    ["double seal, API plan 53B","reco"],[". Downtime "],["6.5 hrs","dt"],[". Parts consumed "],
    ["MAT-88120","mat"],[". Root cause: "],["shaft deflection under low-flow operation","cause"],["."]],
   ents:[["EQUIPMENT","P-4471",".99","WorkOrder","maintained","Equipment P-4471",0],
@@ -823,9 +837,9 @@ var STEPS=["Ingest","Parse / OCR","LLM extract","Resolve entities","Propose link
       r.querySelector(".e-conf").textContent=e[2];
       var lk=r.querySelector(".e-link");
       lk.innerHTML='<em></em> ';
-      lk.firstChild.textContent=e[3]+" —"+e[4]+"→";
+      lk.firstChild.textContent=e[3]+" -"+e[4]+"→";
       lk.appendChild(document.createTextNode(" "+e[5]));
-      if(e[6])r.querySelector(".e-new").textContent="↳ new derived property — was unqueryable prose";
+      if(e[6])r.querySelector(".e-new").textContent="↳ new derived property - was unqueryable prose";
       rows.appendChild(r);
     });
     /* cross-highlight text spans ↔ extraction rows */
@@ -894,7 +908,7 @@ var SIGS=[
   ["Registered address",.16,"Industrieweg 121, Utrecht · geocoded within 40 m",1],
   ["D-U-N-S number",.16,"49-013-8827 present in SAP and Coupa",1],
   ["Contract cross-reference",.10,"MSA-2025-0114 cited in both the PO and the invoice",1],
-  ["Bank remittance name",.04,"'ACME CHEM BV' — weak on its own, corroborating here",0]
+  ["Bank remittance name",.04,"'ACME CHEM BV' - weak on its own, corroborating here",0]
 ];
 (function resolution(){
   var host=document.getElementById("sigList"),score=document.getElementById("vScore"),
@@ -907,8 +921,8 @@ var SIGS=[
     fill.style.width=(t*100).toFixed(0)+"%";
     var v,c,n;
     if(t>=.85){v="AUTO-MERGE";c="var(--accent)";n="All six records collapse into one Supplier object. Every contract, PO, invoice, and incident attached to any of them now hangs off a single node.";}
-    else if(t>=.60){v="REVIEW QUEUE";c="var(--warn)";n="Evidence is suggestive but not decisive. A steward confirms or rejects — and their decision is itself recorded, so the model learns the pattern.";}
-    else{v="NO MATCH";c="var(--muted)";n="Records stay separate. A false merge is far more expensive than a missed one — spend, risk, and liability would attach to the wrong legal entity.";}
+    else if(t>=.60){v="REVIEW QUEUE";c="var(--warn)";n="Evidence is suggestive but not decisive. A steward confirms or rejects - and their decision is itself recorded, so the model learns the pattern.";}
+    else{v="NO MATCH";c="var(--muted)";n="Records stay separate. A false merge is far more expensive than a missed one - spend, risk, and liability would attach to the wrong legal entity.";}
     chip.textContent=v;chip.style.color=c;chip.style.borderColor=c;
     fill.style.background=t>=.85?"var(--accent)":t>=.60?"var(--warn)":"var(--muted)";
     note.textContent=n;
@@ -933,22 +947,22 @@ var QS=[
   path:[["Site","Gensuite + SAP",0],["Equipment","SAP PM",0],["Batch","SAP + LIMS",0],["Shipment","SAP",0],["Order","D365",0],["Customer","D365",0]],
   links:["operates","produced at","contains","fulfilled by","places"],
   sys:5,old:"~3 weeks",now:"1.2 s",
-  ans:"14 customers across 3 regions, €4.1M of committed orders — with the 6 who have contractual delivery penalties flagged first."},
+  ans:"14 customers across 3 regions, €4.1M of committed orders - with the 6 who have contractual delivery penalties flagged first."},
  {q:"Which single-source materials sit under contracts with force-majeure notice below 30 days?",
   path:[["Material","SAP",0],["Contract","Icertis PDF",1],["Supplier","resolved",0]],
   links:["covered by","party to"],
   sys:3,old:"lawyer reads 400 PDFs",now:"0.4 s",
-  ans:"9 materials — 4 of them single-source with 15-day notice. Every one of those clause values was a sentence in a PDF until extraction made it a property."},
+  ans:"9 materials - 4 of them single-source with 15-day notice. Every one of those clause values was a sentence in a PDF until extraction made it a property."},
  {q:"Which equipment has both repeat EHS incidents and repeat maintenance failures?",
   path:[["Incident","Gensuite narrative",1],["Equipment","resolved",0],["Work Order","SAP PM note",1]],
   links:["occurred on","maintained by"],
   sys:2,old:"impossible",now:"0.3 s",
-  ans:"P-4471 leads: 2 EHS incidents and 3 seal failures in 12 months. Neither system could see the other's half — the link exists only because both narratives were read."},
+  ans:"P-4471 leads: 2 EHS incidents and 3 seal failures in 12 months. Neither system could see the other's half - the link exists only because both narratives were read."},
  {q:"What margin is at risk from the RF-220 lead-time complaints?",
   path:[["Call Report","D365 narrative",1],["Customer","D365",0],["Order","SAP",0],["Invoice","SAP",0]],
   links:["about","places","billed as"],
   sys:3,old:"~2 weeks",now:"0.8 s",
-  ans:"€2.7M revenue and €610K margin across 5 accounts naming a competitor — churn signal derived from prose, priced from the ledger."}
+  ans:"€2.7M revenue and €610K margin across 5 accounts naming a competitor - churn signal derived from prose, priced from the ledger."}
 ];
 (function traversal(){
   var tabs=document.getElementById("qTabs"),chain=document.getElementById("hopChain"),
@@ -1034,9 +1048,9 @@ var ACTIONS=[
 /* ===== S7 plan ===== */
 var PLAYS=[
  {id:"O1",t:"Pick one decision, model only its objects",q:"Q1",e:2,i:5,d:"Start with the outage question. Six object types, five links. A working answer in six weeks beats a complete model in two years."},
- {id:"O2",t:"Entity resolution on party & asset",q:"Q1–Q2",e:3,i:5,d:"Supplier, Customer, Equipment. Everything downstream is wrong until these three resolve — and nothing else can start until they do."},
+ {id:"O2",t:"Entity resolution on party & asset",q:"Q1–Q2",e:3,i:5,d:"Supplier, Customer, Equipment. Everything downstream is wrong until these three resolve - and nothing else can start until they do."},
  {id:"O3",t:"Unstructured extraction pipeline",q:"Q2",e:3,i:5,d:"Contracts, incident narratives, work-order notes, call reports. Schema-constrained extraction with confidence thresholds and a steward queue."},
- {id:"O4",t:"Write-back actions with audit",q:"Q3",e:4,i:4,d:"The ontology stops being a report. Reroute, raise, open, commit — permissioned, validated, recorded as objects."},
+ {id:"O4",t:"Write-back actions with audit",q:"Q3",e:4,i:4,d:"The ontology stops being a report. Reroute, raise, open, commit - permissioned, validated, recorded as objects."},
  {id:"O5",t:"Value-chain instrumentation to Finance",q:"Q3",e:3,i:4,d:"Orders → invoices → margin on the same spine, so commercial promises and financial truth stop disagreeing in board packs."},
  {id:"O6",t:"Predictive twin",q:"Q4",e:5,i:5,d:"Simulation over the link graph: disruption, alternate sourcing, and margin propagation before committing to a plan."}
 ];
@@ -1080,5 +1094,6 @@ else{
 })();
 </script>
 
+<script src="../../assets/kit.js" defer></script>
 </body>
 </html>

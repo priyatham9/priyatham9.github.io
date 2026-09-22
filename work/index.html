@@ -14,6 +14,8 @@
 <meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
 <link rel="canonical" href="https://priyatham9.github.io/work/index.html" />
 <meta name="author" content="Priyatham Chimmani" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -99,7 +101,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 .topnav { display: flex; align-items: center; gap: 2px; }
 .topnav a { text-decoration: none; padding: 7px 11px; font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); transition: color .15s, background .15s; }
 .topnav a:hover { color: var(--accent-ink); background: var(--accent); }
-@media (max-width: 760px) { .topnav { display: none; } }
+@media (max-width: 900px) { .topnav { display: none; } }
 .toggle { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: none; background: var(--paper); border: 2px solid var(--rule); color: var(--ink); cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
 .toggle:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .toggle svg { width: 16px; height: 16px; }
@@ -154,33 +156,57 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 
 
 .work-cards { display: flex; flex-direction: column; gap: 18px; }
-.work-card { border: 2px solid var(--rule); background: var(--surface); padding: 22px 24px; transition: transform .15s, box-shadow .15s; }
+.work-card { position: relative; border: 2px solid var(--rule); background: var(--surface); padding: 22px 24px; transition: transform .15s, box-shadow .15s; }
 .work-card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); }
-.work-card .chip { margin-bottom: 10px; display: inline-block; }
-.work-card h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; }
-.work-card h3 a { text-decoration: none; }
-.work-card h3 a:hover { color: var(--accent); }
-.work-card p { color: var(--ink-2); font-size: 0.9375rem; margin-bottom: 12px; max-width: 68ch; }
+@media (prefers-reduced-motion: reduce) { .work-card, .work-card:hover { transition: none; transform: none; } }
+.wc-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px 18px; margin-bottom: 8px; }
+.wc-stat { text-align: right; }
+.wc-num { display: block; font-stretch: 125%; font-weight: 900; font-size: 2rem; line-height: 1; letter-spacing: -.03em; color: var(--accent); }
+.wc-num.wc-word { font-size: 1.1rem; line-height: 1.15; }
+.wc-cap { display: block; font-family: var(--font-mono); font-size: .5625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.wc-t { font-size: 1.3rem; font-weight: 800; letter-spacing: -.015em; margin-bottom: 12px; }
+.wc-t a { text-decoration: none; }
+.wc-t a:hover { color: var(--accent); }
+.wc-rows { margin: 0 0 14px; display: grid; gap: 0; border-top: 1px solid var(--rule-soft); }
+.wc-rows > div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule-soft); }
+.wc-rows dt { font-family: var(--font-mono); font-size: .625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); padding-top: 3px; }
+.wc-rows dd { margin: 0; color: var(--ink-2); font-size: .9375rem; }
+.wc-rows > div:last-child dd { color: var(--ink); font-weight: 600; }
+@media (max-width: 520px) { .wc-rows > div { grid-template-columns: 1fr; gap: 2px; } .wc-stat { text-align: left; } }
+.work-card .chip { display: inline-block; }
 .card-link { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; }
-.card-link:hover { color: var(--accent-2); }
+.card-link:hover { color: var(--accent-2); text-decoration: underline; }
+.deeper { margin-top: 34px; }
+.deeper > .label { display: block; margin-bottom: 10px; }
+.deeper-grid { display: grid; grid-template-columns: 1fr 1fr; border: 2px solid var(--rule); background: var(--surface); }
+.deeper-grid a { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px; text-decoration: none; transition: background .15s; }
+.deeper-grid a + a { border-left: 2px solid var(--rule-soft); }
+.deeper-grid a:hover { background: var(--accent-wash); }
+.dp-k { font-family: var(--font-mono); font-size: .625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.dp-t { font-weight: 800; font-size: 1.0625rem; letter-spacing: -.01em; }
+.dp-d { font-size: .875rem; color: var(--ink-2); }
+@media (max-width: 620px) { .deeper-grid { grid-template-columns: 1fr; } .deeper-grid a + a { border-left: 0; border-top: 2px solid var(--rule-soft); } }
 .home-link { margin-top: 26px; }
 .home-link a { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); text-decoration: none; }
 .home-link a:hover { color: var(--accent); }
 
 </style>
+<link rel="stylesheet" href="../assets/kit.css" />
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="../index.html"><span class="brand-mark"></span>Chimmani</a>
-    <nav class="topnav">
-      <a href="../index.html#work">Work</a>
+    <nav class="topnav" id="topnav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Case studies</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#reports">Reports</a>
       <a href="../index.html#experience">Experience</a>
-      <a href="index.html">Case studies</a>
       <a href="../index.html#contact">Contact</a>
       <a href="https://priyatham9.github.io/grounded/" class="nav-external">Grounded</a>
     </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="topnav"><span class="mb-ic" aria-hidden="true"></span>Menu</button>
     <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
@@ -193,34 +219,64 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <div class="wrap">
     <div class="kicker"><span class="idx">WORK</span>Case studies</div>
     <h1 class="display title">Work</h1>
-    <p class="dek">Three systems from EHS and applied AI work at Hexion, each written up in full: the situation, what I built, and what changed.</p>
+    <p class="dek">Three systems from EHS and applied AI work at Hexion, each written up in full. Every case reads the same way: the problem, what I did, the measurable outcome, and what it means for the people who rely on it.</p>
+    <div class="meta-row"><span class="chip">3 case studies</span><span class="chip">About 5 minutes each</span><span class="chip">20-second summary at the top of each</span></div>
   </div>
 </section>
 <article class="body">
   <div class="wrap">
 
     <div class="work-cards">
-      <article class="work-card">
-        <span class="chip">W-03 &middot; Platform</span>
-        <h3><a href="gensuite-refresh.html">Gensuite Refresh</a></h3>
-        <p>I led the two-phase refresh of Hexion's enterprise EHS application, from requirements through global rollout, shipping 80+ feature enhancements that changed how every site captures safety data.</p>
-        <a class="card-link" href="gensuite-refresh.html">Read the case study &rarr;</a>
+      <article class="work-card" data-tilt>
+        <div class="wc-top">
+          <span class="chip">W-03 &middot; Platform</span>
+          <div class="wc-stat"><span class="wc-num">80+</span><span class="wc-cap">enhancements shipped</span></div>
+        </div>
+        <h2 class="wc-t"><a href="gensuite-refresh.html">Gensuite Refresh</a></h2>
+        <dl class="wc-rows">
+          <div><dt>Problem</dt><dd>Every global site captured safety data through an aging interface, each with its own workaround.</dd></div>
+          <div><dt>What I did</dt><dd>Led a two-phase refresh of Hexion's enterprise EHS application, from requirements through global rollout.</dd></div>
+          <div><dt>Outcome</dt><dd>80+ feature enhancements; every global site now captures safety data through the refreshed version.</dd></div>
+        </dl>
+        <a class="card-link" href="gensuite-refresh.html" aria-label="Read the Gensuite Refresh case study">Read the case study &rarr;</a>
       </article>
-      <article class="work-card">
-        <span class="chip">W-02 &middot; Award winner</span>
-        <h3><a href="micro-market-model.html">Micro Market Model</a></h3>
-        <p>I built a Python linear-programming engine that scores and ranks Hexion's micro markets by competitive opportunity. It was adopted company-wide and won the Transformation Award.</p>
-        <a class="card-link" href="micro-market-model.html">Read the case study &rarr;</a>
+      <article class="work-card" data-tilt>
+        <div class="wc-top">
+          <span class="chip">W-02 &middot; Award winner</span>
+          <div class="wc-stat"><span class="wc-num wc-word">Transformation Award</span><span class="wc-cap">adopted company-wide</span></div>
+        </div>
+        <h2 class="wc-t"><a href="micro-market-model.html">Micro Market Model</a></h2>
+        <dl class="wc-rows">
+          <div><dt>Problem</dt><dd>No shared model for comparing competitive opportunity across dozens of micro markets.</dd></div>
+          <div><dt>What I did</dt><dd>Built a Python linear-programming engine that scores and ranks those markets from an explicit objective and constraints.</dd></div>
+          <div><dt>Outcome</dt><dd>Adopted company-wide and awarded the Transformation Award.</dd></div>
+        </dl>
+        <a class="card-link" href="micro-market-model.html" aria-label="Read the Micro Market Model case study">Read the case study &rarr;</a>
       </article>
-      <article class="work-card">
-        <span class="chip">W-04 &middot; AI</span>
-        <h3><a href="agent-layer.html">Enterprise Agent Layer</a></h3>
-        <p>I built the MCP architecture that grounds Hexion's NLQ and summarization agents, and its deterministic algorithms, in live enterprise systems with an audit trail behind every answer.</p>
-        <a class="card-link" href="agent-layer.html">Read the case study &rarr;</a>
+      <article class="work-card" data-tilt>
+        <div class="wc-top">
+          <span class="chip">W-04 &middot; AI</span>
+          <div class="wc-stat"><span class="wc-num">3</span><span class="wc-cap">agent platforms, one grounding layer</span></div>
+        </div>
+        <h2 class="wc-t"><a href="agent-layer.html">Enterprise Agent Layer</a></h2>
+        <dl class="wc-rows">
+          <div><dt>Problem</dt><dd>An agent answering freely from live systems can produce a fluent, wrong safety number.</dd></div>
+          <div><dt>What I did</dt><dd>Built the MCP architecture that grounds NLQ and summarization agents in live systems, with deterministic code for exact calculations.</dd></div>
+          <div><dt>Outcome</dt><dd>Agents in production on Copilot Studio, Claude Code and Codex, with an audit trail behind every answer.</dd></div>
+        </dl>
+        <a class="card-link" href="agent-layer.html" aria-label="Read the Enterprise Agent Layer case study">Read the case study &rarr;</a>
       </article>
     </div>
 
-    <p class="home-link"><a href="../index.html">&larr; Back to priyatham9.github.io</a></p>
+    <div class="deeper">
+      <span class="label">Go deeper</span>
+      <div class="deeper-grid">
+        <a href="../index.html#reports"><span class="dp-k">Reports &middot; RPT-001 to 005</span><span class="dp-t">Five interactive reports</span><span class="dp-d">Data strategy, EHS metrics, an ontology twin, verifiable AI answers, and real OSHA benchmarks.</span></a>
+        <a href="https://priyatham9.github.io/grounded/"><span class="dp-k">Research &middot; Grounded</span><span class="dp-t">The research programme</span><span class="dp-d">Public repositories and a draft paper on grounded reasoning for safety-critical AI.</span></a>
+      </div>
+    </div>
+
+<p class="home-link"><a href="../index.html">&larr; Back to priyatham9.github.io</a></p>
   </div>
 </article>
 </main>
@@ -258,5 +314,6 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 })();
 
 </script>
+<script src="../assets/kit.js" defer></script>
 </body>
 </html>

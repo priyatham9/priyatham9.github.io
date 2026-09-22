@@ -1,4 +1,12 @@
 https://priyatham9.github.io/
+https://priyatham9.github.io/work/
+https://priyatham9.github.io/work/gensuite-refresh.html
+https://priyatham9.github.io/work/micro-market-model.html
+https://priyatham9.github.io/work/agent-layer.html
+https://priyatham9.github.io/reports/d365-data-strategy/
+https://priyatham9.github.io/reports/ehs-metrics-command/
+https://priyatham9.github.io/reports/value-chain-twin/
+https://priyatham9.github.io/reports/verifiable-answers/
 https://priyatham9.github.io/grounded/
 https://priyatham9.github.io/grounded/paper.html
 https://priyatham9.github.io/grounded/paper-osha.html
