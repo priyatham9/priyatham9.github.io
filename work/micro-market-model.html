@@ -14,6 +14,8 @@
 <meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
 <link rel="canonical" href="https://priyatham9.github.io/work/micro-market-model.html" />
 <meta name="author" content="Priyatham Chimmani" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -99,7 +101,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 .topnav { display: flex; align-items: center; gap: 2px; }
 .topnav a { text-decoration: none; padding: 7px 11px; font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); transition: color .15s, background .15s; }
 .topnav a:hover { color: var(--accent-ink); background: var(--accent); }
-@media (max-width: 760px) { .topnav { display: none; } }
+@media (max-width: 900px) { .topnav { display: none; } }
 .toggle { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: none; background: var(--paper); border: 2px solid var(--rule); color: var(--ink); cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
 .toggle:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .toggle svg { width: 16px; height: 16px; }
@@ -160,24 +162,31 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
  "mainEntityOfPage":"https://priyatham9.github.io/work/micro-market-model.html",
  "image":"https://priyatham9.github.io/work/og-micromarket.png","datePublished":"2026-09-10"}
 </script>
+<link rel="stylesheet" href="../assets/kit.css" />
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="../index.html"><span class="brand-mark"></span>Chimmani</a>
-    <nav class="topnav">
-      <a href="../index.html#work">Work</a>
-      <a href="../index.html#experience">Experience</a>
+    <nav class="topnav" id="topnav" aria-label="Primary">
       <a href="index.html">Case studies</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#reports">Reports</a>
+      <a href="../index.html#experience">Experience</a>
       <a href="../index.html#contact">Contact</a>
       <a href="https://priyatham9.github.io/grounded/" class="nav-external">Grounded</a>
     </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="topnav"><span class="mb-ic" aria-hidden="true"></span>Menu</button>
     <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
     </button>
   </div>
+  <nav class="storybar" aria-label="On this page">
+    <div class="storybar-inner"><span class="sb-label">W-02</span><ul class="sb-list"><li><a href="#glance"><b>0</b> At a glance</a></li><li><a href="#situation"><b>1</b> Problem</a></li><li><a href="#constraints"><b>2</b> Constraints</a></li><li><a href="#what-i-built"><b>3</b> What I did</a></li><li><a href="#decisions"><b>4</b> Decisions</a></li><li><a href="#what-changed"><b>5</b> Outcome</a></li><li><a href="#retro"><b>6</b> Hindsight</a></li><li><a href="#architecture-note">Why this approach</a></li><li><a href="#related">Related</a></li></ul><span class="sb-pct" aria-hidden="true">0%</span></div>
+    <div class="sb-progress" aria-hidden="true"></div>
+  </nav>
 </header>
 
 <main id="main" tabindex="-1">
@@ -191,14 +200,28 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </section>
 <article class="body">
   <div class="wrap">
+<section id="glance" class="glance" aria-labelledby="glanceHead">
+  <div class="glance-top">
+    <div><span class="label">At a glance &middot; the 20-second version</span><p class="glance-head" id="glanceHead">A shared, explainable way for leadership to decide which market gets attention next.</p></div>
+    <div class="glance-stat"><span class="glance-num small">Transformation Award</span><span class="glance-cap">adopted company-wide</span></div>
+  </div>
+  <ol class="glance-steps">
+    <li><a href="#situation"><span class="gs-k">Problem</span><p>Leadership had no shared model for comparing competitive opportunity across dozens of micro markets, so focus was decided market by market and two people could reasonably disagree.</p></a></li>
+    <li><a href="#what-i-built"><span class="gs-k">What I did</span><p>Built a Python linear-programming engine: explicit objective, explicit constraints, solved into one ranked list leaders can act on directly.</p></a></li>
+    <li><a href="#what-changed"><span class="gs-k">Outcome</span><p>Adopted company-wide and awarded the company's Transformation Award. The model re-runs whenever the market picture changes instead of being rebuilt.</p></a></li>
+    <li class="gs-mean"><span class="gs-k">Why it matters</span><p>Where to focus stops being a judgment call and becomes a ranking whose logic anyone can inspect and argue with.</p></li>
+  </ol>
+</section>
 
 <section id="situation">
+  <span class="step-tag">Step 1 &middot; Problem</span>
   <h2>The situation</h2>
   <p>Hexion competes across dozens of micro markets, and leadership needed a clear view of where competitive opportunity actually sat across them. That view did not exist as a shared model. Judgment calls about where to focus were being made market by market, without a common way to compare one opportunity against another, so two people looking at the same set of markets could reasonably disagree about where the company should spend attention next.</p>
   <p>That gap is a familiar one in a company Hexion's size: plenty of local knowledge about any single market, and no shared instrument for weighing one market's opportunity against another's at the same time.</p>
 </section>
 
 <section id="constraints">
+  <span class="step-tag">Step 2 &middot; Constraints</span>
   <h2>Constraints</h2>
   <ul class="plain">
     <li>The output had to be something leadership could act on directly, a ranking, not a raw dataset someone still had to interpret.</li>
@@ -209,6 +232,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </section>
 
 <section id="what-i-built">
+  <span class="step-tag">Step 3 &middot; What I did</span>
   <h2>What I built</h2>
   <p>I built a Python linear-programming engine that scores and ranks micro markets by competitive opportunity. Market-level signals feed the LP core, which pairs an objective function with a set of constraints and solves for the ranking leadership uses to decide where to focus. The output is a single ranked list, so a leader can look at it and know immediately which markets deserve the next round of attention, rather than reading a spreadsheet of raw figures and drawing that conclusion themselves.</p>
   <figure class="diagram">
@@ -247,6 +271,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </section>
 
 <section id="decisions">
+  <span class="step-tag">Step 4 &middot; Decisions</span>
   <h2>Decisions I made and why</h2>
   <ul class="plain">
     <li>I framed the problem as linear programming rather than a scoring heuristic, so the ranking comes from an explicit objective and explicit constraints that can be inspected and argued with, not a black-box weighting.</li>
@@ -256,11 +281,14 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </section>
 
 <section id="what-changed">
+  <span class="step-tag">Step 5 &middot; Outcome</span>
   <h2>What changed</h2>
   <p>The model was adopted company-wide and earned Hexion's Transformation Award. Leadership now has a repeatable way to compare micro markets against each other instead of relying on market-by-market judgment calls, and the same model runs again whenever the underlying market picture changes rather than needing to be rebuilt.</p>
+  <div class="means"><span class="label">What it means for a leader</span><p>When a leader asks why a market ranked where it did, the answer is a written-down objective and constraint set, not a guess about which inputs mattered. That is what let a model one person ran become something the whole company relies on.</p></div>
 </section>
 
 <section id="retro">
+  <span class="step-tag">Step 6 &middot; Hindsight</span>
   <h2>What I would do differently</h2>
   <p>I would have documented the constraint set more thoroughly from the start. Once the model moved from something I ran myself to something leadership relied on company-wide, I spent more time than I expected explaining why a particular constraint was set the way it was, time that a clearer writeup up front would have saved.</p>
 </section>
@@ -277,6 +305,8 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
     <a href="https://priyatham9.github.io/grounded/" target="_blank" rel="noopener noreferrer"><span class="r-t">Grounded research hub</span><span class="r-d">Public research on grounded reasoning for safety-critical AI in EHS.</span></a>
   </div>
 </section>
+
+<nav class="pager" aria-label="Case studies"><a href="gensuite-refresh.html" rel="prev"><span class="pg-dir">&larr; Previous &middot; W-03</span><span class="pg-t">Gensuite Refresh</span></a><a class="pg-next" href="agent-layer.html" rel="next"><span class="pg-dir">Next &middot; W-04 &rarr;</span><span class="pg-t">Enterprise Agent Layer</span></a></nav>
 
   </div>
 </article>
@@ -315,5 +345,6 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 })();
 
 </script>
+<script src="../assets/kit.js" defer></script>
 </body>
 </html>
