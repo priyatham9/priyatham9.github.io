@@ -200,7 +200,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </section>
 <article class="body">
   <div class="wrap">
-<section id="glance" class="glance" aria-labelledby="glanceHead">
+<section id="glance" class="glance" data-beat aria-labelledby="glanceHead">
   <div class="glance-top">
     <div><span class="label">At a glance &middot; the 20-second version</span><p class="glance-head" id="glanceHead">Two phases, one aging safety platform, and every global site now capturing data the same way.</p></div>
     <div class="glance-stat"><span class="glance-num" data-countup="80" data-suffix="+">80+</span><span class="glance-cap">feature enhancements shipped across two phases</span></div>
@@ -213,14 +213,14 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </ol>
 </section>
 
-<section id="situation">
+<section id="situation" data-beat>
   <span class="step-tag">Step 1 &middot; Problem</span>
   <h2>The situation</h2>
   <p>Every Hexion site around the world logs its safety data inside Gensuite (Benchmark ESG), the company's enterprise EHS application. By the time I took on the platform, the interface had aged past what sites actually needed day to day, and each location had settled into its own workaround for the gaps. There was no single, modern way to capture the data consistently across the company, which meant the data itself carried that inconsistency downstream into every report built on top of it.</p>
   <p>From September 2023 to November 2025, I was the sole global administrator of Gensuite, owning the platform and the vendor relationship end to end. That put me in the position to see every site's pain point directly, not through a layer of tickets. I also owned OSHA, MSHA, and ACC regulatory compliance reporting during this period, so I felt the cost of inconsistent capture on both sides: the sites entering the data and the government submissions built from it.</p>
 </section>
 
-<section id="constraints">
+<section id="constraints" data-beat>
   <span class="step-tag">Step 2 &middot; Constraints</span>
   <h2>Constraints</h2>
   <ul class="plain">
@@ -232,7 +232,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <!-- NEEDS-OWNER: number of sites/countries in the global rollout, and any budget or vendor-contract constraint that shaped scope -->
 </section>
 
-<section id="what-i-built">
+<section id="what-i-built" data-beat>
   <span class="step-tag">Step 3 &middot; What I did</span>
   <h2>What I built</h2>
   <p>I led the refresh across two phases, from requirements gathering through global rollout. Phase 1 and Phase 2 together shipped more than 80 feature enhancements to how the application captures safety data, touching the forms, workflows, and reporting paths that every site uses. Because I was also the platform's sole global administrator, I could move a requirement from a site's complaint to a configured change without routing it through a separate owner first, which is part of why the two phases were able to cover as much ground as they did.</p>
@@ -284,7 +284,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <!-- NEEDS-OWNER: what specific workflow or form categories changed between Phase 1 and Phase 2, and a rough phase timeline -->
 </section>
 
-<section id="decisions">
+<section id="decisions" data-beat>
   <span class="step-tag">Step 4 &middot; Decisions</span>
   <h2>Decisions I made and why</h2>
   <ul class="plain">
@@ -294,20 +294,20 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </ul>
 </section>
 
-<section id="what-changed">
+<section id="what-changed" data-beat>
   <span class="step-tag">Step 5 &middot; Outcome</span>
   <h2>What changed</h2>
   <p>The application now reflects more than 80 shipped feature enhancements, and every global site captures its safety data through the refreshed version rather than the one it replaced. The refresh reshaped how sites do that capture day to day, not just how the platform looks, and it is the version of Gensuite still in use across the company today.</p>
   <div class="means"><span class="label">What it means for a leader</span><p>Every dashboard, board number and regulatory submission starts at the moment a site records something. The refresh moved the fix to that moment, instead of cleaning data after the fact, so the numbers built on top of it start consistent.</p></div>
 </section>
 
-<section id="retro">
+<section id="retro" data-beat>
   <span class="step-tag">Step 6 &middot; Hindsight</span>
   <h2>What I would do differently</h2>
   <p>I would have pushed harder, earlier, to get a small group of sites testing Phase 1 changes before the broader rollout. Running two phases end to end while also being the sole administrator meant most of the early feedback came after a change was already live, and I had to fix in place what a short pilot with a handful of sites would have caught first.</p>
 </section>
 
-<section id="related">
+<section id="related" data-beat>
   <h2>Related</h2>
   <div class="related-list">
     <a href="agent-layer.html"><span class="r-t">Enterprise Agent Layer</span><span class="r-d">The NLQ and summarization agents that now sit on top of Gensuite and other live systems.</span></a>

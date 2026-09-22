@@ -156,7 +156,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 
 
 .work-cards { display: flex; flex-direction: column; gap: 18px; }
-.work-card { border: 2px solid var(--rule); background: var(--surface); padding: 22px 24px; transition: transform .15s, box-shadow .15s; }
+.work-card { position: relative; border: 2px solid var(--rule); background: var(--surface); padding: 22px 24px; transition: transform .15s, box-shadow .15s; }
 .work-card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); }
 @media (prefers-reduced-motion: reduce) { .work-card, .work-card:hover { transition: none; transform: none; } }
 .wc-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px 18px; margin-bottom: 8px; }
@@ -227,7 +227,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <div class="wrap">
 
     <div class="work-cards">
-      <article class="work-card">
+      <article class="work-card" data-tilt>
         <div class="wc-top">
           <span class="chip">W-03 &middot; Platform</span>
           <div class="wc-stat"><span class="wc-num">80+</span><span class="wc-cap">enhancements shipped</span></div>
@@ -240,7 +240,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
         </dl>
         <a class="card-link" href="gensuite-refresh.html" aria-label="Read the Gensuite Refresh case study">Read the case study &rarr;</a>
       </article>
-      <article class="work-card">
+      <article class="work-card" data-tilt>
         <div class="wc-top">
           <span class="chip">W-02 &middot; Award winner</span>
           <div class="wc-stat"><span class="wc-num wc-word">Transformation Award</span><span class="wc-cap">adopted company-wide</span></div>
@@ -253,7 +253,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
         </dl>
         <a class="card-link" href="micro-market-model.html" aria-label="Read the Micro Market Model case study">Read the case study &rarr;</a>
       </article>
-      <article class="work-card">
+      <article class="work-card" data-tilt>
         <div class="wc-top">
           <span class="chip">W-04 &middot; AI</span>
           <div class="wc-stat"><span class="wc-num">3</span><span class="wc-cap">agent platforms, one grounding layer</span></div>

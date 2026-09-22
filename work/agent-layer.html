@@ -200,7 +200,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </section>
 <article class="body">
   <div class="wrap">
-<section id="glance" class="glance" aria-labelledby="glanceHead">
+<section id="glance" class="glance" data-beat aria-labelledby="glanceHead">
   <div class="glance-top">
     <div><span class="label">At a glance &middot; the 20-second version</span><p class="glance-head" id="glanceHead">Plain-language answers over live safety data, with a traceable source behind every number.</p></div>
     <div class="glance-stat"><span class="glance-num" data-countup="3" data-suffix="">3</span><span class="glance-cap">agent platforms on one grounding layer: Copilot Studio, Claude Code, Codex</span></div>
@@ -213,14 +213,14 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </ol>
 </section>
 
-<section id="situation">
+<section id="situation" data-beat>
   <span class="step-tag">Step 1 &middot; Problem</span>
   <h2>The situation</h2>
   <p>Hexion's EHS and enterprise data now sits behind natural-language interfaces on Copilot Studio, Claude Code, and Codex, so people can ask questions of it directly instead of waiting on a report. The risk with that approach is well known: a language model answering freely from live enterprise systems can produce a fluent, wrong number, and in EHS that is not a cosmetic bug. A wrong number in a safety report can shape a decision about a plant, not just an internal metric someone glances at.</p>
   <p>I own the enterprise EHS platform this layer sits on top of, so the question was not whether to bring agents into the workflow. People were already asking for that. The question was how to do it without trading Gensuite's data quality for the convenience of a chat interface.</p>
 </section>
 
-<section id="constraints">
+<section id="constraints" data-beat>
   <span class="step-tag">Step 2 &middot; Constraints</span>
   <h2>Constraints</h2>
   <ul class="plain">
@@ -231,7 +231,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <!-- NEEDS-OWNER: which live systems beyond Gensuite the MCP layer connects to, and how model cost is tracked or capped -->
 </section>
 
-<section id="what-i-built">
+<section id="what-i-built" data-beat>
   <span class="step-tag">Step 3 &middot; What I did</span>
   <h2>What I built</h2>
   <p>I built an MCP architecture that grounds two kinds of agents in live enterprise systems: natural-language-query and summarization agents that answer questions in plain language, and deterministic algorithms that handle the calculations where an answer has to be exact and repeatable every time. Every response carries an audit trail, so a number an agent surfaces can be traced back to where it came from, rather than asked to be taken on faith.</p>
@@ -273,7 +273,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </figure>
 </section>
 
-<section id="decisions">
+<section id="decisions" data-beat>
   <span class="step-tag">Step 4 &middot; Decisions</span>
   <h2>Decisions I made and why</h2>
   <ul class="plain">
@@ -283,7 +283,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </ul>
 </section>
 
-<section id="what-changed">
+<section id="what-changed" data-beat>
   <span class="step-tag">Step 5 &middot; Outcome</span>
   <h2>What changed</h2>
   <p>NLQ and summarization agents now run in production on Copilot Studio, Claude Code, and Codex, grounded in live systems rather than answering from a model's own memory, with deterministic algorithms handling the calculations that have to be reproducible.</p>
@@ -291,13 +291,13 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <!-- NEEDS-OWNER: usage volume or adoption numbers for the agent layer, if tracked -->
 </section>
 
-<section id="retro">
+<section id="retro" data-beat>
   <span class="step-tag">Step 6 &middot; Hindsight</span>
   <h2>What I would do differently</h2>
   <p>I would push the audit trail earlier in the build than I did. It's the piece that makes the rest of the layer trustworthy to a safety team, and treating it as a late addition rather than a first-class part of the design cost extra rework once real questions started coming through the system.</p>
 </section>
 
-<section id="related">
+<section id="related" data-beat>
   <h2>Related</h2>
   <div class="related-list">
     <a href="https://priyatham9.github.io/ehs-ai-grounding-eval/" target="_blank" rel="noopener noreferrer"><span class="r-t">Grounding benchmark</span><span class="r-d">A safety-critical QA corpus testing whether a model's answers hold up against plausible-but-dangerous adjacent answers, the same failure mode this agent layer is built to avoid.</span></a>

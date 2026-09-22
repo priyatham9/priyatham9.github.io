@@ -147,3 +147,33 @@ article.body .means p { color: var(--ink); margin: 0; max-width: 68ch; }
 @media (prefers-reduced-motion: reduce) { .sb-list a, .pager a, .series-list a { transition: none; } }
 /* anchor targets land below the sticky header (height measured by kit.js) */
 body section[id], body main [id] { scroll-margin-top: var(--sticky-h, 76px); }
+
+/* ---------- motion: page transitions, scroll beats, card depth ---------- */
+/* Cross-document View Transitions where the browser supports them; others navigate instantly. */
+@view-transition { navigation: auto; }
+.brand-mark { view-transition-name: brand-mark; }
+::view-transition-old(root) { animation: vt-out .28s cubic-bezier(.4,0,.2,1) both; }
+::view-transition-new(root) { animation: vt-in .42s cubic-bezier(.16,.84,.3,1) both; }
+@keyframes vt-out { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(12px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+/* beats: hidden only once kit.js has confirmed motion is allowed, so no-JS readers see everything */
+.beats-on [data-beat] { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .8s cubic-bezier(.16,.84,.3,1); }
+.beats-on [data-beat].beat-in { opacity: 1; transform: none; }
+.beats-on .glance-steps li { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .7s cubic-bezier(.16,.84,.3,1); }
+.beats-on .beat-in .glance-steps li { opacity: 1; transform: none; }
+.beats-on .beat-in .glance-steps li:nth-child(2) { transition-delay: .12s; }
+.beats-on .beat-in .glance-steps li:nth-child(3) { transition-delay: .24s; }
+.beats-on .beat-in .glance-steps li:nth-child(4) { transition-delay: .36s; }
+.beats-on .beat-in .step-tag { animation: tag-in .6s .15s cubic-bezier(.16,.84,.3,1) both; }
+@keyframes tag-in { from { letter-spacing: .4em; opacity: 0; } }
+
+/* depth: pointer tilt with a soft accent light (fine pointers, motion allowed) */
+.tilt { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .2s; will-change: transform; }
+.tilt:hover { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translate(-3px, -3px); transition: transform .08s linear, box-shadow .2s; }
+.tilt::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .25s;
+  background: radial-gradient(420px circle at var(--glow-x, 50%) var(--glow-y, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%); }
+.tilt:hover::before { opacity: 1; }

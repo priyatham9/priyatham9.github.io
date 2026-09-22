@@ -200,7 +200,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </section>
 <article class="body">
   <div class="wrap">
-<section id="glance" class="glance" aria-labelledby="glanceHead">
+<section id="glance" class="glance" data-beat aria-labelledby="glanceHead">
   <div class="glance-top">
     <div><span class="label">At a glance &middot; the 20-second version</span><p class="glance-head" id="glanceHead">A shared, explainable way for leadership to decide which market gets attention next.</p></div>
     <div class="glance-stat"><span class="glance-num small">Transformation Award</span><span class="glance-cap">adopted company-wide</span></div>
@@ -213,14 +213,14 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </ol>
 </section>
 
-<section id="situation">
+<section id="situation" data-beat>
   <span class="step-tag">Step 1 &middot; Problem</span>
   <h2>The situation</h2>
   <p>Hexion competes across dozens of micro markets, and leadership needed a clear view of where competitive opportunity actually sat across them. That view did not exist as a shared model. Judgment calls about where to focus were being made market by market, without a common way to compare one opportunity against another, so two people looking at the same set of markets could reasonably disagree about where the company should spend attention next.</p>
   <p>That gap is a familiar one in a company Hexion's size: plenty of local knowledge about any single market, and no shared instrument for weighing one market's opportunity against another's at the same time.</p>
 </section>
 
-<section id="constraints">
+<section id="constraints" data-beat>
   <span class="step-tag">Step 2 &middot; Constraints</span>
   <h2>Constraints</h2>
   <ul class="plain">
@@ -231,7 +231,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <!-- NEEDS-OWNER: what specific data feeds the model (volume, pricing, capacity, competitor signals?), how many markets it scores, and how often it is re-run -->
 </section>
 
-<section id="what-i-built">
+<section id="what-i-built" data-beat>
   <span class="step-tag">Step 3 &middot; What I did</span>
   <h2>What I built</h2>
   <p>I built a Python linear-programming engine that scores and ranks micro markets by competitive opportunity. Market-level signals feed the LP core, which pairs an objective function with a set of constraints and solves for the ranking leadership uses to decide where to focus. The output is a single ranked list, so a leader can look at it and know immediately which markets deserve the next round of attention, rather than reading a spreadsheet of raw figures and drawing that conclusion themselves.</p>
@@ -270,7 +270,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </figure>
 </section>
 
-<section id="decisions">
+<section id="decisions" data-beat>
   <span class="step-tag">Step 4 &middot; Decisions</span>
   <h2>Decisions I made and why</h2>
   <ul class="plain">
@@ -280,25 +280,25 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   </ul>
 </section>
 
-<section id="what-changed">
+<section id="what-changed" data-beat>
   <span class="step-tag">Step 5 &middot; Outcome</span>
   <h2>What changed</h2>
   <p>The model was adopted company-wide and earned Hexion's Transformation Award. Leadership now has a repeatable way to compare micro markets against each other instead of relying on market-by-market judgment calls, and the same model runs again whenever the underlying market picture changes rather than needing to be rebuilt.</p>
   <div class="means"><span class="label">What it means for a leader</span><p>When a leader asks why a market ranked where it did, the answer is a written-down objective and constraint set, not a guess about which inputs mattered. That is what let a model one person ran become something the whole company relies on.</p></div>
 </section>
 
-<section id="retro">
+<section id="retro" data-beat>
   <span class="step-tag">Step 6 &middot; Hindsight</span>
   <h2>What I would do differently</h2>
   <p>I would have documented the constraint set more thoroughly from the start. Once the model moved from something I ran myself to something leadership relied on company-wide, I spent more time than I expected explaining why a particular constraint was set the way it was, time that a clearer writeup up front would have saved.</p>
 </section>
 
-<section id="architecture-note">
+<section id="architecture-note" data-beat>
   <h2>Why linear programming</h2>
   <p>A linear-programming formulation forces the tradeoffs into the open. Every constraint that limits which markets can rank highly has to be written down explicitly, and the objective function has to state, in plain terms, what "opportunity" means for the purpose of the ranking. That is different from a scoring model built out of weighted factors chosen by feel, where the reasoning behind a given rank can be hard to reconstruct after the fact. When someone in leadership asks why a market ranked where it did, the answer is the constraint set and the objective, not a guess about which inputs mattered most.</p>
 </section>
 
-<section id="related">
+<section id="related" data-beat>
   <h2>Related</h2>
   <div class="related-list">
     <a href="gensuite-refresh.html"><span class="r-t">Gensuite Refresh</span><span class="r-d">The other system built during the same stretch at Hexion, refreshing how sites capture safety data.</span></a>
