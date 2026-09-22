@@ -177,3 +177,6 @@ body section[id], body main [id] { scroll-margin-top: var(--sticky-h, 76px); }
 .tilt::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .25s;
   background: radial-gradient(420px circle at var(--glow-x, 50%) var(--glow-y, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%); }
 .tilt:hover::before { opacity: 1; }
+/* report crumb: keep the header on one line on small phones */
+@media (max-width: 420px) { .crumb .bk { display: none; } .crumb { white-space: nowrap; } }
+.series-wrap { padding-bottom: 8px; }

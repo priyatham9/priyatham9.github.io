@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RPT-004 · Verifiable Answers — Priyatham Chimmani</title>
+<title>RPT-004 · Verifiable Answers - Priyatham Chimmani</title>
 <meta name="description" content="An architecture for AI answers you can sign: deterministic cores, claim ledgers with replay, ontology-constrained generation, and a trust budget for model right-sizing." />
 <meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
@@ -253,12 +253,22 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 @keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/verifiable-answers/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta property="og:title" content="RPT-004 · Verifiable Answers - Priyatham Chimmani" />
+<meta property="og:description" content="An architecture for AI answers you can sign: deterministic cores, claim ledgers with replay, ontology-constrained generation, and a trust budget for model right-sizing." />
+<meta property="og:url" content="https://priyatham9.github.io/reports/verifiable-answers/" />
+<meta property="og:image" content="https://priyatham9.github.io/og.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="author" content="Priyatham Chimmani" />
+<link rel="stylesheet" href="../../assets/kit.css" />
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="crumb" href="../../"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-004</a>
+    <a class="crumb" href="../../" aria-label="Priyatham Chimmani, home"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-004</a>
     <div class="top-right">
       <span class="demo-chip">Synthetic demo data</span>
       <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
@@ -267,22 +277,26 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       </button>
     </div>
   </div>
+  <nav class="storybar" aria-label="Report contents">
+    <div class="storybar-inner"><span class="sb-label">RPT-004</span><ul class="sb-list"><li><a href="#failures"><b>S1</b> Why answers fail audit</a></li><li><a href="#split"><b>S2</b> The split</a></li><li><a href="#ledger"><b>S3</b> Claim ledger &amp; replay</a></li><li><a href="#constrained"><b>S4</b> Constrained generation</a></li><li><a href="#budget"><b>S5</b> Trust budget</a></li></ul><span class="sb-pct" aria-hidden="true">0%</span></div>
+    <div class="sb-progress" aria-hidden="true"></div>
+  </nav>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 
 <section class="hero">
   <div class="wrap">
     <div class="hero-eyebrow"><span class="pulse"></span><span class="label">Report 004 · Architecture · Trustworthy AI over enterprise data</span></div>
     <h1 class="display">Getting an answer is easy.<br /><span class="h1-outline">Verifiable is the fun part.</span></h1>
     <p class="hero-lede">
-      Enterprise AI gets genuinely interesting the moment an answer has to hold up — in a board pack,
+      Enterprise AI gets genuinely interesting the moment an answer has to hold up - in a board pack,
       in a filing, in a room with an auditor. That bar is a gift to an architect, because it rules out
       guesswork and points straight at a design. Three ideas I've been exploring: let the model choose
       and phrase while a <strong>deterministic core owns every number</strong>; give each answer a
       <strong>ledger it can be replayed from</strong>; and derive the vocabulary of entities from the
       ontology itself, so generation happens inside a space where only real things exist. Then size the
-      model to the task on purpose. Everything below runs live — have a play.
+      model to the task on purpose. Everything below runs live - have a play.
     </p>
     <nav class="jumps" aria-label="Report sections">
       <a class="jump" href="#failures"><b>S1</b> Why answers fail audit</a>
@@ -297,7 +311,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="failures">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S1</span><h2 class="display">Three properties worth designing for</h2></div>
-    <p class="sec-sub">"Trustworthy" is vague until you decompose it. These three properties are specific enough to build toward and to test for — and each one turns out to be an engineering problem rather than a modelling one, which is what makes them tractable.</p>
+    <p class="sec-sub">"Trustworthy" is vague until you decompose it. These three properties are specific enough to build toward and to test for - and each one turns out to be an engineering problem rather than a modelling one, which is what makes them tractable.</p>
     <div class="fails reveal">
       <div class="fail">
         <span class="fail-n">P1 · REPRODUCIBLE</span>
@@ -308,19 +322,19 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <div class="fail">
         <span class="fail-n">P2 · ATTRIBUTABLE</span>
         <h3>Chain of custody by default</h3>
-        <p>Every figure carries the records that produced it, the period definition applied, and what was excluded — so a reviewer can follow it down to source without asking anyone.</p>
+        <p>Every figure carries the records that produced it, the period definition applied, and what was excluded - so a reviewer can follow it down to source without asking anyone.</p>
         <div class="ex">Design target<br />"€4.12M at risk"<br />→ 38 orders, listed<br />→ plan + hash attached.</div>
       </div>
       <div class="fail">
         <span class="fail-n">P3 · GROUNDED</span>
         <h3>Only real things sayable</h3>
-        <p>Entity names come from the ontology's own registry, so a plausible-but-invented identifier isn't something the system has to catch — it's something it can't produce.</p>
+        <p>Entity names come from the ontology's own registry, so a plausible-but-invented identifier isn't something the system has to catch - it's something it can't produce.</p>
         <div class="ex">Design target<br />Vocabulary = registry<br />ACME-0042 ✓<br />NORDIC-118 not emittable.</div>
       </div>
     </div>
     <div class="callout">
       <div class="bar"></div>
-      <div><span class="k">The encouraging part</span><p>None of the three depends on a better model — they're properties of the system built <em>around</em> the model. That means they're reachable today with ordinary engineering, and they get <strong>more</strong> valuable as models improve, not less.</p></div>
+      <div><span class="k">The encouraging part</span><p>None of the three depends on a better model - they're properties of the system built <em>around</em> the model. That means they're reachable today with ordinary engineering, and they get <strong>more</strong> valuable as models improve, not less.</p></div>
     </div>
   </div>
 </section>
@@ -328,7 +342,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="split">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S2</span><h2 class="display">The split</h2></div>
-    <p class="sec-sub">One rule carries the whole design, and it's a liberating one: <strong>the model chooses the plan and phrases the result; a deterministic core computes every number.</strong> Green is deterministic code over the ontology, amber is generative. Drawing the line here means the model gets to do what it's genuinely excellent at — understanding intent and writing well — while arithmetic stays somewhere it can be checked.</p>
+    <p class="sec-sub">One rule carries the whole design, and it's a liberating one: <strong>the model chooses the plan and phrases the result; a deterministic core computes every number.</strong> Green is deterministic code over the ontology, amber is generative. Drawing the line here means the model gets to do what it's genuinely excellent at - understanding intent and writing well - while arithmetic stays somewhere it can be checked.</p>
     <div class="split reveal">
       <div class="split-inner">
         <svg id="splitSvg" viewBox="0 0 900 250" role="img" aria-label="Architecture diagram: a natural language question goes to a generative planner, which selects a declarative query plan. A deterministic executor runs the plan over the ontology to produce a computed value and a claim ledger. The generative phraser then wraps the value in prose without altering it."></svg>
@@ -344,7 +358,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="ledger">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S3</span><h2 class="display">Claim ledger &amp; replay</h2></div>
-    <p class="sec-sub">This one is a working engine, not a mockup — the values below are computed in your browser from a synthetic object store, and every answer emits a ledger with a content hash over the plan and its resolved inputs. <strong>Replay</strong> re-executes and compares. <strong>Mutate</strong> nudges a source record so you can watch the drift get caught and named.</p>
+    <p class="sec-sub">This one is a working engine, not a mockup - the values below are computed in your browser from a synthetic object store, and every answer emits a ledger with a content hash over the plan and its resolved inputs. <strong>Replay</strong> re-executes and compares. <strong>Mutate</strong> nudges a source record so you can watch the drift get caught and named.</p>
     <div class="va reveal">
       <div class="va-head">
         <span class="label">Question → plan → value → prose</span>
@@ -359,7 +373,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <div class="va-out">
           <div class="answer">
             <span class="k">Answer</span>
-            <p id="answerText">—</p>
+            <p id="answerText">-</p>
           </div>
           <span class="label" style="display:block;margin-bottom:8px">Claim ledger</span>
           <div class="ledger" id="ledgerBox"></div>
@@ -374,7 +388,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     </div>
     <div class="callout">
       <div class="bar"></div>
-      <div><span class="k">Try this</span><p>Switch the phrasing model at the top right. The wording changes; the <strong>value hash stays identical</strong>. Then mutate a record and replay — the ledger names exactly which input moved and by how much.</p></div>
+      <div><span class="k">Try this</span><p>Switch the phrasing model at the top right. The wording changes; the <strong>value hash stays identical</strong>. Then mutate a record and replay - the ledger names exactly which input moved and by how much.</p></div>
     </div>
   </div>
 </section>
@@ -382,30 +396,30 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="constrained">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S4</span><h2 class="display">Constrained generation</h2></div>
-    <p class="sec-sub">Prompting a model not to invent things is a request it will mostly honour. Deriving the permitted vocabulary from the ontology and rejecting anything outside it is a <strong>guarantee</strong> — and the nice part is how little machinery it takes. Same question, same intended output, two decoders.</p>
+    <p class="sec-sub">Prompting a model not to invent things is a request it will mostly honour. Deriving the permitted vocabulary from the ontology and rejecting anything outside it is a <strong>guarantee</strong> - and the nice part is how little machinery it takes. Same question, same intended output, two decoders.</p>
     <div class="reveal">
       <div class="cg">
         <div class="cg-pane">
-          <div class="cg-h"><span class="cg-title bad">Unconstrained</span><span class="cg-count bad" id="cntBad">—</span></div>
+          <div class="cg-h"><span class="cg-title bad">Unconstrained</span><span class="cg-count bad" id="cntBad">-</span></div>
           <div class="stream" id="streamBad"></div>
         </div>
         <div class="cg-pane">
-          <div class="cg-h"><span class="cg-title good">Ontology-constrained</span><span class="cg-count good" id="cntGood">—</span></div>
+          <div class="cg-h"><span class="cg-title good">Ontology-constrained</span><span class="cg-count good" id="cntGood">-</span></div>
           <div class="stream" id="streamGood"></div>
         </div>
       </div>
       <div class="grammar">
-        <span class="k">Permitted entity tokens — derived from the ontology registry, not from a prompt</span>
+        <span class="k">Permitted entity tokens - derived from the ontology registry, not from a prompt</span>
         <div class="gtoks" id="gTokens"></div>
       </div>
       <div class="cg-ctl">
         <button class="vb primary" id="btnGen" type="button">▶ Generate both</button>
-        <span class="sim-note">Scripted token stream illustrating the mechanism — no model runs in this page</span>
+        <span class="sim-note">Scripted token stream illustrating the mechanism - no model runs in this page</span>
       </div>
     </div>
     <div class="callout">
       <div class="bar"></div>
-      <div><span class="k">Why the structural version wins</span><p>Notice that the unconstrained output doesn't look wrong — the invented IDs are <strong>well-formed and entirely plausible</strong>, which is exactly what makes them hard to spot by eye. Deriving the vocabulary from the registry turns a review burden into a property of the system, and it costs almost nothing to implement.</p></div>
+      <div><span class="k">Why the structural version wins</span><p>Notice that the unconstrained output doesn't look wrong - the invented IDs are <strong>well-formed and entirely plausible</strong>, which is exactly what makes them hard to spot by eye. Deriving the vocabulary from the registry turns a review burden into a property of the system, and it costs almost nothing to implement.</p></div>
     </div>
   </div>
 </section>
@@ -413,7 +427,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section class="section" id="budget">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S5</span><h2 class="display">Trust budget</h2></div>
-    <p class="sec-sub">Model right-sizing as a deliberate decision rather than a default. The rule this encodes surprises people: <strong>as consequence rises, you move work out of the model rather than into a bigger one.</strong> It's a cheerful finding — the highest-stakes work is usually the most deterministic, so the safest option is also the least expensive.</p>
+    <p class="sec-sub">Model right-sizing as a deliberate decision rather than a default. The rule this encodes surprises people: <strong>as consequence rises, you move work out of the model rather than into a bigger one.</strong> It's a cheerful finding - the highest-stakes work is usually the most deterministic, so the safest option is also the least expensive.</p>
     <div class="tb reveal">
       <div class="tb-ctl">
         <div class="tb-row">
@@ -435,14 +449,14 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       </div>
       <div class="tb-out">
         <span class="label">Recommendation</span>
-        <div class="rec-tier" id="recTier">—</div>
-        <span class="rec-chip" id="recChip">—</span>
-        <p class="rec-why" id="recWhy">—</p>
+        <div class="rec-tier" id="recTier">-</div>
+        <span class="rec-chip" id="recChip">-</span>
+        <p class="rec-why" id="recWhy">-</p>
         <div style="margin-top:4px">
-          <div class="cost-row"><span class="cl">Unit cost</span><span class="cv" id="cUnit">—</span></div>
-          <div class="cost-row"><span class="cl">Volume / mo</span><span class="cv" id="cVol">—</span></div>
-          <div class="cost-row"><span class="cl">Review overhead</span><span class="cv" id="cRev">—</span></div>
-          <div class="cost-row total"><span class="cl">Monthly cost</span><span class="cv" id="cTot">—</span></div>
+          <div class="cost-row"><span class="cl">Unit cost</span><span class="cv" id="cUnit">-</span></div>
+          <div class="cost-row"><span class="cl">Volume / mo</span><span class="cv" id="cVol">-</span></div>
+          <div class="cost-row"><span class="cl">Review overhead</span><span class="cv" id="cRev">-</span></div>
+          <div class="cost-row total"><span class="cl">Monthly cost</span><span class="cv" id="cTot">-</span></div>
         </div>
       </div>
     </div>
@@ -450,14 +464,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   </div>
 </section>
 
+<div class="wrap series-wrap"><nav class="series-nav" aria-label="Report series"><a class="sn-item" href="../value-chain-twin/" rel="prev"><span class="sn-dir">&larr; Previous &middot; RPT-003</span><span class="sn-t">Value-Chain Twin</span></a><a class="sn-item next" href="https://priyatham9.github.io/ehs-benchmarks/" rel="next"><span class="sn-dir">Next &middot; RPT-005 &rarr;</span><span class="sn-t">EHS Benchmarks</span></a></nav>
+<section class="series" aria-labelledby="seriesHead"><div class="series-head"><span class="label" id="seriesHead">The RPT series &middot; five reports</span><a class="label" href="../../#reports">All reports on the home page &rarr;</a></div><ol class="series-list"><li><a href="../d365-data-strategy/"><span class="sl-code">RPT-001</span><span class="sl-t">D365 Data Strategy</span><span class="sl-d">Raw objects to revenue moves &middot; Synthetic demo data</span></a></li><li><a href="../ehs-metrics-command/"><span class="sl-code">RPT-002</span><span class="sl-t">EHS Metrics Command</span><span class="sl-d">Leading signal over lagging autopsy &middot; Synthetic demo data</span></a></li><li><a href="../value-chain-twin/"><span class="sl-code">RPT-003</span><span class="sl-t">Value-Chain Twin</span><span class="sl-d">Ontology, links and unstructured data &middot; Synthetic demo data</span></a></li><li><a href="../verifiable-answers/" aria-current="page"><span class="sl-code">RPT-004</span><span class="sl-t">Verifiable Answers</span><span class="sl-d">Architecture for AI you can sign off &middot; Synthetic demo data</span></a></li><li><a href="https://priyatham9.github.io/ehs-benchmarks/"><span class="sl-code">RPT-005</span><span class="sl-t">EHS Benchmarks</span><span class="sl-d">Real OSHA data, and what it gets wrong &middot; Real public OSHA data</span></a></li></ol></section></div>
 </main>
 
-<div class="wrap">
-  <nav class="series-nav" aria-label="Report series">
-    <a class="sn-item" href="../value-chain-twin/"><span class="sn-dir">← Previous · RPT-003</span><span class="sn-t">Value-Chain Twin</span></a>
-    <a class="sn-item next" href="/ehs-benchmarks/"><span class="sn-dir">Next · RPT-005 →</span><span class="sn-t">EHS Benchmarks</span></a>
-  </nav>
-</div>
 
 <footer class="rfooter">
   <div class="wrap rfooter-inner">
@@ -488,8 +498,8 @@ function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttrib
   /* bands */
   svg.appendChild(el("rect",{x:0,y:34,width:900,height:86,fill:"var(--warn-wash)",opacity:.5}));
   svg.appendChild(el("rect",{x:0,y:120,width:900,height:96,fill:"var(--accent-wash)",opacity:.55}));
-  var b1=el("text",{class:"sp-band",x:8,y:50,fill:"var(--warn)"});b1.textContent="GENERATIVE — MAY NOT COMPUTE";svg.appendChild(b1);
-  var b2=el("text",{class:"sp-band",x:8,y:136,fill:"var(--accent)"});b2.textContent="DETERMINISTIC — SOLE SOURCE OF NUMBERS";svg.appendChild(b2);
+  var b1=el("text",{class:"sp-band",x:8,y:50,fill:"var(--warn)"});b1.textContent="GENERATIVE - MAY NOT COMPUTE";svg.appendChild(b1);
+  var b2=el("text",{class:"sp-band",x:8,y:136,fill:"var(--accent)"});b2.textContent="DETERMINISTIC - SOLE SOURCE OF NUMBERS";svg.appendChild(b2);
   function box(x,y,w,h,cls,t,s){
     svg.appendChild(el("rect",{class:"sp-box "+cls,x:x,y:y,width:w,height:h}));
     var a=el("text",{class:"sp-t",x:x+11,y:y+22});a.textContent=t;svg.appendChild(a);
@@ -651,7 +661,7 @@ document.getElementById("btnReplay").addEventListener("click",function(){
   var e=execPlan(curPlan);
   if(before===e.valueHash){
     verdict.className="verdict-line vok";
-    verdict.textContent="✓ VERIFIED — replay reproduced "+e.valueHash;
+    verdict.textContent="✓ VERIFIED - replay reproduced "+e.valueHash;
   }else{
     var diffs=[];
     Object.keys(e.res.inputs).forEach(function(k){
@@ -659,7 +669,7 @@ document.getElementById("btnReplay").addEventListener("click",function(){
     });
     var p=PLANS[curPlan];
     verdict.className="verdict-line vdrift";
-    verdict.textContent="✕ DRIFT — "+(diffs.join("; ")||"inputs changed")+" · value "+p.fmt(beforeVal)+" → "+p.fmt(e.res.value);
+    verdict.textContent="✕ DRIFT - "+(diffs.join("; ")||"inputs changed")+" · value "+p.fmt(beforeVal)+" → "+p.fmt(e.res.value);
     render();
   }
 });
@@ -668,7 +678,7 @@ document.getElementById("btnMutate").addEventListener("click",function(){
   var t=targets[curPlan];
   store[t[0]][t[1]]+=t[2];
   verdict.className="verdict-line vdrift";
-  verdict.textContent="Source record changed: "+t[0]+"."+t[1]+" +"+t[2]+" — now hit Replay";
+  verdict.textContent="Source record changed: "+t[0]+"."+t[1]+" +"+t[2]+" - now hit Replay";
 });
 document.getElementById("btnReset").addEventListener("click",function(){
   store=JSON.parse(JSON.stringify(BASE));
@@ -744,7 +754,7 @@ var CONS=["Informational","Operational","Financial","Regulatory"];
   var LADDER=[
    ["No model","Deterministic code over the ontology. Reproducible by construction, zero inference cost."],
    ["Small model","Cheap classification and routing where a wrong answer is cheap to correct."],
-   ["Large model","Reserved for genuinely open language work — drafting, synthesis, ambiguity."],
+   ["Large model","Reserved for genuinely open language work - drafting, synthesis, ambiguity."],
    ["Model + mandatory review","Generative draft, human sign-off recorded as an object. The only tier permitted to touch a filing."]
   ];
   LADDER.forEach(function(l,i){
@@ -766,10 +776,10 @@ var CONS=["Informational","Operational","Financial","Regulatory"];
     var tier,chip,why,unit,review=0;
     if(!t.gen){
       tier="No model";chip="DETERMINISTIC";unit=0;
-      why="This task is arithmetic or a rule. Generating it would introduce variance for zero benefit — it belongs in the deterministic core, whatever the consequence tier.";
+      why="This task is arithmetic or a rule. Generating it would introduce variance for zero benefit - it belongs in the deterministic core, whatever the consequence tier.";
     }else if(cons===3){
       tier="Model + mandatory review";chip="GATED";unit=t.base*2.2;review=vol*0.04;
-      why="Regulatory consequence. A model may draft, but the numbers come from the plan engine and a named human signs — the approval is recorded as an object.";
+      why="Regulatory consequence. A model may draft, but the numbers come from the plan engine and a named human signs - the approval is recorded as an object.";
     }else if(cons===2){
       tier=vol>=25000?"Small model + sampling":"Large model";chip="AUDITED";
       unit=vol>=25000?t.base*0.28:t.base*2.2;review=vol*(vol>=25000?0.004:0.012);
@@ -807,5 +817,6 @@ Array.prototype.forEach.call(rv,function(e){ro.observe(e)})}
 })();
 </script>
 
+<script src="../../assets/kit.js" defer></script>
 </body>
 </html>

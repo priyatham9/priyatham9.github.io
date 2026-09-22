@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RPT-001 · D365 Data Strategy — Priyatham Chimmani</title>
+<title>RPT-001 · D365 Data Strategy - Priyatham Chimmani</title>
 <meta name="description" content="Interactive data strategy report: Dynamics 365 raw object layer through REST, Graph, and MCP to the commercial value chain. Synthetic demo data." />
 <meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
@@ -276,12 +276,22 @@ section[id]{scroll-margin-top:70px}
 .sn-item.empty{opacity:.4;pointer-events:none}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/d365-data-strategy/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta property="og:title" content="RPT-001 · D365 Data Strategy - Priyatham Chimmani" />
+<meta property="og:description" content="Interactive data strategy report: Dynamics 365 raw object layer through REST, Graph, and MCP to the commercial value chain. Synthetic demo data." />
+<meta property="og:url" content="https://priyatham9.github.io/reports/d365-data-strategy/" />
+<meta property="og:image" content="https://priyatham9.github.io/og.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="author" content="Priyatham Chimmani" />
+<link rel="stylesheet" href="../../assets/kit.css" />
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="crumb" href="../../"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-001</a>
+    <a class="crumb" href="../../" aria-label="Priyatham Chimmani, home"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-001</a>
     <div class="top-right">
       <span class="demo-chip">Synthetic demo data</span>
       <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
@@ -290,19 +300,23 @@ section[id]{scroll-margin-top:70px}
       </button>
     </div>
   </div>
+  <nav class="storybar" aria-label="Report contents">
+    <div class="storybar-inner"><span class="sb-label">RPT-001</span><ul class="sb-list"><li><a href="#objects"><b>S1</b> Object layer</a></li><li><a href="#flow"><b>S2</b> Signal flow</a></li><li><a href="#funnel"><b>S3</b> Funnel physics</a></li><li><a href="#kpis"><b>S4</b> Instrument panel</a></li><li><a href="#chain"><b>S5</b> Value chain</a></li><li><a href="#plan"><b>S6</b> Action plan</a></li></ul><span class="sb-pct" aria-hidden="true">0%</span></div>
+    <div class="sb-progress" aria-hidden="true"></div>
+  </nav>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 
 <section class="hero">
   <div class="wrap">
     <div class="hero-eyebrow"><span class="pulse"></span><span class="label">Report 001 · Commercial Data Strategy · Dynamics 365</span></div>
     <h1 class="display">Raw objects in.<br /><span class="h1-outline">Revenue moves out.</span></h1>
     <p class="hero-lede">
-      Dynamics 365 is not a CRM — it is the <strong>sensor grid of the commercial value chain</strong>.
+      Dynamics 365 is not a CRM - it is the <strong>sensor grid of the commercial value chain</strong>.
       Every Outlook thread, call report, SharePoint contract, lead, and opportunity is telemetry.
       This report lays out the operating model that turns a 40-object raw layer into governed signal,
-      MCP-grounded agents, and — the only output that matters — <strong>decisions someone acts on this quarter</strong>.
+      MCP-grounded agents, and - the only output that matters - <strong>decisions someone acts on this quarter</strong>.
     </p>
     <nav class="jumps" aria-label="Report sections">
       <a class="jump" href="#objects"><b>S1</b> Object layer</a>
@@ -318,13 +332,13 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="objects">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S1</span><h2 class="display">The raw object layer</h2></div>
-    <p class="sec-sub">The 40-entity model, grouped by what each object <strong>does for revenue</strong> — not by where Microsoft filed it. Click any object: what it is, how it joins, what it feeds, and the move it powers.</p>
+    <p class="sec-sub">The 40-entity model, grouped by what each object <strong>does for revenue</strong> - not by where Microsoft filed it. Click any object: what it is, how it joins, what it feeds, and the move it powers.</p>
     <div class="obj-groups reveal" id="objGroups"></div>
     <div class="obj-detail" id="objDetail">
       <div class="od-cell"><span class="k">Object</span><span class="v act" id="odName">Select an object above</span></div>
-      <div class="od-cell"><span class="k">What it is</span><span class="v" id="odWhat">—</span></div>
-      <div class="od-cell"><span class="k">Key joins</span><span class="v mono" id="odJoin">—</span></div>
-      <div class="od-cell"><span class="k">Action it powers</span><span class="v act" id="odAct">—</span></div>
+      <div class="od-cell"><span class="k">What it is</span><span class="v" id="odWhat">-</span></div>
+      <div class="od-cell"><span class="k">Key joins</span><span class="v mono" id="odJoin">-</span></div>
+      <div class="od-cell"><span class="k">Action it powers</span><span class="v act" id="odAct">-</span></div>
     </div>
   </div>
 </section>
@@ -332,7 +346,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="flow">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S2</span><h2 class="display">Signal flow</h2></div>
-    <p class="sec-sub">From source of truth to point of decision in five moves. <strong>REST/OData and Graph pull the raw layer</strong>, the medallion refines it, and the MCP layer is what lets agents answer questions against governed gold — never against a screenshot of a stale export.</p>
+    <p class="sec-sub">From source of truth to point of decision in five moves. <strong>REST/OData and Graph pull the raw layer</strong>, the medallion refines it, and the MCP layer is what lets agents answer questions against governed gold - never against a screenshot of a stale export.</p>
     <div class="flow-shell reveal">
       <div class="flow-head"><span class="label">Dataverse → Decision</span><span class="label">Hover or tap any block</span></div>
       <div class="flow-body">
@@ -347,7 +361,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="funnel">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S3</span><h2 class="display">Funnel physics</h2></div>
-    <p class="sec-sub">A year of synthetic pipeline through the object layer. Toggle the scenario: <strong>what the funnel does when engagement capture and response SLAs are instrumented</strong> — the two plays that cost the least and pay the fastest.</p>
+    <p class="sec-sub">A year of synthetic pipeline through the object layer. Toggle the scenario: <strong>what the funnel does when engagement capture and response SLAs are instrumented</strong> - the two plays that cost the least and pay the fastest.</p>
     <div class="fun-shell reveal">
       <div class="fun-head">
         <span class="label">Lead → Won · trailing 12 months</span>
@@ -361,7 +375,7 @@ section[id]{scroll-margin-top:70px}
       <div class="fun-stats">
         <div class="fst"><span class="label">Won value</span><div class="v" id="fsVal">$48.6M</div></div>
         <div class="fst"><span class="label">Median cycle</span><div class="v" id="fsCyc">92 days</div></div>
-        <div class="fst"><span class="label">Modeled uplift</span><div class="v" id="fsUp">—</div></div>
+        <div class="fst"><span class="label">Modeled uplift</span><div class="v" id="fsUp">-</div></div>
       </div>
     </div>
   </div>
@@ -370,7 +384,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="kpis">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S4</span><h2 class="display">Instrument panel</h2></div>
-    <p class="sec-sub">Eight gauges that tell you whether the commercial data engine is healthy — each with its <strong>current reading, target, and the single action that moves it</strong>. Statuses are triage: FIX now, BUILD next, WATCH always.</p>
+    <p class="sec-sub">Eight gauges that tell you whether the commercial data engine is healthy - each with its <strong>current reading, target, and the single action that moves it</strong>. Statuses are triage: FIX now, BUILD next, WATCH always.</p>
     <div class="kpis reveal" id="kpiBoard"></div>
   </div>
 </section>
@@ -378,13 +392,13 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="chain">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S5</span><h2 class="display">The value chain</h2></div>
-    <p class="sec-sub">Where every object earns its keep. Five stages, each instrumented by the layer above it — and stage five is where this report hands off to <strong>Finance and the digital twin</strong>.</p>
+    <p class="sec-sub">Where every object earns its keep. Five stages, each instrumented by the layer above it - and stage five is where this report hands off to <strong>Finance and the digital twin</strong>.</p>
     <div class="reveal">
       <div class="chain">
         <div class="ch"><span class="ch-idx">V1</span><h3>Engage</h3><p>Every touch captured without asking a rep to type.</p><div class="chips"><span class="chip">Email / Outlook</span><span class="chip">Appointment</span><span class="chip">Phone Call</span><span class="chip">Call Report</span></div></div>
         <div class="ch"><span class="ch-idx">V2</span><h3>Qualify</h3><p>Signal-scored leads routed inside the response SLA.</p><div class="chips"><span class="chip">Lead</span><span class="chip">Campaign</span><span class="chip">Territory</span></div></div>
         <div class="ch"><span class="ch-idx">V3</span><h3>Commit</h3><p>Opportunities with complete data or they don't advance.</p><div class="chips"><span class="chip">Opportunity</span><span class="chip">Quote</span><span class="chip">Product</span><span class="chip">Price List</span></div></div>
-        <div class="ch"><span class="ch-idx">V4</span><h3>Fulfill</h3><p>Orders to invoices to margin — commercial truth meets Finance.</p><div class="chips"><span class="chip">Order</span><span class="chip">Invoice</span><span class="chip hi">→ Finance</span></div></div>
+        <div class="ch"><span class="ch-idx">V4</span><h3>Fulfill</h3><p>Orders to invoices to margin - commercial truth meets Finance.</p><div class="chips"><span class="chip">Order</span><span class="chip">Invoice</span><span class="chip hi">→ Finance</span></div></div>
         <div class="ch"><span class="ch-idx">V5</span><h3>Learn</h3><p>Agent-summarized outcomes feed the enterprise ontology.</p><div class="chips"><span class="chip">MCP agents</span><span class="chip hi">→ Digital twin</span><span class="chip hi">→ Palantir</span></div></div>
       </div>
       <div class="chain-note">
@@ -410,13 +424,13 @@ section[id]{scroll-margin-top:70px}
   </div>
 </section>
 
-<div class="wrap"><nav class="series-nav" aria-label="Report series"><span class="sn-item empty"><span class="sn-dir">Start of series</span><span class="sn-t">RPT-001 is the first report</span></span><a class="sn-item next" href="../ehs-metrics-command/"><span class="sn-dir">Next · RPT-002 →</span><span class="sn-t">EHS Metrics Command</span></a></nav></div>
+<div class="wrap series-wrap"><nav class="series-nav" aria-label="Report series"><span class="sn-item empty"><span class="sn-dir">Start of series</span><span class="sn-t">RPT-001 is the first report</span></span><a class="sn-item next" href="../ehs-metrics-command/" rel="next"><span class="sn-dir">Next &middot; RPT-002 &rarr;</span><span class="sn-t">EHS Metrics Command</span></a></nav>
+<section class="series" aria-labelledby="seriesHead"><div class="series-head"><span class="label" id="seriesHead">The RPT series &middot; five reports</span><a class="label" href="../../#reports">All reports on the home page &rarr;</a></div><ol class="series-list"><li><a href="../d365-data-strategy/" aria-current="page"><span class="sl-code">RPT-001</span><span class="sl-t">D365 Data Strategy</span><span class="sl-d">Raw objects to revenue moves &middot; Synthetic demo data</span></a></li><li><a href="../ehs-metrics-command/"><span class="sl-code">RPT-002</span><span class="sl-t">EHS Metrics Command</span><span class="sl-d">Leading signal over lagging autopsy &middot; Synthetic demo data</span></a></li><li><a href="../value-chain-twin/"><span class="sl-code">RPT-003</span><span class="sl-t">Value-Chain Twin</span><span class="sl-d">Ontology, links and unstructured data &middot; Synthetic demo data</span></a></li><li><a href="../verifiable-answers/"><span class="sl-code">RPT-004</span><span class="sl-t">Verifiable Answers</span><span class="sl-d">Architecture for AI you can sign off &middot; Synthetic demo data</span></a></li><li><a href="https://priyatham9.github.io/ehs-benchmarks/"><span class="sl-code">RPT-005</span><span class="sl-t">EHS Benchmarks</span><span class="sl-d">Real OSHA data, and what it gets wrong &middot; Real public OSHA data</span></a></li></ol></section></div>
 </main>
 
 <footer class="rfooter">
   <div class="wrap rfooter-inner">
     <a class="btn" href="../../">← Back to site</a>
-    <span class="next-report">Next: <b>RPT-002</b> EHS Metrics Command · <b>RPT-003</b> Value-Chain Twin (Palantir)</span>
     <span class="label">All figures synthetic · methodology real</span>
   </div>
 </footer>
@@ -446,27 +460,27 @@ section[id]{scroll-margin-top:70px}
     Content: "documents & contracts", Reference: "keys that keep joins honest"
   };
   var ENTITIES = [
-    { n:"Account", g:"Party", w:"Master record for every customer and prospect company.", j:"accountid ← contact.parentcustomerid · opportunity.customerid", a:"Dedupe to one golden account — split records split pipeline history." },
+    { n:"Account", g:"Party", w:"Master record for every customer and prospect company.", j:"accountid ← contact.parentcustomerid · opportunity.customerid", a:"Dedupe to one golden account - split records split pipeline history." },
     { n:"Contact", g:"Party", w:"The people inside accounts; the ones emails actually go to.", j:"contactid ← email.to · lead.parentcontactid", a:"Tie every Outlook thread to a contact automatically." },
     { n:"Territory", g:"Party", w:"Geographic / market ownership of accounts.", j:"territoryid ← account.territoryid", a:"Coverage heatmap → rebalancing moves each quarter." },
-    { n:"System User", g:"Party", w:"Owners — the reps and managers accountable for records.", j:"systemuserid ← *.ownerid", a:"Response-time SLAs measured per owner, not per team." },
+    { n:"System User", g:"Party", w:"Owners - the reps and managers accountable for records.", j:"systemuserid ← *.ownerid", a:"Response-time SLAs measured per owner, not per team." },
     { n:"Lead", g:"Pipeline", w:"Raw demand: unqualified interest from any channel.", j:"leadid → opportunity.originatingleadid", a:"Score with engagement signal; route inside the 4-hour SLA." },
-    { n:"Opportunity", g:"Pipeline", w:"Qualified deals with value, stage, and close date.", j:"opportunityid → quote.opportunityid", a:"No stage advance without next step + close date — enforced, not requested." },
+    { n:"Opportunity", g:"Pipeline", w:"Qualified deals with value, stage, and close date.", j:"opportunityid → quote.opportunityid", a:"No stage advance without next step + close date - enforced, not requested." },
     { n:"Quote", g:"Pipeline", w:"Priced proposals against the product catalog.", j:"quoteid → salesorder.quoteid", a:"Quote-to-close velocity by segment exposes pricing drag." },
-    { n:"Order", g:"Pipeline", w:"Won commitments entering fulfillment.", j:"salesorderid → invoice.salesorderid", a:"The seam to SAP — reconcile daily, not at month-end." },
+    { n:"Order", g:"Pipeline", w:"Won commitments entering fulfillment.", j:"salesorderid → invoice.salesorderid", a:"The seam to SAP - reconcile daily, not at month-end." },
     { n:"Invoice", g:"Pipeline", w:"Billed revenue; where CRM meets Finance's ledger.", j:"invoiceid → finance.margin (gold)", a:"Close the loop: won pipeline vs billed revenue vs margin." },
     { n:"Product", g:"Pipeline", w:"Catalog items quoted and sold.", j:"productid ← quotedetail.productid", a:"Mix analysis: which products carry the pipeline." },
-    { n:"Price List", g:"Pipeline", w:"Approved pricing by market and currency.", j:"pricelevelid ← quote.pricelevelid", a:"Discount variance vs list — the quiet margin leak." },
-    { n:"Email (Outlook)", g:"Engagement", w:"Threads auto-captured via Graph — the richest signal you own.", j:"activityid → regardingobjectid (lead/opp/account)", a:"38% capture today. Make it 85% with zero rep effort." },
+    { n:"Price List", g:"Pipeline", w:"Approved pricing by market and currency.", j:"pricelevelid ← quote.pricelevelid", a:"Discount variance vs list - the quiet margin leak." },
+    { n:"Email (Outlook)", g:"Engagement", w:"Threads auto-captured via Graph - the richest signal you own.", j:"activityid → regardingobjectid (lead/opp/account)", a:"38% capture today. Make it 85% with zero rep effort." },
     { n:"Appointment", g:"Engagement", w:"Meetings from Outlook calendars, linked to deals.", j:"activityid → regardingobjectid", a:"Meeting density = deal health; alert on 21-day silence." },
     { n:"Phone Call", g:"Engagement", w:"Logged calls, increasingly from telephony integration.", j:"activityid → regardingobjectid", a:"Auto-log from the phone system; stop trusting memory." },
-    { n:"Call Report", g:"Engagement", w:"Structured visit narratives — the field's ground truth.", j:"custom entity → account / opportunity", a:"Agent-summarize into the record; mine for risk phrases." },
+    { n:"Call Report", g:"Engagement", w:"Structured visit narratives - the field's ground truth.", j:"custom entity → account / opportunity", a:"Agent-summarize into the record; mine for risk phrases." },
     { n:"Task", g:"Engagement", w:"Next steps and follow-ups with owners and due dates.", j:"activityid → regardingobjectid", a:"Overdue-task rate per owner is an early forecast signal." },
-    { n:"Campaign", g:"Engagement", w:"Marketing motions that source leads.", j:"campaignid ← lead.campaignid", a:"Source-to-won attribution — fund what converts." },
+    { n:"Campaign", g:"Engagement", w:"Marketing motions that source leads.", j:"campaignid ← lead.campaignid", a:"Source-to-won attribution - fund what converts." },
     { n:"SharePoint Doc", g:"Content", w:"Proposals and decks linked to records via document locations.", j:"sharepointdocumentlocation → regarding record", a:"Index for agents: 'find the last proposal we sent them.'" },
     { n:"Attachment", g:"Content", w:"Files on emails and notes.", j:"attachmentid → activitymimeattachment", a:"Sweep into the same index; nothing lives only in an inbox." },
     { n:"Contract → Icertis", g:"Content", w:"Executed agreements mastered in Icertis, keyed to accounts.", j:"ICI API → account · order", a:"Spend under contract joins the same gold spine." },
-    { n:"Currency", g:"Reference", w:"Transaction currencies and exchange rates.", j:"transactioncurrencyid ← money fields", a:"One FX policy in silver — not per-report math." },
+    { n:"Currency", g:"Reference", w:"Transaction currencies and exchange rates.", j:"transactioncurrencyid ← money fields", a:"One FX policy in silver - not per-report math." },
     { n:"Business Unit", g:"Reference", w:"Org hierarchy scoping ownership and security.", j:"businessunitid ← systemuser.businessunitid", a:"Roll-ups that match how leadership actually reviews." }
   ];
 
@@ -515,21 +529,21 @@ section[id]{scroll-margin-top:70px}
       { x: 916, label: "DECIDE" }
     ];
     var NODES = [
-      [ { t: "Dataverse · 40 objects", d: "The raw layer this whole report is about — party, pipeline, engagement, reference." },
+      [ { t: "Dataverse · 40 objects", d: "The raw layer this whole report is about - party, pipeline, engagement, reference." },
         { t: "Outlook / Graph",        d: "Email threads, meetings, and attachments captured automatically via Microsoft Graph." },
         { t: "SharePoint",             d: "Proposals and documents linked to records through document locations." },
-        { t: "Call reports",           d: "Structured field narratives — the highest-signal custom entity in the model." } ],
+        { t: "Call reports",           d: "Structured field narratives - the highest-signal custom entity in the model." } ],
       [ { t: "REST / OData",           d: "Entity pulls against Dataverse Web API with change tracking for deltas." },
-        { t: "Graph API",              d: "Engagement telemetry: mail, calendar, files — no rep typing required." },
+        { t: "Graph API",              d: "Engagement telemetry: mail, calendar, files - no rep typing required." },
         { t: "Webhooks / CDC",         d: "Event-driven capture so gold freshness is minutes, not overnight batch." } ],
-      [ { t: "Bronze — raw",           d: "Landed as-is, immutable, replayable. PySpark under CI/CD." },
-        { t: "Silver — conformed",     d: "The 40-entity spine: mastered parties, deduped accounts, honest joins." },
-        { t: "Gold — decision marts",  d: "Funnel, coverage, forecast, and engagement marts every consumer shares." } ],
-      [ { t: "MCP layer",              d: "Grounds agents in governed gold — auditable answers, controlled cost." },
-        { t: "NLQ agent",              d: "'Which EU deals >$250K have gone quiet for 21 days?' — answered from gold." },
+      [ { t: "Bronze - raw",           d: "Landed as-is, immutable, replayable. PySpark under CI/CD." },
+        { t: "Silver - conformed",     d: "The 40-entity spine: mastered parties, deduped accounts, honest joins." },
+        { t: "Gold - decision marts",  d: "Funnel, coverage, forecast, and engagement marts every consumer shares." } ],
+      [ { t: "MCP layer",              d: "Grounds agents in governed gold - auditable answers, controlled cost." },
+        { t: "NLQ agent",              d: "'Which EU deals >$250K have gone quiet for 21 days?' - answered from gold." },
         { t: "Power BI / Fabric",      d: "The human-readable layer: pipeline reviews run from one semantic model." },
         { t: "Alert engine",           d: "SLA breaches, coverage gaps, and silence alarms pushed to owners." } ],
-      [ { t: "Pipeline review",        d: "Weekly cadence on one governed truth — no dueling spreadsheets." },
+      [ { t: "Pipeline review",        d: "Weekly cadence on one governed truth - no dueling spreadsheets." },
         { t: "Territory & pricing",    d: "Coverage and discount-variance moves with named owners." },
         { t: "Forecast commit",        d: "Model-assisted commit that survives contact with the quarter." } ]
     ];
@@ -564,7 +578,7 @@ section[id]{scroll-margin-top:70px}
     NODES.forEach(function (col, ti) {
       col.forEach(function (n, ni) {
         var key = ti + "-" + ni, y = yOf(ti, ni);
-        var g = el("g", { class: "a-node", tabindex: "0", role: "button", "aria-label": n.t + " — " + n.d });
+        var g = el("g", { class: "a-node", tabindex: "0", role: "button", "aria-label": n.t + " - " + n.d });
         g.appendChild(el("rect", { class: "a-box", x: TIERS[ti].x, y: y, width: W, height: H }));
         var label = el("text", { class: "a-label", x: TIERS[ti].x + 11, y: y + H / 2 + 3.5 });
         label.textContent = n.t; g.appendChild(label);
@@ -628,15 +642,15 @@ section[id]{scroll-margin-top:70px}
   /* ============ S3 · funnel ============ */
   var STAGES = ["Leads", "MQL", "SQL", "Opportunities", "Won"];
   var SCEN = {
-    base:  { n: [4820, 2140, 1010, 640, 218], cyc: 92, val: "$48.6M", up: "—" },
+    base:  { n: [4820, 2140, 1010, 640, 218], cyc: 92, val: "$48.6M", up: "-" },
     model: { n: [4820, 2520, 1310, 810, 291], cyc: 74, val: "$64.9M", up: "+$16.3M" }
   };
   var STAGE_META = [
-    { drop: "34% of leads have zero logged activity within 7 days.", act: "Auto-capture engagement (P2) — signal exists, it's just unrecorded." },
-    { drop: "Median first response: 26 hours. Interest decays in four.", act: "SLA alerting from gold freshness (P5) — route and time-stamp every lead." },
-    { drop: "Qualification stalls where account history is split across duplicates.", act: "Party mastering (P3) — one golden account, one history." },
-    { drop: "39% of open opps missing next step or close date.", act: "Completeness gates (P1) — stage advance requires the fields that forecast." },
-    { drop: "Win reviews rely on rep memory, not the record.", act: "Agent summaries into the record (P4) — learning compounds." }
+    { drop: "34% of leads have zero logged activity within 7 days.", act: "Auto-capture engagement (P2) - signal exists, it's just unrecorded." },
+    { drop: "Median first response: 26 hours. Interest decays in four.", act: "SLA alerting from gold freshness (P5) - route and time-stamp every lead." },
+    { drop: "Qualification stalls where account history is split across duplicates.", act: "Party mastering (P3) - one golden account, one history." },
+    { drop: "39% of open opps missing next step or close date.", act: "Completeness gates (P1) - stage advance requires the fields that forecast." },
+    { drop: "Win reviews rely on rep memory, not the record.", act: "Agent summaries into the record (P4) - learning compounds." }
   ];
   var funBody = document.getElementById("funBody");
   var funReadout = document.getElementById("funReadout");
@@ -683,7 +697,7 @@ section[id]{scroll-margin-top:70px}
 
   /* ============ S4 · KPI board ============ */
   var KPIS = [
-    { k: "Activity capture rate", v: "38", u: "%", pct: 45, tgt: "Target 85% · auto-capture", s: "FIX",   a: "Graph auto-logging for mail, meetings, calls — zero rep typing." },
+    { k: "Activity capture rate", v: "38", u: "%", pct: 45, tgt: "Target 85% · auto-capture", s: "FIX",   a: "Graph auto-logging for mail, meetings, calls - zero rep typing." },
     { k: "Lead response time",    v: "26", u: "h", pct: 15, tgt: "Target 4h · SLA routed",    s: "FIX",   a: "Freshness-based alerts to owners; response clock on every lead." },
     { k: "Opp data completeness", v: "61", u: "%", pct: 64, tgt: "Target 95% · gated stages", s: "WATCH", a: "Stage advance blocked without next step + close date." },
     { k: "Pipeline coverage",     v: "2.1", u: "×", pct: 70, tgt: "Target 3.0× · per territory", s: "WATCH", a: "Coverage heatmap drives quarterly territory rebalancing." },
@@ -723,11 +737,11 @@ section[id]{scroll-margin-top:70px}
 
   /* ============ S6 · plays + matrix ============ */
   var PLAYS = [
-    { id: "P1", t: "Unify the 40-object conformed model", q: "Q1", e: 3, i: 5, d: "One silver spine — mastered parties, honest joins, completeness gates built in." },
+    { id: "P1", t: "Unify the 40-object conformed model", q: "Q1", e: 3, i: 5, d: "One silver spine - mastered parties, honest joins, completeness gates built in." },
     { id: "P2", t: "Auto-capture Outlook, meetings & call reports", q: "Q1", e: 2, i: 5, d: "Graph + webhooks turn engagement into telemetry. Cheapest signal you will ever buy." },
     { id: "P3", t: "Party mastering & dedupe", q: "Q2", e: 2, i: 4, d: "Golden accounts reunite split pipeline history; 7.2% → <1%." },
-    { id: "P4", t: "MCP agent layer over gold", q: "Q2–Q3", e: 4, i: 5, d: "NLQ and summarization agents, grounded and auditable — after gold deserves them." },
-    { id: "P5", t: "Forecast & coverage instrumentation", q: "Q3", e: 3, i: 4, d: "Model-assisted commit, coverage alerts, SLA clocks — the instrument panel goes live." },
+    { id: "P4", t: "MCP agent layer over gold", q: "Q2–Q3", e: 4, i: 5, d: "NLQ and summarization agents, grounded and auditable - after gold deserves them." },
+    { id: "P5", t: "Forecast & coverage instrumentation", q: "Q3", e: 3, i: 4, d: "Model-assisted commit, coverage alerts, SLA clocks - the instrument panel goes live." },
     { id: "P6", t: "Value-chain twin hookup", q: "Q4", e: 5, i: 5, d: "Orders → invoices → margin flow into the Foundry ontology. Commercial twin online." }
   ];
   var list = document.getElementById("playList");
@@ -784,5 +798,6 @@ section[id]{scroll-margin-top:70px}
 })();
 </script>
 
+<script src="../../assets/kit.js" defer></script>
 </body>
 </html>

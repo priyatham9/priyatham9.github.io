@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RPT-002 · EHS Metrics Command — Priyatham Chimmani</title>
+<title>RPT-002 · EHS Metrics Command - Priyatham Chimmani</title>
 <meta name="description" content="Interactive EHS strategy report: leading and lagging indicators, a 40-KPI alert taxonomy, site command grid, and regulatory readiness. Synthetic demo data." />
 <meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
@@ -303,12 +303,22 @@ section[id]{scroll-margin-top:70px}
 .sn-item.empty{opacity:.4;pointer-events:none}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/ehs-metrics-command/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta property="og:title" content="RPT-002 · EHS Metrics Command - Priyatham Chimmani" />
+<meta property="og:description" content="Interactive EHS strategy report: leading and lagging indicators, a 40-KPI alert taxonomy, site command grid, and regulatory readiness. Synthetic demo data." />
+<meta property="og:url" content="https://priyatham9.github.io/reports/ehs-metrics-command/" />
+<meta property="og:image" content="https://priyatham9.github.io/og.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="author" content="Priyatham Chimmani" />
+<link rel="stylesheet" href="../../assets/kit.css" />
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="crumb" href="../../"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-002</a>
+    <a class="crumb" href="../../" aria-label="Priyatham Chimmani, home"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-002</a>
     <div class="top-right">
       <span class="demo-chip">Synthetic demo data</span>
       <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
@@ -317,9 +327,13 @@ section[id]{scroll-margin-top:70px}
       </button>
     </div>
   </div>
+  <nav class="storybar" aria-label="Report contents">
+    <div class="storybar-inner"><span class="sb-label">RPT-002</span><ul class="sb-list"><li><a href="#pyramid"><b>S1</b> Signal physics</a></li><li><a href="#indicators"><b>S2</b> Indicator board</a></li><li><a href="#alerts"><b>S3</b> Alert wall</a></li><li><a href="#cadence"><b>S4</b> Cadence grid</a></li><li><a href="#sites"><b>S5</b> Site command</a></li><li><a href="#filings"><b>S6</b> Regulatory clock</a></li><li><a href="#plan"><b>S7</b> Action plan</a></li></ul><span class="sb-pct" aria-hidden="true">0%</span></div>
+    <div class="sb-progress" aria-hidden="true"></div>
+  </nav>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 
 <section class="hero">
   <div class="wrap">
@@ -327,8 +341,8 @@ section[id]{scroll-margin-top:70px}
     <h1 class="display">Lagging tells you what happened.<br /><span class="h1-outline">Leading lets you act.</span></h1>
     <p class="hero-lede">
       Most safety reporting is an autopsy: TRIR arrives weeks after the injuries it describes.
-      Command means instrumenting the indicators that still have <strong>time on the clock</strong> —
-      observation velocity, closure discipline, reporting culture — and wiring
+      Command means instrumenting the indicators that still have <strong>time on the clock</strong> -
+      observation velocity, closure discipline, reporting culture - and wiring
       <strong>40 alerting KPIs</strong> so the right owner hears about drift while it is still cheap
       to fix. Built on the same governed spine as RPT-001; every number traces to a record.
     </p>
@@ -347,7 +361,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="pyramid">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S1</span><h2 class="display">Signal physics</h2></div>
-    <p class="sec-sub">One synthetic year, stacked the way risk actually works. The strategy is not to stare at the top of the pyramid — it is to <strong>instrument the base so aggressively that the top starves</strong>. Click a band.</p>
+    <p class="sec-sub">One synthetic year, stacked the way risk actually works. The strategy is not to stare at the top of the pyramid - it is to <strong>instrument the base so aggressively that the top starves</strong>. Click a band.</p>
     <div class="pyr-wrap reveal">
       <div class="pyr-shell">
         <svg id="pyrSvg" viewBox="0 0 560 330" role="img" aria-label="Incident pyramid: 1 serious incident, 31 recordables, 292 near misses, 3140 observations, 18600 raw data points captured."></svg>
@@ -355,9 +369,9 @@ section[id]{scroll-margin-top:70px}
       <div class="pyr-side" id="pyrSide">
         <span class="k">Band</span>
         <span class="band-name" id="pbName">Select a band</span>
-        <span class="band-count mono" id="pbCount">—</span>
+        <span class="band-count mono" id="pbCount">-</span>
         <span class="band-what" id="pbWhat">Every layer you instrument at the bottom removes events at the top.</span>
-        <span class="band-act" id="pbAct"><b>Move</b>—</span>
+        <span class="band-act" id="pbAct"><b>Move</b>-</span>
       </div>
     </div>
   </div>
@@ -375,9 +389,9 @@ section[id]{scroll-margin-top:70px}
     <div class="ind-groups reveal" id="indGroups"></div>
     <div class="ind-detail" id="indDetail">
       <div class="od-cell"><span class="k">Indicator</span><span class="v act" id="idName">Select an indicator above</span></div>
-      <div class="od-cell"><span class="k">Reading (synthetic)</span><span class="v mono" id="idNow">—</span></div>
-      <div class="od-cell"><span class="k">Alert rule</span><span class="v mono" id="idRule">—</span></div>
-      <div class="od-cell"><span class="k">Owner action</span><span class="v act" id="idAct">—</span></div>
+      <div class="od-cell"><span class="k">Reading (synthetic)</span><span class="v mono" id="idNow">-</span></div>
+      <div class="od-cell"><span class="k">Alert rule</span><span class="v mono" id="idRule">-</span></div>
+      <div class="od-cell"><span class="k">Owner action</span><span class="v act" id="idAct">-</span></div>
     </div>
   </div>
 </section>
@@ -385,14 +399,14 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="alerts">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S3</span><h2 class="display">The alert wall</h2></div>
-    <p class="sec-sub">Forty KPI alerts in five classes. The class that matters most is the one nobody builds: <strong>silence alarms</strong> — because a site that stops reporting hasn't become safe, it has become invisible.</p>
+    <p class="sec-sub">Forty KPI alerts in five classes. The class that matters most is the one nobody builds: <strong>silence alarms</strong> - because a site that stops reporting hasn't become safe, it has become invisible.</p>
     <div class="wall-note reveal"><span class="label">Doctrine</span><p>An alert that doesn't name an owner and an SLA is a notification. All forty route to a person, with a clock.</p></div>
     <div class="ind-groups reveal" id="alertGroups"></div>
     <div class="ind-detail" id="alertDetail">
       <div class="od-cell"><span class="k">Alert</span><span class="v act" id="alName">Select an alert above</span></div>
-      <div class="od-cell"><span class="k">Trigger</span><span class="v mono" id="alTrig">—</span></div>
-      <div class="od-cell"><span class="k">Routes to</span><span class="v" id="alWho">—</span></div>
-      <div class="od-cell"><span class="k">Response SLA</span><span class="v mono" id="alSla">—</span></div>
+      <div class="od-cell"><span class="k">Trigger</span><span class="v mono" id="alTrig">-</span></div>
+      <div class="od-cell"><span class="k">Routes to</span><span class="v" id="alWho">-</span></div>
+      <div class="od-cell"><span class="k">Response SLA</span><span class="v mono" id="alSla">-</span></div>
     </div>
   </div>
 </section>
@@ -400,7 +414,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="cadence">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S4</span><h2 class="display">Cadence grid</h2></div>
-    <p class="sec-sub">A year of EHS activity, one cell per day, <strong>filtered by KPI</strong>. Intensity is volume; the glow marks top-decile days. What you are looking for is not the bright cells — it is the <strong>cold stretches</strong>, because those are the weeks nobody was looking.</p>
+    <p class="sec-sub">A year of EHS activity, one cell per day, <strong>filtered by KPI</strong>. Intensity is volume; the glow marks top-decile days. What you are looking for is not the bright cells - it is the <strong>cold stretches</strong>, because those are the weeks nobody was looking.</p>
     <div class="cal-shell reveal">
       <div class="cal-head">
         <span class="label">Trailing 12 months · daily volume</span>
@@ -418,7 +432,7 @@ section[id]{scroll-margin-top:70px}
           </div>
         </div>
         <div class="cal-foot">
-          <span class="label" id="calTotal">—</span>
+          <span class="label" id="calTotal">-</span>
           <div class="cal-legend">
             <span class="label">Less</span>
             <span class="lg" data-l="0"></span><span class="lg" data-l="1"></span><span class="lg" data-l="2"></span><span class="lg" data-l="3"></span><span class="lg" data-l="4"></span>
@@ -428,10 +442,10 @@ section[id]{scroll-margin-top:70px}
       </div>
       <div class="cal-readout readout" id="calReadout"><span class="ro-hint">Hover any day for its reading · switch KPI to re-scan the same year</span></div>
       <div class="cal-stats">
-        <div class="cst"><span class="label">Active days</span><div class="v" id="csActive">—</div></div>
-        <div class="cst"><span class="label">Longest streak</span><div class="v" id="csStreak">—</div></div>
-        <div class="cst"><span class="label">Cold gap</span><div class="v" id="csGap">—</div></div>
-        <div class="cst"><span class="label">Peak day</span><div class="v" id="csPeak">—</div></div>
+        <div class="cst"><span class="label">Active days</span><div class="v" id="csActive">-</div></div>
+        <div class="cst"><span class="label">Longest streak</span><div class="v" id="csStreak">-</div></div>
+        <div class="cst"><span class="label">Cold gap</span><div class="v" id="csGap">-</div></div>
+        <div class="cst"><span class="label">Peak day</span><div class="v" id="csPeak">-</div></div>
       </div>
     </div>
   </div>
@@ -440,7 +454,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="sites">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S5</span><h2 class="display">Site command grid</h2></div>
-    <p class="sec-sub">Ten synthetic sites, ranked by what leading signal says is coming — not by whose last incident was most recent. <strong>Hover a row for the command action already in motion.</strong></p>
+    <p class="sec-sub">Ten synthetic sites, ranked by what leading signal says is coming - not by whose last incident was most recent. <strong>Hover a row for the command action already in motion.</strong></p>
     <div class="sites reveal" id="siteGrid">
       <div class="site-head">
         <span class="sh">Site</span><span class="sh">Region</span><span class="sh">Observation velocity vs plan</span><span class="sh">Action closure</span><span class="sh">Days since recordable</span><span class="sh">Status</span>
@@ -453,7 +467,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="filings">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S6</span><h2 class="display">Regulatory clock</h2></div>
-    <p class="sec-sub">Filing season is not an event, it is a countdown that never stops. Every filing below assembles itself from the governed layer — <strong>the deadline play is review, not archaeology</strong>.</p>
+    <p class="sec-sub">Filing season is not an event, it is a countdown that never stops. Every filing below assembles itself from the governed layer - <strong>the deadline play is review, not archaeology</strong>.</p>
     <div class="dues reveal" id="dueGrid"></div>
   </div>
 </section>
@@ -461,7 +475,7 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="plan">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S7</span><h2 class="display">Action plan</h2></div>
-    <p class="sec-sub">Six plays. Same doctrine as RPT-001: <strong>cheapest signal first</strong> — silence alarms cost almost nothing and change site behavior overnight.</p>
+    <p class="sec-sub">Six plays. Same doctrine as RPT-001: <strong>cheapest signal first</strong> - silence alarms cost almost nothing and change site behavior overnight.</p>
     <div class="plan reveal">
       <div class="plays" id="playList"></div>
       <div class="matrix">
@@ -473,13 +487,13 @@ section[id]{scroll-margin-top:70px}
   </div>
 </section>
 
-<div class="wrap"><nav class="series-nav" aria-label="Report series"><a class="sn-item" href="../d365-data-strategy/"><span class="sn-dir">← Previous · RPT-001</span><span class="sn-t">D365 Data Strategy</span></a><a class="sn-item next" href="../value-chain-twin/"><span class="sn-dir">Next · RPT-003 →</span><span class="sn-t">Value-Chain Twin</span></a></nav></div>
+<div class="wrap series-wrap"><nav class="series-nav" aria-label="Report series"><a class="sn-item" href="../d365-data-strategy/" rel="prev"><span class="sn-dir">&larr; Previous &middot; RPT-001</span><span class="sn-t">D365 Data Strategy</span></a><a class="sn-item next" href="../value-chain-twin/" rel="next"><span class="sn-dir">Next &middot; RPT-003 &rarr;</span><span class="sn-t">Value-Chain Twin</span></a></nav>
+<section class="series" aria-labelledby="seriesHead"><div class="series-head"><span class="label" id="seriesHead">The RPT series &middot; five reports</span><a class="label" href="../../#reports">All reports on the home page &rarr;</a></div><ol class="series-list"><li><a href="../d365-data-strategy/"><span class="sl-code">RPT-001</span><span class="sl-t">D365 Data Strategy</span><span class="sl-d">Raw objects to revenue moves &middot; Synthetic demo data</span></a></li><li><a href="../ehs-metrics-command/" aria-current="page"><span class="sl-code">RPT-002</span><span class="sl-t">EHS Metrics Command</span><span class="sl-d">Leading signal over lagging autopsy &middot; Synthetic demo data</span></a></li><li><a href="../value-chain-twin/"><span class="sl-code">RPT-003</span><span class="sl-t">Value-Chain Twin</span><span class="sl-d">Ontology, links and unstructured data &middot; Synthetic demo data</span></a></li><li><a href="../verifiable-answers/"><span class="sl-code">RPT-004</span><span class="sl-t">Verifiable Answers</span><span class="sl-d">Architecture for AI you can sign off &middot; Synthetic demo data</span></a></li><li><a href="https://priyatham9.github.io/ehs-benchmarks/"><span class="sl-code">RPT-005</span><span class="sl-t">EHS Benchmarks</span><span class="sl-d">Real OSHA data, and what it gets wrong &middot; Real public OSHA data</span></a></li></ol></section></div>
 </main>
 
 <footer class="rfooter">
   <div class="wrap rfooter-inner">
     <a class="btn" href="../../">← Back to site</a>
-    <span class="next-report">Prev: <b>RPT-001</b> D365 Data Strategy · Next: <b>RPT-003</b> Value-Chain Twin (Palantir)</span>
     <span class="label">All figures synthetic · methodology real</span>
   </div>
 </footer>
@@ -504,11 +518,11 @@ section[id]{scroll-margin-top:70px}
 
   /* ============ S1 · pyramid ============ */
   var BANDS = [
-    { n: "Serious incident", c: "1",      w: "The event every layer below exists to prevent. Lagging by definition — and already paid for.", a: "Full learning review, agent-drafted within 48h, findings routed as tracked actions.", warn: true },
-    { n: "Recordables", c: "31",          w: "OSHA-recordable injuries. The number leadership ranks sites by — weeks after it could be changed.", a: "Stop ranking by it. Pair every recordable with its leading-signal trail in the review." },
-    { n: "Near misses reported", c: "292", w: "Free lessons. A healthy ratio to recordables (~9:1 here) is a reporting-culture gauge, not a hazard gauge.", a: "Reward the report, never punish it — ratio below 6:1 fires a culture alert, not a blame hunt." },
+    { n: "Serious incident", c: "1",      w: "The event every layer below exists to prevent. Lagging by definition - and already paid for.", a: "Full learning review, agent-drafted within 48h, findings routed as tracked actions.", warn: true },
+    { n: "Recordables", c: "31",          w: "OSHA-recordable injuries. The number leadership ranks sites by - weeks after it could be changed.", a: "Stop ranking by it. Pair every recordable with its leading-signal trail in the review." },
+    { n: "Near misses reported", c: "292", w: "Free lessons. A healthy ratio to recordables (~9:1 here) is a reporting-culture gauge, not a hazard gauge.", a: "Reward the report, never punish it - ratio below 6:1 fires a culture alert, not a blame hunt." },
     { n: "Observations logged", c: "3,140", w: "The base that predicts. Velocity and coverage here move weeks before anything above moves.", a: "Mobile-first capture; observation velocity per site is the #1 watched leading KPI." },
-    { n: "Data points captured", c: "18,600", w: "Every walk, training record, permit, and inspection field — the raw layer the medallion refines.", a: "Zero manual re-entry: if it was captured once, it is never typed again." }
+    { n: "Data points captured", c: "18,600", w: "Every walk, training record, permit, and inspection field - the raw layer the medallion refines.", a: "Zero manual re-entry: if it was captured once, it is never typed again." }
   ];
   var pyr = document.getElementById("pyrSvg");
   var NS = "http://www.w3.org/2000/svg";
@@ -574,20 +588,20 @@ section[id]{scroll-margin-top:70px}
   /* ============ S2 · indicators ============ */
   var IND = [
     { name: "Lagging", note: "what already happened", items: [
-      { n: "TRIR 0.82", now: "0.82 · plan 0.75", rule: "> plan for 2 consecutive months", act: "Site deep-dive paired with its leading trail — never the number alone." },
+      { n: "TRIR 0.82", now: "0.82 · plan 0.75", rule: "> plan for 2 consecutive months", act: "Site deep-dive paired with its leading trail - never the number alone." },
       { n: "LTIR 0.31", now: "0.31 · plan 0.30", rule: "> plan, any month", act: "Case review with return-to-work plan inside 5 days." },
       { n: "DART 0.54", now: "0.54 · plan 0.50", rule: "3-mo slope rising", act: "Job-task analysis on the top two contributing roles." },
       { n: "Severity rate", now: "14.2 days/case", rule: "> 12 days rolling", act: "Early-intervention physio protocol at flagged sites." },
       { n: "Reportable spills 7", now: "7 YTD · plan ≤6", rule: "any reportable event", act: "Containment audit + root cause into the tracked-action engine." },
-      { n: "Agency findings 2", now: "2 open", rule: "any open finding > 30d", act: "Weekly countdown review until closed — no exceptions." }
+      { n: "Agency findings 2", now: "2 open", rule: "any open finding > 30d", act: "Weekly countdown review until closed - no exceptions." }
     ]},
     { name: "Leading", note: "what you can still change", items: [
       { n: "Obs rate 9.4/100", now: "9.4 per 100 workers · plan 8", rule: "< 8, per site, monthly", act: "Site lead notified; capture friction audit before culture blame." },
-      { n: "Near-miss ratio 9:1", now: "9.4 : 1 vs recordables", rule: "< 6:1 per site", act: "Culture alert — reward reporting, check for quiet suppression." },
+      { n: "Near-miss ratio 9:1", now: "9.4 : 1 vs recordables", rule: "< 6:1 per site", act: "Culture alert - reward reporting, check for quiet suppression." },
       { n: "Closure on-time 84%", now: "84% · plan 90%", rule: "< 90% or aging p75 > 21d", act: "Overdue queue to owner's manager after 7 days. Automatic." },
       { n: "Overdue actions 63", now: "63 open past due", rule: "> 5 per site", act: "Escalation ladder: owner → manager → site lead at 7/14/21 days." },
       { n: "Training currency 91%", now: "91% · plan 95%", rule: "person expiring < 30d", act: "Auto-scheduled refresh; site % published monthly." },
-      { n: "Walk completion 87%", now: "87% of scheduled", rule: "leader gap > 14d", act: "Silence alarm to the leader — visibility is a leading control." },
+      { n: "Walk completion 87%", now: "87% of scheduled", rule: "leader gap > 14d", act: "Silence alarm to the leader - visibility is a leading control." },
       { n: "Hazard ID velocity", now: "+12% QoQ", rule: "negative slope 2 mo", act: "Field prompt refresh; stale checklists kill reporting." },
       { n: "Permit compliance 98.6%", now: "98.6% audited", rule: "< 98% any site", act: "Same-week re-training for issuing supervisors." }
     ]}
@@ -627,7 +641,7 @@ section[id]{scroll-margin-top:70px}
       A("Hazard aging ↑", "IDs older unclosed", "Area owners", "sweep in 7d"),
       A("Reopen rate ↑", "closed actions bouncing", "QA on closures", "audit in 10d")
     ]},
-    { name: "Silence", note: "quiet isn't safe — it's unreported", items: [
+    { name: "Silence", note: "quiet isn't safe - it's unreported", items: [
       A("No obs 7d", "site logs nothing for a week", "Site EHS lead", "check-in 24h"),
       A("No walk 14d", "leader walk gap", "That leader", "walk in 48h"),
       A("No near-miss 30d", "a month of 'perfection'", "Site lead", "culture probe 5d"),
@@ -774,7 +788,7 @@ section[id]{scroll-margin-top:70px}
         readout.innerHTML = '<span class="ro-heat"></span><span class="ro-val"></span>';
         readout.firstChild.textContent = DOW[c.date.getDay()] + ", " + MO[c.date.getMonth()] + " " + c.date.getDate();
         readout.lastChild.textContent = c.val === 0
-          ? "No " + current.unit.split(" ")[0] + " activity recorded — a cold day is a reporting signal, not a safe one."
+          ? "No " + current.unit.split(" ")[0] + " activity recorded - a cold day is a reporting signal, not a safe one."
           : c.val + " " + current.unit;
       }
       c.el.addEventListener("pointerenter", show);
@@ -789,15 +803,15 @@ section[id]{scroll-margin-top:70px}
 
   /* ============ S5 · site grid ============ */
   var SITES = [
-    ["OHI-1", "N. America", 112, 93, 148, "STABLE", "Model site — its capture playbook is the template for E1."],
+    ["OHI-1", "N. America", 112, 93, 148, "STABLE", "Model site - its capture playbook is the template for E1."],
     ["TEX-2", "N. America", 96, 88, 212, "STABLE", "Healthy; watch closure aging creeping past 14 days."],
-    ["LOU-3", "N. America", 61, 74, 302, "ALERT", "Obs velocity −39% with a 'perfect' streak — classic silence pattern. Command call held, capture friction audit running."],
+    ["LOU-3", "N. America", 61, 74, 302, "ALERT", "Obs velocity −39% with a 'perfect' streak - classic silence pattern. Command call held, capture friction audit running."],
     ["NLD-1", "Europe", 104, 91, 87, "STABLE", "Post-assignment cadence holding; walk completion 96%."],
     ["DEU-2", "Europe", 83, 79, 164, "DRIFT", "Trend alert fired on closure slope; process fix due in 10 days."],
     ["BRA-1", "S. America", 118, 95, 129, "STABLE", "Best near-miss ratio in the network (11:1). Localized dashboards credited."],
     ["IND-1", "APAC", 77, 68, 96, "DRIFT", "Overdue actions at 9; escalation ladder engaged at manager level."],
     ["CHN-2", "APAC", 90, 85, 178, "STABLE", "Steady; contractor observation gap alert cleared last week."],
-    ["CAN-1", "N. America", 70, 81, 44, "DRIFT", "Recent recordable plus falling obs rate — paired review scheduled."],
+    ["CAN-1", "N. America", 70, 81, 44, "DRIFT", "Recent recordable plus falling obs rate - paired review scheduled."],
     ["MEX-2", "N. America", 58, 62, 251, "ALERT", "Two silence alarms in 30 days; regional lead on site this week."]
   ];
   var grid = document.getElementById("siteGrid");
@@ -834,9 +848,9 @@ section[id]{scroll-margin-top:70px}
 
   /* ============ S5 · filings ============ */
   var DUES = [
-    ["OSHA 300A", 68, "Post Feb 1 – Apr 30", "ASSEMBLING", "Injury log rolls up from incident records — zero re-keying."],
+    ["OSHA 300A", 68, "Post Feb 1 – Apr 30", "ASSEMBLING", "Injury log rolls up from incident records - zero re-keying."],
     ["EPCRA Tier II", 96, "Due Mar 1", "ASSEMBLING", "Chemical inventory joins the same governed spine as procurement."],
-    ["ACC Responsible Care", 41, "Annual metrics window", "READY", "Metrics QA'd against gold — submission is a review, not a scramble."],
+    ["ACC Responsible Care", 41, "Annual metrics window", "READY", "Metrics QA'd against gold - submission is a review, not a scramble."],
     ["RCRA Biennial", 154, "Even-year cycle", "TRACKING", "Waste tracker module feeds manifest-level detail continuously."],
     ["Air permit report", 23, "Site-specific window", "READY", "Deviation log auto-compiled; env lead signs off T-14."]
   ];
@@ -858,12 +872,12 @@ section[id]{scroll-margin-top:70px}
 
   /* ============ S6 · plays + matrix ============ */
   var PLAYS = [
-    { id: "E1", t: "Instrument the base — mobile-first capture", q: "Q1", e: 2, i: 5, d: "Observations and walks in under 30 seconds from a phone. Velocity becomes the flagship leading KPI." },
+    { id: "E1", t: "Instrument the base - mobile-first capture", q: "Q1", e: 2, i: 5, d: "Observations and walks in under 30 seconds from a phone. Velocity becomes the flagship leading KPI." },
     { id: "E2", t: "Silence alarms across all sites", q: "Q1", e: 1, i: 4, d: "Quiet sites get a call, not a compliment. Cheapest behavioral change in the whole program." },
-    { id: "E3", t: "Action-closure SLA engine", q: "Q2", e: 2, i: 5, d: "Overdue actions escalate on a ladder automatically — closure discipline is the strongest single predictor." },
+    { id: "E3", t: "Action-closure SLA engine", q: "Q2", e: 2, i: 5, d: "Overdue actions escalate on a ladder automatically - closure discipline is the strongest single predictor." },
     { id: "E4", t: "Rebalance leadership attention 70/30", q: "Q2", e: 3, i: 4, d: "Reviews and ICP weighting move to leading indicators; lagging stays context, not headline." },
     { id: "E5", t: "Agent-drafted regulatory filings", q: "Q3", e: 4, i: 4, d: "300A, Tier II, and ACC drafts assembled from gold by MCP-grounded agents; humans review and sign." },
-    { id: "E6", t: "Predictive site-risk model", q: "Q4", e: 5, i: 5, d: "Drift index graduates to a forecasting model — intervention lands before the pyramid's top layer does." }
+    { id: "E6", t: "Predictive site-risk model", q: "Q4", e: 5, i: 5, d: "Drift index graduates to a forecasting model - intervention lands before the pyramid's top layer does." }
   ];
   var list = document.getElementById("playList");
   var mat = document.getElementById("matSvg");
@@ -929,5 +943,6 @@ section[id]{scroll-margin-top:70px}
 })();
 </script>
 
+<script src="../../assets/kit.js" defer></script>
 </body>
 </html>
