@@ -1,4 +1,42 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found - Priyatham Chimmani</title>
-<style>body{margin:0;background:#F7F7F3;color:#101311;font-family:ui-sans-serif,system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}@media(prefers-color-scheme:dark){body{background:#0A0D0B;color:#EAEFEA}}
-.b{border:2px solid currentColor;padding:32px 36px;max-width:520px}h1{margin:0 0 10px;font-size:1.6rem;text-transform:uppercase;letter-spacing:-.01em}p{margin:0 0 16px}a{color:#0F7A52;font-family:ui-monospace,monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}@media(prefers-color-scheme:dark){a{color:#3FCB88}}</style></head>
-<body><div class="b"><h1>Page not found</h1><p>That address does not exist here.</p><a href="/">Home</a> &nbsp;&middot;&nbsp; <a href="/work/">Case studies</a> &nbsp;&middot;&nbsp; <a href="/#reports">Reports</a> &nbsp;&middot;&nbsp; <a href="/grounded/">Research</a></div></body></html>
+<meta name="robots" content="noindex">
+<script>try{var t=localStorage.getItem("pc-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@500;700&amp;display=swap">
+<style>
+:root{--paper:#F7F7F3;--ink:#101311;--muted:#5B625D;--rule:#101311;--rule-soft:#D5D8D2;--accent:#0F7A52;--accent-ink:#fff;--out:cubic-bezier(.22,1,.36,1);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--paper:#0A0D0B;--ink:#EAEFEA;--muted:#9AA39D;--rule:#EAEFEA;--rule-soft:#2A302C;--accent:#3FCB88;--accent-ink:#0A0D0B;color-scheme:dark}}
+:root[data-theme=dark]{--paper:#0A0D0B;--ink:#EAEFEA;--muted:#9AA39D;--rule:#EAEFEA;--rule-soft:#2A302C;--accent:#3FCB88;--accent-ink:#0A0D0B;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Archivo,ui-sans-serif,system-ui,sans-serif;min-height:100vh;min-height:100dvh;display:grid;align-items:center;padding:24px clamp(18px,6vw,80px);background-image:radial-gradient(var(--rule-soft) 1px,transparent 1px);background-size:22px 22px}
+main{max-width:760px}
+.k{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-stretch:125%;font-weight:900;font-size:clamp(3rem,11vw,7.5rem);line-height:.88;letter-spacing:-.04em;margin:14px 0 18px;text-transform:uppercase}
+p{font-size:1.125rem;max-width:44ch;margin:0 0 28px;color:var(--muted)}
+ul{list-style:none;margin:0;padding:0;border-top:2px solid var(--rule);max-width:520px}
+li{border-bottom:2px solid var(--rule-soft)}
+a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 8px;color:var(--ink);text-decoration:none;font-weight:800;font-size:1.05rem;transition:background .3s var(--out)}
+a span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.75rem;color:var(--accent);transition:transform .45s var(--out)}
+a:hover,a:focus-visible{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+a:hover span,a:focus-visible span{transform:translateX(6px)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){
+.k{animation:f .6s var(--out) both}
+h1{animation:r 1s .08s var(--out) both}
+p{animation:r .9s .25s var(--out) both}
+li{animation:f .7s var(--out) both}li:nth-child(1){animation-delay:.4s}li:nth-child(2){animation-delay:.46s}li:nth-child(3){animation-delay:.52s}li:nth-child(4){animation-delay:.58s}
+}
+@keyframes r{from{opacity:0;transform:translateY(.4em);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0 0 -20% 0)}}
+@keyframes f{from{opacity:0;transform:translateY(10px)}}
+</style></head>
+<body><main>
+<div class="k">Error 404</div>
+<h1>Nothing<br>here.</h1>
+<p>This address does not exist on the site. It may have moved when the case studies were reorganised.</p>
+<ul>
+<li><a href="/">Home <span aria-hidden="true">&rarr;</span></a></li>
+<li><a href="/work/">Case studies <span aria-hidden="true">&rarr;</span></a></li>
+<li><a href="/#reports">Reports <span aria-hidden="true">&rarr;</span></a></li>
+<li><a href="/grounded/">Research programme <span aria-hidden="true">&#8599;</span></a></li>
+</ul>
+</main></body></html>

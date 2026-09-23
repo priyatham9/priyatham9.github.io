@@ -47,7 +47,7 @@
       ticking = false;
       var max = document.documentElement.scrollHeight - window.innerHeight;
       var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      if (fill) fill.style.width = (p * 100).toFixed(1) + "%";
+      if (fill) fill.style.transform = "scaleX(" + p.toFixed(4) + ")";
       if (pct) pct.textContent = Math.round(p * 100) + "%";
       var line = (header ? header.offsetHeight : 0) + 60, idx = -1;
       for (var i = 0; i < targets.length; i++) {

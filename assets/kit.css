@@ -1,3 +1,11 @@
+/* metric-matched fallbacks: Arial is within 1% of Archivo's regular width, and 132% covers the wide display cut,
+   so the swap to Archivo does not reflow headings or push the page down (layout shift near zero) */
+@font-face { font-family: "Archivo Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); }
+@font-face { font-family: "Archivo Display Fallback"; src: local("Arial Bold"), local("Arial"), local("Helvetica Neue Bold"); size-adjust: 132%; }
+:root { --font-sans: "Archivo", "Archivo Fallback", ui-sans-serif, system-ui, sans-serif; }
+.display, h1.display, .article-head h1 { font-family: "Archivo", "Archivo Display Fallback", "Archivo Fallback", sans-serif; }
+/* one ease vocabulary shared with the home page: out for entrances, in for exits, in-out for scrubbed moves */
+:root { --k-out: cubic-bezier(.22,1,.36,1); --k-in: cubic-bezier(.55,0,1,.45); --k-io: cubic-bezier(.65,0,.35,1); }
 /* Shared site kit: contents bar with reading progress, mobile menu, case-study
    story blocks and the report series list. Uses each page's own colour tokens
    (--paper, --ink, --accent ...), so it follows light/dark and the theme toggle. */
@@ -20,7 +28,7 @@
 .sb-list a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--accent); }
 .sb-list a:focus-visible { outline-offset: -3px; }
 .sb-pct { flex: none; font-family: var(--font-mono); font-size: .625rem; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 4ch; text-align: right; }
-.sb-progress { position: absolute; left: 0; bottom: -2px; height: 3px; width: 0; background: var(--accent); pointer-events: none; }
+.sb-progress { position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; background: var(--accent); pointer-events: none; transform: scaleX(0); transform-origin: 0 50%; }
 @media (max-width: 640px) {
   .storybar-inner { padding: 0 8px 0 18px; gap: 8px; }
   .sb-label { display: none; }
@@ -153,7 +161,7 @@ body section[id], body main [id] { scroll-margin-top: var(--sticky-h, 76px); }
 @view-transition { navigation: auto; }
 .brand-mark { view-transition-name: brand-mark; }
 ::view-transition-old(root) { animation: vt-out .28s cubic-bezier(.4,0,.2,1) both; }
-::view-transition-new(root) { animation: vt-in .42s cubic-bezier(.16,.84,.3,1) both; }
+::view-transition-new(root) { animation: vt-in .42s var(--k-out) both; }
 @keyframes vt-out { to { opacity: 0; transform: translateY(-8px); } }
 @keyframes vt-in { from { opacity: 0; transform: translateY(12px); } }
 @media (prefers-reduced-motion: reduce) {
@@ -161,18 +169,18 @@ body section[id], body main [id] { scroll-margin-top: var(--sticky-h, 76px); }
 }
 
 /* beats: hidden only once kit.js has confirmed motion is allowed, so no-JS readers see everything */
-.beats-on [data-beat] { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .8s cubic-bezier(.16,.84,.3,1); }
+.beats-on [data-beat] { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--k-out), transform .8s var(--k-out); }
 .beats-on [data-beat].beat-in { opacity: 1; transform: none; }
-.beats-on .glance-steps li { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .7s cubic-bezier(.16,.84,.3,1); }
+.beats-on .glance-steps li { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--k-out), transform .7s var(--k-out); }
 .beats-on .beat-in .glance-steps li { opacity: 1; transform: none; }
 .beats-on .beat-in .glance-steps li:nth-child(2) { transition-delay: .12s; }
 .beats-on .beat-in .glance-steps li:nth-child(3) { transition-delay: .24s; }
 .beats-on .beat-in .glance-steps li:nth-child(4) { transition-delay: .36s; }
-.beats-on .beat-in .step-tag { animation: tag-in .6s .15s cubic-bezier(.16,.84,.3,1) both; }
-@keyframes tag-in { from { letter-spacing: .4em; opacity: 0; } }
+.beats-on .beat-in .step-tag { animation: tag-in .6s .15s var(--k-out) both; }
+@keyframes tag-in { from { transform: translateX(-10px); opacity: 0; } }
 
 /* depth: pointer tilt with a soft accent light (fine pointers, motion allowed) */
-.tilt { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .2s; will-change: transform; }
+.tilt { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .35s var(--k-out), box-shadow .2s; will-change: transform; }
 .tilt:hover { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translate(-3px, -3px); transition: transform .08s linear, box-shadow .2s; }
 .tilt::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .25s;
   background: radial-gradient(420px circle at var(--glow-x, 50%) var(--glow-y, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%); }
@@ -180,3 +188,20 @@ body section[id], body main [id] { scroll-margin-top: var(--sticky-h, 76px); }
 /* report crumb: keep the header on one line on small phones */
 @media (max-width: 420px) { .crumb .bk { display: none; } .crumb { white-space: nowrap; } }
 .series-wrap { padding-bottom: 8px; }
+
+/* ---------- page head: headline, kicker and dek rise out of a mask on first paint ----------
+   CSS only, so there is nothing to hide before a script runs (no flash, no layout shift). */
+@media (prefers-reduced-motion: no-preference) {
+  .article-head .kicker, .rhero .kicker, main > section:first-child .kicker { animation: kit-fade .6s .05s var(--k-out) both; }
+  .article-head h1, main > section:first-child h1 { animation: kit-rise 1s .1s var(--k-out) both; }
+  .article-head .dek, main > section:first-child h1 + p, main > section:first-child .dek { animation: kit-rise .9s .28s var(--k-out) both; }
+  .article-head .meta-row { animation: kit-fade .7s .45s var(--k-out) both; }
+}
+@keyframes kit-rise { from { opacity: 0; transform: translateY(.45em); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); } }
+@keyframes kit-fade { from { opacity: 0; transform: translateY(8px); } }
+.motion-reduced .article-head *, .motion-reduced main > section:first-child * { animation: none !important; }
+/* press feedback and keyboard focus, matching the home page */
+.btn:active, .menu-btn:active, .toggle:active, .pager a:active { transform: translateY(1px); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+/* touch: 44px targets on coarse pointers */
+@media (pointer: coarse) { .wfilter button, .cmdk-open, .toggle, .menu-btn, .sb-list a, .pager a { min-height: 44px; } .toggle { min-width: 44px; } }
