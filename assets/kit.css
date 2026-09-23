@@ -205,3 +205,8 @@ body section[id], body main [id] { scroll-margin-top: var(--sticky-h, 76px); }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 /* touch: 44px targets on coarse pointers */
 @media (pointer: coarse) { .wfilter button, .cmdk-open, .toggle, .menu-btn, .sb-list a, .pager a { min-height: 44px; } .toggle { min-width: 44px; } }
+/* touch targets: small chrome links get a 44px hit area on phones */
+@media (max-width: 640px) {
+  a.skip, .topbar a.brand, .topbar a.crumb, .series-head a.label, p.home-link a, .rail-link, .impact-more, .wc-t a { min-height: 44px; display: inline-flex; align-items: center; }
+  .obj, .kf, .dt, .ms, .tk, #swBase, #swModel, .wfilter button { min-height: 44px; }
+}

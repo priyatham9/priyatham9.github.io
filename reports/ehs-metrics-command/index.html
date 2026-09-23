@@ -300,7 +300,7 @@ section[id]{scroll-margin-top:70px}
 .sn-item.next{text-align:right}
 .sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
 .sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
-.sn-item.empty{opacity:.4;pointer-events:none}
+.sn-item.empty{opacity:1;pointer-events:none}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/ehs-metrics-command/" />
 <meta property="og:type" content="article" />
@@ -889,9 +889,10 @@ section[id]{scroll-margin-top:70px}
   mat.appendChild(el("line", { class: "m-axis", x1: MX, y1: MY + MH, x2: MX + MW, y2: MY + MH }));
   var yl = el("text", { class: "m-lab", x: 14, y: MY + 8 }); yl.textContent = "IMPACT ↑"; mat.appendChild(yl);
   var xl = el("text", { class: "m-lab", x: MX + MW, y: MY + MH + 22, "text-anchor": "end" }); xl.textContent = "EFFORT →"; mat.appendChild(xl);
-  var dots = {}, rowsP = {};
+  var dots = {}, rowsP = {}, seenP = {};
   PLAYS.forEach(function (p) {
     var cx = MX + ((p.e - 0.6) / 5.2) * MW, cy = MY + MH - ((p.i - 3.2) / 2.2) * MH;
+    var ck = p.e + "," + p.i; seenP[ck] = (seenP[ck] || 0) + 1; cx += (seenP[ck] - 1) * 30; /* same score: sit side by side, not on top */
     var dot = el("circle", { class: "m-dot", cx: cx, cy: cy, r: 13 });
     var id = el("text", { class: "m-id", x: cx, y: cy + 3.2, "text-anchor": "middle" }); id.textContent = p.id;
     mat.appendChild(dot); mat.appendChild(id);

@@ -333,9 +333,9 @@ a.status-now .st-v.accent::after { content: '\2197'; margin-left: 5px; font-size
 .arch-title { font-size: clamp(1.05rem, 2vw, 1.25rem); letter-spacing: -0.01em; }
 .arch-body { max-width: var(--maxw); margin: 0 auto; padding: 22px 30px 8px; overflow-x: auto; }
 @media (max-width: 640px) { .arch-body { padding: 14px 18px 6px; } }
-#archSvg { width: 100%; height: auto; min-width: 1110px; display: block; }
+#archSvg { width: 100%; height: auto; min-width: 1110px; display: block; overflow: visible; }
 
-.a-tier   { font-family: var(--font-mono); font-size: 9px; font-weight: 700; fill: var(--muted); letter-spacing: .16em; }
+.a-tier   { font-family: var(--font-mono); font-size: 9px; font-weight: 700; fill: var(--muted); letter-spacing: .1em; }
 .a-tier-n { fill: var(--accent); }
 .a-rule   { stroke: var(--rule-soft); stroke-width: 1.5; }
 .a-box    { fill: var(--surface-2); stroke: var(--rule-soft); stroke-width: 1.6; transition: fill .18s, stroke .18s; }
@@ -719,6 +719,7 @@ h2[tabindex="-1"]:focus{outline:none}
 .arc-step p{color:var(--ink-2);font-size:.9375rem;max-width:62ch}
 .arc-step a{color:var(--accent);font-weight:600}
 @media (prefers-reduced-motion:reduce){.arc-step{opacity:1}.arc-fill{transform:none}}
+@media (max-width:900px){.arc-step{opacity:1}}
 /* work filter */
 .wfilter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
 .wfilter button{font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:7px 11px;border:2px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer}

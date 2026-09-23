@@ -18,7 +18,7 @@
   --rule:#101311;--rule-soft:#D6D7CE;
   --accent:#0F7A52;--accent-2:#0B5C3E;--accent-ink:#FFFFFF;--accent-wash:#E3F0E9;
   --warn:#B05A00;--warn-wash:#F6E8D8;
-  --heat:#E27C08;--heat-2:#FF8A00;--heat-glow:rgba(255,138,0,.55);
+  --heat:#9E5000;--heat-2:#FF8A00;--heat-glow:rgba(255,138,0,.55);
   --grid-dot:rgba(16,19,17,.10);
   --font-sans:"Archivo",ui-sans-serif,system-ui,sans-serif;
   --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -39,7 +39,7 @@
   --rule:#101311;--rule-soft:#D6D7CE;
   --accent:#0F7A52;--accent-2:#0B5C3E;--accent-ink:#FFFFFF;--accent-wash:#E3F0E9;
   --warn:#B05A00;--warn-wash:#F6E8D8;
-  --heat:#E27C08;--heat-2:#FF8A00;--heat-glow:rgba(255,138,0,.55);
+  --heat:#9E5000;--heat-2:#FF8A00;--heat-glow:rgba(255,138,0,.55);
   --grid-dot:rgba(16,19,17,.10);
 }
 :root[data-theme="dark"]{
@@ -340,7 +340,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sn-item.next{text-align:right}
 .sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
 .sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
-.sn-item.empty{opacity:.4;pointer-events:none}
+.sn-item.empty{opacity:1;pointer-events:none}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/value-chain-twin/" />
 <meta property="og:type" content="article" />
@@ -1059,13 +1059,14 @@ var PLAYS=[
 ];
 (function plan(){
   var list=document.getElementById("playList"),mat=document.getElementById("matSvg");
-  var MX=46,MY=16,MW=270,MH=230,dots={},rowsP={};
+  var MX=46,MY=16,MW=270,MH=230,dots={},rowsP={},seenP={};
   mat.appendChild(el("line",{class:"m-axis",x1:MX,y1:MY,x2:MX,y2:MY+MH}));
   mat.appendChild(el("line",{class:"m-axis",x1:MX,y1:MY+MH,x2:MX+MW,y2:MY+MH}));
   var yl=el("text",{class:"m-lab",x:14,y:MY+8});yl.textContent="IMPACT ↑";mat.appendChild(yl);
   var xl=el("text",{class:"m-lab",x:MX+MW,y:MY+MH+22,"text-anchor":"end"});xl.textContent="EFFORT →";mat.appendChild(xl);
   PLAYS.forEach(function(p){
     var cx=MX+((p.e-1)/4.6)*MW,cy=MY+MH-((p.i-3.3)/2.1)*MH;
+    var ck=p.e+","+p.i;seenP[ck]=(seenP[ck]||0)+1;cx+=(seenP[ck]-1)*30;
     var dot=el("circle",{class:"m-dot",cx:cx,cy:cy,r:13});
     var id=el("text",{class:"m-id",x:cx,y:cy+3.2,"text-anchor":"middle"});id.textContent=p.id;
     mat.appendChild(dot);mat.appendChild(id);dots[p.id]=dot;
