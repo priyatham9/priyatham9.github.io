@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" />
-<script>(function(d){d.classList.add("js");if(/[?&]reduced=1\b/.test(location.search))d.classList.add("motion-reduced");})(document.documentElement);</script>
+<script>(function(d){d.classList.add("js");if(/[?&]reduced=1\b/.test(location.search))d.classList.add("motion-reduced");setTimeout(function(){if(!d.classList.contains("gs-on"))d.classList.add("gs-fail");},3000);})(document.documentElement);</script>
 <style>
 /* ============ tokens ============ */
 :root {
@@ -746,6 +746,45 @@ h2[tabindex="-1"]:focus{outline:none}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .updated{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
 @media print{.cmdk-open,.wfilter,.toggle,.ticker,.hero::before,.hero::after,#progress{display:none!important}body{background:#fff;color:#000}.section{page-break-inside:avoid;border-bottom:1px solid #999}a{color:#000;text-decoration:none}.btn{border:1px solid #000}}
+/* ============ round 7b: cinematic hero, pinned through-line, Flip work filter (GSAP 3.15) ============ */
+/* hero: the name gets its own full-width row; no orbs, quiet dot grid only */
+#heroField,.field-cap,.hero-side::before{display:none!important}
+.hero.has-field{background-image:radial-gradient(var(--grid-dot) 1px,transparent 1px)}
+.hero{padding-top:clamp(28px,5vh,56px)}
+.hero-name{position:relative;z-index:1;margin-bottom:clamp(18px,3vh,34px)}
+.hero .hero-name h1{font-size:clamp(2.2rem,8.2vw,7.4rem);line-height:.86;letter-spacing:-.035em;margin:0;white-space:nowrap}
+.hero .hero-name .line{padding:.02em .06em .06em}
+@media (max-width:640px){.hero .hero-name h1{font-size:10.8vw}}
+.hero-statement{font-size:clamp(1.3rem,2.2vw,1.75rem);max-width:26ch}
+.gs-name .char{will-change:transform}
+/* hold the name hidden only while GSAP is expected to animate it */
+@media (prefers-reduced-motion:no-preference){
+  .js:not(.motion-reduced):not(.gs-fail) .gs-name,.js:not(.motion-reduced):not(.gs-fail) .gs-statement{visibility:hidden}
+  .gs-on .gs-name .line-in{animation:none;transform:none}
+}
+/* proof numbers read as instruments */
+.pp-num{font-variant-numeric:tabular-nums}
+/* hover springs (CSS side): rows and paths lift on the gsap.com hover curve */
+.path,.pi-row{transition:background-color .3s cubic-bezier(.645,.045,.355,1)}
+/* through-line: pinned chapter stage on wide screens */
+.arc-hud{display:none}
+#arc.arc-pinned{min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding-block:0}
+#arc.arc-pinned > .wrap{width:100%}
+#arc.arc-pinned .arc-rail{display:none}
+#arc.arc-pinned .arc-hud{display:flex;align-items:baseline;gap:12px;margin-bottom:26px}
+#arc.arc-pinned .arc-num{font-family:var(--font-sans);font-stretch:125%;font-weight:900;font-size:clamp(4rem,9vw,8rem);line-height:.8;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+#arc.arc-pinned .arc-of{font-family:var(--font-mono);font-size:.8125rem;color:var(--muted);letter-spacing:.12em}
+#arc.arc-pinned .arc-bar{flex:1;align-self:center;height:3px;background:var(--rule-soft);margin-left:18px;position:relative;overflow:hidden}
+#arc.arc-pinned .arc-bar-in{position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+#arc.arc-pinned ol{display:grid}
+#arc.arc-pinned .arc-step{grid-area:1/1;padding:0;opacity:0;visibility:hidden}
+#arc.arc-pinned .arc-step::before{display:none}
+#arc.arc-pinned .arc-step h3{font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.08;letter-spacing:-.025em;max-width:22ch;margin:10px 0 16px}
+#arc.arc-pinned .arc-step p{font-size:1.0625rem;max-width:58ch}
+#arc.arc-pinned .arc-k{font-size:.75rem}
+/* work filter: Flip handles layout, rows keep one radius system (square) */
+.pi-item[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.gs-name,.gs-statement{visibility:visible!important}}
 </style>
 <link rel="stylesheet" href="assets/kit.css" />
 
@@ -803,14 +842,16 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 
 <section class="hero" id="main" tabindex="-1">
   <canvas id="heroField" aria-hidden="true"></canvas>
+  <div class="wrap hero-name">
+    <div class="hero-eyebrow fx fx-1"><span class="pulse"></span><span class="label">EHS &amp; ESG Data and Systems &middot; Hexion Inc. &middot; Columbus, OH</span></div>
+    <h1 class="display gs-name" aria-label="Priyatham Chimmani">
+      <span class="line"><span class="line-in">Priyatham</span></span>
+      <span class="line"><span class="line-in h1-outline">Chimmani</span></span>
+    </h1>
+  </div>
   <div class="wrap hero-grid">
     <div class="hero-main">
-      <div class="hero-eyebrow fx fx-1"><span class="pulse"></span><span class="label">EHS &amp; ESG Data and Systems &middot; Hexion Inc. &middot; Columbus, OH</span></div>
-      <h1 class="display" aria-label="Priyatham Chimmani">
-        <span class="line"><span class="line-in">Priyatham</span></span>
-        <span class="line"><span class="line-in h1-outline">Chimmani</span></span>
-      </h1>
-      <p class="hero-statement fx fx-2">I turn plant, safety, and operational data into <span class="kw">decisions</span> executives can act on.</p>
+      <p class="hero-statement gs-statement">I turn plant, safety, and operational data into <span class="kw">decisions</span> executives can act on.</p>
       <p class="hero-lede fx fx-3">I own the enterprise EHS management system for a global chemicals manufacturer end to end, build the data and AI platforms underneath it, and lead the people who ship it.</p>
       <p class="hero-thesis fx fx-3">Safety numbers are only as good as the denominator and the citation underneath them.</p>
       <div class="hero-links fx fx-4">
@@ -892,11 +933,13 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     </div>
     <div class="arc-list">
       <div class="arc-rail" aria-hidden="true"><span class="arc-fill"></span></div>
-      <ol aria-label="From operations to research, in four steps">
+      <div class="arc-hud" aria-hidden="true"><span class="arc-num">01</span><span class="arc-of">/ 05</span><span class="arc-bar"><span class="arc-bar-in"></span></span></div>
+      <ol aria-label="From operations to research, in five steps">
       <li class="arc-step"><span class="arc-k">Problem · the plant floor</span><h3>Every site reports safety data, and nobody can audit it end to end</h3><p>As sole global administrator of the enterprise EHS system, I own the path from an incident entered at a site to the TRIR on a board slide, and the OSHA filing behind it. The weak point is rarely the injury count. It is the hours worked underneath it.</p></li>
       <li class="arc-step"><span class="arc-k">Method · the platform</span><h3>One governed path from source system to report</h3><p>Medallion pipelines in Databricks under Unity Catalog, then a Foundry ontology spanning EHS, supply chain, procurement and finance. Every figure traces back to a row. <a href="#architecture">See the architecture</a>.</p></li>
       <li class="arc-step"><span class="arc-k">Method · the answers</span><h3>Agents that cite, or say they cannot</h3><p>Natural-language agents over live systems through MCP, with deterministic calculations doing the arithmetic so the same question returns the same number. <a href="work/agent-layer.html">Read the case study</a>.</p></li>
-      <li class="arc-step"><span class="arc-k">Finding · the research</span><h3>The denominator problem is national, not local</h3><p>Across 2.8M public OSHA filings, 2.07% of filings carry 96.7% of reported hours, and screening implausible hours moves the national TRIR by 1.4x to 249x depending on the year. The same test now applies to AI answers: grounded in an authoritative source, or not. <a href="#research">See the research</a>.</p></li>
+      <li class="arc-step"><span class="arc-k">Finding · the evidence</span><h3>The denominator problem is national, not local</h3><p>Across 2.8M public OSHA filings, 2.07% of filings carry 96.7% of reported hours, and screening implausible hours moves the national TRIR by 1.4x to 249x depending on the year. The same test now applies to AI answers: grounded in an authoritative source, or not. <a href="#research">See the research</a>.</p></li>
+      <li class="arc-step"><span class="arc-k">So what · for the board</span><h3>Trust a rate only when you can trace it</h3><p>Before a TRIR or an AI answer reaches a board slide, it should carry its hours denominator and its source. That is the standard I build the platforms to, and the one the research tests in public. <a href="work/">Read the case studies</a>.</p></li>
       </ol>
     </div>
   </div>
@@ -1926,6 +1969,10 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 })();
 </script>
 <script src="assets/kit.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/Flip.min.js"></script>
 
 <script>
 /* round 7: split reveal, spring press, magnetic CTA, work filter with stagger + FLIP, arc scroll, command palette */
@@ -1980,68 +2027,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     });
   }
 
-  /* work grid: filter with FLIP for survivors and a from-first stagger for arrivals */
-  var grid = document.querySelector(".projects");
-  var btns = document.querySelectorAll(".wfilter button");
-  var count = document.getElementById("wCount");
-  function applyFilter(f) {
-    var cards = Array.prototype.slice.call(grid.querySelectorAll(".project"));
-    var before = new Map();
-    cards.forEach(function (c) { if (!c.hidden) before.set(c, c.getBoundingClientRect()); });
-    var shown = 0;
-    cards.forEach(function (c) { var on = f === "all" || (" " + c.dataset.cat + " ").indexOf(" " + f + " ") > -1; c.hidden = !on; if (on) shown++; });
-    count.textContent = shown + " of " + cards.length;
-    btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.f === f)); });
-    if (RM || !grid.animate) return;
-    var n = 0;
-    cards.forEach(function (c) {
-      if (c.hidden) return;
-      var a = before.get(c), b = c.getBoundingClientRect();
-      if (a) {
-        var dx = a.left - b.left, dy = a.top - b.top;
-        if (dx || dy) c.animate([{ transform: "translate(" + dx + "px," + dy + "px)" }, { transform: "none" }], { duration: 450, easing: "cubic-bezier(.215,.61,.355,1)" });
-      } else {
-        c.animate([{ opacity: 0, transform: "translateY(24px) scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 600, delay: Math.min(n, 8) * 70, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
-        n++;
-      }
-    });
-  }
-  btns.forEach(function (b) { b.addEventListener("click", function () { applyFilter(b.dataset.f); }); });
-
-  /* first entrance of the work grid: anime-style stagger from the first card */
-  if (!RM && "IntersectionObserver" in window && grid.animate) {
-    var gio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return; gio.disconnect();
-        var cols = getComputedStyle(grid).gridTemplateColumns.split(" ").length;
-        Array.prototype.forEach.call(grid.querySelectorAll(".project:not([hidden])"), function (c, i) {
-          var d = Math.hypot(i % cols, Math.floor(i / cols));
-          c.animate([{ opacity: 0, transform: "translateY(32px)" }, { opacity: 1, transform: "none" }], { duration: 700, delay: 120 + d * 90, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
-        });
-      });
-    }, { rootMargin: "0px 0px -15% 0px" });
-    gio.observe(grid);
-  }
-
-  /* arc: scroll-linked rail fill (read on scroll, write in rAF, only while on screen) */
-  var arc = document.querySelector(".arc-list");
-  var fill = arc && arc.querySelector(".arc-fill");
-  var steps = arc ? arc.querySelectorAll(".arc-step") : [];
-  var visible = false, queued = false;
-  function arcUpdate() {
-    queued = false;
-    var r = arc.getBoundingClientRect(), mid = innerHeight * 0.6;
-    var p = Math.max(0, Math.min(1, (mid - r.top) / r.height));
-    if (!RM) fill.style.transform = "scaleY(" + p.toFixed(4) + ")";
-    steps.forEach(function (s) { var sr = s.getBoundingClientRect(); s.classList.toggle("on", RM || sr.top < mid); });
-  }
-  if (arc) {
-    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) arcUpdate(); }).observe(arc);
-    else visible = true;
-    addEventListener("scroll", function () { if (visible && !queued) { queued = true; requestAnimationFrame(arcUpdate); } }, { passive: true });
-    arcUpdate();
-  }
-
   /* command palette: / or Ctrl/Cmd+K */
   var items = [];
   document.querySelectorAll("main section[id]").forEach(function (sec) {
@@ -2086,6 +2071,114 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   document.addEventListener("keydown", function (e) {
     var typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || document.activeElement.isContentEditable;
     if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || (e.key === "/" && !typing && !dlg.open)) { e.preventDefault(); dlg.open ? dlg.close() : open(); }
+  });
+})();
+</script>
+<script>
+/* round 7b: GSAP 3.15 choreography. Desktop: cinematic hero, pinned through-line scrubbed by scroll, Flip work filter.
+   Phones: same reveals, no pinning. Reduced motion: final static state, filter still works instantly. */
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var RM = matchMedia("(prefers-reduced-motion: reduce)").matches || root.classList.contains("motion-reduced");
+  var G = window.gsap;
+  var list = document.getElementById("pindex");
+  var btns = document.querySelectorAll(".wfilter button");
+  var count = document.getElementById("wCount");
+
+  /* work filter: Flip survivors into place, fade arrivals and leavers */
+  function applyFilter(f) {
+    var items = Array.prototype.slice.call(list.querySelectorAll(".pi-item"));
+    var state = (!RM && G && window.Flip) ? Flip.getState(items) : null;
+    var shown = 0;
+    items.forEach(function (c) { var on = f === "all" || (" " + c.dataset.cat + " ").indexOf(" " + f + " ") > -1; c.hidden = !on; if (on) shown++; });
+    count.textContent = shown + " of " + items.length;
+    btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.f === f)); });
+    if (!state) return;
+    Flip.from(state, {
+      duration: 0.55, ease: "power3.out", absolute: true, nested: true,
+      onEnter: function (els) { return G.fromTo(els, { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "expo.out", stagger: 0.06 }); },
+      onLeave: function (els) { return G.to(els, { autoAlpha: 0, y: -12, duration: 0.3, ease: "power2.in" }); }
+    });
+  }
+  if (list) btns.forEach(function (b) { b.addEventListener("click", function () { applyFilter(b.dataset.f); }); });
+
+  if (!G || !window.ScrollTrigger || !window.SplitText) { root.classList.add("gs-fail"); return; }
+  G.registerPlugin(ScrollTrigger, SplitText, window.Flip);
+  root.classList.add("gs-on");
+  var name = document.querySelector(".gs-name"), stmt = document.querySelector(".gs-statement");
+  if (RM) { G.set([name, stmt], { visibility: "visible" }); return; }
+
+  function fmt(el, v) { var d = +el.dataset.dec; return (d ? v.toFixed(d) : Math.round(v)) + (el.dataset.suffix || ""); }
+
+  /* ---- cinematic hero (all widths) ---- */
+  G.set([name, stmt], { visibility: "visible" });
+  var nameSplit = SplitText.create(name.querySelectorAll(".line-in"), { type: "chars", charsClass: "char", aria: "none" });
+  var tl = G.timeline({ defaults: { ease: "expo.out" } });
+  tl.from(nameSplit.chars, { yPercent: 115, rotate: 6, duration: 1.1, stagger: 0.035 })
+    .from(".hero-side .proof-panel", { clipPath: "inset(0 0 100% 0)", duration: 0.9, ease: "power4.inOut" }, 0.35)
+    .from(".hero-side .path", { x: 40, autoAlpha: 0, duration: 0.7, stagger: 0.08 }, 0.8);
+  /* statement: lines rise out of masks; autoSplit re-splits after fonts load or on resize */
+  SplitText.create(stmt, { type: "lines", mask: "lines", autoSplit: true, onSplit: function (self) {
+    return G.from(self.lines, { yPercent: 105, duration: 0.8, stagger: 0.08, ease: "expo.out", delay: tl.time() < 0.45 ? 0.45 - tl.time() : 0 });
+  } });
+  /* counters on proof numbers */
+  document.querySelectorAll("[data-countup]").forEach(function (el, i) {
+    var to = parseFloat(el.dataset.countup); el.dataset.dec = (el.dataset.countup.split(".")[1] || "").length;
+    var o = { v: 0 }; el.textContent = fmt(el, 0);
+    tl.to(o, { v: to, duration: 1.6, ease: "expo.out", onUpdate: function () { el.textContent = fmt(el, o.v); } }, 0.7 + i * 0.12);
+  });
+
+  /* section headings: words rise out of masks as each section arrives */
+  document.querySelectorAll(".section-rail h2.display, #contact h2.display").forEach(function (h) {
+    SplitText.create(h, { type: "words,lines", mask: "lines", autoSplit: true, onSplit: function (self) {
+      return G.from(self.lines, { yPercent: 110, duration: 0.9, stagger: 0.08, ease: "expo.out", scrollTrigger: { trigger: h, start: "top 85%", once: true } });
+    } });
+  });
+
+  /* work rows enter from the first one */
+  if (list) G.from(list.querySelectorAll(".pi-item"), { y: 36, autoAlpha: 0, duration: 0.8, ease: "expo.out", stagger: 0.07, scrollTrigger: { trigger: list, start: "top 80%", once: true } });
+
+  /* spring hover: rows and paths ease toward the pointer side and settle with a light elastic */
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll(".pi-row, .path").forEach(function (el) {
+      var qx = G.quickTo(el, "x", { duration: 0.6, ease: "elastic.out(1, 0.55)" });
+      el.addEventListener("pointerenter", function () { qx(8); });
+      el.addEventListener("pointerleave", function () { qx(0); });
+    });
+  }
+
+  var mm = G.matchMedia();
+  /* desktop: hero name drifts and dims as you leave it; through-line pins and scrubs chapter by chapter */
+  mm.add("(min-width: 900px) and (min-height: 560px)", function () {
+    G.to(name, { yPercent: -18, autoAlpha: 0.25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    var arc = document.getElementById("arc");
+    if (!arc) return;
+    arc.classList.add("arc-pinned");
+    var steps = G.utils.toArray("#arc .arc-step"), num = arc.querySelector(".arc-num"), bar = arc.querySelector(".arc-bar-in");
+    var n = steps.length;
+    G.set(steps[0], { autoAlpha: 1 });
+    var t = G.timeline({ defaults: { ease: "power2.inOut" }, scrollTrigger: {
+      trigger: arc, start: "top top", end: "+=" + (n * 60) + "%", pin: true, scrub: 1, anticipatePin: 1,
+      snap: { snapTo: function (v) { return Math.round(v * (n - 1)) / (n - 1); }, inertia: false, duration: { min: 0.2, max: 0.6 }, ease: "power1.inOut" },
+      onUpdate: function (st) { var i = Math.min(n - 1, Math.round(st.progress * (n - 1))); num.textContent = "0" + (i + 1); steps.forEach(function (s, k) { s.setAttribute("aria-hidden", String(k !== i)); }); }
+    } });
+    t.to(bar, { scaleX: 1, ease: "none", duration: n - 1 }, 0);
+    steps.forEach(function (s, i) {
+      if (i === 0) return;
+      t.to(steps[i - 1], { autoAlpha: 0, y: -40, duration: 0.4 }, i - 0.7)
+       .fromTo(s, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.5 }, i - 0.5);
+    });
+    return function () { arc.classList.remove("arc-pinned"); steps.forEach(function (s) { s.removeAttribute("aria-hidden"); }); };
+  });
+  /* phones: no pinning; chapters reveal one by one down the rail */
+  mm.add("(max-width: 899px), (max-height: 559px)", function () {
+    G.utils.toArray("#arc .arc-step").forEach(function (s) {
+      G.from(s, { y: 30, autoAlpha: 0, duration: 0.7, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 88%", once: true } });
+    });
+    var fill = document.querySelector("#arc .arc-fill");
+    if (fill) G.to(fill, { scaleY: 1, ease: "none", scrollTrigger: { trigger: "#arc .arc-list", start: "top 70%", end: "bottom 60%", scrub: true } });
+    G.utils.toArray("#arc .arc-step").forEach(function (s) { s.classList.add("on"); });
   });
 })();
 </script>
