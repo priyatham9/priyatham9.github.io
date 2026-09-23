@@ -341,6 +341,9 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
 .sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
 .sn-item.empty{opacity:1;pointer-events:none}
+
+/* tap targets */
+@media (max-width:760px){.btn,button{min-height:44px}input[type=range]{min-height:44px}}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/value-chain-twin/" />
 <meta property="og:type" content="article" />
@@ -389,15 +392,6 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <strong>queryable relationships</strong>, and where the answer to a question writes back to the
       system that has to act on it. This report shows the mechanics, not the marketing.
     </p>
-    <nav class="jumps" aria-label="Report sections">
-      <a class="jump" href="#scattered"><b>S1</b> Scattered truth</a>
-      <a class="jump" href="#ontology"><b>S2</b> Objects &amp; links</a>
-      <a class="jump" href="#unstructured"><b>S3</b> Unstructured → links</a>
-      <a class="jump" href="#resolution"><b>S4</b> Entity resolution</a>
-      <a class="jump" href="#traversal"><b>S5</b> Traversal</a>
-      <a class="jump" href="#twin"><b>S6</b> Actions &amp; twin</a>
-      <a class="jump" href="#plan"><b>S7</b> Action plan</a>
-    </nav>
   </div>
 </section>
 
@@ -1099,5 +1093,6 @@ else{
 </script>
 
 <script src="../../assets/kit.js" defer></script>
+<script>(function(){function pad(){document.querySelectorAll("svg .a-node,svg .o-node").forEach(function(g){var svg=g.ownerSVGElement;if(!svg||!svg.viewBox.baseVal||!svg.viewBox.baseVal.width)return;var k=svg.getBoundingClientRect().width/svg.viewBox.baseVal.width;if(!k)return;var old=g.querySelector(".hit");if(old)old.remove();var b=g.getBBox(),need=44/k;var h=Math.max(b.height,need),w=Math.max(b.width,need);var r=document.createElementNS("http://www.w3.org/2000/svg","rect");r.setAttribute("class","hit");r.setAttribute("x",b.x-(w-b.width)/2);r.setAttribute("y",b.y-(h-b.height)/2);r.setAttribute("width",w);r.setAttribute("height",h);r.setAttribute("fill","transparent");g.insertBefore(r,g.firstChild);});}window.addEventListener("load",function(){setTimeout(pad,300)});var t;window.addEventListener("resize",function(){clearTimeout(t);t=setTimeout(pad,200)});})();</script>
 </body>
 </html>

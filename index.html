@@ -788,6 +788,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 /* work filter: Flip handles layout, rows keep one radius system (square) */
 .pi-item[hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){.gs-name,.gs-statement,.hero-side .proof-panel,.hero-side .path{visibility:visible!important}}
+
+.estate > a{min-height:44px;display:inline-flex;align-items:center}
+.wfilter button{min-width:44px}
 </style>
 <link rel="stylesheet" href="assets/kit.css" />
 
@@ -2191,5 +2194,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   });
 })();
 </script>
+<script>(function(){function pad(){document.querySelectorAll("svg .a-node,svg .o-node").forEach(function(g){var svg=g.ownerSVGElement;if(!svg||!svg.viewBox.baseVal||!svg.viewBox.baseVal.width)return;var k=svg.getBoundingClientRect().width/svg.viewBox.baseVal.width;if(!k)return;var old=g.querySelector(".hit");if(old)old.remove();var b=g.getBBox(),need=44/k;var h=Math.max(b.height,need),w=Math.max(b.width,need);var r=document.createElementNS("http://www.w3.org/2000/svg","rect");r.setAttribute("class","hit");r.setAttribute("x",b.x-(w-b.width)/2);r.setAttribute("y",b.y-(h-b.height)/2);r.setAttribute("width",w);r.setAttribute("height",h);r.setAttribute("fill","transparent");g.insertBefore(r,g.firstChild);});}window.addEventListener("load",function(){setTimeout(pad,300)});var t;window.addEventListener("resize",function(){clearTimeout(t);t=setTimeout(pad,200)});})();</script>
 </body>
 </html>

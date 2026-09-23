@@ -251,6 +251,9 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   .reveal.in{transform:none}
 }
 @keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
+
+/* tap targets */
+@media (max-width:760px){.btn,button{min-height:44px}input[type=range]{min-height:44px}}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/verifiable-answers/" />
 <meta property="og:type" content="article" />
@@ -301,13 +304,6 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       ontology itself, so generation happens inside a space where only real things exist. Then size the
       model to the task on purpose. Everything below runs live - have a play.
     </p>
-    <nav class="jumps" aria-label="Report sections">
-      <a class="jump" href="#failures"><b>S1</b> Why answers fail audit</a>
-      <a class="jump" href="#split"><b>S2</b> The split</a>
-      <a class="jump" href="#ledger"><b>S3</b> Claim ledger &amp; replay</a>
-      <a class="jump" href="#constrained"><b>S4</b> Constrained generation</a>
-      <a class="jump" href="#budget"><b>S5</b> Trust budget</a>
-    </nav>
   </div>
 </section>
 

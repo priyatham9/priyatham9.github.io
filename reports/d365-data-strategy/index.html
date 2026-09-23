@@ -274,6 +274,9 @@ section[id]{scroll-margin-top:70px}
 .sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
 .sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
 .sn-item.empty{opacity:1;pointer-events:none}
+
+/* tap targets */
+@media (max-width:760px){.btn,button{min-height:44px}input[type=range]{min-height:44px}}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/d365-data-strategy/" />
 <meta property="og:type" content="article" />
@@ -321,14 +324,6 @@ section[id]{scroll-margin-top:70px}
       This report lays out the operating model that turns a 40-object raw layer into governed signal,
       MCP-grounded agents, and - the only output that matters - <strong>decisions someone acts on this quarter</strong>.
     </p>
-    <nav class="jumps" aria-label="Report sections">
-      <a class="jump" href="#objects"><b>S1</b> Object layer</a>
-      <a class="jump" href="#flow"><b>S2</b> Signal flow</a>
-      <a class="jump" href="#funnel"><b>S3</b> Funnel physics</a>
-      <a class="jump" href="#kpis"><b>S4</b> Instrument panel</a>
-      <a class="jump" href="#chain"><b>S5</b> Value chain</a>
-      <a class="jump" href="#plan"><b>S6</b> Action plan</a>
-    </nav>
   </div>
 </section>
 
@@ -802,5 +797,6 @@ section[id]{scroll-margin-top:70px}
 </script>
 
 <script src="../../assets/kit.js" defer></script>
+<script>(function(){function pad(){document.querySelectorAll("svg .a-node,svg .o-node").forEach(function(g){var svg=g.ownerSVGElement;if(!svg||!svg.viewBox.baseVal||!svg.viewBox.baseVal.width)return;var k=svg.getBoundingClientRect().width/svg.viewBox.baseVal.width;if(!k)return;var old=g.querySelector(".hit");if(old)old.remove();var b=g.getBBox(),need=44/k;var h=Math.max(b.height,need),w=Math.max(b.width,need);var r=document.createElementNS("http://www.w3.org/2000/svg","rect");r.setAttribute("class","hit");r.setAttribute("x",b.x-(w-b.width)/2);r.setAttribute("y",b.y-(h-b.height)/2);r.setAttribute("width",w);r.setAttribute("height",h);r.setAttribute("fill","transparent");g.insertBefore(r,g.firstChild);});}window.addEventListener("load",function(){setTimeout(pad,300)});var t;window.addEventListener("resize",function(){clearTimeout(t);t=setTimeout(pad,200)});})();</script>
 </body>
 </html>
