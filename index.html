@@ -688,11 +688,64 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
 @keyframes fadeup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes tick   { to { transform: translateX(-50%); } }
 
+
+/* ============ round 7: motion tokens, split reveal, springs, arc, filter, palette ============ */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-p3o:cubic-bezier(.165,.84,.44,1);--ease-p4o:cubic-bezier(.23,1,.32,1);--ease-io:cubic-bezier(.65,0,.35,1);--ease-back:cubic-bezier(.34,1.56,.64,1);--d-fast:150ms;--d-base:300ms;--d-slow:600ms}
+#progress{width:100%!important;transform:scaleX(0);transform-origin:0 50%;transition:none}
+.split .m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.split .w{display:inline-block}
+@media (prefers-reduced-motion:no-preference){
+  .split.go .w{transform:translateY(110%);animation:lineup .8s var(--ease-p4o) forwards;animation-delay:calc(var(--i)*40ms + .05s)}
+}
+.btn,.proof-chip,.project-live,.impact-more,.wfilter button,.cmdk-open{will-change:auto}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .proof-chip{transition:transform var(--d-fast) var(--ease-out),border-color var(--d-fast)}
+  .proof-chip:hover{transform:translateY(-2px);border-color:var(--accent)}
+}
+/* arc: career to research */
+.arc-list{position:relative;display:grid;gap:0;counter-reset:arc}
+.arc-list ol{list-style:none;margin:0;padding:0}
+.arc-rail{position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--rule-soft)}
+.arc-fill{position:absolute;inset:0;background:var(--accent);transform:scaleY(0);transform-origin:50% 0}
+.arc-step{position:relative;padding:0 0 30px 44px;opacity:.6;transition:opacity var(--d-slow) var(--ease-out)}
+.arc-step:last-child{padding-bottom:0}
+.arc-step.on{opacity:1}
+h2[tabindex="-1"]:focus{outline:none}
+.arc-step::before{content:"";position:absolute;left:4px;top:4px;width:16px;height:16px;border:2px solid var(--rule);background:var(--paper);transition:background var(--d-base),border-color var(--d-base)}
+.arc-step.on::before{background:var(--accent);border-color:var(--accent)}
+.arc-k{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.arc-step h3{font-size:1.125rem;font-weight:800;margin:6px 0 8px;letter-spacing:-.01em}
+.arc-step p{color:var(--ink-2);font-size:.9375rem;max-width:62ch}
+.arc-step a{color:var(--accent);font-weight:600}
+@media (prefers-reduced-motion:reduce){.arc-step{opacity:1}.arc-fill{transform:none}}
+/* work filter */
+.wfilter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.wfilter button{font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:7px 11px;border:2px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer}
+.wfilter button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.wfilter-count{align-self:center;margin-left:auto;font-family:var(--font-mono);font-size:.6875rem;color:var(--muted)}
+.project[hidden]{display:none!important}
+.project-case{margin-top:10px;align-self:flex-start;font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:2px}
+.project-case::after{content:" \2192"}
+/* command palette */
+.cmdk-open{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border:2px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;margin-left:auto}
+.cmdk-open kbd{font-family:inherit;border:1px solid var(--rule-soft);padding:1px 5px;color:var(--muted)}
+@media (max-width:640px){.cmdk-open kbd{display:none}}
+.cmdk{border:2px solid var(--rule);background:var(--surface);color:var(--ink);padding:0;width:min(560px,calc(100vw - 32px));max-height:min(70vh,560px);box-shadow:10px 10px 0 var(--accent)}
+.cmdk::backdrop{background:rgba(10,13,11,.55)}
+.cmdk input{width:100%;border:0;border-bottom:2px solid var(--rule);background:var(--paper);color:var(--ink);font:600 1rem var(--font-sans);padding:16px 18px;outline:none}
+.cmdk ul{max-height:calc(min(70vh,560px) - 100px);overflow:auto;padding:6px}
+.cmdk li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;cursor:pointer;font-size:.9375rem}
+.cmdk li span{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);align-self:center}
+.cmdk li[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+.cmdk li[aria-selected="true"] span{color:var(--accent-ink)}
+.cmdk-foot{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 14px;border-top:1px solid var(--rule-soft)}
+@media (prefers-reduced-motion:no-preference){.cmdk[open]{animation:fadeup .22s var(--ease-out)}}
+
 .skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:10px 14px;font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;z-index:100}
 .skip:focus{left:8px}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .updated{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
-@media print{.topbar,.toggle,.ticker,.hero::before,.hero::after,#progress{display:none!important}body{background:#fff;color:#000}.section{page-break-inside:avoid;border-bottom:1px solid #999}a{color:#000;text-decoration:none}.btn{border:1px solid #000}}
+@media print{.cmdk-open,.wfilter,.toggle,.ticker,.hero::before,.hero::after,#progress{display:none!important}body{background:#fff;color:#000}.section{page-break-inside:avoid;border-bottom:1px solid #999}a{color:#000;text-decoration:none}.btn{border:1px solid #000}}
 </style>
 <link rel="stylesheet" href="assets/kit.css" />
 
@@ -723,6 +776,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     <a class="brand" href="./" style="text-decoration:none"><span class="brand-mark"></span>Chimmani</a>
     <nav class="topnav" id="topnav" aria-label="Primary">
       <a href="#impact">Impact</a>
+      <a href="#arc">Through-line</a>
       <a href="work/">Case studies</a>
       <a href="#research">Research</a>
       <a href="#reports">Reports</a>
@@ -735,6 +789,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <a href="#contact">Contact</a>
       <a href="https://priyatham9.github.io/grounded/" class="nav-external">Grounded</a>
     </nav>
+    <button class="cmdk-open" id="cmdkOpen" type="button" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K /">Jump to <kbd>/</kbd></button>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="topnav"><span class="mb-ic" aria-hidden="true"></span>Menu</button>
     <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
@@ -828,6 +883,25 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   </div>
 </div>
 
+<section class="section" id="arc">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal">
+      <div class="rail-head"><span class="rail-num">00</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <h2 class="display">The through-line</h2>
+      <p class="rail-note">How running an EHS system turned into a research programme. One question carries through: can you trust the number?</p>
+    </div>
+    <div class="arc-list">
+      <div class="arc-rail" aria-hidden="true"><span class="arc-fill"></span></div>
+      <ol aria-label="From operations to research, in four steps">
+      <li class="arc-step"><span class="arc-k">Problem · the plant floor</span><h3>Every site reports safety data, and nobody can audit it end to end</h3><p>As sole global administrator of the enterprise EHS system, I own the path from an incident entered at a site to the TRIR on a board slide, and the OSHA filing behind it. The weak point is rarely the injury count. It is the hours worked underneath it.</p></li>
+      <li class="arc-step"><span class="arc-k">Method · the platform</span><h3>One governed path from source system to report</h3><p>Medallion pipelines in Databricks under Unity Catalog, then a Foundry ontology spanning EHS, supply chain, procurement and finance. Every figure traces back to a row. <a href="#architecture">See the architecture</a>.</p></li>
+      <li class="arc-step"><span class="arc-k">Method · the answers</span><h3>Agents that cite, or say they cannot</h3><p>Natural-language agents over live systems through MCP, with deterministic calculations doing the arithmetic so the same question returns the same number. <a href="work/agent-layer.html">Read the case study</a>.</p></li>
+      <li class="arc-step"><span class="arc-k">Finding · the research</span><h3>The denominator problem is national, not local</h3><p>Across 2.8M public OSHA filings, 2.07% of filings carry 96.7% of reported hours, and screening implausible hours moves the national TRIR by 1.4x to 249x depending on the year. The same test now applies to AI answers: grounded in an authoritative source, or not. <a href="#research">See the research</a>.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="impact">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="01">
@@ -858,7 +932,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         <div class="impact-row"><span class="impact-k">Situation</span><p>Contract, ERP, and warehouse data sat in separate systems nobody could audit together.</p></div>
         <div class="impact-row"><span class="impact-k">Built</span><p>Databricks medallion pipelines unifying Icertis, Dynamics 365, SAP, and Gensuite feeds.</p></div>
         <div class="impact-row"><span class="impact-k">Changed</span><p>Migrated the platform to Unity Catalog governance, making every downstream report audit-ready.</p></div>
-              <a class="impact-more" href="work/agent-layer.html">Read the case study</a>
+              <a class="impact-more" href="reports/d365-data-strategy/">Read the data strategy report</a>
       </article>
 
     </div>
@@ -1011,8 +1085,17 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <p class="rail-note">Six systems shipped, from an enterprise ontology to a live public app.</p>
       <a class="rail-link" href="work/">All case studies <span aria-hidden="true">&rarr;</span></a>
     </div>
-    <ol class="pindex reveal" id="pindex">
-      <li class="pi-item">
+    <div>
+    <div class="wfilter" role="group" aria-label="Filter selected work">
+      <button type="button" data-f="all" aria-pressed="true">All</button>
+      <button type="button" data-f="data">Data platform</button>
+      <button type="button" data-f="ai">AI</button>
+      <button type="button" data-f="ehs">EHS systems</button>
+      <button type="button" data-f="analytics">Analytics</button>
+      <span class="wfilter-count" id="wCount" aria-live="polite">6 of 6</span>
+    </div>
+        <ol class="pindex reveal" id="pindex">
+      <li class="pi-item" data-cat="data ai">
         <div class="pi-row" data-num="4" data-cap="business functions in one governed model">
           <span class="pi-idx">W-01</span>
           <span class="pi-main">
@@ -1024,7 +1107,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
           <span class="pi-side"><span class="pi-num">4</span><span class="pi-cap">business functions in one governed model</span><span class="pi-cta">Summary only</span></span>
         </div>
       </li>
-      <li class="pi-item">
+      <li class="pi-item" data-cat="analytics">
         <a class="pi-row" href="work/micro-market-model.html" data-num="Award" data-cap="Transformation Award, adopted company-wide">
           <span class="pi-idx">W-02</span>
           <span class="pi-main">
@@ -1036,7 +1119,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
           <span class="pi-side"><span class="pi-num">Award</span><span class="pi-cap">Transformation Award, adopted company-wide</span><span class="pi-cta">Read the case study &rarr;</span></span>
         </a>
       </li>
-      <li class="pi-item">
+      <li class="pi-item" data-cat="ehs">
         <a class="pi-row" href="work/gensuite-refresh.html" data-num="80+" data-cap="feature enhancements shipped">
           <span class="pi-idx">W-03</span>
           <span class="pi-main">
@@ -1048,7 +1131,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
           <span class="pi-side"><span class="pi-num">80+</span><span class="pi-cap">feature enhancements shipped</span><span class="pi-cta">Read the case study &rarr;</span></span>
         </a>
       </li>
-      <li class="pi-item">
+      <li class="pi-item" data-cat="ai">
         <a class="pi-row" href="work/agent-layer.html" data-num="3" data-cap="agent platforms on one grounding layer">
           <span class="pi-idx">W-04</span>
           <span class="pi-main">
@@ -1060,7 +1143,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
           <span class="pi-side"><span class="pi-num">3</span><span class="pi-cap">agent platforms on one grounding layer</span><span class="pi-cta">Read the case study &rarr;</span></span>
         </a>
       </li>
-      <li class="pi-item">
+      <li class="pi-item" data-cat="data">
         <div class="pi-row" data-num="40" data-cap="Dynamics 365 entities in the unified model">
           <span class="pi-idx">W-05</span>
           <span class="pi-main">
@@ -1072,7 +1155,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
           <span class="pi-side"><span class="pi-num">40</span><span class="pi-cap">Dynamics 365 entities in the unified model</span><span class="pi-cta">Summary only</span></span>
         </div>
       </li>
-      <li class="pi-item">
+      <li class="pi-item" data-cat="analytics data">
         <a class="pi-row" href="https://resin-wood-market-weather-brief.vercel.app/" target="_blank" rel="noopener noreferrer" data-num="3" data-cap="public data sources: EPA, Census, BLS">
           <span class="pi-idx">W-06</span>
           <span class="pi-main">
@@ -1086,6 +1169,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       </li>
     </ol>
     <div class="pi-preview" id="piPreview" aria-hidden="true"><span class="pp-big"></span><span class="pp-small"></span></div>
+    </div>
   </div>
 </section>
 
@@ -1298,17 +1382,14 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   <div class="wrap">
     <h2 class="display">Let's talk</h2>
     <p class="footer-ask">I want to talk with people building EHS data platforms, grounded AI for safety-critical work, or organizing a talk on either.</p>
-    <div class="status footer-open" style="grid-template-columns:1fr;margin-top:0;margin-bottom:26px;max-width:420px">
-      <div class="st-cell"><span class="st-k">Open to · Lead / Owner</span><span class="st-v accent">AI · EHS · Enterprise Analytics</span></div>
-    </div>
     <div class="footer-links">
       <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">priyatham9@gmail.com</a>
       <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <a class="btn" href="https://github.com/priyatham9" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a class="btn" href="https://priyatham9.github.io/grounded/">Grounded research</a>
     </div>
-    <p class="footer-note">Columbus, Ohio · Open to lead and owner roles across AI, EHS, and enterprise analytics</p>
-    <p class="updated">Updated 2026-09-09</p>
+    <p class="footer-note">Columbus, Ohio · EHS data, governed platforms, grounded AI</p>
+    <p class="updated">Updated 2026-09-22</p>
   </div>
 </footer>
 
@@ -1565,10 +1646,15 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 
   /* scroll progress */
   var progress = document.getElementById("progress");
+  var pTick = false;
   function onScroll() {
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-    progress.style.width = pct.toFixed(2) + "%";
+    if (pTick) return; pTick = true;
+    requestAnimationFrame(function () {
+      pTick = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var f = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      progress.style.transform = "scaleX(" + f.toFixed(4) + ")";
+    });
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -1841,5 +1927,167 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 </script>
 <script src="assets/kit.js" defer></script>
 
+<script>
+/* round 7: split reveal, spring press, magnetic CTA, work filter with stagger + FLIP, arc scroll, command palette */
+(function () {
+  "use strict";
+  var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var FINE = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* split-text: words slide up out of masks; parent keeps one aria-label */
+  document.querySelectorAll(".split").forEach(function (el) {
+    var text = el.textContent.trim();
+    if (RM) return;
+    el.setAttribute("aria-label", text);
+    el.innerHTML = text.split(/\s+/).map(function (w, i) {
+      return '<span class="m" aria-hidden="true"><span class="w" style="--i:' + Math.min(i, 14) + '">' + w.replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</span></span>";
+    }).join(" ");
+    el.classList.add("go");
+  });
+
+  /* spring (react-spring default 170/26: damping ratio ~1, no visible overshoot on serious UI) */
+  function spring(from, to, cfg, onUpdate) {
+    var k = cfg.k, c = cfg.c, x = from, v = cfg.v || 0, last = performance.now(), id;
+    function step(now) {
+      var dt = Math.min(0.032, (now - last) / 1000); last = now;
+      var a = -k * (x - to) - c * v; v += a * dt; x += v * dt; onUpdate(x);
+      if (Math.abs(v) > 0.01 || Math.abs(x - to) > 0.001) id = requestAnimationFrame(step); else onUpdate(to);
+    }
+    id = requestAnimationFrame(step);
+    return function () { cancelAnimationFrame(id); };
+  }
+
+  /* press feedback: scale .96 on down, spring back on release */
+  if (!RM) {
+    document.querySelectorAll(".btn, .proof-chip, .project-live, .impact-more, .wfilter button, .cmdk-open, .project-case").forEach(function (el) {
+      var s = 1, stop = null;
+      function go(to, cfg) { if (stop) stop(); stop = spring(s, to, cfg, function (x) { s = x; el.style.scale = x.toFixed(4); if (x === to && to === 1) el.style.scale = ""; }); }
+      el.addEventListener("pointerdown", function () { go(0.96, { k: 600, c: 40 }); });
+      ["pointerup", "pointerleave", "pointercancel"].forEach(function (t) { el.addEventListener(t, function () { if (s !== 1) go(1, { k: 170, c: 14 }); }); });
+    });
+  }
+
+  /* magnetic primary CTAs, fine pointers only */
+  if (!RM && FINE) {
+    document.querySelectorAll(".btn-primary").forEach(function (b) {
+      var raf = 0, tx = 0, ty = 0;
+      b.addEventListener("pointermove", function (e) {
+        var r = b.getBoundingClientRect();
+        tx = (e.clientX - r.left - r.width / 2) * 0.25; ty = (e.clientY - r.top - r.height / 2) * 0.3;
+        if (!raf) raf = requestAnimationFrame(function () { raf = 0; b.style.transition = "translate .15s ease-out"; b.style.translate = tx.toFixed(1) + "px " + ty.toFixed(1) + "px"; });
+      });
+      b.addEventListener("pointerleave", function () { b.style.transition = "translate .6s var(--ease-back)"; b.style.translate = ""; });
+    });
+  }
+
+  /* work grid: filter with FLIP for survivors and a from-first stagger for arrivals */
+  var grid = document.querySelector(".projects");
+  var btns = document.querySelectorAll(".wfilter button");
+  var count = document.getElementById("wCount");
+  function applyFilter(f) {
+    var cards = Array.prototype.slice.call(grid.querySelectorAll(".project"));
+    var before = new Map();
+    cards.forEach(function (c) { if (!c.hidden) before.set(c, c.getBoundingClientRect()); });
+    var shown = 0;
+    cards.forEach(function (c) { var on = f === "all" || (" " + c.dataset.cat + " ").indexOf(" " + f + " ") > -1; c.hidden = !on; if (on) shown++; });
+    count.textContent = shown + " of " + cards.length;
+    btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.f === f)); });
+    if (RM || !grid.animate) return;
+    var n = 0;
+    cards.forEach(function (c) {
+      if (c.hidden) return;
+      var a = before.get(c), b = c.getBoundingClientRect();
+      if (a) {
+        var dx = a.left - b.left, dy = a.top - b.top;
+        if (dx || dy) c.animate([{ transform: "translate(" + dx + "px," + dy + "px)" }, { transform: "none" }], { duration: 450, easing: "cubic-bezier(.215,.61,.355,1)" });
+      } else {
+        c.animate([{ opacity: 0, transform: "translateY(24px) scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 600, delay: Math.min(n, 8) * 70, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+        n++;
+      }
+    });
+  }
+  btns.forEach(function (b) { b.addEventListener("click", function () { applyFilter(b.dataset.f); }); });
+
+  /* first entrance of the work grid: anime-style stagger from the first card */
+  if (!RM && "IntersectionObserver" in window && grid.animate) {
+    var gio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return; gio.disconnect();
+        var cols = getComputedStyle(grid).gridTemplateColumns.split(" ").length;
+        Array.prototype.forEach.call(grid.querySelectorAll(".project:not([hidden])"), function (c, i) {
+          var d = Math.hypot(i % cols, Math.floor(i / cols));
+          c.animate([{ opacity: 0, transform: "translateY(32px)" }, { opacity: 1, transform: "none" }], { duration: 700, delay: 120 + d * 90, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+        });
+      });
+    }, { rootMargin: "0px 0px -15% 0px" });
+    gio.observe(grid);
+  }
+
+  /* arc: scroll-linked rail fill (read on scroll, write in rAF, only while on screen) */
+  var arc = document.querySelector(".arc-list");
+  var fill = arc && arc.querySelector(".arc-fill");
+  var steps = arc ? arc.querySelectorAll(".arc-step") : [];
+  var visible = false, queued = false;
+  function arcUpdate() {
+    queued = false;
+    var r = arc.getBoundingClientRect(), mid = innerHeight * 0.6;
+    var p = Math.max(0, Math.min(1, (mid - r.top) / r.height));
+    if (!RM) fill.style.transform = "scaleY(" + p.toFixed(4) + ")";
+    steps.forEach(function (s) { var sr = s.getBoundingClientRect(); s.classList.toggle("on", RM || sr.top < mid); });
+  }
+  if (arc) {
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) arcUpdate(); }).observe(arc);
+    else visible = true;
+    addEventListener("scroll", function () { if (visible && !queued) { queued = true; requestAnimationFrame(arcUpdate); } }, { passive: true });
+    arcUpdate();
+  }
+
+  /* command palette: / or Ctrl/Cmd+K */
+  var items = [];
+  document.querySelectorAll("main section[id]").forEach(function (sec) {
+    var h = sec.querySelector("h2, .arch-title"); if (h) items.push({ t: h.textContent.trim(), k: "Section", go: "#" + sec.id });
+  });
+  items.push({ t: "Contact", k: "Section", go: "#contact" });
+  [["Gensuite refresh", "work/gensuite-refresh.html"], ["Micro Market Model", "work/micro-market-model.html"], ["Enterprise agent layer", "work/agent-layer.html"], ["All work", "work/"]].forEach(function (x) { items.push({ t: x[0], k: "Case study", go: x[1] }); });
+  document.querySelectorAll("#reports a[href^='reports/']").forEach(function (a) { var t = a.querySelector("h3"); items.push({ t: (t || a).textContent.trim().replace(/\s+/g, " "), k: "Report", go: a.getAttribute("href") }); });
+  [["Grounded: research hub", "https://priyatham9.github.io/grounded/"], ["OSHA data quality", "https://priyatham9.github.io/ehs-osha-analysis/"], ["Grounding benchmark", "https://priyatham9.github.io/ehs-ai-grounding-eval/"], ["Human factors ontology", "https://priyatham9.github.io/ehs-human-factors-ontology/"], ["SEM for safety risk", "https://priyatham9.github.io/ehs-risk-sem/"], ["Cost-benefit calculator", "https://priyatham9.github.io/ehs-capitals-calculator/"], ["OSHA benchmarks", "https://priyatham9.github.io/ehs-benchmarks/"]].forEach(function (x) { items.push({ t: x[0], k: "Research", go: x[1] }); });
+  items.push({ t: "Switch colour theme", k: "Action", run: function () { document.getElementById("themeToggle").click(); } });
+  items.push({ t: "Email Priyatham", k: "Action", go: "mailto:priyatham9@gmail.com" });
+
+  var dlg = document.createElement("dialog");
+  dlg.className = "cmdk"; dlg.setAttribute("aria-label", "Jump to");
+  dlg.innerHTML = '<input type="text" role="combobox" aria-expanded="true" aria-controls="cmdkList" aria-autocomplete="list" placeholder="Jump to a section, case study, report or research site" autocomplete="off" spellcheck="false"><ul id="cmdkList" role="listbox"></ul><div class="cmdk-foot">Up/Down to move · Enter to open · Esc to close</div>';
+  document.body.appendChild(dlg);
+  var input = dlg.querySelector("input"), list = dlg.querySelector("ul"), sel = 0, view = [];
+  function render() {
+    var q = input.value.trim().toLowerCase();
+    view = items.filter(function (it) { return !q || (it.t + " " + it.k).toLowerCase().indexOf(q) > -1; });
+    sel = Math.min(sel, Math.max(0, view.length - 1));
+    list.innerHTML = view.length ? view.map(function (it, i) { return '<li role="option" id="ck' + i + '" aria-selected="' + (i === sel) + '">' + it.t.replace(/</g, "&lt;") + "<span>" + it.k + "</span></li>"; }).join("") : '<li role="option" aria-disabled="true">No match</li>';
+    input.setAttribute("aria-activedescendant", view.length ? "ck" + sel : "");
+    var cur = list.querySelector('[aria-selected="true"]'); if (cur) cur.scrollIntoView({ block: "nearest" });
+  }
+  function choose(i) {
+    var it = view[i]; if (!it) return; dlg.close();
+    if (it.run) return it.run();
+    if (it.go.charAt(0) === "#") { var t = document.querySelector(it.go); if (t) { t.scrollIntoView({ behavior: RM ? "auto" : "smooth" }); history.replaceState(null, "", it.go); var f = t.querySelector("h2") || t; f.setAttribute("tabindex", "-1"); f.focus({ preventScroll: true }); } }
+    else location.href = it.go;
+  }
+  function open() { input.value = ""; sel = 0; render(); dlg.showModal(); input.focus(); }
+  input.addEventListener("input", function () { sel = 0; render(); });
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown") { sel = Math.min(view.length - 1, sel + 1); render(); e.preventDefault(); }
+    else if (e.key === "ArrowUp") { sel = Math.max(0, sel - 1); render(); e.preventDefault(); }
+    else if (e.key === "Enter") { choose(sel); e.preventDefault(); }
+  });
+  list.addEventListener("click", function (e) { var li = e.target.closest("li[id]"); if (li) choose(+li.id.slice(2)); });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  document.getElementById("cmdkOpen").addEventListener("click", open);
+  document.addEventListener("keydown", function (e) {
+    var typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || document.activeElement.isContentEditable;
+    if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || (e.key === "/" && !typing && !dlg.open)) { e.preventDefault(); dlg.open ? dlg.close() : open(); }
+  });
+})();
+</script>
 </body>
 </html>
