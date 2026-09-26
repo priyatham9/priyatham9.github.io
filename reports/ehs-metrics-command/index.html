@@ -17,7 +17,7 @@
   --ink:#101311; --ink-2:#3A403C; --muted:#666D68;
   --rule:#101311; --rule-soft:#D6D7CE;
   --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
-  --warn:#B05A00; --warn-wash:#F6E8D8;
+  --warn:#9A4F00; --warn-wash:#F6E8D8;
   --heat-0:#EDEDE6; --heat-edge:#DCDCD3;
   --heat-1:#FBDCA8; --heat-2:#F5A93C; --heat-3:#E27C08; --heat-4:#FF8A00;
   --heat-glow:rgba(255,138,0,.62); --heat-glow-s:rgba(226,124,8,.42); --heat-ink:#1A0E00;
@@ -44,7 +44,7 @@
   --ink:#101311; --ink-2:#3A403C; --muted:#666D68;
   --rule:#101311; --rule-soft:#D6D7CE;
   --accent:#0F7A52; --accent-2:#0B5C3E; --accent-ink:#FFFFFF; --accent-wash:#E3F0E9;
-  --warn:#B05A00; --warn-wash:#F6E8D8;
+  --warn:#9A4F00; --warn-wash:#F6E8D8;
   --heat-0:#EDEDE6; --heat-edge:#DCDCD3;
   --heat-1:#FBDCA8; --heat-2:#F5A93C; --heat-3:#E27C08; --heat-4:#FF8A00;
   --heat-glow:rgba(255,138,0,.62); --heat-glow-s:rgba(226,124,8,.42); --heat-ink:#1A0E00;
@@ -74,7 +74,7 @@ section[id]{scroll-margin-top:70px}
 .display{font-stretch:125%;font-weight:900;text-transform:uppercase}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
 @media (max-width:640px){.wrap{padding:0 18px}}
-.label{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.label{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
 
 .topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:2px solid var(--rule)}
@@ -85,7 +85,7 @@ section[id]{scroll-margin-top:70px}
 .crumb:hover .bk{color:var(--accent)}
 .brand-mark{width:14px;height:14px;background:var(--accent);flex:none}
 .top-right{display:flex;align-items:center;gap:10px}
-.demo-chip{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--warn);border:1.5px solid var(--warn);padding:4px 8px;background:var(--warn-wash)}
+.demo-chip{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--warn);border:1.5px solid var(--warn);padding:4px 8px;background:var(--warn-wash)}
 .toggle{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;background:var(--paper);border:2px solid var(--rule);color:var(--ink);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
 .toggle:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .toggle svg{width:15px;height:15px}
@@ -106,7 +106,7 @@ section[id]{scroll-margin-top:70px}
 .hero-lede{font-size:clamp(1rem,1.7vw,1.125rem);color:var(--ink-2);max-width:66ch;margin-bottom:26px}
 .hero-lede strong{color:var(--ink)}
 .jumps{display:flex;flex-wrap:wrap;gap:0}
-.jump{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:2px solid var(--rule);margin:0 -2px -2px 0;font-family:var(--font-mono);font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s,border-color .15s}
+.jump{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:2px solid var(--rule);margin:0 -2px -2px 0;font-family:var(--font-mono);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s,border-color .15s}
 .jump:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .jump b{color:var(--accent);font-weight:700}
 .jump:hover b{color:inherit}
@@ -114,34 +114,38 @@ section[id]{scroll-margin-top:70px}
 .section{padding:64px 0;border-bottom:2px solid var(--rule)}
 @media (max-width:640px){.section{padding:44px 0}}
 .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:8px}
-.sec-num{display:inline-block;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.12em;padding:4px 8px}
+.sec-num{display:inline-block;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.12em;padding:4px 8px}
 .sec-head h2{font-size:clamp(1.4rem,3vw,1.9rem);font-stretch:118%;letter-spacing:-.015em}
-.sec-sub{color:var(--muted);font-size:.9375rem;max-width:72ch;margin-bottom:28px}
+.sec-sub{color:var(--muted);font-size:1rem;max-width:72ch;margin-bottom:28px}
 .sec-sub strong{color:var(--ink-2)}
 
 .readout{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;min-height:46px;padding:12px 0 0}
 .ro-key{font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
-.ro-val{font-size:.875rem;color:var(--ink-2)}
+.ro-val{font-size:.9375rem;color:var(--ink-2)}
 .ro-act{font-size:.875rem;color:var(--accent);font-weight:600}
-.ro-hint{font-family:var(--font-mono);font-size:.6875rem;color:var(--muted);letter-spacing:.06em}
+.ro-hint{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);letter-spacing:.06em}
 
 /* S1 pyramid */
 .pyr-wrap{display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:stretch}
 @media (max-width:960px){.pyr-wrap{grid-template-columns:1fr}}
 .pyr-shell{border:2px solid var(--rule);background:var(--surface);padding:18px 18px 8px}
 #pyrSvg{width:100%;height:auto}
-.pyr-band{stroke:var(--paper);stroke-width:3;cursor:pointer;transition:opacity .15s}
-#pyrSvg.dim .pyr-band:not(.on){opacity:.3}
-.pyr-lab{font-family:var(--font-mono);font-weight:700;pointer-events:none}
-.pyr-count{font-size:13px;fill:var(--ink)}
-.pyr-name{font-size:8.5px;fill:var(--muted);letter-spacing:.12em}
+.pyr-band{stroke:var(--surface);stroke-width:3;transition:opacity .15s}
+.pyr-g{cursor:pointer;outline:none}
+.pyr-g:focus-visible .pyr-band{stroke:var(--ink)}
+.pyr-g:focus-visible .pyr-name,.pyr-g.on .pyr-name{fill:var(--ink)}
+#pyrSvg.dim .pyr-g:not(.on) .pyr-band{opacity:.3}
+.pyr-lab{font-family:var(--font-mono);font-weight:700}
+.pyr-count{font-size:16px;fill:var(--ink)}
+.pyr-name{font-size:12px;fill:var(--muted);letter-spacing:.06em}
+.pyr-tick{stroke:var(--rule-soft);stroke-width:1.5}
 .pyr-side{border:2px solid var(--rule);background:var(--surface-2);padding:18px;display:flex;flex-direction:column;gap:10px}
-.pyr-side .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pyr-side .k{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .pyr-side .band-name{font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
 .pyr-side .band-count{font-family:var(--font-mono);font-size:1.7rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
 .pyr-side .band-what{font-size:.875rem;color:var(--ink-2)}
 .pyr-side .band-act{font-size:.875rem;color:var(--ink);font-weight:600;border-top:1.5px solid var(--rule-soft);padding-top:10px}
-.pyr-side .band-act b{color:var(--accent);font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;margin-right:6px}
+.pyr-side .band-act b{color:var(--accent);font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-right:6px}
 
 /* S2 indicators */
 .mix{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;border:2px solid var(--rule);background:var(--surface);padding:13px 16px;margin-bottom:16px}
@@ -155,13 +159,13 @@ section[id]{scroll-margin-top:70px}
 .ig-name{padding:14px 16px;border-right:2px solid var(--rule-soft);display:flex;flex-direction:column;gap:4px}
 @media (max-width:760px){.ig-name{border-right:0;border-bottom:2px solid var(--rule-soft)}}
 .ig-title{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.ig-count{font-family:var(--font-mono);font-size:.625rem;color:var(--muted);letter-spacing:.08em}
+.ig-count{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);letter-spacing:.08em}
 .ig-chips{padding:12px 14px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
-.obj{font-family:var(--font-mono);font-size:.71rem;font-weight:600;padding:6px 10px;background:var(--surface-2);border:1.5px solid var(--rule-soft);color:var(--ink-2);cursor:pointer;transition:background .14s,border-color .14s,color .14s}
+.obj{font-family:var(--font-mono);font-size:.8125rem;font-weight:600;padding:6px 10px;background:var(--surface-2);border:1.5px solid var(--rule-soft);color:var(--ink-2);cursor:pointer;transition:background .14s,border-color .14s,color .14s}
 .obj:hover,.obj.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .ind-detail{border:2px solid var(--rule);border-top:0;background:var(--surface-2);padding:16px 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 @media (max-width:900px){.ind-detail{grid-template-columns:repeat(2,1fr)}}
-.od-cell .k{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+.od-cell .k{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
 .od-cell .v{font-size:.8125rem;color:var(--ink-2)}
 .od-cell .v.mono{font-size:.75rem}
 .od-cell .v.act{color:var(--ink);font-weight:600}
@@ -169,23 +173,23 @@ section[id]{scroll-margin-top:70px}
 /* S3 alert wall */
 .wall-note{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;border:2px solid var(--rule);background:var(--accent-wash);padding:13px 18px;margin-bottom:16px}
 .wall-note .label{color:var(--accent)}
-.wall-note p{font-size:.85rem;color:var(--ink-2)}
+.wall-note p{font-size:.9375rem;color:var(--ink-2)}
 
 /* S4 cadence calendar */
 .cal-shell{border:2px solid var(--rule);background:var(--surface)}
 .cal-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--rule)}
 .kpi-filter{display:flex;flex-wrap:wrap;border:2px solid var(--rule)}
-.kf{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:8px 11px;background:var(--paper);color:var(--muted);cursor:pointer;border:0;border-right:2px solid var(--rule-soft);transition:background .14s,color .14s}
+.kf{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:8px 11px;background:var(--paper);color:var(--muted);cursor:pointer;border:0;border-right:2px solid var(--rule-soft);transition:background .14s,color .14s}
 .kf:last-child{border-right:0}
 .kf:hover{color:var(--ink)}
 .kf.on{background:var(--heat-4);color:var(--heat-ink)}
 .cal-body{padding:18px 18px 8px;overflow-x:auto}
-.cal-inner{min-width:820px}
-.cal-months{display:grid;grid-auto-flow:column;grid-auto-columns:13px;gap:3px;margin-left:30px;margin-bottom:5px;height:13px}
-.cal-mo{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+.cal-inner{min-width:910px}
+.cal-months{display:grid;grid-auto-flow:column;grid-auto-columns:13px;gap:3px;margin-left:36px;margin-bottom:6px;height:16px}
+.cal-mo{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
 .cal-main{display:flex;gap:6px}
-.cal-days{display:grid;grid-template-rows:repeat(7,13px);gap:3px;width:24px}
-.cal-dl{font-family:var(--font-mono);font-size:.5rem;font-weight:600;color:var(--muted);line-height:13px}
+.cal-days{display:grid;grid-template-rows:repeat(7,13px);gap:3px;width:30px}
+.cal-dl{font-family:var(--font-mono);font-size:.75rem;font-weight:600;color:var(--muted);line-height:13px;white-space:nowrap}
 .cal-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,13px);grid-auto-columns:13px;gap:3px}
 .cal-cell{width:13px;height:13px;background:var(--heat-0);border:1px solid var(--heat-edge);cursor:pointer;transition:transform .1s,box-shadow .18s,background .18s}
 .cal-cell:hover{transform:scale(1.45);z-index:2;position:relative}
@@ -212,7 +216,7 @@ section[id]{scroll-margin-top:70px}
 .cst .label{white-space:nowrap}
 .cst .v{font-family:var(--font-mono);font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2;white-space:nowrap}
 .cal-readout{padding:0 18px 14px}
-.ro-heat{font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--heat-3);text-transform:uppercase;letter-spacing:.08em}
+.ro-heat{font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--warn);text-transform:uppercase;letter-spacing:.08em}
 
 /* S5 sites */
 .sites{border:2px solid var(--rule);background:var(--surface);overflow-x:auto}
@@ -221,15 +225,15 @@ section[id]{scroll-margin-top:70px}
 .site-row{border-bottom:2px solid var(--rule-soft);cursor:pointer;transition:background .14s}
 .site-row:last-child{border-bottom:0}
 .site-row:hover,.site-row.on{background:var(--accent-wash)}
-.sh{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sh{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .sc{font-family:var(--font-mono);font-size:.75rem;font-weight:700}
 .sr{font-size:.8125rem;color:var(--muted)}
 .sv{display:flex;align-items:center;gap:8px}
 .sv-bar{flex:1;height:10px;background:var(--surface-2);border:1px solid var(--rule-soft);position:relative}
 .sv-fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
-.sv-num{font-family:var(--font-mono);font-size:.6875rem;font-weight:700;width:52px;text-align:right;font-variant-numeric:tabular-nums}
+.sv-num{font-family:var(--font-mono);font-size:.75rem;font-weight:700;width:52px;text-align:right;font-variant-numeric:tabular-nums}
 .sn{font-family:var(--font-mono);font-size:.75rem;font-weight:700;font-variant-numeric:tabular-nums}
-.st-chip{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.12em;padding:3px 7px;border:1.5px solid;text-align:center}
+.st-chip{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.12em;padding:3px 7px;border:1.5px solid;text-align:center}
 .st-stable{color:var(--accent);border-color:var(--accent);background:var(--accent-wash)}
 .st-drift{color:var(--muted);border-color:var(--rule-soft);background:var(--surface-2)}
 .st-alert{color:var(--warn);border-color:var(--warn);background:var(--warn-wash)}
@@ -239,12 +243,12 @@ section[id]{scroll-margin-top:70px}
 @media (max-width:1000px){.dues{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.dues{grid-template-columns:1fr}}
 .due{border:2px solid var(--rule);background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:8px}
-.due-name{font-family:var(--font-mono);font-size:.625rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.due-name{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .due-days{font-stretch:120%;font-weight:900;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
-.due-days small{font-size:.85rem;font-weight:700;color:var(--muted)}
-.due-win{font-family:var(--font-mono);font-size:.625rem;color:var(--muted)}
-.due-st{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.12em;padding:3px 7px;border:1.5px solid;align-self:flex-start}
-.due-note{font-size:.78rem;color:var(--ink-2);border-top:1.5px solid var(--rule-soft);padding-top:8px}
+.due-days small{font-size:.9375rem;font-weight:700;color:var(--muted)}
+.due-win{font-family:var(--font-mono);font-size:.75rem;color:var(--muted)}
+.due-st{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.12em;padding:3px 7px;border:1.5px solid;align-self:flex-start}
+.due-note{font-size:.875rem;color:var(--ink-2);border-top:1.5px solid var(--rule-soft);padding-top:8px}
 
 /* S6 plan */
 .plan{display:grid;grid-template-columns:1fr 380px;gap:16px;align-items:start}
@@ -253,28 +257,28 @@ section[id]{scroll-margin-top:70px}
 .play{display:grid;grid-template-columns:auto 1fr auto;gap:6px 14px;padding:15px 18px;border-bottom:2px solid var(--rule-soft);cursor:pointer;transition:background .15s}
 .play:last-child{border-bottom:0}
 .play:hover,.play.on{background:var(--accent-wash)}
-.play-id{font-family:var(--font-mono);font-size:.71rem;font-weight:700;color:var(--accent)}
+.play-id{font-family:var(--font-mono);font-size:.8125rem;font-weight:700;color:var(--accent)}
 .play-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em}
-.play-q{font-family:var(--font-mono);font-size:.625rem;font-weight:700;color:var(--muted);letter-spacing:.1em;align-self:center}
+.play-q{font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em;align-self:center}
 .play-d{grid-column:2/4;font-size:.8125rem;color:var(--muted)}
 .matrix{border:2px solid var(--rule);background:var(--surface);padding:16px}
 .matrix .label{display:block;margin-bottom:10px}
-#matSvg{width:100%;height:auto}
+#matSvg{width:100%;height:auto;max-width:440px;margin:0 auto}
 .m-axis{stroke:var(--rule-soft);stroke-width:1.5}
-.m-lab{font-family:var(--font-mono);font-size:8.5px;font-weight:600;fill:var(--muted);letter-spacing:.12em}
+.m-lab{font-family:var(--font-mono);font-size:13px;font-weight:600;fill:var(--muted);letter-spacing:.12em}
 .m-dot{fill:var(--surface-2);stroke:var(--accent);stroke-width:2;cursor:pointer;transition:fill .15s}
 .m-dot.on,.m-dot:hover{fill:var(--accent)}
-.m-id{font-family:var(--font-mono);font-size:9px;font-weight:700;fill:var(--ink);pointer-events:none}
+.m-id{font-family:var(--font-mono);font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
 .m-dot.on + .m-id{fill:var(--accent-ink)}
 .seq{margin-top:14px;padding:12px 14px;border:2px solid var(--rule);background:var(--surface-2)}
 .seq .label{color:var(--accent);display:block;margin-bottom:6px}
-.seq p{font-family:var(--font-mono);font-size:.78rem;font-weight:600;letter-spacing:.03em}
+.seq p{font-family:var(--font-mono);font-size:.875rem;font-weight:600;letter-spacing:.03em}
 
 .rfooter{padding:44px 0 60px}
 .rfooter-inner{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
-.next-report{font-family:var(--font-mono);font-size:.71rem;color:var(--muted);letter-spacing:.06em}
+.next-report{font-family:var(--font-mono);font-size:.8125rem;color:var(--muted);letter-spacing:.06em}
 .next-report b{color:var(--accent)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border:2px solid var(--rule);font-family:var(--font-mono);font-size:.71rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s,border-color .15s}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border:2px solid var(--rule);font-family:var(--font-mono);font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s,border-color .15s}
 .btn:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 
 /* tier 1: opacity only, safe under reduced motion */
@@ -288,7 +292,7 @@ section[id]{scroll-margin-top:70px}
 }
 @keyframes pulse{0%,62%{opacity:1}63%,100%{opacity:.22}}
 /* scroll affordance for wide diagrams */
-.scroll-hint{display:none;font-family:var(--font-mono);font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:0 18px 10px}
+.scroll-hint{display:none;font-family:var(--font-mono);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:0 18px 10px}
 @media (max-width:1100px){.scroll-hint{display:block}}
 /* report series navigation */
 .series-nav{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--rule);background:var(--surface);margin-top:26px}
@@ -298,12 +302,55 @@ section[id]{scroll-margin-top:70px}
 @media (max-width:640px){.sn-item{border-right:0;border-bottom:2px solid var(--rule-soft)}.sn-item:last-child{border-bottom:0}}
 .sn-item:hover{background:var(--accent-wash)}
 .sn-item.next{text-align:right}
-.sn-dir{font-family:var(--font-mono);font-size:.5625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+.sn-dir{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
 .sn-t{font-size:.9375rem;font-weight:700;letter-spacing:-.01em;display:block}
 .sn-item.empty{opacity:1;pointer-events:none}
 
 /* tap targets */
 @media (max-width:760px){.btn,button{min-height:44px}input[type=range]{min-height:44px}}
+/* ---------- round 8: finish and usability ---------- */
+p{text-wrap:pretty}
+.fig-title{display:block;margin-bottom:10px;color:var(--ink-2)}
+.fig-note{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.04em;color:var(--muted);line-height:1.5}
+.pyr-shell .fig-note{margin-top:8px}
+.cal-shell > .fig-note{padding:10px 18px 0}
+.cal-shell > .kdata{margin:4px 18px 10px}
+.matrix .fig-note{margin-top:8px}
+#sites .fig-note{margin-top:10px}
+.pyr-side .band-what{font-size:.9375rem}
+.sh-cal{padding:10px 18px 0}
+@media (min-width:1001px){.sh-cal{display:none}}
+.due-st.st-ready{color:var(--accent);border-color:var(--accent);background:var(--accent-wash)}
+.due-st.st-asm{color:var(--warn);border-color:var(--warn);background:var(--warn-wash)}
+.due-st.st-track{color:var(--muted);border-color:var(--rule-soft);background:var(--surface-2)}
+@media (min-width:801px){.site-row > .sv{padding-right:22px;border-right:1.5px solid var(--rule-soft)}}
+/* site grid: cards with inline labels below 800px, no sideways scroll */
+@media (max-width:800px){
+  .sites{overflow:visible}
+  .site-head{display:none}
+  .site-row{min-width:0;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"c r s" "v v v" "k d d";gap:10px 14px;padding:14px 16px}
+  .site-row > .sc{grid-area:c}
+  .site-row > .sr{grid-area:r}
+  .site-row > .st-chip{grid-area:s;align-self:start}
+  .site-row > .sv{grid-area:v;flex-wrap:wrap}
+  .site-row > .sn-clo{grid-area:k}
+  .site-row > .sn-days{grid-area:d}
+  .site-row [data-k]::before{content:attr(data-k);display:block;flex-basis:100%;font-family:var(--font-mono);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+}
+/* the back link says where it goes on every width */
+.crumb .bk-h{display:none}
+@media (max-width:420px){
+  .topbar .crumb .bk{display:inline;color:var(--ink-2)}
+  .crumb .bk-n{display:none}
+  .crumb .bk-h{display:inline}
+  .demo-chip{white-space:normal;width:min-content;letter-spacing:.08em;line-height:1.25;text-align:center;padding:3px 6px}
+}
+@media (max-width:640px){.pyr-shell{padding:14px 12px 8px}}
+@media (pointer:coarse){.obj,.kf,.btn{min-height:44px}}
+/* reduced motion (system setting or ?reduced=1): final state, no fades */
+.motion-reduced .reveal{opacity:1;transform:none;transition:none}
+.motion-reduced .pulse{animation:none}
+.motion-reduced .mix-lead,.motion-reduced .cal-cell{transition:none}
 </style>
 <link rel="canonical" href="https://priyatham9.github.io/reports/ehs-metrics-command/" />
 <meta property="og:type" content="article" />
@@ -324,9 +371,9 @@ section[id]{scroll-margin-top:70px}
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="crumb" href="../../" aria-label="Priyatham Chimmani, home"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;RPT-002</a>
+    <a class="crumb" href="../../" aria-label="Priyatham Chimmani, home"><span class="brand-mark"></span><span class="bk">←&nbsp;<span class="bk-n">Chimmani</span><span class="bk-h">Home</span></span>&nbsp;/&nbsp;RPT-002</a>
     <div class="top-right">
-      <span class="demo-chip">Synthetic demo data</span>
+      <span class="demo-chip">Synthetic demo&nbsp;data</span>
       <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
@@ -361,9 +408,11 @@ section[id]{scroll-margin-top:70px}
     <p class="sec-sub">One synthetic year, stacked the way risk actually works. The strategy is not to stare at the top of the pyramid - it is to <strong>instrument the base so aggressively that the top starves</strong>. Click a band.</p>
     <div class="pyr-wrap reveal">
       <div class="pyr-shell">
-        <svg id="pyrSvg" viewBox="0 0 560 330" role="img" aria-label="Incident pyramid: 1 serious incident, 31 recordables, 292 near misses, 3140 observations, 18600 raw data points captured."></svg>
+        <span class="label fig-title">Incident pyramid · events per band · one synthetic year</span>
+        <svg id="pyrSvg" viewBox="0 0 560 330" role="group" aria-label="Incident pyramid, one synthetic year: 1 serious incident, 31 recordables, 292 near misses reported, 3,140 observations logged, 18,600 data points captured. Takeaway: the base is where the leading signal lives. Select a band for detail."></svg>
+        <p class="fig-note">Synthetic demo data. Near misses to recordables ≈ 9:1.</p>
       </div>
-      <div class="pyr-side" id="pyrSide">
+      <div class="pyr-side" id="pyrSide" aria-live="polite">
         <span class="k">Band</span>
         <span class="band-name" id="pbName">Select a band</span>
         <span class="band-count mono" id="pbCount">-</span>
@@ -380,7 +429,7 @@ section[id]{scroll-margin-top:70px}
     <p class="sec-sub">Fourteen indicators, split by when they let you act. The quiet scandal of EHS reporting: leadership attention goes to the lagging six because they are easy to rank. <strong>The board exists to invert that ratio.</strong></p>
     <div class="mix reveal">
       <span class="label">Attention mix · leading share</span>
-      <div class="mix-bar"><div class="mix-lead" data-w="42"></div><div class="mix-tgt"></div></div>
+      <div class="mix-bar" role="img" aria-label="Leading indicators get 42% of leadership attention today, against a 70% target"><div class="mix-lead" data-w="42"></div><div class="mix-tgt"></div></div>
       <span class="label"><span class="mono" style="color:var(--ink)">42%</span> today → <span class="mono" style="color:var(--warn)">70%</span> target</span>
     </div>
     <div class="ind-groups reveal" id="indGroups"></div>
@@ -411,13 +460,13 @@ section[id]{scroll-margin-top:70px}
 <section class="section" id="cadence">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S4</span><h2 class="display">Cadence grid</h2></div>
-    <p class="sec-sub">A year of EHS activity, one cell per day, <strong>filtered by KPI</strong>. Intensity is volume; the glow marks top-decile days. What you are looking for is not the bright cells - it is the <strong>cold stretches</strong>, because those are the weeks nobody was looking.</p>
+    <p class="sec-sub">A year of EHS activity, one cell per day, <strong>filtered by KPI</strong>. Intensity is volume; the glow marks days above 75% of the year's peak. What you are looking for is not the bright cells - it is the <strong>cold stretches</strong>, because those are the weeks nobody was looking.</p>
     <div class="cal-shell reveal">
       <div class="cal-head">
-        <span class="label">Trailing 12 months · daily volume</span>
-        <div class="kpi-filter" id="kpiFilter" role="group" aria-label="Filter calendar by KPI"></div>
+        <span class="label">Trailing 12 months · daily count per KPI</span>
+        <div class="kpi-filter" id="kpiFilter" role="group" aria-label="Show KPI"></div>
       </div>
-      <div class="cal-body">
+      <div class="cal-body" tabindex="0" role="region" aria-label="Daily heat grid, scrolls sideways on small screens">
         <div class="cal-inner">
           <div class="cal-months" id="calMonths"></div>
           <div class="cal-main">
@@ -425,9 +474,11 @@ section[id]{scroll-margin-top:70px}
               <span class="cal-dl"></span><span class="cal-dl">Mon</span><span class="cal-dl"></span>
               <span class="cal-dl">Wed</span><span class="cal-dl"></span><span class="cal-dl">Fri</span><span class="cal-dl"></span>
             </div>
-            <div class="cal-grid" id="calGrid"></div>
+            <div class="cal-grid" id="calGrid" role="img" aria-label="Daily activity heat grid"></div>
           </div>
         </div>
+      </div>
+      <div class="scroll-hint sh-cal" aria-hidden="true">↔ Scroll the calendar sideways · latest weeks shown first</div>
         <div class="cal-foot">
           <span class="label" id="calTotal">-</span>
           <div class="cal-legend">
@@ -436,14 +487,14 @@ section[id]{scroll-margin-top:70px}
             <span class="label">More</span>
           </div>
         </div>
-      </div>
-      <div class="cal-readout readout" id="calReadout"><span class="ro-hint">Hover any day for its reading · switch KPI to re-scan the same year</span></div>
+      <div class="cal-readout readout" id="calReadout" aria-live="polite"><span class="ro-hint">Hover any day for its reading · switch KPI to re-scan the same year</span></div>
       <div class="cal-stats">
         <div class="cst"><span class="label">Active days</span><div class="v" id="csActive">-</div></div>
         <div class="cst"><span class="label">Longest streak</span><div class="v" id="csStreak">-</div></div>
         <div class="cst"><span class="label">Cold gap</span><div class="v" id="csGap">-</div></div>
         <div class="cst"><span class="label">Peak day</span><div class="v" id="csPeak">-</div></div>
       </div>
+      <p class="fig-note">Synthetic demo data, generated per KPI; dates run back from today. Brightest, glowing cells = days above 75% of the year's peak.</p>
     </div>
   </div>
 </section>
@@ -452,12 +503,13 @@ section[id]{scroll-margin-top:70px}
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">S5</span><h2 class="display">Site command grid</h2></div>
     <p class="sec-sub">Ten synthetic sites, ranked by what leading signal says is coming - not by whose last incident was most recent. <strong>Hover a row for the command action already in motion.</strong></p>
-    <div class="sites reveal" id="siteGrid">
-      <div class="site-head">
-        <span class="sh">Site</span><span class="sh">Region</span><span class="sh">Observation velocity vs plan</span><span class="sh">Action closure</span><span class="sh">Days since recordable</span><span class="sh">Status</span>
+    <div class="sites reveal" id="siteGrid" role="table" aria-label="Site command grid, ten synthetic sites">
+      <div class="site-head" role="row">
+        <span class="sh" role="columnheader">Site</span><span class="sh" role="columnheader">Region</span><span class="sh" role="columnheader">Observation velocity vs plan</span><span class="sh" role="columnheader">Action closure</span><span class="sh" role="columnheader">Days since recordable</span><span class="sh" role="columnheader">Status</span>
       </div>
     </div>
-    <div class="readout" id="siteReadout"><span class="ro-hint">Status is computed from leading drift, never from luck-of-the-draw incident timing</span></div>
+    <p class="fig-note">Synthetic demo data. Observation velocity bars show % of plan on a 0–130% scale.</p>
+    <div class="readout" id="siteReadout" aria-live="polite"><span class="ro-hint">Status is computed from leading drift, never from luck-of-the-draw incident timing</span></div>
   </div>
 </section>
 
@@ -476,8 +528,9 @@ section[id]{scroll-margin-top:70px}
     <div class="plan reveal">
       <div class="plays" id="playList"></div>
       <div class="matrix">
-        <span class="label">Impact vs effort</span>
+        <span class="label">Impact vs effort · scores 1–5</span>
         <svg id="matSvg" viewBox="0 0 340 300" role="img" aria-label="Impact versus effort matrix of the six EHS plays. E2 silence alarms is highest impact for lowest effort; E6 predictive site risk is highest impact and highest effort."></svg>
+        <p class="fig-note">Synthetic demo data. Higher = more impact / more effort.</p>
         <div class="seq"><span class="label">Recommended sequence</span><p>E2 → E1 → E3 → E4 → E5 → E6</p></div>
       </div>
     </div>
@@ -511,9 +564,35 @@ section[id]{scroll-margin-top:70px}
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("pc-theme", next); } catch (e) {}
   });
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches || /[?&]reduced=1\b/.test(location.search);
+
+  /* "Data table" disclosure: the plotted numbers as a real table (styled by kit.css) */
+  function kdata(caption, heads, rows, numeric) {
+    var d = document.createElement("details"); d.className = "kdata";
+    var s = document.createElement("summary"); s.textContent = "Data table"; d.appendChild(s);
+    var sc = document.createElement("div"); sc.className = "kdata-scroll"; d.appendChild(sc);
+    var t = document.createElement("table"); t.className = "kdata-t"; sc.appendChild(t);
+    var cap = t.createCaption(), hr = t.createTHead().insertRow(), tb = t.createTBody();
+    heads.forEach(function (h, i) {
+      var th = document.createElement("th"); th.scope = "col"; th.textContent = h;
+      if (numeric.indexOf(i) > -1) th.className = "n";
+      hr.appendChild(th);
+    });
+    d.update = function (capText, rws) {
+      cap.textContent = capText; tb.textContent = "";
+      rws.forEach(function (r) {
+        var tr = tb.insertRow();
+        r.forEach(function (v, i) { var c = tr.insertCell(); c.textContent = v; if (numeric.indexOf(i) > -1) c.className = "n"; });
+      });
+    };
+    d.update(caption, rows);
+    return d;
+  }
+  function insertAfter(node, ref) { ref.parentNode.insertBefore(node, ref.nextSibling); }
+  if (reduced) Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (x) { x.classList.add("in"); });
 
   /* ============ S1 · pyramid ============ */
+  /* drawn at 1 SVG unit = 1 CSS px for the current width; each band is labelled directly on its right edge */
   var BANDS = [
     { n: "Serious incident", c: "1",      w: "The event every layer below exists to prevent. Lagging by definition - and already paid for.", a: "Full learning review, agent-drafted within 48h, findings routed as tracked actions.", warn: true },
     { n: "Recordables", c: "31",          w: "OSHA-recordable injuries. The number leadership ranks sites by - weeks after it could be changed.", a: "Stop ranking by it. Pair every recordable with its leading-signal trail in the review." },
@@ -522,41 +601,65 @@ section[id]{scroll-margin-top:70px}
     { n: "Data points captured", c: "18,600", w: "Every walk, training record, permit, and inspection field - the raw layer the medallion refines.", a: "Zero manual re-entry: if it was captured once, it is never typed again." }
   ];
   var pyr = document.getElementById("pyrSvg");
+  var pyrHost = pyr.parentNode;
   var NS = "http://www.w3.org/2000/svg";
   function el(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
-  var CX = 280, TOPW = 70, BOTW = 520, TOP = 14, BH = 58, GAP = 4;
   var pb = { name: document.getElementById("pbName"), count: document.getElementById("pbCount"), what: document.getElementById("pbWhat"), act: document.getElementById("pbAct") };
-  function wAt(row) { return TOPW + (BOTW - TOPW) * (row / 5); }
-  BANDS.forEach(function (b, i) {
-    var y0 = TOP + i * (BH + GAP), y1 = y0 + BH;
-    var w0 = wAt(i), w1 = wAt(i + 1);
-    var path = el("path", {
-      class: "pyr-band",
-      d: "M" + (CX - w0 / 2) + "," + y0 + " L" + (CX + w0 / 2) + "," + y0 + " L" + (CX + w1 / 2) + "," + y1 + " L" + (CX - w1 / 2) + "," + y1 + " Z",
-      fill: b.warn ? "var(--warn)" : "var(--accent)",
-      "fill-opacity": b.warn ? 0.9 : (0.28 + i * 0.17)
+  var pyrActive = -1, pyrW = 0;
+  function showBand(i) {
+    var b = BANDS[i]; pyrActive = i;
+    Array.prototype.forEach.call(pyr.querySelectorAll(".pyr-g"), function (g, j) { g.classList.toggle("on", j === i); });
+    pyr.classList.add("dim");
+    pb.name.textContent = b.n;
+    pb.count.textContent = b.c;
+    pb.what.textContent = b.w;
+    pb.act.innerHTML = "<b>Move</b>";
+    pb.act.appendChild(document.createTextNode(b.a));
+  }
+  function drawPyr() {
+    var cs = getComputedStyle(pyrHost);
+    var cw = Math.floor(pyrHost.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight));
+    if (cw < 200 || cw === pyrW) return;
+    pyrW = cw;
+    while (pyr.firstChild) pyr.removeChild(pyr.firstChild);
+    var BH = 58, GAP = 4, TOP = 4, LAB = 176;
+    var PW = Math.max(110, Math.min(440, cw - LAB - 16, cw * 0.62));
+    var used = PW * 0.955 + 14 + LAB, ox = Math.max(0, (cw - used) / 2), CX = ox + PW / 2;
+    var TOPW = PW * 0.135;
+    function wAt(r) { return TOPW + (PW - TOPW) * (r / 5); }
+    pyr.setAttribute("viewBox", "0 0 " + cw + " " + (TOP + 5 * BH + 4 * GAP + 4));
+    BANDS.forEach(function (b, i) {
+      var y0 = TOP + i * (BH + GAP), y1 = y0 + BH, w0 = wAt(i), w1 = wAt(i + 1), wm = (w0 + w1) / 2;
+      var g = el("g", { class: "pyr-g" + (i === pyrActive ? " on" : ""), tabindex: "0", role: "button", "aria-label": b.n + ": " + b.c });
+      g.appendChild(el("path", {
+        class: "pyr-band",
+        d: "M" + (CX - w0 / 2) + "," + y0 + " L" + (CX + w0 / 2) + "," + y0 + " L" + (CX + w1 / 2) + "," + y1 + " L" + (CX - w1 / 2) + "," + y1 + " Z",
+        fill: b.warn ? "var(--warn)" : "var(--accent)",
+        "fill-opacity": b.warn ? 0.9 : (0.28 + i * 0.17)
+      }));
+      var edge = CX + wm / 2, lx = edge + 14, mid = y0 + BH / 2;
+      g.appendChild(el("line", { class: "pyr-tick", x1: edge + 3, y1: mid, x2: lx - 4, y2: mid }));
+      var count = el("text", { class: "pyr-lab pyr-count", x: lx, y: mid - 1 }); count.textContent = b.c;
+      var name = el("text", { class: "pyr-lab pyr-name", x: lx, y: mid + 16 }); name.textContent = b.n.toUpperCase();
+      g.appendChild(count); g.appendChild(name);
+      g.addEventListener("pointerenter", function () { showBand(i); });
+      g.addEventListener("click", function () { showBand(i); });
+      g.addEventListener("focus", function () { showBand(i); });
+      pyr.appendChild(g);
     });
-    var count = el("text", { class: "pyr-lab pyr-count", x: CX, y: y0 + BH / 2 + 1, "text-anchor": "middle" });
-    count.textContent = b.c;
-    var name = el("text", { class: "pyr-lab pyr-name", x: CX, y: y0 + BH / 2 + 15, "text-anchor": "middle" });
-    name.textContent = b.n.toUpperCase();
-    pyr.appendChild(path); pyr.appendChild(count); pyr.appendChild(name);
-    function show() {
-      Array.prototype.forEach.call(pyr.querySelectorAll(".pyr-band.on"), function (x) { x.classList.remove("on"); });
-      path.classList.add("on"); pyr.classList.add("dim");
-      pb.name.textContent = b.n;
-      pb.count.textContent = b.c;
-      pb.what.textContent = b.w;
-      pb.act.innerHTML = "<b>Move</b>";
-      pb.act.appendChild(document.createTextNode(b.a));
-    }
-    path.addEventListener("pointerenter", show);
-    path.addEventListener("click", show);
-  });
+    if (pyrActive < 0) pyr.classList.remove("dim");
+  }
   pyr.addEventListener("pointerleave", function () {
     pyr.classList.remove("dim");
-    Array.prototype.forEach.call(pyr.querySelectorAll(".pyr-band.on"), function (x) { x.classList.remove("on"); });
+    Array.prototype.forEach.call(pyr.querySelectorAll(".pyr-g.on"), function (x) { x.classList.remove("on"); });
+    pyrActive = -1;
   });
+  drawPyr();
+  var prt = 0;
+  if ("ResizeObserver" in window) new ResizeObserver(function () { drawPyr(); }).observe(pyrHost);
+  else window.addEventListener("resize", function () { clearTimeout(prt); prt = setTimeout(drawPyr, 120); });
+  pyrHost.appendChild(kdata("Incident pyramid: count per band over one synthetic year, with what each band measures. Synthetic demo data.",
+    ["Band", "Count", "What it is"], BANDS.map(function (b) { return [b.n, b.c, b.w]; }), [1]));
 
   /* ============ chip-group builder (shared S2/S3) ============ */
   function buildGroups(hostId, groups, note, onSelect) {
@@ -767,15 +870,29 @@ section[id]{scroll-margin-top:70px}
       document.getElementById("csStreak").textContent = bestStreak + " days";
       document.getElementById("csGap").textContent = bestGap + " days";
       document.getElementById("csPeak").textContent = peak + (peakDate ? " · " + MO[peakDate.getMonth()] + " " + peakDate.getDate() : "");
+      grid.setAttribute("aria-label", "Daily heat grid of " + k.unit + ", trailing 12 months: " + total.toLocaleString("en-US") + " in total, active on " + active + " of " + cells.length +
+        " days, longest cold gap " + bestGap + " days, peak " + peak + (peakDate ? " on " + MO[peakDate.getMonth()] + " " + peakDate.getDate() : "") + ". Monthly totals are in the data table.");
+      /* monthly roll-up of the same daily values for the data table */
+      var byMo = [], idx = {};
+      cells.forEach(function (c) {
+        var key = c.date.getFullYear() + "-" + c.date.getMonth();
+        if (!(key in idx)) { idx[key] = byMo.length; byMo.push({ label: MO[c.date.getMonth()] + " " + c.date.getFullYear(), total: 0, active: 0, days: 0 }); }
+        var m = byMo[idx[key]]; m.total += c.val; m.days++; if (c.val > 0) m.active++;
+      });
+      if (calTable) calTable.update(k.n + ": monthly totals of the daily values in the heat grid, trailing 12 months (follows the KPI buttons; partial months at each end). Synthetic demo data.",
+        byMo.map(function (m) { return [m.label, m.total.toLocaleString("en-US"), m.active + " / " + m.days]; }));
     }
+    var calTable = kdata("", ["Month", "Total " + "(count)", "Active days"], [], [1, 2]);
+    document.querySelector(".cal-shell").appendChild(calTable);
 
     var current = KPIS[0];
     KPIS.forEach(function (k, i) {
       var b = document.createElement("button");
       b.type = "button"; b.className = "kf" + (i === 0 ? " on" : ""); b.textContent = k.n;
+      b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
       b.addEventListener("click", function () {
-        Array.prototype.forEach.call(filter.querySelectorAll(".kf"), function (x) { x.classList.remove("on"); });
-        b.classList.add("on"); current = k; render(k);
+        Array.prototype.forEach.call(filter.querySelectorAll(".kf"), function (x) { x.classList.remove("on"); x.setAttribute("aria-pressed", "false"); });
+        b.classList.add("on"); b.setAttribute("aria-pressed", "true"); current = k; render(k);
       });
       filter.appendChild(b);
     });
@@ -796,6 +913,9 @@ section[id]{scroll-margin-top:70px}
     });
 
     render(current);
+    /* narrow screens: open on the latest weeks, like the right edge of the year */
+    var cb = grid.closest(".cal-body");
+    if (cb && cb.scrollWidth > cb.clientWidth) cb.scrollLeft = cb.scrollWidth;
   })();
 
   /* ============ S5 · site grid ============ */
@@ -814,11 +934,11 @@ section[id]{scroll-margin-top:70px}
   var grid = document.getElementById("siteGrid");
   var sReadout = document.getElementById("siteReadout");
   SITES.forEach(function (s) {
-    var r = document.createElement("div"); r.className = "site-row"; r.tabIndex = 0;
+    var r = document.createElement("div"); r.className = "site-row"; r.tabIndex = 0; r.setAttribute("role", "row");
     var stCls = s[5] === "STABLE" ? "st-stable" : s[5] === "DRIFT" ? "st-drift" : "st-alert";
-    r.innerHTML = '<span class="sc"></span><span class="sr"></span>' +
-      '<span class="sv"><span class="sv-bar"><span class="sv-fill"></span></span><span class="sv-num"></span></span>' +
-      '<span class="sn"></span><span class="sn"></span><span class="st-chip ' + stCls + '"></span>';
+    r.innerHTML = '<span class="sc" role="cell"></span><span class="sr" role="cell"></span>' +
+      '<span class="sv" role="cell" data-k="Obs velocity vs plan"><span class="sv-bar" aria-hidden="true"><span class="sv-fill"></span></span><span class="sv-num"></span></span>' +
+      '<span class="sn sn-clo" role="cell" data-k="Action closure"></span><span class="sn sn-days" role="cell" data-k="Days since recordable"></span><span class="st-chip ' + stCls + '" role="cell"></span>';
     r.children[0].textContent = s[0];
     r.children[1].textContent = s[1];
     r.querySelector(".sv-fill").style.width = Math.min(100, s[2] / 1.3) + "%";
@@ -854,11 +974,9 @@ section[id]{scroll-margin-top:70px}
   var dg = document.getElementById("dueGrid");
   DUES.forEach(function (d) {
     var c = document.createElement("div"); c.className = "due";
-    var stStyle = d[3] === "READY" ? "color:var(--accent);border-color:var(--accent);background:var(--accent-wash)"
-      : d[3] === "ASSEMBLING" ? "color:var(--warn);border-color:var(--warn);background:var(--warn-wash)"
-      : "color:var(--muted);border-color:var(--rule-soft);background:var(--surface-2)";
+    var stCls = d[3] === "READY" ? "st-ready" : d[3] === "ASSEMBLING" ? "st-asm" : "st-track";
     c.innerHTML = '<span class="due-name"></span><div class="due-days"><span class="n"></span><small> days</small></div>' +
-      '<span class="due-win mono"></span><span class="due-st" style="' + stStyle + '"></span><span class="due-note"></span>';
+      '<span class="due-win mono"></span><span class="due-st ' + stCls + '"></span><span class="due-note"></span>';
     c.querySelector(".due-name").textContent = d[0];
     c.querySelector(".n").textContent = d[1];
     c.querySelector(".due-win").textContent = d[2];
@@ -878,17 +996,17 @@ section[id]{scroll-margin-top:70px}
   ];
   var list = document.getElementById("playList");
   var mat = document.getElementById("matSvg");
-  var MX = 46, MY = 16, MW = 270, MH = 230;
+  var MX = 30, MY = 30, MW = 296, MH = 232;
   mat.appendChild(el("line", { class: "m-axis", x1: MX, y1: MY, x2: MX, y2: MY + MH }));
   mat.appendChild(el("line", { class: "m-axis", x1: MX, y1: MY + MH, x2: MX + MW, y2: MY + MH }));
-  var yl = el("text", { class: "m-lab", x: 14, y: MY + 8 }); yl.textContent = "IMPACT ↑"; mat.appendChild(yl);
-  var xl = el("text", { class: "m-lab", x: MX + MW, y: MY + MH + 22, "text-anchor": "end" }); xl.textContent = "EFFORT →"; mat.appendChild(xl);
+  var yl = el("text", { class: "m-lab", x: MX - 8, y: 16 }); yl.textContent = "IMPACT ↑"; mat.appendChild(yl);
+  var xl = el("text", { class: "m-lab", x: MX + MW, y: MY + MH + 28, "text-anchor": "end" }); xl.textContent = "EFFORT →"; mat.appendChild(xl);
   var dots = {}, rowsP = {}, seenP = {};
   PLAYS.forEach(function (p) {
     var cx = MX + ((p.e - 0.6) / 5.2) * MW, cy = MY + MH - ((p.i - 3.2) / 2.2) * MH;
-    var ck = p.e + "," + p.i; seenP[ck] = (seenP[ck] || 0) + 1; cx += (seenP[ck] - 1) * 30; /* same score: sit side by side, not on top */
-    var dot = el("circle", { class: "m-dot", cx: cx, cy: cy, r: 13 });
-    var id = el("text", { class: "m-id", x: cx, y: cy + 3.2, "text-anchor": "middle" }); id.textContent = p.id;
+    var ck = p.e + "," + p.i; seenP[ck] = (seenP[ck] || 0) + 1; cx += (seenP[ck] - 1) * 36; /* same score: sit side by side, not on top */
+    var dot = el("circle", { class: "m-dot", cx: cx, cy: cy, r: 16 });
+    var id = el("text", { class: "m-id", x: cx, y: cy + 4.5, "text-anchor": "middle" }); id.textContent = p.id;
     mat.appendChild(dot); mat.appendChild(id);
     dots[p.id] = dot;
     dot.addEventListener("pointerenter", function () { hi(p.id); });
@@ -914,6 +1032,9 @@ section[id]{scroll-margin-top:70px}
   list.addEventListener("pointerleave", function () {
     Object.keys(rowsP).forEach(function (k) { rowsP[k].classList.remove("on"); dots[k].classList.remove("on"); });
   });
+  document.querySelector(".matrix").appendChild(kdata(
+    "Six plays with the quarter and the impact and effort scores (1 = low, 5 = high) used to place them on the matrix. Synthetic demo data.",
+    ["Play", "Quarter", "Impact", "Effort"], PLAYS.map(function (p) { return [p.id + " " + p.t, p.q, String(p.i), String(p.e)]; }), [2, 3]));
 
   /* attention mix bar */
   var mixIO = new IntersectionObserver(function (es) {
@@ -926,7 +1047,7 @@ section[id]{scroll-margin-top:70px}
     });
   }, { threshold: 0.4 });
   var mixEl = document.querySelector(".mix");
-  if (mixEl) mixIO.observe(mixEl);
+  if (mixEl) { if (reduced) { var mf = mixEl.querySelector(".mix-lead"); mf.style.width = mf.getAttribute("data-w") + "%"; } else mixIO.observe(mixEl); }
 
   /* reveal */
   var revealables = document.querySelectorAll(".reveal");
