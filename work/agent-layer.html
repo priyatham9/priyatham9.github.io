@@ -89,7 +89,7 @@ svg { display: block; max-width: 100%; height: auto; }
 .display { font-stretch: 125%; font-weight: 900; text-transform: uppercase; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 30px; }
 @media (max-width: 640px) { .wrap { padding: 0 18px; } }
-.label { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.label { font-family: var(--font-mono); font-size: .75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
 .skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:10px 14px;font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;z-index:100}
@@ -117,12 +117,12 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 :root[data-theme="dark"] .icon-sun { display: none; }
 
 .article-head { padding: 56px 0 40px; border-bottom: 2px solid var(--rule); background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px); background-size: 22px 22px; }
-.kicker { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+.kicker { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: .75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
 .kicker .idx { background: var(--accent); color: var(--accent-ink); padding: 3px 7px; }
 h1.title { font-size: clamp(1.9rem, 5vw, 2.9rem); letter-spacing: -0.02em; margin-bottom: 18px; }
 .dek { font-size: clamp(1rem, 1.6vw, 1.125rem); color: var(--ink-2); max-width: 68ch; margin-bottom: 20px; }
 .meta-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500; padding: 4px 7px; background: var(--surface-2); border: 1px solid var(--rule-soft); color: var(--ink-2); white-space: nowrap; }
+.chip { font-family: var(--font-mono); font-size: .75rem; font-weight: 500; padding: 4px 7px; background: var(--surface-2); border: 1px solid var(--rule-soft); color: var(--ink-2); white-space: nowrap; }
 
 article.body { padding: 48px 0 20px; }
 article.body section { padding: 30px 0; border-bottom: 1px solid var(--rule-soft); }
@@ -154,7 +154,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .footer-note { color: var(--muted); font-size: 0.8125rem; }
-.updated{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+.updated{font-family:var(--font-mono);font-size: .75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
 @media print{.topbar,.toggle{display:none!important}body{background:#fff;color:#000}}
 
 </style>
@@ -167,7 +167,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </script>
 <link rel="stylesheet" href="../assets/kit.css" />
 </head>
-<body>
+<body class="cs">
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <div class="topbar-inner">
@@ -208,6 +208,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
     <div><span class="label">At a glance &middot; the 20-second version</span><p class="glance-head" id="glanceHead">Plain-language answers over live safety data, with a traceable source behind every number.</p></div>
     <div class="glance-stat"><span class="glance-num" data-countup="3" data-suffix="">3</span><span class="glance-cap">agent platforms on one grounding layer: Copilot Studio, Claude Code, Codex</span></div>
   </div>
+  <dl class="facts"><div><dt>Role</dt><dd>Built the MCP architecture on the EHS platform I own</dd></div><div><dt>Status</dt><dd>In production</dd></div><div><dt>Stack</dt><dd>MCP, OpenAI API, Copilot Studio, Claude Code, Codex</dd></div><div><dt>Outcome</dt><dd>NLQ and summarization agents grounded in live systems, audit trail on every answer</dd></div></dl>
   <ol class="glance-steps">
     <li><a href="#situation"><span class="gs-k">Problem</span><p>A language model answering freely from live enterprise systems can produce a fluent, wrong number, and in EHS a wrong number can shape a decision about a plant.</p></a></li>
     <li><a href="#what-i-built"><span class="gs-k">What I did</span><p>Built an MCP layer that grounds NLQ and summarization agents in live systems, routes exact calculations to deterministic code, and attaches an audit trail to every answer.</p></a></li>
@@ -239,40 +240,14 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <h2>What I built</h2>
   <p>I built an MCP architecture that grounds two kinds of agents in live enterprise systems: natural-language-query and summarization agents that answer questions in plain language, and deterministic algorithms that handle the calculations where an answer has to be exact and repeatable every time. Every response carries an audit trail, so a number an agent surfaces can be traced back to where it came from, rather than asked to be taken on faith.</p>
   <p>The grounding is the part that matters most. Instead of letting a model answer from what it remembers about EHS in general, the MCP layer hands it the actual current record from the live system, then constrains the calculation itself to deterministic code wherever the answer needs to be exact.</p>
-  <figure class="diagram">
-    <svg viewBox="0 0 720 300" role="img" aria-label="Diagram of the enterprise agent layer. Source systems feed an MCP layer that grounds two kinds of agents: deterministic algorithms and natural-language-query or summarization agents running on Copilot Studio, Claude Code, and Codex. Every agent response passes through an audit trail before reaching the user.">
-<rect x="10" y="20" width="140" height="50" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="80" y="41" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" font-weight="700" fill="currentColor">Live systems</text>
-<text x="80" y="56" text-anchor="middle" font-family="Archivo, sans-serif" font-size="9" fill="currentColor">Gensuite &amp; others</text>
-<line x1="80" y1="70" x2="80" y2="108" stroke="currentColor" stroke-width="2" marker-end="url(#arrow4)"/>
-
-<rect x="10" y="110" width="700" height="46" fill="none" stroke="var(--accent)" stroke-width="2"/>
-<text x="360" y="138" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="currentColor" class="flow-accent">MCP LAYER - grounds agents in live systems</text>
-
-<line x1="200" y1="156" x2="200" y2="190" stroke="currentColor" stroke-width="2" marker-end="url(#arrow4)"/>
-<line x1="520" y1="156" x2="520" y2="190" stroke="currentColor" stroke-width="2" marker-end="url(#arrow4)"/>
-
-<rect x="90" y="192" width="220" height="54" fill="none" stroke="currentColor" stroke-width="1.5"/>
-<text x="200" y="214" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" fill="currentColor">Deterministic algorithms</text>
-<text x="200" y="229" text-anchor="middle" font-family="Archivo, sans-serif" font-size="9" fill="currentColor">reproducible answers</text>
-
-<rect x="410" y="192" width="220" height="54" fill="none" stroke="currentColor" stroke-width="1.5"/>
-<text x="520" y="210" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" fill="currentColor">NLQ &amp; summarization agents</text>
-<text x="520" y="225" text-anchor="middle" font-family="Archivo, sans-serif" font-size="9" fill="currentColor">Copilot Studio &middot; Claude Code &middot; Codex</text>
-<text x="520" y="238" text-anchor="middle" font-family="Archivo, sans-serif" font-size="9" fill="currentColor">&nbsp;</text>
-
-<line x1="200" y1="246" x2="200" y2="260" stroke="currentColor" stroke-width="2"/>
-<line x1="520" y1="246" x2="520" y2="260" stroke="currentColor" stroke-width="2"/>
-<line x1="200" y1="260" x2="520" y2="260" stroke="currentColor" stroke-width="2"/>
-<line x1="360" y1="260" x2="360" y2="272" stroke="currentColor" stroke-width="2" marker-end="url(#arrow4)"/>
-<rect x="230" y="274" width="260" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/>
-<text x="360" y="290" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor">Audit trail, before the answer reaches a user</text>
-
-<defs>
-<marker id="arrow4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="currentColor"/></marker>
-</defs>
-</svg>
-    <figcaption>Live systems feed the MCP layer, which grounds both deterministic algorithms and NLQ or summarization agents. Every response passes through an audit trail before it reaches a user.</figcaption>
+  <figure class="diagram fig-html" id="figure-1">
+      <ol class="flow" aria-label="Enterprise agent layer flow">
+        <li><span class="fk">Source</span><span class="ft">Live systems</span><span class="fd">Gensuite and others</span></li>
+        <li class="f-key"><span class="fk">Grounding</span><span class="ft">MCP layer</span><span class="fd">grounds agents in live systems</span></li>
+        <li><span class="fk">Answer</span><span class="ft">Two paths</span><span class="fsplit"><span><b>Deterministic algorithms</b><br>reproducible answers</span><span><b>NLQ &amp; summarization agents</b><br>Copilot Studio &middot; Claude Code &middot; Codex</span></span></li>
+        <li class="f-dash"><span class="fk">Check</span><span class="ft">Audit trail</span><span class="fd">before the answer reaches a user</span></li>
+      </ol>
+    <figcaption><b>Figure 1</b> Live systems feed the MCP layer, which grounds both deterministic algorithms and NLQ or summarization agents. Every response passes through an audit trail before it reaches a user.</figcaption>
   </figure>
 </section>
 
@@ -303,12 +278,13 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 <section id="related" data-beat>
   <h2>Related</h2>
   <div class="related-list">
-    <a href="https://priyatham9.github.io/ehs-ai-grounding-eval/" target="_blank" rel="noopener noreferrer"><span class="r-t">Grounding benchmark</span><span class="r-d">A safety-critical QA corpus testing whether a model's answers hold up against plausible-but-dangerous adjacent answers, the same failure mode this agent layer is built to avoid.</span></a>
-    <a href="gensuite-refresh.html"><span class="r-t">Gensuite Refresh</span><span class="r-d">One of the live systems this agent layer grounds its answers in.</span></a>
+    <a href="https://priyatham9.github.io/ehs-ai-grounding-eval/" target="_blank" rel="noopener noreferrer"><span class="r-k">Research &middot; Benchmark</span><span class="r-t">Grounding benchmark</span><span class="r-d">A safety-critical QA corpus testing whether a model's answers hold up against plausible-but-dangerous adjacent answers, the same failure mode this agent layer is built to avoid.</span></a>
+    <a href="gensuite-refresh.html"><span class="r-k">Case study &middot; W-03</span><span class="r-t">Gensuite Refresh</span><span class="r-d">One of the live systems this agent layer grounds its answers in.</span></a>
   </div>
 </section>
 
-<nav class="pager" aria-label="Case studies"><a href="micro-market-model.html" rel="prev"><span class="pg-dir">&larr; Previous &middot; W-02</span><span class="pg-t">Micro Market Model</span></a><a class="pg-next" href="../index.html#reports"><span class="pg-dir">Go deeper &rarr;</span><span class="pg-t">The RPT report series</span></a></nav>
+<a class="next-cs" href="gensuite-refresh.html" rel="next"><span><span class="nc-k">Next case study &middot; W-03</span><span class="nc-t">Gensuite Refresh</span><span class="nc-d">The two-phase refresh of Hexion's enterprise EHS application: 80+ enhancements, every global site.</span></span><span class="nc-arw" aria-hidden="true">&rarr;</span></a>
+<p class="all-cs"><a href="index.html">&larr; All case studies</a> <span aria-hidden="true">&middot;</span> <a href="../index.html#reports">The RPT report series</a></p>
 
   </div>
 </article>

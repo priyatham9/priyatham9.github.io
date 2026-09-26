@@ -75,6 +75,20 @@
 
   /* ---- scroll-revealed beats: sections fade and rise in once as they enter ---- */
   var beats = document.querySelectorAll("[data-beat]");
+  /* arriving at #id: that section and everything above it shows in its final state */
+  var hashEl = null;
+  try { hashEl = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null; } catch (e) {}
+  /* late layout (web fonts, count-ups) can move the target after the browser's jump: settle it once more */
+  if (hashEl) {
+    var userMoved = false;
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) { window.addEventListener(t, function () { userMoved = true; }, { once: true, passive: true }); });
+    var settle = function () { if (!userMoved) hashEl.scrollIntoView({ block: "start", behavior: "auto" }); };
+    window.addEventListener("load", function () { setTimeout(settle, 60); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(settle, 30); });
+  }
+  var hashAbove = function (el) {
+    return !!hashEl && (el === hashEl || el.contains(hashEl) || !!(el.compareDocumentPosition(hashEl) & Node.DOCUMENT_POSITION_FOLLOWING));
+  };
   if (beats.length && !reduced && "IntersectionObserver" in window) {
     docEl.classList.add("beats-on");
     var bio = new IntersectionObserver(function (entries) {
@@ -82,7 +96,7 @@
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     Array.prototype.forEach.call(beats, function (el) {
       /* anything already above the fold shows at once */
-      if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add("beat-in");
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.9 || hashAbove(el)) el.classList.add("beat-in");
       else bio.observe(el);
     });
   }
@@ -111,6 +125,46 @@
       });
     });
   }
+
+
+  /* ---- shareable headings: every section heading gets a copy-link button ---- */
+  var toastEl = null, toastT = 0;
+  function toast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement("div"); toastEl.className = "kit-toast";
+      toastEl.setAttribute("role", "status"); toastEl.setAttribute("aria-live", "polite");
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove("show"); }, 1800);
+  }
+  window.kitToast = toast;
+  function copyText(txt) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(txt);
+    return new Promise(function (res, rej) {
+      var ta = document.createElement("textarea"); ta.value = txt; ta.setAttribute("readonly", "");
+      ta.style.position = "absolute"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy") ? res() : rej(); } catch (e) { rej(e); } document.body.removeChild(ta);
+    });
+  }
+  var LINK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>';
+  Array.prototype.forEach.call(document.querySelectorAll("main section[id], main [data-anchor][id]"), function (sec) {
+    if (sec.id === "main" || sec.hasAttribute("data-noanchor")) return;
+    var h = sec.querySelector("h2");
+    if (!h || h.closest("section[id]") !== sec || h.querySelector(".h-anchor")) return;
+    var name = (h.getAttribute("aria-label") || h.textContent || "").replace(/\s+/g, " ").trim();
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "h-anchor"; b.innerHTML = LINK_SVG;
+    b.setAttribute("aria-label", "Copy link to section: " + name);
+    b.addEventListener("click", function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var url = location.origin + location.pathname + location.search + "#" + sec.id;
+      try { history.replaceState(null, "", "#" + sec.id); } catch (err) {}
+      copyText(url).then(function () { toast("Link copied"); }, function () { toast("Link: " + url); });
+      b.classList.add("copied"); setTimeout(function () { b.classList.remove("copied"); }, 1600);
+    });
+    h.appendChild(b);
+  });
 
   /* ---- count-up: markup holds the final value; animate only with motion allowed ---- */
   var nums = document.querySelectorAll("[data-countup]");

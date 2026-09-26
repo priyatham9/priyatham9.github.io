@@ -89,7 +89,7 @@ svg { display: block; max-width: 100%; height: auto; }
 .display { font-stretch: 125%; font-weight: 900; text-transform: uppercase; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 30px; }
 @media (max-width: 640px) { .wrap { padding: 0 18px; } }
-.label { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.label { font-family: var(--font-mono); font-size: .75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
 .skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:10px 14px;font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;z-index:100}
@@ -117,12 +117,12 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 :root[data-theme="dark"] .icon-sun { display: none; }
 
 .article-head { padding: 56px 0 40px; border-bottom: 2px solid var(--rule); background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px); background-size: 22px 22px; }
-.kicker { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+.kicker { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: .75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
 .kicker .idx { background: var(--accent); color: var(--accent-ink); padding: 3px 7px; }
 h1.title { font-size: clamp(1.9rem, 5vw, 2.9rem); letter-spacing: -0.02em; margin-bottom: 18px; }
 .dek { font-size: clamp(1rem, 1.6vw, 1.125rem); color: var(--ink-2); max-width: 68ch; margin-bottom: 20px; }
 .meta-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500; padding: 4px 7px; background: var(--surface-2); border: 1px solid var(--rule-soft); color: var(--ink-2); white-space: nowrap; }
+.chip { font-family: var(--font-mono); font-size: .75rem; font-weight: 500; padding: 4px 7px; background: var(--surface-2); border: 1px solid var(--rule-soft); color: var(--ink-2); white-space: nowrap; }
 
 article.body { padding: 48px 0 20px; }
 article.body section { padding: 30px 0; border-bottom: 1px solid var(--rule-soft); }
@@ -154,7 +154,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .footer-note { color: var(--muted); font-size: 0.8125rem; }
-.updated{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+.updated{font-family:var(--font-mono);font-size: .75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
 @media print{.topbar,.toggle{display:none!important}body{background:#fff;color:#000}}
 
 </style>
@@ -167,7 +167,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 </script>
 <link rel="stylesheet" href="../assets/kit.css" />
 </head>
-<body>
+<body class="cs">
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <div class="topbar-inner">
@@ -208,6 +208,7 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
     <div><span class="label">At a glance &middot; the 20-second version</span><p class="glance-head" id="glanceHead">Two phases, one aging safety platform, and every global site now capturing data the same way.</p></div>
     <div class="glance-stat"><span class="glance-num" data-countup="80" data-suffix="+">80+</span><span class="glance-cap">feature enhancements shipped across two phases</span></div>
   </div>
+  <dl class="facts"><div><dt>Role</dt><dd>Sole global administrator of Gensuite; led the refresh</dd></div><div><dt>When</dt><dd>Within my Sep 2023 to Nov 2025 tenure as administrator</dd></div><div><dt>Stack</dt><dd>Gensuite (Benchmark ESG), vendor configuration and release cycle</dd></div><div><dt>Outcome</dt><dd>80+ enhancements shipped; every global site on the refreshed version</dd></div></dl>
   <ol class="glance-steps">
     <li><a href="#situation"><span class="gs-k">Problem</span><p>Every global site logged safety data through an aging interface, each with its own workaround, so the inconsistency flowed into every report and government submission built on it.</p></a></li>
     <li><a href="#what-i-built"><span class="gs-k">What I did</span><p>As sole global administrator, led a two-phase refresh from requirements through global rollout, inside the vendor's configuration model and release cycle.</p></a></li>
@@ -239,50 +240,22 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <span class="step-tag">Step 3 &middot; What I did</span>
   <h2>What I built</h2>
   <p>I led the refresh across two phases, from requirements gathering through global rollout. Phase 1 and Phase 2 together shipped more than 80 feature enhancements to how the application captures safety data, touching the forms, workflows, and reporting paths that every site uses. Because I was also the platform's sole global administrator, I could move a requirement from a site's complaint to a configured change without routing it through a separate owner first, which is part of why the two phases were able to cover as much ground as they did.</p>
-  <figure class="diagram">
-    <svg viewBox="0 0 720 260" role="img" aria-label="Before and after diagram of safety data capture across Hexion sites. Before: each global site enters data through the legacy Gensuite interface, with manual rework needed before reports are usable. After: each site enters data through the refreshed Gensuite interface, phase one and phase two, producing a structured record that feeds reports directly.">
-<text x="10" y="24" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="currentColor">BEFORE</text>
-<rect x="10" y="40" width="130" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="75" y="59" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Global site</text>
-<text x="75" y="74" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">enters safety data</text>
-<line x1="140" y1="63" x2="188" y2="63" stroke="currentColor" stroke-width="2" marker-end="url(#arrow1)"/>
-<rect x="190" y="40" width="140" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="260" y="59" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Gensuite, aging UI</text>
-<text x="260" y="74" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">inconsistent across sites</text>
-<line x1="330" y1="63" x2="378" y2="63" stroke="currentColor" stroke-width="2" marker-end="url(#arrow1)"/>
-<rect x="380" y="40" width="140" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="450" y="59" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Manual rework</text>
-<text x="450" y="74" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">before data is usable</text>
-<line x1="520" y1="63" x2="568" y2="63" stroke="currentColor" stroke-width="2" marker-end="url(#arrow1)"/>
-<rect x="570" y="40" width="140" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="640" y="59" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Reports</text>
-<text x="640" y="74" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">delayed, site-specific</text>
-
-<line x1="10" y1="120" x2="710" y2="120" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.35"/>
-
-<text x="10" y="150" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="currentColor" class="flow-accent">AFTER, PHASE 1 &amp; 2</text>
-<rect x="10" y="166" width="130" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="75" y="185" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Global site</text>
-<text x="75" y="200" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">enters safety data</text>
-<line x1="140" y1="189" x2="188" y2="189" stroke="currentColor" stroke-width="2" marker-end="url(#arrow2)"/>
-<rect x="190" y="166" width="140" height="46" fill="none" stroke="var(--accent)" stroke-width="2"/>
-<text x="260" y="185" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Gensuite, refreshed</text>
-<text x="260" y="200" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">80+ enhancements</text>
-<line x1="330" y1="189" x2="378" y2="189" stroke="currentColor" stroke-width="2" marker-end="url(#arrow2)"/>
-<rect x="380" y="166" width="140" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="450" y="185" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Structured record</text>
-<text x="450" y="200" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">consistent across sites</text>
-<line x1="520" y1="189" x2="568" y2="189" stroke="currentColor" stroke-width="2" marker-end="url(#arrow2)"/>
-<rect x="570" y="166" width="140" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
-<text x="640" y="185" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12" fill="currentColor">Reports</text>
-<text x="640" y="200" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10" fill="currentColor">direct, global rollout</text>
-
-<defs>
-<marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="currentColor"/></marker>
-<marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="currentColor"/></marker>
-</defs>
-</svg>
-    <figcaption>Before: each site's data passes through the legacy interface and needs manual rework before it is reportable. After: the refreshed application (Phase 1 and 2) produces a structured record directly, rolled out globally.</figcaption>
+  <figure class="diagram fig-html" id="figure-1">
+      <div class="flow-row"><span class="fr-k">Before</span>
+      <ol class="flow" aria-label="Before the refresh">
+        <li><span class="fk">Site</span><span class="ft">Global site</span><span class="fd">enters safety data</span></li>
+        <li><span class="fk">Capture</span><span class="ft">Gensuite, aging UI</span><span class="fd">inconsistent across sites</span></li>
+        <li class="f-dash"><span class="fk">Fix-up</span><span class="ft">Manual rework</span><span class="fd">before data is usable</span></li>
+        <li><span class="fk">Use</span><span class="ft">Reports</span><span class="fd">delayed, site-specific</span></li>
+      </ol></div>
+      <div class="flow-row"><span class="fr-k">After, Phase 1 &amp; 2</span>
+      <ol class="flow" aria-label="After the refresh">
+        <li><span class="fk">Site</span><span class="ft">Global site</span><span class="fd">enters safety data</span></li>
+        <li class="f-key"><span class="fk">Capture</span><span class="ft">Gensuite, refreshed</span><span class="fd">80+ enhancements</span></li>
+        <li><span class="fk">Record</span><span class="ft">Structured record</span><span class="fd">consistent across sites</span></li>
+        <li><span class="fk">Use</span><span class="ft">Reports</span><span class="fd">direct, global rollout</span></li>
+      </ol></div>
+    <figcaption><b>Figure 1</b> Before: each site's data passes through the legacy interface and needs manual rework before it is reportable. After: the refreshed application (Phase 1 and 2) produces a structured record directly, rolled out globally.</figcaption>
   </figure>
   <!-- NEEDS-OWNER: what specific workflow or form categories changed between Phase 1 and Phase 2, and a rough phase timeline -->
 </section>
@@ -313,12 +286,13 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
 <section id="related" data-beat>
   <h2>Related</h2>
   <div class="related-list">
-    <a href="agent-layer.html"><span class="r-t">Enterprise Agent Layer</span><span class="r-d">The NLQ and summarization agents that now sit on top of Gensuite and other live systems.</span></a>
-    <a href="https://priyatham9.github.io/grounded/" target="_blank" rel="noopener noreferrer"><span class="r-t">Grounded research hub</span><span class="r-d">Public research on grounded reasoning for safety-critical AI in EHS.</span></a>
+    <a href="agent-layer.html"><span class="r-k">Case study &middot; W-04</span><span class="r-t">Enterprise Agent Layer</span><span class="r-d">The NLQ and summarization agents that now sit on top of Gensuite and other live systems.</span></a>
+    <a href="https://priyatham9.github.io/grounded/" target="_blank" rel="noopener noreferrer"><span class="r-k">Research &middot; Grounded</span><span class="r-t">Grounded research hub</span><span class="r-d">Public research on grounded reasoning for safety-critical AI in EHS.</span></a>
   </div>
 </section>
 
-<nav class="pager" aria-label="Case studies"><a href="index.html"><span class="pg-dir">&larr; All case studies</span><span class="pg-t">Work index</span></a><a class="pg-next" href="micro-market-model.html" rel="next"><span class="pg-dir">Next &middot; W-02 &rarr;</span><span class="pg-t">Micro Market Model</span></a></nav>
+<a class="next-cs" href="micro-market-model.html" rel="next"><span><span class="nc-k">Next case study &middot; W-02</span><span class="nc-t">Micro Market Model</span><span class="nc-d">A Python linear-programming engine that ranks micro markets by competitive opportunity. Transformation Award.</span></span><span class="nc-arw" aria-hidden="true">&rarr;</span></a>
+<p class="all-cs"><a href="index.html">&larr; All case studies</a> <span aria-hidden="true">&middot;</span> <a href="../index.html#reports">The RPT report series</a></p>
 
   </div>
 </article>

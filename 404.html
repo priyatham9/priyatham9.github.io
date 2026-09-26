@@ -27,17 +27,75 @@ h1{animation:r 1s .08s var(--out) both}
 p{animation:r .9s .25s var(--out) both}
 li{animation:f .7s var(--out) both}li:nth-child(1){animation-delay:.4s}li:nth-child(2){animation-delay:.46s}li:nth-child(3){animation-delay:.52s}li:nth-child(4){animation-delay:.58s}
 }
+
+.srch{margin:0 0 26px;max-width:520px}
+.srch label{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
+.srch input{width:100%;min-height:48px;padding:12px 14px;border:2px solid var(--rule);background:var(--paper);color:var(--ink);font:600 1rem Archivo,ui-sans-serif,system-ui,sans-serif;border-radius:0}
+.srch input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.srch .hint{font-size:.9375rem;margin:10px 0 0;max-width:none}
+.srch kbd{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.8125rem;border:1.5px solid var(--rule-soft);padding:1px 6px;color:var(--ink)}
+.res{margin-top:12px}
+.res[hidden]{display:none}
+.res li a small{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.res-empty{font-size:.9375rem;margin:10px 0 0}
+.lbl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;color:var(--ink);word-break:break-all}
 @keyframes r{from{opacity:0;transform:translateY(.4em);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0 0 -20% 0)}}
 @keyframes f{from{opacity:0;transform:translateY(10px)}}
 </style></head>
 <body><main>
 <div class="k">Error 404</div>
 <h1>Nothing<br>here.</h1>
-<p>This address does not exist on the site. It may have moved when the case studies were reorganised.</p>
+<p>This address does not exist on the site<span id="asked"></span>. It may have moved when the case studies were reorganised. Search below, or pick a starting point.</p>
+<form class="srch" role="search" onsubmit="return false">
+  <label for="q">Search the site</label>
+  <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Try: gensuite, OSHA, agents, reports" aria-describedby="qhint" aria-controls="res">
+  <p class="hint" id="qhint">On the home page, press <kbd>/</kbd> or <kbd>Ctrl</kbd> <kbd>K</kbd> to jump to any section.</p>
+  <ul class="res" id="res" hidden aria-label="Matching pages"></ul>
+  <p class="res-empty" id="resEmpty" role="status" aria-live="polite"></p>
+</form>
+<p class="lbl">Start here</p>
 <ul>
-<li><a href="/">Home <span aria-hidden="true">&rarr;</span></a></li>
 <li><a href="/work/">Case studies <span aria-hidden="true">&rarr;</span></a></li>
+<li><a href="/grounded/">Research hub: Grounded <span aria-hidden="true">&#8599;</span></a></li>
 <li><a href="/#reports">Reports <span aria-hidden="true">&rarr;</span></a></li>
-<li><a href="/grounded/">Research programme <span aria-hidden="true">&#8599;</span></a></li>
+<li><a href="/">Home <span aria-hidden="true">&rarr;</span></a></li>
 </ul>
-</main></body></html>
+</main>
+<script>
+(function(){
+  var P=[["Home","/","home start priyatham chimmani"],["Case studies","/work/","work case studies"],
+  ["Gensuite Refresh","/work/gensuite-refresh.html","gensuite benchmark esg platform ehs refresh case study"],
+  ["Micro Market Model","/work/micro-market-model.html","micro market model linear programming python lp award case study"],
+  ["Enterprise Agent Layer","/work/agent-layer.html","agent layer mcp nlq ai copilot claude codex case study"],
+  ["RPT-001 D365 Data Strategy","/reports/d365-data-strategy/","report d365 dynamics data strategy"],
+  ["RPT-002 EHS Metrics Command","/reports/ehs-metrics-command/","report ehs metrics command leading lagging kpi alerts"],
+  ["RPT-003 Value-Chain Twin","/reports/value-chain-twin/","report value chain twin ontology"],
+  ["RPT-004 Verifiable Answers","/reports/verifiable-answers/","report verifiable answers ai"],
+  ["RPT-005 EHS Benchmarks","/ehs-benchmarks/","report ehs benchmarks osha peer percentile"],
+  ["Grounded research hub","/grounded/","research grounded hub programme"],
+  ["Grounded draft paper","/grounded/paper.html","research paper draft"],
+  ["OSHA data quality","/ehs-osha-analysis/","research osha ita trir data quality hours"],
+  ["Grounding benchmark","/ehs-ai-grounding-eval/","research grounding evaluation benchmark ai"],
+  ["Human factors ontology","/ehs-human-factors-ontology/","research human factors ontology"],
+  ["SEM for safety risk","/ehs-risk-sem/","research sem structural equation risk"],
+  ["Cost-benefit calculator","/ehs-capitals-calculator/","research calculator cost benefit capitals"],
+  ["Experience","/#experience","experience roles hexion"],["Contact","/#contact","contact email"]];
+  var q=document.getElementById("q"),res=document.getElementById("res"),empty=document.getElementById("resEmpty");
+  var asked=document.getElementById("asked"); if(asked&&location.pathname.length>1){var c=document.createElement("code");c.textContent=location.pathname;asked.append(" (",c,")");}
+  function esc(t){return t.replace(/[&<>"]/g,function(ch){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch];});}
+  function run(v){
+    var w=v.toLowerCase().split(/[^a-z0-9]+/).filter(function(x){return x.length>1;});
+    if(!w.length){res.hidden=true;res.innerHTML="";empty.textContent="";return;}
+    var hits=P.map(function(p){var hay=(p[0]+" "+p[2]).toLowerCase(),sc=0;w.forEach(function(x){if(hay.indexOf(x)>-1)sc++;});return[sc,p];}).filter(function(h){return h[0]>0;}).sort(function(a,b){return b[0]-a[0];}).slice(0,6);
+    res.innerHTML=hits.map(function(h){return '<li><a href="'+h[1][1]+'">'+esc(h[1][0])+' <small>'+(h[1][1].indexOf("/work/")===0?"Case study":/RPT/.test(h[1][0])?"Report":/research/.test(h[1][2])?"Research":"Page")+'</small></a></li>';}).join("");
+    res.hidden=!hits.length; empty.textContent=hits.length?hits.length+(hits.length===1?" match":" matches"):"No match. Try the links below.";
+  }
+  q.addEventListener("input",function(){run(q.value);});
+  q.addEventListener("keydown",function(e){if(e.key==="Enter"){var a=res.querySelector("a");if(a){location.href=a.getAttribute("href");}}});
+  /* suggest pages that match the words in the missing address */
+  var guess=decodeURIComponent(location.pathname).replace(/\.html?$/,"").split(/[\/_.-]+/).filter(function(x){return x.length>2&&!/^([0-9]+|index|www|priyatham9|github|io|html)$/.test(x);}).join(" ");
+  if(guess){q.value=guess;run(guess);}
+})();
+</script>
+</body></html>
