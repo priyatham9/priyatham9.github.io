@@ -662,6 +662,10 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
 .win-mark svg { width: 18px; height: 18px; }
 .win h3 { font-size: 0.9375rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 4px; }
 .win p { font-size: 0.875rem; color: var(--muted); }
+.win p + p { margin-top: 10px; }
+.win-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.win-tags span { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--ink-2); border: 1px solid var(--rule-soft); padding: 3px 8px; }
+.win-tags span:first-child { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); font-weight: 700; }
 
 /* education */
 .edu-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; align-items: baseline; padding: 17px 0; border-bottom: 2px solid var(--rule-soft); }
@@ -912,7 +916,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
           <li><a href="work/gensuite-refresh.html"><span class="pp-num" data-countup="80" data-suffix="+">80+</span><span class="pp-cap">feature enhancements shipped to the global EHS platform</span><span class="pp-ctx">Gensuite refresh, Phase 1 and 2</span></a></li>
           <li><a href="#architecture"><span class="pp-num" data-countup="40" data-suffix="+">40+</span><span class="pp-cap">automated alerting KPIs driving site-level response</span><span class="pp-ctx">Hexion &middot; site-action tier of the architecture</span></a></li>
           <li><a href="#research"><span class="pp-num" data-countup="2.8" data-suffix="M">2.8M</span><span class="pp-cap">real OSHA establishment filings analysed</span><span class="pp-ctx">OSHA ITA Form 300A, CY2016 to 2024</span></a></li>
-          <li><a href="#wins"><span class="pp-num" data-countup="3">3</span><span class="pp-cap">company awards, including the Transformation Award</span><span class="pp-ctx">Leadership &middot; Transformation &middot; STAR</span></a></li>
+          <li><a href="#wins"><span class="pp-num" data-countup="5">5</span><span class="pp-cap">company awards, including three STAR Awards</span><span class="pp-ctx">Leadership &middot; Transformation &middot; STAR &times;3</span></a></li>
         </ul>
       </div>
       <nav class="paths" aria-label="Go deeper">
@@ -1036,8 +1040,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         <div class="label">Reporting time removed</div>
       </div>
       <div class="metric">
-        <div class="metric-value" data-count="3" data-suffix="">3</div>
-        <div class="metric-bar" data-w="24"></div>
+        <div class="metric-value" data-count="5" data-suffix="">5</div>
+        <div class="metric-bar" data-w="40"></div>
         <div class="label">Company awards</div>
       </div>
     </div>
@@ -1270,6 +1274,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         <div class="role-org"><strong>Hexion Inc.</strong> · Columbus, OH</div>
         <ul>
           <li>Lead the enterprise migration to Palantir Foundry across every business function.</li>
+          <li>Designed the Account 360 ontology and built its AIP chat assistant and OSDK application: one view of every account across CRM, SAP finance, supply chain, proactive alerts and Icertis contract lineage. STAR Award.</li>
           <li>Guide a blended five-person delivery team of internal analysts and vendor partners.</li>
           <li>Author board meeting decks and safety strategy presentations; advise the ELT and C-suite daily.</li>
           <li>Selected by the CIO, VP, and General Manager for a two-week assignment at the Pernis site in the Port of Rotterdam, assessing every data flow at a 24/7 plant.</li>
@@ -1404,7 +1409,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     <div class="section-rail reveal" data-n="07">
       <div class="rail-head"><span class="rail-num">07</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
       <h2 class="display">Wins</h2>
-      <p class="rail-note">Leadership singled this work out three separate times.</p>
+      <p class="rail-note">Leadership singled this work out five times, three of them with a STAR Award.</p>
     </div>
     <div class="wins reveal">
       <div class="win">
@@ -1416,8 +1421,16 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         <div><h3>Transformation Award</h3><p>Micro Market Model - Python LP optimization for competitive market opportunity</p></div>
       </div>
       <div class="win">
+        <div class="win-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><circle cx="4.5" cy="5" r="2"></circle><circle cx="19.5" cy="5" r="2"></circle><circle cx="4.5" cy="19" r="2"></circle><circle cx="19.5" cy="19" r="2"></circle><path d="M6 6.4l3.8 3.6M18 6.4l-3.8 3.6M6 17.6l3.8-3.6M18 17.6l-3.8-3.6"></path></svg></div>
+        <div><h3>STAR Award &middot; Account 360 on Palantir Foundry</h3><p>Designed the Account 360 ontology, then shipped an AIP chat assistant and an OSDK application on top of it. Every account now has one complete view: CRM history, SAP finance, supply chain, the proactive alerts we set up for early action, and Icertis contract lineage across the document lifecycle, with AI analytics across all of it.</p><p class="win-tags"><span>Account 360</span><span>Ontology</span><span>AIP</span><span>OSDK</span><span>CRM &middot; SAP &middot; Icertis</span></p></div>
+      </div>
+      <div class="win">
+        <div class="win-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"></path><path d="M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.8 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"></path></svg></div>
+        <div><h3>STAR Award &middot; $85,000 a year back in the budget</h3><p>Designed a document ingestion and maintenance algorithm built on a workaround through a traditional API, keeping the document store current while cutting API spend by $85,000 every year.</p><p class="win-tags"><span>$85K / yr saved</span><span>Algorithm design</span><span>Document pipelines</span></p></div>
+      </div>
+      <div class="win">
         <div class="win-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-        <div><h3>STAR Award</h3><p>End-to-end design and implementation of site safety incentive program metrics</p></div>
+        <div><h3>STAR Award &middot; Site safety incentive metrics</h3><p>End-to-end design and implementation of site safety incentive program metrics</p></div>
       </div>
     </div>
   </div>
@@ -1553,7 +1566,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         { t: "Silver",         d: "Conformed, deduplicated, quality-checked" },
         { t: "Gold",           d: "Curated marts that power every downstream report" } ],
       [ { t: "Unity Catalog",  d: "Governance, lineage, and access control across all workloads" },
-        { t: "Foundry Ontology", d: "One enterprise ontology spanning every business function" },
+        { t: "Foundry Ontology", d: "One enterprise ontology spanning every business function, including Account 360" },
         { t: "Digital Twin",   d: "Operational model of the company, built in Palantir Foundry" } ],
       [ { t: "MCP Layer",      d: "Grounds AI agents in live enterprise systems, auditable and reproducible" },
         { t: "NLQ Agents",     d: "Ask questions of enterprise data in plain language" },
