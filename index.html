@@ -2295,7 +2295,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   mm.add("(max-width: 899px), (max-height: 559px)", function () {
     root.classList.remove("arc-pin");
     G.utils.toArray("#arc .arc-step").forEach(function (s) {
-      G.from(s, { y: 30, autoAlpha: 0, duration: 0.7, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 88%", once: true } });
+      /* explicit end state: after a resize down from the pinned layout, a plain from() would read the pinned "hidden" styles as its target */
+      G.fromTo(s, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: "expo.out", clearProps: "transform,opacity,visibility", scrollTrigger: { trigger: s, start: "top 88%", once: true } });
     });
     var fill = document.querySelector("#arc .arc-fill");
     if (fill) G.to(fill, { scaleY: 1, ease: "none", scrollTrigger: { trigger: "#arc .arc-list", start: "top 70%", end: "bottom 60%", scrub: true } });
