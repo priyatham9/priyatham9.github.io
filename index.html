@@ -405,6 +405,7 @@ a.status-now .st-v.accent::after { content: '\2197'; margin-left: 5px; font-size
 .rail-of { font-family: var(--font-mono); font-size:.75rem; font-weight: 600; letter-spacing: .12em; color: var(--muted); }
 .rail-rule { flex: 1; height: 2px; background: var(--rule-soft); }
 .section h2 { font-size: clamp(1.4rem, 2.6vw, 1.7rem); font-stretch: 112%; letter-spacing: -0.015em; }
+#certifications h2 { font-size: clamp(1.09rem, 2.02vw, 1.32rem); } /* longest one-word heading; scaled to fit the rail */
 .rail-note { margin-top: 14px; font-size: 0.8125rem; color: var(--muted); max-width: 24ch; }
 
 /* focus cards */
@@ -672,7 +673,9 @@ a.report-row:hover .report-open .arw { transform: translateX(5px); }
 .edu-item:last-child { border-bottom: 0; }
 .edu-degree { font-size: 0.9375rem; font-weight: 700; }
 .edu-school { color: var(--muted); font-size: 0.875rem; grid-column: 1 / -1; }
-.edu-sub { font-size: 1rem; font-weight: 700; margin: 36px 0 2px; }
+.cert-verify { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; letter-spacing: .06em; color: var(--accent); text-decoration: none; }
+.cert-verify::after { content: '\2197'; margin-left: 3px; }
+.cert-verify:hover { color: var(--accent-2); text-decoration: underline; }
 
 /* footer */
 .footer { padding: 60px 0 72px; }
@@ -862,6 +865,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <a class="nav-more" href="#focus">Focus</a>
       <a class="nav-more" href="#wins">Wins</a>
       <a class="nav-more" href="#education">Education</a>
+      <a class="nav-more" href="#certifications">Certifications</a>
       <a href="#contact">Contact</a>
       <a href="https://priyatham9.github.io/grounded/" class="nav-external">Grounded</a>
     </nav>
@@ -964,7 +968,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="arc">
   <div class="wrap section-grid">
     <div class="section-rail reveal">
-      <div class="rail-head"><span class="rail-num">00</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">00</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">The through-line</h2>
       <p class="rail-note">How running an EHS system turned into a research programme. One question carries through: can you trust the number?</p>
     </div>
@@ -985,7 +989,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="impact">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="01">
-      <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">01</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Impact</h2>
       <p class="rail-note">Three systems now running in daily use at Hexion.</p>
     </div>
@@ -1073,7 +1077,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="research">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="02">
-      <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">02</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <div class="project-kicker">Safety numbers are only as good as the denominator and the citation underneath them.</div>
       <h2 class="display">Research</h2>
       <p class="rail-note">Real OSHA data says the screening step every EHS team assumes is optional actually decides the number.</p>
@@ -1165,7 +1169,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="work">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="03">
-      <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Selected Work</h2>
       <p class="rail-note">Six systems shipped, from an enterprise ontology to a live public app.</p>
       <a class="rail-link" href="work/">All case studies <span aria-hidden="true">&rarr;</span></a>
@@ -1261,7 +1265,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="experience">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="04">
-      <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">04</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Experience</h2>
       <p class="rail-note">From CRM reporting to owning a chemicals manufacturer's global safety system in six years.</p>
     </div>
@@ -1326,7 +1330,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="reports">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="05">
-      <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">05</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Reports</h2>
       <p class="rail-note">Every diagram here responds to your input. RPT-001 to 004 run on synthetic demo data; RPT-005 runs on 1.18&nbsp;million actual OSHA filings.</p>
     </div>
@@ -1373,7 +1377,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="focus">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="06">
-      <div class="rail-head"><span class="rail-num">06</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">06</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Focus</h2>
       <p class="rail-note">Four disciplines, each owned end to end.</p>
     </div>
@@ -1409,7 +1413,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="wins">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="07">
-      <div class="rail-head"><span class="rail-num">07</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">07</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Wins</h2>
       <p class="rail-note">Leadership singled this work out five times, three of them with a STAR Award.</p>
     </div>
@@ -1441,7 +1445,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 <section class="section" id="education">
   <div class="wrap section-grid">
     <div class="section-rail reveal" data-n="08">
-      <div class="rail-head"><span class="rail-num">08</span><span class="rail-of">/ 08</span><span class="rail-rule"></span></div>
+      <div class="rail-head"><span class="rail-num">08</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Education</h2>
       <p class="rail-note">The statistics kept up with the job; a PhD in applied AI is next.</p>
     </div>
@@ -1466,31 +1470,42 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         <span class="label mono">2016 - 2020</span>
         <span class="edu-school">Jawaharlal Nehru Technological University · Hyderabad, India</span>
       </div>
-      <h3 class="edu-sub" id="certifications">Certifications</h3>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="certifications">
+  <div class="wrap section-grid">
+    <div class="section-rail reveal" data-n="09">
+      <div class="rail-head"><span class="rail-num">09</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
+      <h2 class="display">Certifications</h2>
+      <p class="rail-note">Newest first. Verify links open the issuer's record.</p>
+    </div>
+    <div class="reveal">
       <div class="edu-item">
         <span class="edu-degree">Palantir Foundry AI Engineer Associate</span>
         <span class="label mono">2026</span>
-        <span class="edu-school">Palantir Technologies · Credential ID 4a34xcmrty6q · Valid to Oct 2028</span>
+        <span class="edu-school">Palantir Technologies · Valid to Oct 2028 · <a class="cert-verify" href="https://verify.skilljar.com/c/4a34xcmrty6q" target="_blank" rel="noopener noreferrer" aria-label="Verify Palantir Foundry AI Engineer Associate credential">Verify</a></span>
       </div>
       <div class="edu-item">
         <span class="edu-degree">Palantir Foundry Aware Professional</span>
         <span class="label mono">2026</span>
-        <span class="edu-school">Palantir Technologies · Credential ID vnzywyezovud · Valid to Oct 2028</span>
+        <span class="edu-school">Palantir Technologies · Valid to Oct 2028 · <a class="cert-verify" href="https://verify.skilljar.com/c/vnzywyezovud" target="_blank" rel="noopener noreferrer" aria-label="Verify Palantir Foundry Aware Professional credential">Verify</a></span>
       </div>
       <div class="edu-item">
         <span class="edu-degree">AI Competency</span>
         <span class="label mono">2025</span>
-        <span class="edu-school">Mindstone</span>
+        <span class="edu-school">Mindstone · <a class="cert-verify" href="https://app.mindstone.com/badge/priyatham9/achievementgrant_AsHFtNt8khVDrW9hMf" target="_blank" rel="noopener noreferrer" aria-label="Verify AI Competency credential">Verify</a></span>
+      </div>
+      <div class="edu-item">
+        <span class="edu-degree">Career Essentials in Data Analysis</span>
+        <span class="label mono"></span>
+        <span class="edu-school">Microsoft &amp; LinkedIn · <a class="cert-verify" href="https://www.linkedin.com/learning/certificates/3975408f7069fc5947fdca5bcb6232ccf6942f3c5a469f2cca44c6748f02325f/" target="_blank" rel="noopener noreferrer" aria-label="Verify Career Essentials in Data Analysis credential">Verify</a></span>
       </div>
       <div class="edu-item">
         <span class="edu-degree">Six Sigma: Green Belt</span>
         <span class="label mono"></span>
         <span class="edu-school">LinkedIn</span>
-      </div>
-      <div class="edu-item">
-        <span class="edu-degree">Career Essentials in Data Analysis</span>
-        <span class="label mono"></span>
-        <span class="edu-school">Microsoft &amp; LinkedIn</span>
       </div>
       <div class="edu-item">
         <span class="edu-degree">Dataiku ML Practitioner &amp; Core Designer</span>
