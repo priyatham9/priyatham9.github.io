@@ -925,7 +925,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         </ul>
       </div>
       <nav class="paths" aria-label="Go deeper">
-        <a class="path" href="work/"><span class="path-k">Work</span><span class="path-t">3 case studies</span><span class="path-d">Problem, what I did, outcome, why it matters</span><span class="path-arw" aria-hidden="true">&rarr;</span></a>
+        <a class="path" href="work/"><span class="path-k">Work</span><span class="path-t">4 case studies</span><span class="path-d">Problem, what I did, outcome, why it matters</span><span class="path-arw" aria-hidden="true">&rarr;</span></a>
         <a class="path" href="#reports"><span class="path-k">Reports</span><span class="path-t">5 interactive reports</span><span class="path-d">RPT-001 to 005, from data strategy to real OSHA benchmarks</span><span class="path-arw" aria-hidden="true">&rarr;</span></a>
         <a class="path" href="https://priyatham9.github.io/grounded/"><span class="path-k">Research</span><span class="path-t">Grounded programme</span><span class="path-d">Public repositories and a draft paper on grounded AI for safety</span><span class="path-arw" aria-hidden="true">&#8599;</span></a>
       </nav>
@@ -1171,7 +1171,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     <div class="section-rail reveal" data-n="03">
       <div class="rail-head"><span class="rail-num">03</span><span class="rail-of">/ 09</span><span class="rail-rule"></span></div>
       <h2 class="display">Selected Work</h2>
-      <p class="rail-note">Six systems shipped, from an enterprise ontology to a live public app.</p>
+      <p class="rail-note">Seven systems, from an enterprise ontology to a live public app.</p>
       <a class="rail-link" href="work/">All case studies <span aria-hidden="true">&rarr;</span></a>
     </div>
     <div>
@@ -1181,7 +1181,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
       <button type="button" data-f="ai">AI</button>
       <button type="button" data-f="ehs">EHS systems</button>
       <button type="button" data-f="analytics">Analytics</button>
-      <span class="wfilter-count" id="wCount" aria-live="polite">6 of 6</span>
+      <span class="wfilter-count" id="wCount" aria-live="polite">7 of 7</span>
     </div>
         <ol class="pindex reveal" id="pindex">
       <li class="pi-item" data-cat="data ai">
@@ -1195,6 +1195,18 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
           </span>
           <span class="pi-side"><span class="pi-num">4</span><span class="pi-cap">business functions in one governed model</span><span class="pi-cta">Summary only</span></span>
         </div>
+      </li>
+      <li class="pi-item" data-cat="data ehs">
+        <a class="pi-row" href="work/insight-hub.html" data-num="12" data-cap="ontology object types behind one EHS widget">
+          <span class="pi-idx">W-07</span>
+          <span class="pi-main">
+            <span class="pi-kick">Palantir Foundry &middot; In review</span>
+            <span class="pi-t">EHS Insight Hub</span>
+            <span class="pi-d">A Foundry widget over an ontology of 12 EHS object types - cases, events, concerns and insights - with every KPI and status rule in one logic module and a layout EHS users know from Gensuite.</span>
+            <span class="chips"><span class="chip">Palantir Foundry</span><span class="chip">Ontology</span><span class="chip">TypeScript</span><span class="chip">KPI logic</span></span>
+          </span>
+          <span class="pi-side"><span class="pi-num">12</span><span class="pi-cap">ontology object types behind one EHS widget</span><span class="pi-cta">Read the case study &rarr;</span></span>
+        </a>
       </li>
       <li class="pi-item" data-cat="analytics">
         <a class="pi-row" href="work/micro-market-model.html" data-num="Award" data-cap="Transformation Award, adopted company-wide">
@@ -2145,7 +2157,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     var h = sec.querySelector("h2, .arch-title"); if (h) items.push({ t: h.textContent.trim(), k: "Section", go: "#" + sec.id });
   });
   items.push({ t: "Contact", k: "Section", go: "#contact" });
-  [["Gensuite refresh", "work/gensuite-refresh.html"], ["Micro Market Model", "work/micro-market-model.html"], ["Enterprise agent layer", "work/agent-layer.html"], ["All work", "work/"]].forEach(function (x) { items.push({ t: x[0], k: "Case study", go: x[1] }); });
+  [["EHS Insight Hub", "work/insight-hub.html"], ["Gensuite refresh", "work/gensuite-refresh.html"], ["Micro Market Model", "work/micro-market-model.html"], ["Enterprise agent layer", "work/agent-layer.html"], ["All work", "work/"]].forEach(function (x) { items.push({ t: x[0], k: "Case study", go: x[1] }); });
   document.querySelectorAll("#reports a[href^='reports/']").forEach(function (a) { var t = a.querySelector(".report-t"); items.push({ t: (t || a).textContent.trim().replace(/\s+/g, " "), k: "Report", go: a.getAttribute("href") }); });
   [["Grounded: research hub", "https://priyatham9.github.io/grounded/"], ["OSHA data quality", "https://priyatham9.github.io/ehs-osha-analysis/"], ["Grounding benchmark", "https://priyatham9.github.io/ehs-ai-grounding-eval/"], ["Human factors ontology", "https://priyatham9.github.io/ehs-human-factors-ontology/"], ["SEM for safety risk", "https://priyatham9.github.io/ehs-risk-sem/"], ["Cost-benefit calculator", "https://priyatham9.github.io/ehs-capitals-calculator/"], ["OSHA benchmarks", "https://priyatham9.github.io/ehs-benchmarks/"]].forEach(function (x) { items.push({ t: x[0], k: "Research", go: x[1] }); });
   items.push({ t: "Switch colour theme", k: "Action", run: function () { document.getElementById("themeToggle").click(); } });
