@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Work - Priyatham Chimmani</title>
-<meta name="description" content="Five case studies: four from EHS and applied AI work at Hexion (the EHS Insight Hub on Palantir Foundry, the Gensuite platform refresh, the Micro Market Model, the enterprise agent layer) and an independent Foundry-style safety ontology on public OSHA data." />
+<meta name="description" content="Six case studies: four from EHS and applied AI work at Hexion (the EHS Insight Hub on Palantir Foundry, the Gensuite platform refresh, the Micro Market Model, the enterprise agent layer) and two independent builds on public data: a Foundry-style safety ontology and a synthetic plant digital twin." />
 <meta property="og:title" content="Work - Priyatham Chimmani" />
-<meta property="og:description" content="Five case studies: four from EHS and applied AI work at Hexion (the EHS Insight Hub on Palantir Foundry, the Gensuite platform refresh, the Micro Market Model, the enterprise agent layer) and an independent Foundry-style safety ontology on public OSHA data." />
+<meta property="og:description" content="Six case studies: four from EHS and applied AI work at Hexion (the EHS Insight Hub on Palantir Foundry, the Gensuite platform refresh, the Micro Market Model, the enterprise agent layer) and two independent builds on public data: a Foundry-style safety ontology and a synthetic plant digital twin." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://priyatham9.github.io/work/" />
 <meta property="og:image" content="https://priyatham9.github.io/og.png" />
@@ -237,6 +237,20 @@ figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--mut
   <div class="wrap">
 
     <div class="work-cards">
+      <article class="work-card" data-tilt>
+        <div class="wc-top">
+          <span class="chip">W-09 &middot; Independent build &middot; Public data</span>
+          <div class="wc-stat"><span class="wc-num">17</span><span class="wc-cap">units in a synthetic 3D plant</span></div>
+        </div>
+        <h2 class="wc-t"><a href="plant-blueprint.html">Plant Blueprint, a Synthetic Digital Twin</a></h2>
+        <dl class="wc-rows">
+          <div><dt>Problem</dt><dd>Public chemical-plant statistics are tables; it is hard to see which figure can honestly describe which kind of unit.</dd></div>
+          <div><dt>What I did</dt><dd>Built an interactive 3D blueprint of a generic plant with a seeded simulation whose incident rates come from committed EPA RMP and OSHA outputs, plus Foundry-style alerts, actions and an audit log.</dd></div>
+          <div class="wc-out"><dt>Status</dt><dd>Live. A synthetic site, not a real facility; no live telemetry, behaviour is a model and every statistic cites its source file.</dd></div>
+          <div class="wc-stack"><dt>Stack</dt><dd>three.js, JavaScript, Python</dd></div>
+        </dl>
+        <span class="card-link" aria-hidden="true">Open the blueprint &rarr;</span>
+      </article>
       <article class="work-card" data-tilt>
         <div class="wc-top">
           <span class="chip">W-08 &middot; Independent build &middot; Public data</span>
