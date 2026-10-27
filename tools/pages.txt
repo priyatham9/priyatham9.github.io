@@ -20,3 +20,10 @@ https://priyatham9.github.io/ehs-human-factors-ontology/
 https://priyatham9.github.io/ehs-risk-sem/
 https://priyatham9.github.io/ehs-capitals-calculator/
 https://priyatham9.github.io/ehs-benchmarks/
+https://priyatham9.github.io/briefs/
+https://priyatham9.github.io/briefs/small-workplace-rates/
+https://priyatham9.github.io/briefs/small-workplace-rates/es/
+https://priyatham9.github.io/briefs/implausible-hours/
+https://priyatham9.github.io/briefs/implausible-hours/es/
+https://priyatham9.github.io/briefs/low-rate-chemical-risk/
+https://priyatham9.github.io/briefs/low-rate-chemical-risk/es/
