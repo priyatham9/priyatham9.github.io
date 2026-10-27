@@ -1198,6 +1198,18 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
         </div>
       </li>
       <li class="pi-item" data-cat="data ehs">
+        <a class="pi-row" href="work/plant-blueprint.html" data-num="17" data-cap="units in a synthetic 3D plant, annotated with public statistics">
+          <span class="pi-idx">W-09</span>
+          <span class="pi-main">
+            <span class="pi-kick">Independent build &middot; Public EPA RMP and OSHA data</span>
+            <span class="pi-t">Plant Blueprint, a Synthetic Digital Twin</span>
+            <span class="pi-d">An interactive 3D blueprint of a generic chemical plant. A seeded simulation draws incidents at rates from public statistics and routes alerts through an object, link and action model with an audit log.</span>
+            <span class="chips"><span class="chip">three.js</span><span class="chip">Simulation</span><span class="chip">Ontology actions</span><span class="chip">EPA RMP</span></span>
+          </span>
+          <span class="pi-side"><span class="pi-num">17</span><span class="pi-cap">units in a synthetic 3D plant, annotated with public statistics</span><span class="pi-cta">Open the blueprint &rarr;</span></span>
+        </a>
+      </li>
+      <li class="pi-item" data-cat="data ehs">
         <a class="pi-row" href="work/safety-ontology.html" data-num="7" data-cap="object types in a Foundry-style safety ontology">
           <span class="pi-idx">W-08</span>
           <span class="pi-main">
@@ -2191,7 +2203,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     var h = sec.querySelector("h2, .arch-title"); if (h) items.push({ t: h.textContent.trim(), k: "Section", go: "#" + sec.id });
   });
   items.push({ t: "Contact", k: "Section", go: "#contact" });
-  [["Designing a safety ontology", "work/safety-ontology.html"], ["EHS Insight Hub", "work/insight-hub.html"], ["Gensuite refresh", "work/gensuite-refresh.html"], ["Micro Market Model", "work/micro-market-model.html"], ["Enterprise agent layer", "work/agent-layer.html"], ["All work", "work/"]].forEach(function (x) { items.push({ t: x[0], k: "Case study", go: x[1] }); });
+  [["Plant blueprint digital twin", "work/plant-blueprint.html"], ["Designing a safety ontology", "work/safety-ontology.html"], ["EHS Insight Hub", "work/insight-hub.html"], ["Gensuite refresh", "work/gensuite-refresh.html"], ["Micro Market Model", "work/micro-market-model.html"], ["Enterprise agent layer", "work/agent-layer.html"], ["All work", "work/"]].forEach(function (x) { items.push({ t: x[0], k: "Case study", go: x[1] }); });
   document.querySelectorAll("#reports a[href^='reports/']").forEach(function (a) { var t = a.querySelector(".report-t"); items.push({ t: (t || a).textContent.trim().replace(/\s+/g, " "), k: "Report", go: a.getAttribute("href") }); });
   [["Grounded: research hub", "https://priyatham9.github.io/grounded/"], ["OSHA data quality", "https://priyatham9.github.io/ehs-osha-analysis/"], ["Grounding benchmark", "https://priyatham9.github.io/ehs-ai-grounding-eval/"], ["Human factors ontology", "https://priyatham9.github.io/ehs-human-factors-ontology/"], ["SEM for safety risk", "https://priyatham9.github.io/ehs-risk-sem/"], ["Cost-benefit calculator", "https://priyatham9.github.io/ehs-capitals-calculator/"], ["OSHA benchmarks", "https://priyatham9.github.io/ehs-benchmarks/"]].forEach(function (x) { items.push({ t: x[0], k: "Research", go: x[1] }); });
   items.push({ t: "Switch colour theme", k: "Action", run: function () { document.getElementById("themeToggle").click(); } });
