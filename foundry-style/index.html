@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Foundry-style builds on public data - Priyatham Chimmani</title>
+<meta name="description" content="Six portable, plain-code builds on public OSHA, EPA and CSB data that follow Palantir Foundry patterns: ontology, typed client, filing checker, comparison page, claims registry, incident coding. Independent; not affiliated with Palantir." />
+<meta name="author" content="Priyatham Chimmani" />
+<meta name="color-scheme" content="light dark" />
+<link rel="canonical" href="https://priyatham9.github.io/foundry-style/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Foundry-style builds on public data - Priyatham Chimmani" />
+<meta property="og:description" content="Six portable, plain-code builds on public data that follow Palantir Foundry patterns, each with its repo path, live page and limits. Independent; not affiliated with Palantir." />
+<meta property="og:url" content="https://priyatham9.github.io/foundry-style/" />
+<meta property="og:image" content="https://priyatham9.github.io/og.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&amp;family=IBM+Plex+Mono:wght@500;600;700&amp;display=swap" />
+<style>
+:root{--paper:#F7F7F3;--surface:#FFFFFF;--surface-2:#EFEFE9;--ink:#101311;--ink-2:#3A403C;--muted:#5C635E;--rule:#101311;--rule-soft:#D6D7CE;--accent:#0B5C3E;--accent-ink:#FFFFFF;--wash:#E3F0E9;--warn:#7A3D00;--warn-wash:#F6E8D8;--font-sans:"Archivo",ui-sans-serif,system-ui,sans-serif;--font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0A0D0B;--surface:#121712;--surface-2:#171D18;--ink:#EAEFEA;--ink-2:#BFC7C1;--muted:#9AA39D;--rule:#EAEFEA;--rule-soft:#262E28;--accent:#3FCB88;--accent-ink:#06130C;--wash:#10241A;--warn:#E09B4C;--warn-wash:#2A2013}}
+:root[data-theme="dark"]{--paper:#0A0D0B;--surface:#121712;--surface-2:#171D18;--ink:#EAEFEA;--ink-2:#BFC7C1;--muted:#9AA39D;--rule:#EAEFEA;--rule-soft:#262E28;--accent:#3FCB88;--accent-ink:#06130C;--wash:#10241A;--warn:#E09B4C;--warn-wash:#2A2013}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}a:hover{text-decoration:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:10px 14px;z-index:100}.skip:focus{left:8px}
+.topbar{border-bottom:2px solid var(--rule)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.topbar a{font-family:var(--font-mono);font-size:.8125rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;min-height:44px;display:inline-flex;align-items:center}
+h1{font-size:clamp(1.6rem,5vw,2.3rem);line-height:1.12;margin:28px 0 8px;letter-spacing:-.01em}
+h2{font-size:1.2rem;margin:26px 0 8px;line-height:1.25}
+.label{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.short{background:var(--wash);border-left:5px solid var(--accent);padding:14px 16px;margin:18px 0}
+.short .label{display:block;margin-bottom:4px;color:var(--accent)}
+.tr{background:var(--warn-wash);color:var(--ink);border:2px solid var(--warn);padding:10px 14px;margin:16px 0;font-size:.9375rem}
+ul.pts{padding-left:1.2em;margin:0}ul.pts li{margin-bottom:10px}
+.num{font-family:var(--font-mono);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.limits{color:var(--ink-2);font-size:.9375rem}
+table{width:100%;border-collapse:collapse;border:2px solid var(--rule);background:var(--surface);font-size:.875rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+th{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+td a{overflow-wrap:anywhere}
+.sub{color:var(--ink-2);font-size:.9375rem;margin:0 0 10px}
+.foot{padding:26px 0 44px;color:var(--muted);font-size:.875rem}
+.entry{border:2px solid var(--rule);background:var(--surface);padding:14px 16px;margin:0 0 18px}.entry h2{margin-top:0}.entry dl{margin:10px 0 0;display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;font-size:.9375rem}.entry dt{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}.entry dd{margin:0;overflow-wrap:anywhere}.entry ul{margin:0;padding-left:1.1em}@media (max-width:560px){.entry dl{grid-template-columns:1fr}.entry dt{padding-top:6px}}
+.cards a{display:block;border:2px solid var(--rule);background:var(--surface);padding:14px 16px;margin-bottom:12px;color:var(--ink);text-decoration:none}
+.cards a:hover{border-color:var(--accent)}
+@media (max-width:560px){table,tbody,tr,td{display:block}thead{position:absolute;left:-999px}tr{border-bottom:2px solid var(--rule-soft);padding:6px 0}td{border:0;padding:3px 10px}}
+@media print{@page{margin:12mm}body{font-size:10pt;line-height:1.4}.topbar,.foot .btn{display:none}table{font-size:8pt}h1{font-size:18pt;margin-top:8pt}h2{margin-top:10pt}.short{margin:8pt 0}}
+</style>
+<script>(function(){try{var s=localStorage.getItem("pc-theme");if(s==="dark"||s==="light")document.documentElement.setAttribute("data-theme",s)}catch(e){}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a href="../">&larr; Priyatham Chimmani</a></div></header>
+<main id="main" class="wrap" tabindex="-1">
+<p class="label" style="margin-top:24px">Verifiable artifacts</p>
+<h1>Foundry-style builds on public data</h1>
+<p>Foundry is Palantir's data platform. Its core ideas are an ontology of typed objects, links between them, functions and actions on those objects, lineage from source data, and analysis views. This page lists six builds that apply those ideas in plain Python, JavaScript and static HTML, on public data only. For each one it names the Foundry concept it mirrors, the files in the repository, the live page if there is one, and what it does not do.</p>
+<p class="tr" role="note"><strong>Non-affiliation.</strong> These builds are independent. They are not made by, affiliated with or endorsed by Palantir. They were built without a Foundry account or Foundry code, and they use no employer data: only public OSHA, EPA and CSB records and each repository's own committed outputs. "Foundry-style" describes the pattern, not compatibility; none of this runs in Foundry or imports from it.</p>
+<div class="short"><span class="label">How to check</span>Every repository path below is a link to the file on the main branch. A test in this site's repository, run in CI and weekly, fetches each linked file and fails if one is missing, and also fails if a number quoted on this page is no longer in the document it comes from. See <a href="https://github.com/priyatham9/priyatham9.github.io/blob/main/tests/test_foundry_style.py"><code>tests/test_foundry_style.py</code></a>.</div>
+<section class="entry" id="ontology">
+<h2>1. OSHA ITA ontology</h2>
+<p>Seven object types (Establishment, Filing, ReportingYear, Sector, Industry, PeerGroup, QualityFlag) defined in one JSON spec, with links, five functions that call the existing pipeline modules instead of re-implementing rates, and four actions (flag a filing, clear a flag, exclude from the benchmark, restore) that write to editable properties and append to an action log with before and after values. Backing data is the committed <code>outputs/tables/*.csv</code> plus a synthetic fixture; every object carries a <code>source</code> property.</p>
+<dl>
+<dt>Mirrors</dt><dd>Ontology, object types, link types, object sets and Search Around, functions, action types with submission criteria, writeback, action log, export to downstream datasets.</dd>
+<dt>Repo paths</dt><dd><ul><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/ontology.md"><code>docs/ontology.md</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/ontology/spec.json"><code>src/ehs_osha/ontology/spec.json</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/ontology/spec.py"><code>src/ehs_osha/ontology/spec.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/ontology/materialise.py"><code>src/ehs_osha/ontology/materialise.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/ontology/functions.py"><code>src/ehs_osha/ontology/functions.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/tests/test_ontology.py"><code>tests/test_ontology.py</code></a></li></ul></dd>
+<dt>Live page</dt><dd>None. The artifact is code and a markdown doc in the repository.</dd>
+<dt>Limits</dt><dd class="limits">With the default fixture, Establishment and Filing objects are synthetic, so no number computed from them is a finding. The store is in memory and has been run on the fixture only; it has not been run on the full real panel of 2,801,064 filings because the raw files are not in the repository. There is no user or permission model: the actor is whatever string the caller passes.</dd>
+</dl>
+</section>
+<section class="entry" id="client">
+<h2>2. Generated typed client</h2>
+<p>A generator reads the same <code>spec.json</code> and writes a committed <code>client.py</code>: object types become frozen dataclasses, links become methods that return typed object sets, and actions become methods whose arguments are the action parameters, with <code>Literal</code> types where the spec lists allowed values. A <code>--check</code> mode exits 1 when the committed file no longer matches the spec, and a test runs the same comparison.</p>
+<dl>
+<dt>Mirrors</dt><dd>Ontology SDK: typed object classes, link traversal methods and action methods generated from the ontology definition.</dd>
+<dt>Repo paths</dt><dd><ul><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/scripts/generate_ontology_client.py"><code>scripts/generate_ontology_client.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/ontology/codegen.py"><code>src/ehs_osha/ontology/codegen.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/ontology/client.py"><code>src/ehs_osha/ontology/client.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/tests/test_ontology_client.py"><code>tests/test_ontology_client.py</code></a></li></ul></dd>
+<dt>Live page</dt><dd>None. The artifact is code and a markdown doc in the repository.</dd>
+<dt>Limits</dt><dd class="limits">Functions are not generated; they stay in <code>functions.py</code>. It is a pattern-level imitation of an ontology SDK for plain Python, not Foundry's generator, and it inherits the in-memory and fixture-only limits of the ontology above.</dd>
+</dl>
+</section>
+<section class="entry" id="filing-check">
+<h2>3. Filing checker (F1)</h2>
+<p>A page that checks one Form 300A filing against the project's plausibility screen in the browser; nothing is uploaded. The rules live in one JSON spec, evaluated by a Python module and by a JavaScript file. A parity test checks that Python, JavaScript (when Node is installed) and the vectorised screen that produced the published results return the same flags on the same filings, including edge cases at each bound.</p>
+<dl>
+<dt>Mirrors</dt><dd>Functions plus data expectations: one rule definition evaluated in two runtimes and tested for agreement.</dd>
+<dt>Repo paths</dt><dd><ul><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/filing_check.html"><code>docs/filing_check.html</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/filing_check.js"><code>docs/filing_check.js</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/filing_check.py"><code>src/ehs_osha/filing_check.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/src/ehs_osha/plausibility_rules.json"><code>src/ehs_osha/plausibility_rules.json</code></a></li><li><a href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/tests/test_filing_check_parity.py"><code>tests/test_filing_check_parity.py</code></a></li></ul></dd>
+<dt>Live page</dt><dd><a href="https://priyatham9.github.io/ehs-osha-analysis/filing_check.html">ehs-osha-analysis/filing_check.html</a></dd>
+<dt>Limits</dt><dd class="limits">The rules are this project's plausibility screen, not an OSHA validation and not an official determination that a filing is wrong. The JavaScript parity test runs only where Node is installed.</dd>
+</dl>
+</section>
+<section class="entry" id="compare">
+<h2>4. Chemical-peers comparison page</h2>
+<p>A static page that puts any two size bands, product types, chemical families, inventory bands or release-history groups side by side. Release rate per plant-year gets exact binomial and Wilson 95% intervals and Fisher's exact test. Recordable cases per 200,000 hours gets an exact Poisson interval and an exact conditional binomial test. The page does no statistics: it looks up values precomputed into <code>compare.json</code>, and a test checks that file against the repository's committed outputs. The pull request that added it (#5) is merged.</p>
+<dl>
+<dt>Mirrors</dt><dd>Quiver-style analysis: pick two groups, see them side by side with intervals and a test. Also, in the same repository, a second ontology (join object <code>PlantMatch</code> between an EPA registration and an OSHA establishment, with match method, confidence and review status).</dd>
+<dt>Repo paths</dt><dd><ul><li><a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/compare.html"><code>docs/compare.html</code></a></li><li><a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/data/compare.json"><code>docs/data/compare.json</code></a></li><li><a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/src/chempeers/compare.py"><code>src/chempeers/compare.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/scripts/build_compare.py"><code>scripts/build_compare.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/tests/test_compare.py"><code>tests/test_compare.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/ontology.md"><code>docs/ontology.md</code></a></li></ul></dd>
+<dt>Live page</dt><dd><a href="https://priyatham9.github.io/ehs-chemical-peers/compare.html">ehs-chemical-peers/compare.html</a></dd>
+<dt>Limits</dt><dd class="limits">"Distinguishable from noise" means a p-value below 0.05 under a model where events arrive at one common rate. It does not cover plant-to-plant variation inside a group, so intervals are narrower than the real uncertainty when plants vary. It does not say why rates differ, and about 1 in 20 unrelated pairs will pass by chance. It is a comparison view, not Quiver.</dd>
+</dl>
+</section>
+<section class="entry" id="claims">
+<h2>5. Grounded claims registry</h2>
+<p>A JSON registry of headline claims. For each claim, a checker verifies that the claim text still appears on the named page, that the value in the named committed file in the source repository equals the expected value within a stated tolerance, and that the verifying test named in the registry still exists and still pins that value. It runs in a GitHub Actions workflow on pushes, pull requests and weekly, and exits 1 on any failure.</p>
+<dl>
+<dt>Mirrors</dt><dd>Data lineage and data expectations (health checks): every published headline number traced to a committed source file and guarded by a test.</dd>
+<dt>Repo paths</dt><dd><ul><li><a href="https://github.com/priyatham9/grounded/blob/main/claims/claims.json"><code>claims/claims.json</code></a></li><li><a href="https://github.com/priyatham9/grounded/blob/main/claims/check_claims.py"><code>claims/check_claims.py</code></a></li><li><a href="https://github.com/priyatham9/grounded/blob/main/claims/test_check_claims.py"><code>claims/test_check_claims.py</code></a></li><li><a href="https://github.com/priyatham9/grounded/blob/main/.github/workflows/claims.yml"><code>.github/workflows/claims.yml</code></a></li></ul></dd>
+<dt>Live page</dt><dd>None. The artifact is code and a markdown doc in the repository.</dd>
+<dt>Limits</dt><dd class="limits">It proves that a page matches a committed file and a test, not that the file is right about the world. It covers the registered headline claims only, not every sentence on the sites.</dd>
+</dl>
+</section>
+<section class="entry" id="incident-coding">
+<h2>6. Human-factors incident coding</h2>
+<p>Thirteen U.S. Chemical Safety Board investigations are listed with their csb.gov source URLs; those with codable text are coded to the performance-influencing-factor crosswalk, one row per investigation and factor with a quoted passage and a type (finding or recommendation). A generated readable view and tests check that every factor exists in the ontology, every source is a csb.gov URL, and every coding has a quote.</p>
+<dl>
+<dt>Mirrors</dt><dd>Ontology objects bound to evidence: each link from an investigation to a factor carries a quoted passage and an evidence type, and tests act as data expectations. The repository itself does not describe this as a Foundry design; the mapping is this page's reading.</dd>
+<dt>Repo paths</dt><dd><ul><li><a href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/incidents/README.md"><code>incidents/README.md</code></a></li><li><a href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/incidents/csb_investigations.csv"><code>incidents/csb_investigations.csv</code></a></li><li><a href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/incidents/csb_coding.csv"><code>incidents/csb_coding.csv</code></a></li><li><a href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/incidents/csb_coding.md"><code>incidents/csb_coding.md</code></a></li><li><a href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/tools/build_csb_coding.py"><code>tools/build_csb_coding.py</code></a></li><li><a href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/tests/test_csb_coding.py"><code>tests/test_csb_coding.py</code></a></li></ul></dd>
+<dt>Live page</dt><dd>None. The artifact is code and a markdown doc in the repository.</dd>
+<dt>Limits</dt><dd class="limits">One coder and no second-rater agreement. Ten of the 13 investigations are coded, with 25 codings: a worked demonstration, not a sample of CSB work, and it says nothing about how common any factor is. Quotes are excerpts returned by a web-fetch tool and were not checked against the full PDFs, so verify a quote against its linked source before relying on it.</dd>
+</dl>
+</section>
+<h2>What this does not show</h2>
+<ul class="pts limits">
+<li>It is not evidence of production Foundry delivery. These are public-data builds that follow the pattern.</li>
+<li>The ontology stores are in memory and have been run on synthetic fixtures or committed aggregates, not at production scale.</li>
+</ul>
+</main>
+<footer class="foot"><div class="wrap">Independent research by Priyatham Chimmani. Not affiliated with Palantir, OSHA, EPA or the CSB.</div></footer>
+</body>
+</html>
