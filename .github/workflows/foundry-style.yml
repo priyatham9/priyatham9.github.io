@@ -1,0 +1,31 @@
+name: Foundry-style Page Check
+
+on:
+  pull_request:
+    paths:
+      - 'foundry-style/**'
+      - 'tests/test_foundry_style.py'
+      - 'tools/pages.txt'
+      - 'sitemap.xml'
+      - 'index.html'
+      - '.github/workflows/foundry-style.yml'
+  push:
+    branches: [main]
+  schedule:
+    # Weekly, to catch a linked repository file that was moved or edited
+    - cron: '45 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  foundry-style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check linked repo paths exist and quoted facts match their sources
+        run: python3 -m unittest tests.test_foundry_style -v
