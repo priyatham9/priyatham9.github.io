@@ -28,4 +28,4 @@ jobs:
           python-version: '3.12'
 
       - name: Check linked repo paths exist and quoted facts match their sources
-        run: python3 -m unittest tests.test_foundry_style -v
+        run: python3 -m unittest discover -s tests -p test_foundry_style.py -v
