@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EHS Insight Hub - Priyatham Chimmani</title>
+<meta name="description" content="Case study: a Palantir Foundry widget that models EHS cases, events, concerns and insights as 12 ontology object types, with KPI and status logic in one module and a Gensuite-style view." />
+<meta property="og:title" content="EHS Insight Hub - Priyatham Chimmani" />
+<meta property="og:description" content="Case study: a Palantir Foundry widget that models EHS cases, events, concerns and insights as 12 ontology object types, with KPI and status logic in one module and a Gensuite-style view." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://priyatham9.github.io/work/insight-hub.html" />
+<meta property="og:image" content="https://priyatham9.github.io/work/og-insighthub.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:image" content="https://priyatham9.github.io/work/og-insighthub.png" />
+<meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
+<link rel="canonical" href="https://priyatham9.github.io/work/insight-hub.html" />
+<meta name="author" content="Priyatham Chimmani" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" />
+<style>
+
+:root {
+ --paper:      #F7F7F3;
+ --surface:    #FFFFFF;
+ --surface-2:  #EFEFE9;
+ --ink:        #101311;
+ --ink-2:      #3A403C;
+ --muted:      #666D68;
+ --rule:       #101311;
+ --rule-soft:  #D6D7CE;
+ --accent:     #0F7A52;
+ --accent-2:   #0B5C3E;
+ --accent-ink: #FFFFFF;
+ --accent-wash:#E3F0E9;
+ --grid-dot:   rgba(16, 19, 17, 0.10);
+ --shadow:     rgba(16, 19, 17, 0.08);
+ --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+ --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+ --maxw: 860px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+ --paper:      #0A0D0B;
+ --surface:    #121712;
+ --surface-2:  #171D18;
+ --ink:        #EAEFEA;
+ --ink-2:      #BFC7C1;
+ --muted:      #838C86;
+ --rule:       #EAEFEA;
+ --rule-soft:  #262E28;
+ --accent:     #3FCB88;
+ --accent-2:   #2AA96C;
+ --accent-ink: #06130C;
+ --accent-wash:#10241A;
+ --grid-dot:   rgba(234, 239, 234, 0.09);
+ --shadow:     rgba(0, 0, 0, 0.4);
+  }
+}
+:root[data-theme="dark"] {
+ --paper:#0A0D0B; --surface:#121712; --surface-2:#171D18;
+ --ink:#EAEFEA; --ink-2:#BFC7C1; --muted:#838C86;
+ --rule:#EAEFEA; --rule-soft:#262E28;
+ --accent:#3FCB88; --accent-2:#2AA96C; --accent-ink:#06130C; --accent-wash:#10241A;
+ --grid-dot: rgba(234, 239, 234, 0.09); --shadow: rgba(0, 0, 0, 0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-sans); font-size: 16px; line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0; text-wrap: balance; line-height: 1.1; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+svg { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.display { font-stretch: 125%; font-weight: 900; text-transform: uppercase; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 30px; }
+@media (max-width: 640px) { .wrap { padding: 0 18px; } }
+.label { font-family: var(--font-mono); font-size: .75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:10px 14px;font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;z-index:100}
+.skip:focus{left:8px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.topbar { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 2px solid var(--rule); }
+.topbar-inner { max-width: 1180px; margin: 0 auto; padding: 13px 30px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+@media (max-width: 640px) { .topbar-inner { padding: 11px 18px; } }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+.brand-mark { width: 14px; height: 14px; background: var(--accent); flex: none; }
+.topnav { display: flex; align-items: center; gap: 2px; }
+.topnav a { text-decoration: none; padding: 7px 11px; font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); transition: color .15s, background .15s; }
+.topnav a:hover { color: var(--accent-ink); background: var(--accent); }
+@media (max-width: 900px) { .topnav { display: none; } }
+.toggle { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: none; background: var(--paper); border: 2px solid var(--rule); color: var(--ink); cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.toggle:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.toggle svg { width: 16px; height: 16px; }
+.icon-sun, .icon-moon { display: none; }
+@media (prefers-color-scheme: dark) { .icon-moon { display: block; } }
+@media (prefers-color-scheme: light) { .icon-sun { display: block; } }
+:root[data-theme="light"] .icon-sun { display: block; }
+:root[data-theme="light"] .icon-moon { display: none; }
+:root[data-theme="dark"] .icon-moon { display: block; }
+:root[data-theme="dark"] .icon-sun { display: none; }
+
+.article-head { padding: 56px 0 40px; border-bottom: 2px solid var(--rule); background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px); background-size: 22px 22px; }
+.kicker { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: .75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+.kicker .idx { background: var(--accent); color: var(--accent-ink); padding: 3px 7px; }
+h1.title { font-size: clamp(1.9rem, 5vw, 2.9rem); letter-spacing: -0.02em; margin-bottom: 18px; }
+.dek { font-size: clamp(1rem, 1.6vw, 1.125rem); color: var(--ink-2); max-width: 68ch; margin-bottom: 20px; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--font-mono); font-size: .75rem; font-weight: 500; padding: 4px 7px; background: var(--surface-2); border: 1px solid var(--rule-soft); color: var(--ink-2); white-space: nowrap; }
+
+article.body { padding: 48px 0 20px; }
+article.body section { padding: 30px 0; border-bottom: 1px solid var(--rule-soft); }
+article.body section:last-child { border-bottom: none; }
+article.body h2 { font-size: clamp(1.15rem, 2.2vw, 1.4rem); font-stretch: 112%; letter-spacing: -0.01em; margin-bottom: 14px; }
+article.body p { color: var(--ink-2); max-width: 72ch; margin-bottom: 14px; }
+article.body p:last-child { margin-bottom: 0; }
+article.body ul.plain { list-style: none; margin: 0 0 14px; padding: 0; }
+article.body ul.plain li { position: relative; padding-left: 20px; margin-bottom: 10px; color: var(--ink-2); max-width: 70ch; }
+article.body ul.plain li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 8px; height: 2px; background: var(--accent); }
+
+figure.diagram { margin: 18px 0 8px; border: 2px solid var(--rule); background: var(--surface); padding: 18px; }
+figure.diagram svg { width: 100%; height: auto; color: var(--ink); }
+figure.diagram .flow-accent { color: var(--accent); }
+figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); margin-top: 12px; }
+
+.related-list { display: flex; flex-direction: column; gap: 10px; }
+.related-list a { display: block; padding: 12px 14px; border: 2px solid var(--rule); background: var(--surface); text-decoration: none; font-size: 0.9375rem; transition: transform .15s, box-shadow .15s; }
+.related-list a:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--accent); }
+.related-list .r-t { font-weight: 700; }
+.related-list .r-d { display: block; color: var(--muted); font-size: 0.8125rem; margin-top: 3px; }
+
+.footer { padding: 52px 0 60px; border-top: 2px solid var(--rule); margin-top: 20px; }
+.footer h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); letter-spacing: -0.03em; margin-bottom: 16px; }
+.footer-ask { font-size: 1rem; color: var(--ink-2); max-width: 54ch; margin-bottom: 22px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 22px; }
+.btn { display: inline-flex; align-items: center; gap: 9px; padding: 13px 19px; border: 2px solid var(--rule); margin: 0 -2px -2px 0; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; background: var(--paper); color: var(--ink); transition: background .15s, color .15s, border-color .15s; }
+.btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.footer-note { color: var(--muted); font-size: 0.8125rem; }
+.updated{font-family:var(--font-mono);font-size: .75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+@media print{.topbar,.toggle{display:none!important}body{background:#fff;color:#000}}
+
+/* Insight Hub page: ontology cards and mock widget */
+article.body h2.sub-h { font-size: 1.05rem; margin: 28px 0 10px; }
+.onto { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 720px) { .onto { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.onto-node { border: 2px solid var(--rule); background: var(--paper); padding: 12px 14px; min-width: 0; }
+.onto-node.f-key { border-color: var(--accent); background: var(--accent-wash); }
+.onto-node .fk { display: block; font-family: var(--font-mono); font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 4px; }
+.onto-node .ft { display: block; font-weight: 800; line-height: 1.25; }
+.onto-node .fd { display: block; font-size: .875rem; line-height: 1.4; color: var(--ink-2); margin-top: 3px; }
+.mock-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; border-bottom: 2px solid var(--rule); padding-bottom: 10px; margin-bottom: 14px; }
+.mock-t { font-weight: 800; }
+.mock-tag { font-family: var(--font-mono); font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--surface-2); border: 1px dashed var(--muted); padding: 3px 7px; color: var(--muted); }
+.mock-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+@media (max-width: 640px) { .mock-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.mk { border: 1px solid var(--rule-soft); border-top: 4px solid var(--muted); background: var(--paper); padding: 10px 12px; }
+.mk-warn { border-top-color: #C2410C; } .mk-ok { border-top-color: var(--accent); }
+.mk-n { display: block; font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; }
+.mk-c { display: block; font-size: .8125rem; color: var(--muted); }
+.mock-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.mock-table th { text-align: left; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--rule); padding: 6px 8px; }
+.mock-table td { border-bottom: 1px solid var(--rule-soft); padding: 7px 8px; color: var(--ink-2); }
+.st { display: inline-block; font-family: var(--font-mono); font-size: .75rem; font-weight: 600; padding: 2px 7px; border: 1px solid; white-space: nowrap; }
+.st-red { color: #B42318; border-color: #B42318; } .st-amb { color: #9A6700; border-color: #9A6700; } .st-grn { color: var(--accent-2); border-color: var(--accent-2); }
+:root[data-theme="dark"] .st-red { color: #F97066; border-color: #F97066; } :root[data-theme="dark"] .st-amb { color: #E3B341; border-color: #E3B341; } :root[data-theme="dark"] .st-grn { color: var(--accent); border-color: var(--accent); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .st-red { color: #F97066; border-color: #F97066; } :root:not([data-theme="light"]) .st-amb { color: #E3B341; border-color: #E3B341; } :root:not([data-theme="light"]) .st-grn { color: var(--accent); border-color: var(--accent); } }
+@media (max-width: 520px) { .mock-table th:nth-child(3), .mock-table td:nth-child(3) { display: none; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"EHS Insight Hub","description":"Case study: a Palantir Foundry widget that models EHS cases, events, concerns and insights as 12 ontology object types, with KPI and status logic in one module and a Gensuite-style view.",
+ "author":{"@type":"Person","name":"Priyatham Chimmani","url":"https://priyatham9.github.io/"},
+ "publisher":{"@type":"Person","name":"Priyatham Chimmani"},
+ "mainEntityOfPage":"https://priyatham9.github.io/work/insight-hub.html",
+ "image":"https://priyatham9.github.io/work/og-insighthub.png","datePublished":"2026-10-27"}
+</script>
+<link rel="stylesheet" href="../assets/kit.css" />
+</head>
+<body class="cs">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html"><span class="brand-mark"></span>Chimmani</a>
+    <nav class="topnav" id="topnav" aria-label="Primary">
+      <a href="index.html">Case studies</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#reports">Reports</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="https://priyatham9.github.io/grounded/" class="nav-external">Grounded</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="topnav"><span class="mb-ic" aria-hidden="true"></span>Menu</button>
+    <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
+    </button>
+  </div>
+  <nav class="storybar" aria-label="On this page">
+    <div class="storybar-inner"><span class="sb-label">W-07</span><ul class="sb-list"><li><a href="#glance"><b>0</b> At a glance</a></li><li><a href="#situation"><b>1</b> Problem</a></li><li><a href="#constraints"><b>2</b> Constraints</a></li><li><a href="#what-i-built"><b>3</b> What I did</a></li><li><a href="#decisions"><b>4</b> Decisions</a></li><li><a href="#what-changed"><b>5</b> Status</a></li><li><a href="#related">Related</a></li></ul><span class="sb-pct" aria-hidden="true">0%</span></div>
+    <div class="sb-progress" aria-hidden="true"></div>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+<section class="article-head">
+  <div class="wrap">
+    <div class="kicker"><span class="idx">W-07</span>Palantir Foundry &middot; Case study &middot; In review</div>
+    <h1 class="display title">EHS Insight Hub</h1>
+    <p class="dek">I designed and built a Palantir Foundry widget that puts EHS cases, events, concerns and insights into one ontology of 12 object types, computes KPIs and status in a single logic layer, and presents them in a layout EHS users already know from Gensuite.</p>
+    <div class="meta-row"><span class="chip">Palantir Foundry</span><span class="chip">Ontology</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">KPI logic</span></div>
+  </div>
+</section>
+<article class="body">
+  <div class="wrap">
+<section id="glance" class="glance" data-beat aria-labelledby="glanceHead">
+  <div class="glance-top">
+    <div><span class="label">At a glance &middot; the 20-second version</span><p class="glance-head" id="glanceHead">One ontology for the whole EHS record, one place where every KPI and status is decided, and a view sites already know how to read.</p></div>
+    <div class="glance-stat"><span class="glance-num" data-countup="12">12</span><span class="glance-cap">ontology object types behind one widget</span></div>
+  </div>
+  <dl class="facts"><div><dt>Role</dt><dd>Designed the ontology, wrote the KPI and status logic, built the widget</dd></div><div><dt>When</dt><dd>2026, alongside the Foundry migration at Hexion</dd></div><div><dt>Stack</dt><dd>Palantir Foundry Ontology, custom widget in TypeScript and React</dd></div><div><dt>Status</dt><dd>Built and verified on a Foundry branch; merge proposal in review</dd></div></dl>
+  <ol class="glance-steps">
+    <li><a href="#situation"><span class="gs-k">Problem</span><p>Cases, events, concerns and the insights drawn from them lived as separate lists, so a site's safety picture had to be stitched together by hand, and each report could count the same thing differently.</p></a></li>
+    <li><a href="#what-i-built"><span class="gs-k">What I did</span><p>Modelled the EHS record as 12 linked object types in the Foundry ontology, moved every KPI and status rule into one logic module, and built a widget on top in the Gensuite layout.</p></a></li>
+    <li><a href="#what-changed"><span class="gs-k">Status</span><p>On the branch the ontology indexes 190 cases, 1,221 events, 11,546 concerns and 82 insights. The merge proposal is in review.</p></a></li>
+    <li class="gs-mean"><span class="gs-k">Why it matters</span><p>A KPI on a dashboard is only trustworthy if every screen computes it the same way. Putting the rules in one place, on one governed model, makes the number traceable back to its records.</p></li>
+  </ol>
+</section>
+
+<section id="situation" data-beat>
+  <span class="step-tag">Step 1 &middot; Problem</span>
+  <h2>The situation</h2>
+  <p>EHS work produces several kinds of record that belong together. An event happens at a site. A case is opened to manage it. Concerns are raised along the way, some of them before anything goes wrong. Over time, patterns across all of these become insights that leadership should act on. In most EHS systems these sit in separate modules and separate exports, so seeing one site's picture means joining them by hand.</p>
+  <p>That join is where numbers drift. When each report applies its own filter for what counts as open, overdue or closed, two dashboards can show two different figures for the same site in the same week. The <a href="gensuite-refresh.html">Gensuite refresh</a> attacked the same problem at the point of capture. Hexion's move to Palantir Foundry gave me the chance to fix it in the data model rather than in each report.</p>
+</section>
+
+<section id="constraints" data-beat>
+  <span class="step-tag">Step 2 &middot; Constraints</span>
+  <h2>Constraints</h2>
+  <ul class="plain">
+    <li>The people using it already work in Gensuite every day. A new tool that asked them to learn a new layout would compete with the system of record instead of supporting it.</li>
+    <li>KPIs and status labels feed management reporting, so they had to be computed the same way everywhere, from rules that a reviewer can read.</li>
+    <li>The ontology is shared with the wider Foundry migration, so changes go through a branch and a reviewed proposal before reaching main. Nothing ships by editing production directly.</li>
+    <li>EHS records are sensitive. Nothing from the tenant appears on this page: the view below is a mock-up with invented values.</li>
+  </ul>
+</section>
+
+<section id="what-i-built" data-beat>
+  <span class="step-tag">Step 3 &middot; What I did</span>
+  <h2>What I built</h2>
+  <p>The work has three layers. The ontology gives every EHS record a typed object with links to the records it relates to, so a case knows its events and an insight knows the concerns behind it. A single logic module computes every KPI and decides every status label from those objects. The widget only displays what the logic returns, so no screen carries a rule of its own.</p>
+  <figure class="diagram fig-html" id="figure-1">
+      <ol class="flow" aria-label="How the Insight Hub is layered">
+        <li><span class="fk">Records</span><span class="ft">EHS source data</span><span class="fd">cases, events, concerns</span></li>
+        <li class="f-key"><span class="fk">Ontology</span><span class="ft">12 object types</span><span class="fd">typed, linked, governed</span></li>
+        <li class="f-key"><span class="fk">Logic</span><span class="ft">KPI &amp; status</span><span class="fd">one module, every rule</span></li>
+        <li><span class="fk">View</span><span class="ft">Insight Hub widget</span><span class="fd">Gensuite-style layout</span></li>
+      </ol>
+    <figcaption><b>Figure 1</b> Records become typed, linked objects in the Foundry ontology. One logic module computes KPIs and status from those objects, and the widget only renders the result.</figcaption>
+  </figure>
+  <!-- NEEDS-OWNER: names of the other 8 object types and the link types between them, for a fuller ontology diagram -->
+
+  <h2 class="sub-h">The core object types</h2>
+  <p>Four of the twelve object types carry most of the story.</p>
+  <figure class="diagram fig-html" id="figure-2">
+    <div class="onto">
+      <div class="onto-node"><span class="fk">Event</span><span class="ft">What happened</span><span class="fd">an incident or occurrence at a site</span></div>
+      <div class="onto-node"><span class="fk">Case</span><span class="ft">How it is managed</span><span class="fd">ownership, actions, status, due dates</span></div>
+      <div class="onto-node"><span class="fk">Concern</span><span class="ft">What people raised</span><span class="fd">observations and reported issues</span></div>
+      <div class="onto-node f-key"><span class="fk">Insight</span><span class="ft">What it adds up to</span><span class="fd">a pattern leadership should act on</span></div>
+    </div>
+    <figcaption><b>Figure 2</b> The four core object types. Each is a typed object in the ontology, linked to the others so the widget can move from an insight to the records behind it.</figcaption>
+  </figure>
+  <!-- NEEDS-OWNER: confirm the one-line descriptions of each object type match the ontology -->
+
+  <h2 class="sub-h">The view</h2>
+  <p>The widget follows the Gensuite pattern of KPI tiles above a status-coloured list, so an EHS user can read it without training. The mock-up below shows that layout. Every value in it is invented.</p>
+  <figure class="diagram fig-html mock" id="figure-3" aria-label="Mock-up of the Insight Hub widget with invented data">
+    <div class="mock-bar"><span class="mock-t">EHS Insight Hub</span><span class="mock-tag">Mock data</span></div>
+    <div class="mock-kpis">
+      <div class="mk"><span class="mk-n">24</span><span class="mk-c">Open cases</span></div>
+      <div class="mk mk-warn"><span class="mk-n">5</span><span class="mk-c">Overdue</span></div>
+      <div class="mk"><span class="mk-n">138</span><span class="mk-c">Concerns, 30 days</span></div>
+      <div class="mk mk-ok"><span class="mk-n">86%</span><span class="mk-c">Closed on time</span></div>
+    </div>
+    <table class="mock-table">
+      <thead><tr><th scope="col">Case</th><th scope="col">Site</th><th scope="col">Type</th><th scope="col">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">C-1042</td><td>Site A</td><td>Near miss</td><td><span class="st st-red">Overdue</span></td></tr>
+        <tr><td class="mono">C-1039</td><td>Site C</td><td>First aid</td><td><span class="st st-amb">Due this week</span></td></tr>
+        <tr><td class="mono">C-1031</td><td>Site B</td><td>Process safety</td><td><span class="st st-amb">Awaiting review</span></td></tr>
+        <tr><td class="mono">C-1027</td><td>Site A</td><td>Environmental</td><td><span class="st st-grn">Closed</span></td></tr>
+      </tbody>
+    </table>
+    <figcaption><b>Figure 3</b> Illustrative mock-up of the widget layout: KPI tiles above a status list, as in Gensuite. Sites, case numbers and values are invented; no tenant data is shown.</figcaption>
+  </figure>
+</section>
+
+<section id="decisions" data-beat>
+  <span class="step-tag">Step 4 &middot; Decisions</span>
+  <h2>Decisions I made and why</h2>
+  <ul class="plain">
+    <li>I put every KPI and status rule in one logic module instead of inside each view. When the definition of overdue changes, it changes once, and every tile and list agrees.</li>
+    <li>I modelled insights as objects in the ontology, not as text in a report. That way an insight keeps its links to the concerns and events behind it, and anyone can trace the claim back to the records.</li>
+    <li>I copied the Gensuite layout on purpose. Familiarity was worth more than novelty for people who spend their day in the system of record.</li>
+    <li>I built on a branch and sent it through a merge proposal, the same review path as the rest of the Foundry migration, rather than editing the shared ontology directly.</li>
+  </ul>
+</section>
+
+<section id="what-changed" data-beat>
+  <span class="step-tag">Step 5 &middot; Status</span>
+  <h2>Where it stands</h2>
+  <p>The ontology and widget are built and verified on a Foundry branch. On that branch, the 12 object types index 190 cases, 1,221 events, 11,546 concerns and 82 insights. The merge proposal that brings it to main is in review. I will update this page when it merges.</p>
+  <dl class="facts counts"><div><dt>Cases</dt><dd class="mono">190</dd></div><div><dt>Events</dt><dd class="mono">1,221</dd></div><div><dt>Concerns</dt><dd class="mono">11,546</dd></div><div><dt>Insights</dt><dd class="mono">82</dd></div></dl>
+  <div class="means"><span class="label">What it means for a leader</span><p>When a safety KPI reaches a review meeting, someone should be able to ask where it came from and get an answer in one click. Here each number comes from one rule in code, applied to typed records that link back to the events and concerns behind them.</p></div>
+  <!-- NEEDS-OWNER: once merged, add the merge date, who uses it, and any adoption figure -->
+</section>
+
+<section id="related" data-beat>
+  <h2>Related</h2>
+  <div class="related-list">
+    <a href="gensuite-refresh.html"><span class="r-k">Case study &middot; W-03</span><span class="r-t">Gensuite Refresh</span><span class="r-d">The two-phase refresh of the EHS system of record whose layout the Insight Hub follows.</span></a>
+    <a href="agent-layer.html"><span class="r-k">Case study &middot; W-04</span><span class="r-t">Enterprise Agent Layer</span><span class="r-d">Deterministic logic behind AI answers: the same principle as one module for every KPI.</span></a>
+    <a href="https://priyatham9.github.io/ehs-human-factors-ontology/" target="_blank" rel="noopener noreferrer"><span class="r-k">Research &middot; Grounded</span><span class="r-t">Human factors ontology</span><span class="r-d">An open OWL ontology for EHS error-risk factors, with traceable rule derivations.</span></a>
+  </div>
+</section>
+
+<a class="next-cs" href="gensuite-refresh.html" rel="next"><span><span class="nc-k">Next case study &middot; W-03</span><span class="nc-t">Gensuite Refresh</span><span class="nc-d">The two-phase refresh of Hexion's enterprise EHS application: 80+ enhancements, every global site.</span></span><span class="nc-arw" aria-hidden="true">&rarr;</span></a>
+<p class="all-cs"><a href="index.html">&larr; All case studies</a> <span aria-hidden="true">&middot;</span> <a href="../index.html#reports">The RPT report series</a></p>
+
+  </div>
+</article>
+</main>
+
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <h2 class="display">Let's talk</h2>
+    <p class="footer-ask">I want to talk with people building EHS data platforms, grounded AI for safety-critical work, or organizing a talk on either.</p>
+    <div class="footer-links">
+      <a class="btn btn-primary" href="mailto:priyatham9@gmail.com">priyatham9@gmail.com</a>
+      <a class="btn" href="https://linkedin.com/in/priyatham9" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="btn" href="https://github.com/priyatham9" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="btn" href="../index.html">Back to priyatham9.github.io</a>
+    </div>
+    <p class="footer-note">Columbus, Ohio &middot; EHS data, governed platforms, grounded AI</p>
+    <p class="updated">Updated 2026-10-27</p>
+  </div>
+</footer>
+
+<script>
+
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var toggle = document.getElementById("themeToggle");
+  var stored = null;
+  try { stored = localStorage.getItem("pc-theme"); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  toggle.addEventListener("click", function () {
+    var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var current = root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
+    var next = current === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("pc-theme", next); } catch (e) {}
+  });
+})();
+
+</script>
+<script src="../assets/kit.js" defer></script>
+</body>
+</html>
