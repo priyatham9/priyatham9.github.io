@@ -1,0 +1,46 @@
+name: Briefs Numbers Check
+
+on:
+  pull_request:
+    paths:
+      - 'briefs/**'
+      - 'tests/**'
+      - 'tools/build_briefs.py'
+      - 'tools/briefs_numbers.py'
+      - 'tools/pages.txt'
+      - 'sitemap.xml'
+      - '.github/workflows/briefs-numbers.yml'
+  push:
+    branches: [main]
+  schedule:
+    # Weekly, to catch a source repository output that changed after a brief was written
+    - cron: '30 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  briefs-numbers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out source repositories
+        uses: actions/checkout@v4
+        with:
+          repository: priyatham9/ehs-osha-analysis
+          path: sources/ehs-osha-analysis
+
+      - name: Check out source repositories (chemical peers)
+        uses: actions/checkout@v4
+        with:
+          repository: priyatham9/ehs-chemical-peers
+          path: sources/ehs-chemical-peers
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check every brief number against its source file
+        env:
+          BRIEF_SOURCES: ${{ github.workspace }}/sources
+        run: python3 -m unittest discover -s tests -v

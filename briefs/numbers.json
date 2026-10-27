@@ -1,0 +1,51 @@
+{
+  "_doc": "Every figure shown on the briefs. Each entry names the repository file it is copied from and how to find it; tests/test_briefs.py re-reads that file and checks the displayed text.",
+  "repos": {
+    "ehs-osha-analysis": "https://github.com/priyatham9/ehs-osha-analysis/blob/main/",
+    "ehs-chemical-peers": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/"
+  },
+  "numbers": {
+    "a_band_small":  {"repo": "ehs-osha-analysis", "file": "outputs/tables/size_band_effects.csv", "csv": {"where": {"size_band": "001-019"}, "col": "size_band"}, "fmt": "text", "display": "001-019"},
+    "a_zero_small":  {"repo": "ehs-osha-analysis", "file": "outputs/tables/size_band_effects.csv", "csv": {"where": {"size_band": "001-019"}, "col": "zero_share"}, "fmt": "pct2", "display": "75.11%"},
+    "a_band_large":  {"repo": "ehs-osha-analysis", "file": "outputs/tables/size_band_effects.csv", "csv": {"where": {"size_band": "1000+"}, "col": "size_band"}, "fmt": "text", "display": "1000+"},
+    "a_zero_large":  {"repo": "ehs-osha-analysis", "file": "outputs/tables/size_band_effects.csv", "csv": {"where": {"size_band": "1000+"}, "col": "zero_share"}, "fmt": "pct2", "display": "8.13%"},
+    "a_chem_small":  {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["size_noise", 0, "band"], "fmt": "text", "display": "Under 50"},
+    "a_hours_small": {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["size_noise", 0, "median_hours"], "fmt": "int", "display": "56,687"},
+    "a_swing_small": {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["size_noise", 0, "one_case_swing"], "fmt": "dec2", "display": "3.53"},
+    "a_chem_large":  {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["size_noise", 4, "band"], "fmt": "text", "display": "1,000+"},
+    "a_swing_large": {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["size_noise", 4, "one_case_swing"], "fmt": "dec2", "display": "0.06"},
+    "a_rho_small":   {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["stability", 0, "rho"], "fmt": "dec3", "display": "0.314"},
+    "a_rho_large":   {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["stability", 4, "rho"], "fmt": "dec3", "display": "0.742"},
+
+    "b_unit":        {"repo": "ehs-osha-analysis", "file": "README.md", "contains": "TRIR = 200,000 x recordable cases / hours worked", "fmt": "literal", "display": "200,000"},
+    "b_filings":     {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "n_filings"}, "fmt": "int", "display": "2,801,064"},
+    "b_bad":         {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "n_implausible"}, "fmt": "int", "display": "57,857"},
+    "b_bad_share":   {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "implausible_share"}, "fmt": "pct2", "display": "2.07%"},
+    "b_bad_hours":   {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "hours_share_implausible"}, "fmt": "pct2", "display": "96.68%"},
+    "b_bad_cases":   {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "cases_share_implausible"}, "fmt": "pct2", "display": "1.37%"},
+    "b_trir_raw":    {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "aggregate_trir_unscreened"}, "fmt": "dec3", "display": "0.134"},
+    "b_trir_fix":    {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "aggregate_trir_screened"}, "fmt": "dec3", "display": "3.983"},
+    "b_ratio":       {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_overall.csv", "csv": {"row": 0, "col": "ratio_screened_to_unscreened"}, "fmt": "dec1", "display": "29.7"},
+    "b_top1":        {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_hours_concentration.csv", "csv": {"where": {"top_n_filings_by_hours": "1"}, "col": "hours_share"}, "fmt": "pct2", "display": "88.81%"},
+    "b_min_hours":   {"repo": "ehs-osha-analysis", "file": "outputs/summary.json", "json": ["config", "plausibility", "min_hours_per_employee"], "fmt": "int", "display": "120"},
+    "b_max_hours":   {"repo": "ehs-osha-analysis", "file": "outputs/summary.json", "json": ["config", "plausibility", "max_hours_per_employee"], "fmt": "int", "display": "4,500"},
+    "b_grid_count":  {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_sensitivity_grid.csv", "csv": {"agg": "count", "col": "label"}, "fmt": "int", "display": "25"},
+    "b_grid_min":    {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_sensitivity_grid.csv", "csv": {"agg": "min", "col": "ratio_screened_to_unscreened"}, "fmt": "dec1", "display": "29.6"},
+    "b_grid_max":    {"repo": "ehs-osha-analysis", "file": "outputs/tables/quality_sensitivity_grid.csv", "csv": {"agg": "max", "col": "ratio_screened_to_unscreened"}, "fmt": "dec1", "display": "29.8"},
+
+    "c_total":       {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["green_dashboard", "serious_injuries_with_prior_year"], "fmt": "int", "display": "703"},
+    "c_zero":        {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["green_dashboard", "prior_year_zero"], "fmt": "int", "display": "128"},
+    "c_zero_pct":    {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["green_dashboard", "prior_year_zero_pct"], "fmt": "pctraw", "display": "18.21%"},
+    "c_size":        {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["trir_vs_outcomes", "release_next_year", 1, "size"], "fmt": "text", "display": "100-249"},
+    "c_below":       {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["trir_vs_outcomes", "release_next_year", 1, "below_median", "pct"], "fmt": "pctraw", "display": "3.9%"},
+    "c_above":       {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["trir_vs_outcomes", "release_next_year", 1, "above_median", "pct"], "fmt": "pctraw", "display": "3.4%"},
+    "c_hist":        {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["release_predictors", "history", "release_in_past_5y", "pct"], "fmt": "pctraw", "display": "12.06%"},
+    "c_nohist":      {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["release_predictors", "history", "no_release_in_past_5y", "pct"], "fmt": "pctraw", "display": "1.47%"},
+    "c_ratio":       {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["release_predictors", "history_ratio"], "fmt": "raw", "display": "8.2"},
+    "c_inv_bigband": {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["release_predictors", "inventory", 3, "band"], "fmt": "text", "display": "5M+ lb"},
+    "c_inv_smallband": {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["release_predictors", "inventory", 0, "band"], "fmt": "text", "display": "Under 100k lb"},
+    "c_inv_big":     {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["release_predictors", "inventory", 3, "pct"], "fmt": "pctraw", "display": "8.12%"},
+    "c_inv_small":   {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["release_predictors", "inventory", 0, "pct"], "fmt": "pctraw", "display": "0.9%"},
+    "c_plants":      {"repo": "ehs-chemical-peers", "file": "outputs/summary.json", "json": ["coverage", "plants"], "fmt": "int", "display": "10,597"}
+  }
+}
