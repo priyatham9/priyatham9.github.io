@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Findings Digest - Priyatham Chimmani</title>
+<meta name="description" content="A quotable table of the strongest sourced findings across the public EHS research repositories: the exact number, the repository file it comes from, the stated limitation, and why it matters for EHS practice." />
+<meta name="theme-color" content="#F7F7F3" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230F7A52'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='11' font-weight='700' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" />
+<style>
+:root{
+  --paper:#F7F7F3;--surface:#FFFFFF;--surface-2:#EFEFE9;
+  --ink:#101311;--ink-2:#3A403C;--muted:#666D68;
+  --rule:#101311;--rule-soft:#D6D7CE;
+  --accent:#0F7A52;--accent-2:#0B5C3E;--accent-ink:#FFFFFF;--accent-wash:#E3F0E9;
+  --warn:#9E5000;--warn-wash:#F6E8D8;
+  --grid-dot:rgba(16,19,17,.10);
+  --font-sans:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --maxw:1180px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0A0D0B;--surface:#121712;--surface-2:#171D18;
+  --ink:#EAEFEA;--ink-2:#BFC7C1;--muted:#838C86;
+  --rule:#EAEFEA;--rule-soft:#262E28;
+  --accent:#3FCB88;--accent-2:#2AA96C;--accent-ink:#06130C;--accent-wash:#10241A;
+  --warn:#E09B4C;--warn-wash:#2A2013;
+  --grid-dot:rgba(234,239,234,.09);
+}}
+:root[data-theme="dark"]{
+  --paper:#0A0D0B;--surface:#121712;--surface-2:#171D18;
+  --ink:#EAEFEA;--ink-2:#BFC7C1;--muted:#838C86;
+  --rule:#EAEFEA;--rule-soft:#262E28;
+  --accent:#3FCB88;--accent-2:#2AA96C;--accent-ink:#06130C;--accent-wash:#10241A;
+  --warn:#E09B4C;--warn-wash:#2A2013;
+  --grid-dot:rgba(234,239,234,.09);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.05}
+p{margin:0;text-wrap:pretty}a{color:inherit}
+a:hover{color:var(--accent)}
+::selection{background:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section[id]{scroll-margin-top:70px}
+.display{font-stretch:125%;font-weight:900;text-transform:uppercase}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
+@media (max-width:640px){.wrap{padding:0 16px}}
+.label{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+
+.topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:2px solid var(--rule)}
+.topbar-inner{max-width:var(--maxw);margin:0 auto;padding:12px 30px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+@media (max-width:640px){.topbar-inner{padding:11px 16px}}
+.crumb{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.crumb .bk{color:var(--ink-2)}.crumb:hover .bk{color:var(--accent)}
+.brand-mark{width:14px;height:14px;background:var(--accent);flex:none}
+.top-right{display:flex;align-items:center;gap:10px}
+.data-chip{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1.5px solid var(--accent);padding:4px 8px;background:var(--accent-wash)}
+@media (max-width:520px){.data-chip{display:none}}
+.toggle{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;background:var(--paper);border:2px solid var(--rule);color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
+.toggle:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.toggle svg{width:15px;height:15px}
+@media (max-width:640px),(pointer:coarse){.toggle{width:44px;height:44px}}
+.icon-sun,.icon-moon{display:none}
+@media (prefers-color-scheme:dark){.icon-moon{display:block}}
+@media (prefers-color-scheme:light){.icon-sun{display:block}}
+:root[data-theme="light"] .icon-sun{display:block}:root[data-theme="light"] .icon-moon{display:none}
+:root[data-theme="dark"] .icon-moon{display:block}:root[data-theme="dark"] .icon-sun{display:none}
+
+.hero{padding:52px 0 36px;border-bottom:2px solid var(--rule);background-image:radial-gradient(var(--grid-dot) 1px,transparent 1px);background-size:22px 22px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px}
+.pulse{width:9px;height:9px;background:var(--accent);flex:none}
+.hero h1{font-size:clamp(1.9rem,5vw,3.4rem);letter-spacing:-.028em;line-height:.98;margin-bottom:18px}
+.hero-lede{font-size:clamp(1rem,1.7vw,1.0625rem);color:var(--ink-2);max-width:74ch}
+.hero-lede + .hero-lede{margin-top:12px}
+.hero-lede strong{color:var(--ink)}
+
+.section{padding:44px 0;border-bottom:2px solid var(--rule)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:8px}
+.sec-num{display:inline-block;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:.8125rem;font-weight:700;letter-spacing:.1em;padding:4px 8px}
+.sec-head h2{font-size:clamp(1.3rem,3vw,1.75rem);font-stretch:118%;letter-spacing:-.015em}
+.sec-sub{color:var(--muted);max-width:74ch;margin-bottom:22px}
+
+/* mapping table: real table on wide screens, stacked cards on phones */
+.map{width:100%;border-collapse:collapse;border:2px solid var(--rule);background:var(--surface);font-size:.875rem;line-height:1.5}
+.map th,.map td{text-align:left;vertical-align:top;padding:11px 12px;border-bottom:1.5px solid var(--rule-soft)}
+.map thead th{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--rule);background:var(--surface-2)}
+.map tbody tr:last-child td,.map tbody tr:last-child th{border-bottom:0}
+.map tbody th{font-family:var(--font-mono);font-size:.8125rem;font-weight:700;width:15%}
+.map tbody th a{text-decoration:none;color:var(--accent)}
+.map tbody th a:hover{text-decoration:underline}
+.map td{color:var(--ink-2);width:28%}
+.map td:first-of-type{width:22%}
+.map .src{font-family:var(--font-mono);font-size:.75rem;white-space:nowrap}
+.map .file{display:block;margin-top:5px;font-family:var(--font-mono);font-size:.75rem;overflow-wrap:anywhere}
+.map .sim{display:inline-block;margin-top:5px;font-family:var(--font-mono);font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border:1.5px solid var(--warn);background:var(--warn-wash);padding:1px 6px}
+@media (max-width:760px){
+  .map,.map tbody,.map tr,.map th,.map td{display:block;width:auto}
+  .map thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .map tbody tr{border-bottom:2px solid var(--rule)}
+  .map tbody tr:last-child{border-bottom:0}
+  .map tbody th{width:auto;background:var(--surface-2);border-bottom:1.5px solid var(--rule-soft)}
+  .map td{width:auto}
+  .map td:first-of-type{width:auto}
+  .map td::before{content:attr(data-h);display:block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .map .src{white-space:normal}
+}
+
+.prose{max-width:74ch;color:var(--ink-2)}
+.prose p + p{margin-top:12px}
+.prose strong{color:var(--ink)}
+
+.sources{margin:0;padding-left:1.6em;max-width:90ch;font-size:.875rem;color:var(--ink-2)}
+.sources li{margin-bottom:7px;padding-left:4px}
+.sources li::marker{font-family:var(--font-mono);color:var(--muted)}
+.sources a{overflow-wrap:anywhere}
+.acc{font-family:var(--font-mono);font-size:.75rem;color:var(--muted)}
+.note{margin-top:22px;font-family:var(--font-mono);font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.method{margin-top:8px;font-size:.8125rem;color:var(--muted);max-width:90ch}
+
+.rfooter{padding:36px 0 52px}
+.rfooter-inner{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border:2px solid var(--rule);font-family:var(--font-mono);font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;background:var(--paper);color:var(--ink);transition:background .15s,color .15s}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+@media (max-width:760px){.btn{min-height:44px}}
+
+@media print{
+  @page{margin:12mm}
+  :root{--paper:#fff;--surface:#fff;--surface-2:#f2f2ee;--ink:#000;--ink-2:#222;--muted:#555;--rule:#000;--rule-soft:#bbb;--accent:#0B5C3E;--accent-wash:#fff;--warn:#7a3d00;--warn-wash:#fff;--grid-dot:transparent}
+  body{font-size:10pt;line-height:1.35}
+  .topbar,.rfooter,.skip{display:none}
+  .wrap{padding:0;max-width:none}
+  .hero{padding:0 0 8pt;background:none}
+  .hero h1{font-size:18pt;margin-bottom:6pt}
+  .hero-eyebrow{margin-bottom:6pt}
+  .section{padding:8pt 0;border-bottom:1px solid #000}
+  .sec-sub{margin-bottom:6pt}
+  .map{font-size:7.5pt;line-height:1.3}
+  .map th,.map td{padding:4pt 5pt}
+  .map .src{white-space:normal}
+  .sources{font-size:7.5pt}
+  .sources li{margin-bottom:2pt}
+  a{text-decoration:none}
+}
+
+.chart{display:block;width:100%;max-width:720px;height:auto;font-family:var(--font-mono)}
+.chart .grid{stroke:var(--rule-soft);stroke-width:1}
+.chart .ci{stroke:var(--ink-2);stroke-width:2}.chart .cap{stroke:var(--ink-2);stroke-width:2}
+.chart .pt{fill:var(--accent);stroke:var(--surface);stroke-width:1.5}
+.chart .cl{fill:var(--ink);font-size:12px;font-weight:600}
+.chart .cv{fill:var(--ink-2);font-size:11px}
+.figure{margin:0}
+.map .sec{display:block;margin-top:5px;font-size:.75rem;color:var(--muted)}
+.map td.f{width:30%;color:var(--ink)}
+.map td.w{width:20%}
+.map tbody tr:target td{background:var(--accent-wash)}
+.map .l .file{display:inline}
+</style>
+<link rel="canonical" href="https://priyatham9.github.io/reports/findings-digest/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Priyatham Chimmani" />
+<meta property="og:title" content="Findings Digest - Priyatham Chimmani" />
+<meta property="og:description" content="A quotable table of the strongest sourced findings across the public EHS research repositories, each with its source file and stated limitation." />
+<meta property="og:url" content="https://priyatham9.github.io/reports/findings-digest/" />
+<meta property="og:image" content="https://priyatham9.github.io/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:image" content="https://priyatham9.github.io/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="author" content="Priyatham Chimmani" />
+<link rel="stylesheet" href="../../assets/kit.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="crumb" href="../../" aria-label="Priyatham Chimmani, home"><span class="brand-mark"></span><span class="bk">←&nbsp;Chimmani</span>&nbsp;/&nbsp;Findings digest</a>
+    <div class="top-right">
+      <span class="data-chip">Sourced digest</span>
+      <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow"><span class="pulse"></span><span class="label">Digest &middot; Updated <time datetime="2026-10-28">28 October 2026</time></span></div>
+    <h1 class="display">Findings digest</h1>
+    <p class="hero-lede">
+      The strongest sourced findings across my public EHS research repositories, in one table. Each row gives the
+      finding with its exact number, the repository file it comes from, the limitation that file states, and why it
+      matters for EHS practice.
+    </p>
+    <p class="hero-lede">
+      <strong>How to quote it:</strong> copy a row with its source link. Numbers are copied from the file on the main
+      branch of each repository, and a test checks that every number on this page appears in the file it cites.
+      Where a source is a simulation, a small sample or a lexical baseline, its limitation says so in the same row.
+      No row is a claim about any specific facility, employer or person.
+    </p>
+  </div>
+</section>
+
+<!-- BEGIN DIGEST-DATA -->
+<script type="application/json" id="digest-data">
+{
+ "chart": {
+  "groups": [
+   {
+    "facilities": "109",
+    "group": "Petrochemicals",
+    "rate_hi": "9.8698",
+    "rate_lo": "6.9252",
+    "rate_per_100fy": "8.3009"
+   },
+   {
+    "facilities": "301",
+    "group": "Acids & inorganics",
+    "rate_hi": "7.9037",
+    "rate_lo": "6.2388",
+    "rate_per_100fy": "7.0346"
+   },
+   {
+    "facilities": "401",
+    "group": "Other basic organics (incl. formaldehyde)",
+    "rate_hi": "6.3712",
+    "rate_lo": "5.0812",
+    "rate_per_100fy": "5.699"
+   },
+   {
+    "facilities": "261",
+    "group": "Resins & plastics",
+    "rate_hi": "5.7114",
+    "rate_lo": "4.2261",
+    "rate_per_100fy": "4.9272"
+   },
+   {
+    "facilities": "221",
+    "group": "Compounding & specialty",
+    "rate_hi": "3.5828",
+    "rate_lo": "2.2892",
+    "rate_per_100fy": "2.8826"
+   },
+   {
+    "facilities": "415",
+    "group": "Fertilizer & ag chemicals",
+    "rate_hi": "3.2679",
+    "rate_lo": "2.3436",
+    "rate_per_100fy": "2.7772"
+   },
+   {
+    "facilities": "276",
+    "group": "Industrial gases",
+    "rate_hi": "2.3504",
+    "rate_lo": "1.3672",
+    "rate_per_100fy": "1.81"
+   },
+   {
+    "facilities": "199",
+    "group": "Ethanol & biofuels",
+    "rate_hi": "0.9523",
+    "rate_lo": "0.3231",
+    "rate_per_100fy": "0.5774"
+   }
+  ],
+  "source": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/outputs/accident_by_subsector.csv"
+ },
+ "rows": [
+  {
+   "finding": "Screening implausible hours raises the pooled 2016-2024 aggregate TRIR from 0.134 to 3.983, a 29.7x correction. The 2.07% of filings flagged hold 96.68% of reported hours.",
+   "id": "osha-trir-correction",
+   "limit": "It does not identify which specific numbers on forms are wrong, nor does it address causes of injury, nor does it represent the broader US workforce.",
+   "limit_path": "README.md",
+   "limit_url": "https://github.com/priyatham9/ehs-osha-analysis/blob/main/README.md",
+   "path": "README.md",
+   "repo": "ehs-osha-analysis",
+   "section": "README, Headline results",
+   "url": "https://github.com/priyatham9/ehs-osha-analysis/blob/main/README.md",
+   "why": "Injury rates built from unchecked, self-reported hours can look far better than they are. Checking hours before comparing rates keeps a benchmark from rewarding a data-entry error."
+  },
+  {
+   "finding": "Across all 25 pairs of screen bounds, the screened aggregate TRIR runs from 3.963 to 3.993, while the flagged share runs from 1.79% to 4.49%.",
+   "id": "osha-threshold-range",
+   "limit": "The analysis shows the aggregate is insensitive to where the bounds sit. It does not show that every flagged filing is wrong or that the screened rate equals a true national rate; the data are self-reported and not a sample of the US workforce.",
+   "limit_path": "docs/THRESHOLD_ROBUSTNESS.md",
+   "limit_url": "https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/THRESHOLD_ROBUSTNESS.md",
+   "path": "docs/THRESHOLD_ROBUSTNESS.md",
+   "repo": "ehs-osha-analysis",
+   "section": "Result 1 and Result 2",
+   "url": "https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/THRESHOLD_ROBUSTNESS.md",
+   "why": "A screening rule rests on a judgement call. Showing that the headline holds across reasonable settings, and quoting the share flagged with its range, makes the rule easier to defend."
+  },
+  {
+   "finding": "A site of 1-19 employees that reports zero cases cannot rule out a TRIR of 46.96 (exact 95% upper limit), roughly ten times the band's aggregate rate of 4.94. Detecting a 25% difference at 80% power takes 752.9 site-years per arm in the smallest band.",
+   "id": "osha-detectability",
+   "limit": "Poisson is a best case. The same table shows variance-to-mean ratios from 3.4 (1-19) to 241.4 (1000+) for establishment case counts, far above the Poisson value of 1, so real detectability is worse than reported here.",
+   "limit_path": "docs/DETECTABILITY.md",
+   "limit_url": "https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/DETECTABILITY.md",
+   "path": "docs/DETECTABILITY.md",
+   "repo": "ehs-osha-analysis",
+   "section": "Results",
+   "url": "https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/DETECTABILITY.md",
+   "why": "A year with no recorded injuries at a very small site is weak evidence of a low underlying rate. Comparing small sites takes several years pooled, not one year's number."
+  },
+  {
+   "finding": "RMP accident-record rates differ about 14-fold between the highest and lowest product-type peer groups with 100 or more facilities. Petrochemicals had 8.30 accident records per 100 facility-years (95% interval 6.93 to 9.87; 109 facilities). Ethanol and biofuels had 0.58 (0.32 to 0.95; 199 facilities).",
+   "id": "chem-rate-spread",
+   "limit": "Only accidents that meet EPA's five-year-history criteria (40 CFR 68.42) are on file. A group with a higher count may report more, hold more, or have more covered processes. Nothing here says why a rate is high or low, and none of it shows that a group is less safe.",
+   "limit_path": "docs/insights.md",
+   "limit_url": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md",
+   "path": "docs/insights.md",
+   "repo": "ehs-chemical-peers",
+   "section": "Finding 1",
+   "url": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md",
+   "why": "Chemical plants are better compared with plants of the same product type than with the whole sector. A single plant's accident count is best read against the closest group's interval."
+  },
+  {
+   "finding": "The 212 facilities in the top 10% by accident count account for 80.18% of all accident records, and the top 1% (22 facilities) for 28.57%. Facilities holding 5 million lb or more of regulated chemicals had 10.48 records per 100 facility-years (46.18% had at least one), against 0.92 (8.36%) for facilities under 100,000 lb.",
+   "id": "chem-concentration",
+   "limit": "Inventory and product type overlap (large holders are concentrated in some product types), so these two findings are not independent.",
+   "limit_path": "docs/insights.md",
+   "limit_url": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md",
+   "path": "docs/insights.md",
+   "repo": "ehs-chemical-peers",
+   "section": "Finding 2",
+   "url": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md",
+   "why": "Because records concentrate in a few facilities and the largest inventories, a list ordered by accident history and inventory puts the facilities behind most records first. It is a prioritisation aid and not a finding about any facility."
+  },
+  {
+   "finding": "Ranking the 13 product-type groups with at least 100 facility-years in each half, the rank correlation between their 2010-2016 rate and their 2017-2024 rate is 0.912 (Spearman). Across the 12 chemical families it is 0.769. Rates were lower in the later half in 11 of 13 product types.",
+   "id": "chem-rank-stability",
+   "limit": "An accident is on file only if it fell in the five years before a submission. Facilities that stopped filing, or filed more than five years apart, may have unobserved accidents counted as accident-free years. The fall in later-period rates may partly reflect this and also reporting changes; the data cannot separate these.",
+   "limit_path": "docs/insights.md",
+   "limit_url": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md",
+   "path": "docs/insights.md",
+   "repo": "ehs-chemical-peers",
+   "section": "Finding 3",
+   "url": "https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md",
+   "why": "A peer group's standing relative to other groups holds up across periods, so it is usable context year to year, even though the level of the rate moved."
+  },
+  {
+   "finding": "On 63 factual items, the random floor scores 52.1% [45.9, 58.9] while TF-IDF retrieval scores 27.0% [15.4, 40.0] and BM25 retrieval scores 28.6% [17.2, 40.9].",
+   "id": "grounding-baselines",
+   "limit": "Caveat: as in the repository's retrieval baselines, the governing passage of every question is in the index (the question text is not removed from it), so retrieval is tested for selecting that passage, not for finding evidence in an unseen corpus.",
+   "limit_path": "results/assistant_eval.md",
+   "limit_url": "https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/assistant_eval.md",
+   "path": "results/baselines_breakdown.md",
+   "repo": "ehs-ai-grounding-eval",
+   "section": "all_factual row",
+   "url": "https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/baselines_breakdown.md",
+   "why": "Keyword retrieval over regulatory text is not enough on its own to answer EHS compliance questions reliably. Answers need to be checked against the clause they cite."
+  },
+  {
+   "finding": "No retriever solves 45 of the 63 factual items, and the 4 retrievers agree closely (Fleiss kappa 0.980).",
+   "id": "grounding-item-analysis",
+   "limit": "The 4 retrievers are not independent raters. TF-IDF, BM25, BM25+ and RRF (which fuses TF-IDF and BM25) share one tokenizer and one 68-document index, so high agreement is expected by construction and says little about item quality.",
+   "limit_path": "results/item_analysis.md",
+   "limit_url": "https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/item_analysis.md",
+   "path": "results/item_analysis.md",
+   "repo": "ehs-ai-grounding-eval",
+   "section": "Difficulty and Agreement across retrievers",
+   "url": "https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/item_analysis.md",
+   "why": "Questions that every simple method misses are candidates for review and for human-checked answers. Agreement among similar tools should not be read as accuracy."
+  },
+  {
+   "finding": "The grounded assistant answered 41 of 63 factual items. Accuracy was 22.2% with abstentions counted as not correct, and citation precision on answered items was 78.0%. It declined 5 of 5 category-error items. Against the release gate set before the first run (citation precision on answered at least 0.80) it observed 0.780: FAIL.",
+   "id": "grounding-assistant",
+   "limit": "No language model was used. The answer composer is `MockModel`, which is extractive: it quotes the top retrieved corpus passage verbatim and cites its clause.",
+   "limit_path": "results/assistant_eval.md",
+   "limit_url": "https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/assistant_eval.md",
+   "path": "results/assistant_eval.md",
+   "repo": "ehs-ai-grounding-eval",
+   "section": "Headline and Release gate",
+   "url": "https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/assistant_eval.md",
+   "why": "A pass or fail gate fixed in advance, and a rule to decline when unsure, make an EHS assistant's limits visible before anyone relies on it."
+  },
+  {
+   "finding": "On 13 held-out CSB investigations (42 coded factor pairs), the curated keyword rules reached precision 0.86 and recall 0.71 (30 true positives, 5 false positives, 12 missed), against precision 0.42 and recall 0.24 for the untuned baseline built from ontology label words.",
+   "id": "hfo-suggester",
+   "limit": "Nothing here is an estimate of performance on other incidents; the held-out cohort is the closest thing to one and it is small, so one pair moves a PIF's precision or recall by many points.",
+   "limit_path": "incidents/suggester_eval.md",
+   "limit_url": "https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/incidents/suggester_eval.md",
+   "path": "incidents/suggester_eval.md",
+   "repo": "ehs-human-factors-ontology",
+   "section": "Held-out cohort",
+   "url": "https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/incidents/suggester_eval.md",
+   "why": "Rule-based suggestions can point an analyst to human-factor conditions worth checking in an investigation report. A person still decides which conditions apply."
+  },
+  {
+   "finding": "The four context dimensions are not new; they are adopted from IDHEAS-G (NUREG-2198, 2021). The repository encodes 20 PIFs with 90 alignments to SPAR-H, CREAM, HFACS and the HSE PIF list.",
+   "id": "hfo-adopted-taxonomy",
+   "limit": "What is contributed is the encoding, the crosswalk and the traceability - and those are worth less than a new taxonomy would be if a new taxonomy were warranted.",
+   "limit_path": "README.md",
+   "limit_url": "https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/README.md",
+   "path": "README.md",
+   "repo": "ehs-human-factors-ontology",
+   "section": "At a glance and The claim, stated up front",
+   "url": "https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/README.md",
+   "why": "Putting the same human-factor conditions from several methods in one traceable table shows where different methods use different words for the same condition."
+  },
+  {
+   "finding": "For a five-latent model with three indicators per latent, the test of close fit reaches 80% power at N = 153. Estimating a single path to a standard error of 0.05 needs N = 369. Telling a path of 0.45 from one of 0.30 needs N = 770, and telling -0.25 from -0.20 needs N = 6,884.",
+   "id": "sem-sample-size",
+   "limit": "Every number comes from generated data; no real injury data were analysed.",
+   "limit_path": "docs/methods-note.md",
+   "limit_url": "https://github.com/priyatham9/ehs-risk-sem/blob/main/docs/methods-note.md",
+   "path": "docs/methods-note.md",
+   "repo": "ehs-risk-sem",
+   "section": "Abstract",
+   "url": "https://github.com/priyatham9/ehs-risk-sem/blob/main/docs/methods-note.md",
+   "why": "Before ranking or weighting safety factors from a model, check whether the sample at hand can support the comparison. Passing fit cutoffs does not show that."
+  },
+  {
+   "finding": "Analytic standard errors from the two-step estimator are too narrow at every sample size studied, with 95% coverage between 0.76 and 0.86. A percentile bootstrap restored coverage to 0.925 to 0.975 at N = 500.",
+   "id": "sem-coverage",
+   "limit": "Nothing here analyses real injury data.",
+   "limit_path": "README.md",
+   "limit_url": "https://github.com/priyatham9/ehs-risk-sem/blob/main/README.md",
+   "path": "docs/methods-note.md",
+   "repo": "ehs-risk-sem",
+   "section": "Abstract",
+   "url": "https://github.com/priyatham9/ehs-risk-sem/blob/main/docs/methods-note.md",
+   "why": "An interval that looks precise can mislead. Resampling-based intervals give a more honest range for decisions that depend on an estimate."
+  }
+ ]
+}
+</script>
+<section class="section" id="chart"><div class="wrap">
+<div class="sec-head"><span class="sec-num">S1</span><h2 class="display">RMP accident rate by peer group</h2></div>
+<p class="sec-sub">Accident records per 100 facility-years for NAICS 325 product-type peer groups with 100 or more facilities, with the exact Poisson 95% interval. Highest rate first. The axis starts at zero. Source: <a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/outputs/accident_by_subsector.csv">ehs-chemical-peers/outputs/accident_by_subsector.csv</a>.</p>
+<figure class="figure">
+<svg class="chart" viewBox="0 0 480 456" role="img" aria-labelledby="chTitle chDesc" xmlns="http://www.w3.org/2000/svg">
+<title id="chTitle">RMP accident records per 100 facility-years by product type, with 95% intervals</title>
+<desc id="chDesc">Dot and interval for each NAICS 325 product-type peer group with 100 or more facilities, highest rate first. Values are printed beside each interval.</desc>
+<line class="grid" x1="8" x2="8" y1="0" y2="448"/>
+<line class="grid" x1="66" x2="66" y1="0" y2="448"/>
+<line class="grid" x1="124" x2="124" y1="0" y2="448"/>
+<line class="grid" x1="182" x2="182" y1="0" y2="448"/>
+<line class="grid" x1="240" x2="240" y1="0" y2="448"/>
+<line class="grid" x1="298" x2="298" y1="0" y2="448"/>
+<g class="crow" data-group="Petrochemicals">
+<text class="cl" x="0" y="22">Petrochemicals, <tspan class="dl">109</tspan> facilities</text>
+<line class="ci" x1="208.83" x2="294.22" y1="44" y2="44"/>
+<line class="cap" x1="208.83" x2="208.83" y1="39" y2="49"/>
+<line class="cap" x1="294.22" x2="294.22" y1="39" y2="49"/>
+<circle class="pt" cx="248.73" cy="44" r="5"/>
+<text class="cv" x="304.22" y="48"><tspan class="dl">8.3009</tspan> (<tspan class="dl">6.9252</tspan> to <tspan class="dl">9.8698</tspan>)</text>
+</g>
+<g class="crow" data-group="Acids &amp; inorganics">
+<text class="cl" x="0" y="78">Acids &amp; inorganics, <tspan class="dl">301</tspan> facilities</text>
+<line class="ci" x1="188.93" x2="237.21" y1="100" y2="100"/>
+<line class="cap" x1="188.93" x2="188.93" y1="95" y2="105"/>
+<line class="cap" x1="237.21" x2="237.21" y1="95" y2="105"/>
+<circle class="pt" cx="212" cy="100" r="5"/>
+<text class="cv" x="247.21" y="104"><tspan class="dl">7.0346</tspan> (<tspan class="dl">6.2388</tspan> to <tspan class="dl">7.9037</tspan>)</text>
+</g>
+<g class="crow" data-group="Other basic organics (incl. formaldehyde)">
+<text class="cl" x="0" y="134">Other basic organics (incl. formaldehyde), <tspan class="dl">401</tspan> facilities</text>
+<line class="ci" x1="155.35" x2="192.76" y1="156" y2="156"/>
+<line class="cap" x1="155.35" x2="155.35" y1="151" y2="161"/>
+<line class="cap" x1="192.76" x2="192.76" y1="151" y2="161"/>
+<circle class="pt" cx="173.27" cy="156" r="5"/>
+<text class="cv" x="202.76" y="160"><tspan class="dl">5.699</tspan> (<tspan class="dl">5.0812</tspan> to <tspan class="dl">6.3712</tspan>)</text>
+</g>
+<g class="crow" data-group="Resins &amp; plastics">
+<text class="cl" x="0" y="190">Resins &amp; plastics, <tspan class="dl">261</tspan> facilities</text>
+<line class="ci" x1="130.56" x2="173.63" y1="212" y2="212"/>
+<line class="cap" x1="130.56" x2="130.56" y1="207" y2="217"/>
+<line class="cap" x1="173.63" x2="173.63" y1="207" y2="217"/>
+<circle class="pt" cx="150.89" cy="212" r="5"/>
+<text class="cv" x="183.63" y="216"><tspan class="dl">4.9272</tspan> (<tspan class="dl">4.2261</tspan> to <tspan class="dl">5.7114</tspan>)</text>
+</g>
+<g class="crow" data-group="Compounding &amp; specialty">
+<text class="cl" x="0" y="246">Compounding &amp; specialty, <tspan class="dl">221</tspan> facilities</text>
+<line class="ci" x1="74.39" x2="111.9" y1="268" y2="268"/>
+<line class="cap" x1="74.39" x2="74.39" y1="263" y2="273"/>
+<line class="cap" x1="111.9" x2="111.9" y1="263" y2="273"/>
+<circle class="pt" cx="91.6" cy="268" r="5"/>
+<text class="cv" x="121.9" y="272"><tspan class="dl">2.8826</tspan> (<tspan class="dl">2.2892</tspan> to <tspan class="dl">3.5828</tspan>)</text>
+</g>
+<g class="crow" data-group="Fertilizer &amp; ag chemicals">
+<text class="cl" x="0" y="302">Fertilizer &amp; ag chemicals, <tspan class="dl">415</tspan> facilities</text>
+<line class="ci" x1="75.96" x2="102.77" y1="324" y2="324"/>
+<line class="cap" x1="75.96" x2="75.96" y1="319" y2="329"/>
+<line class="cap" x1="102.77" x2="102.77" y1="319" y2="329"/>
+<circle class="pt" cx="88.54" cy="324" r="5"/>
+<text class="cv" x="112.77" y="328"><tspan class="dl">2.7772</tspan> (<tspan class="dl">2.3436</tspan> to <tspan class="dl">3.2679</tspan>)</text>
+</g>
+<g class="crow" data-group="Industrial gases">
+<text class="cl" x="0" y="358">Industrial gases, <tspan class="dl">276</tspan> facilities</text>
+<line class="ci" x1="47.65" x2="76.16" y1="380" y2="380"/>
+<line class="cap" x1="47.65" x2="47.65" y1="375" y2="385"/>
+<line class="cap" x1="76.16" x2="76.16" y1="375" y2="385"/>
+<circle class="pt" cx="60.49" cy="380" r="5"/>
+<text class="cv" x="86.16" y="384"><tspan class="dl">1.81</tspan> (<tspan class="dl">1.3672</tspan> to <tspan class="dl">2.3504</tspan>)</text>
+</g>
+<g class="crow" data-group="Ethanol &amp; biofuels">
+<text class="cl" x="0" y="414">Ethanol &amp; biofuels, <tspan class="dl">199</tspan> facilities</text>
+<line class="ci" x1="17.37" x2="35.62" y1="436" y2="436"/>
+<line class="cap" x1="17.37" x2="17.37" y1="431" y2="441"/>
+<line class="cap" x1="35.62" x2="35.62" y1="431" y2="441"/>
+<circle class="pt" cx="24.74" cy="436" r="5"/>
+<text class="cv" x="45.62" y="440"><tspan class="dl">0.5774</tspan> (<tspan class="dl">0.3231</tspan> to <tspan class="dl">0.9523</tspan>)</text>
+</g>
+</svg>
+<figcaption class="method">Reporting, not risk: only accidents that meet EPA's five-year-history criteria are on file, and the intervals assume independent accidents, so the true uncertainty is wider than shown. See the first chemical-peers row below.</figcaption>
+</figure></div></section>
+<section class="section" id="table"><div class="wrap">
+<div class="sec-head"><span class="sec-num">S2</span><h2 class="display">Findings, sources and limits</h2></div>
+<p class="sec-sub">One row per finding. The finding and the limitation are quoted or assembled from the linked file on the main branch of each repository.</p>
+<table class="map" id="digest">
+<thead><tr><th scope="col">Finding</th><th scope="col">Source</th><th scope="col">Stated limitation</th><th scope="col">Why it matters for EHS practice</th></tr></thead><tbody>
+<tr id="osha-trir-correction">
+<td data-h="Finding" class="f" data-src="ehs-osha-analysis/README.md">Screening implausible hours raises the pooled 2016-2024 aggregate TRIR from 0.134 to 3.983, a 29.7x correction. The 2.07% of filings flagged hold 96.68% of reported hours.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/README.md">ehs-osha-analysis/README.md</a><span class="sec">README, Headline results</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-osha-analysis/README.md">It does not identify which specific numbers on forms are wrong, nor does it address causes of injury, nor does it represent the broader US workforce.</td>
+<td data-h="Why it matters" class="w">Injury rates built from unchecked, self-reported hours can look far better than they are. Checking hours before comparing rates keeps a benchmark from rewarding a data-entry error.</td>
+</tr>
+<tr id="osha-threshold-range">
+<td data-h="Finding" class="f" data-src="ehs-osha-analysis/docs/THRESHOLD_ROBUSTNESS.md">Across all 25 pairs of screen bounds, the screened aggregate TRIR runs from 3.963 to 3.993, while the flagged share runs from 1.79% to 4.49%.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/THRESHOLD_ROBUSTNESS.md">ehs-osha-analysis/docs/THRESHOLD_ROBUSTNESS.md</a><span class="sec">Result 1 and Result 2</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-osha-analysis/docs/THRESHOLD_ROBUSTNESS.md">The analysis shows the aggregate is insensitive to where the bounds sit. It does not show that every flagged filing is wrong or that the screened rate equals a true national rate; the data are self-reported and not a sample of the US workforce.</td>
+<td data-h="Why it matters" class="w">A screening rule rests on a judgement call. Showing that the headline holds across reasonable settings, and quoting the share flagged with its range, makes the rule easier to defend.</td>
+</tr>
+<tr id="osha-detectability">
+<td data-h="Finding" class="f" data-src="ehs-osha-analysis/docs/DETECTABILITY.md">A site of 1-19 employees that reports zero cases cannot rule out a TRIR of 46.96 (exact 95% upper limit), roughly ten times the band&#x27;s aggregate rate of 4.94. Detecting a 25% difference at 80% power takes 752.9 site-years per arm in the smallest band.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-osha-analysis/blob/main/docs/DETECTABILITY.md">ehs-osha-analysis/docs/DETECTABILITY.md</a><span class="sec">Results</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-osha-analysis/docs/DETECTABILITY.md">Poisson is a best case. The same table shows variance-to-mean ratios from 3.4 (1-19) to 241.4 (1000+) for establishment case counts, far above the Poisson value of 1, so real detectability is worse than reported here.</td>
+<td data-h="Why it matters" class="w">A year with no recorded injuries at a very small site is weak evidence of a low underlying rate. Comparing small sites takes several years pooled, not one year&#x27;s number.</td>
+</tr>
+<tr id="chem-rate-spread">
+<td data-h="Finding" class="f" data-src="ehs-chemical-peers/docs/insights.md">RMP accident-record rates differ about 14-fold between the highest and lowest product-type peer groups with 100 or more facilities. Petrochemicals had 8.30 accident records per 100 facility-years (95% interval 6.93 to 9.87; 109 facilities). Ethanol and biofuels had 0.58 (0.32 to 0.95; 199 facilities).</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md">ehs-chemical-peers/docs/insights.md</a><span class="sec">Finding 1</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-chemical-peers/docs/insights.md">Only accidents that meet EPA&#x27;s five-year-history criteria (40 CFR 68.42) are on file. A group with a higher count may report more, hold more, or have more covered processes. Nothing here says why a rate is high or low, and none of it shows that a group is less safe.</td>
+<td data-h="Why it matters" class="w">Chemical plants are better compared with plants of the same product type than with the whole sector. A single plant&#x27;s accident count is best read against the closest group&#x27;s interval.</td>
+</tr>
+<tr id="chem-concentration">
+<td data-h="Finding" class="f" data-src="ehs-chemical-peers/docs/insights.md">The 212 facilities in the top 10% by accident count account for 80.18% of all accident records, and the top 1% (22 facilities) for 28.57%. Facilities holding 5 million lb or more of regulated chemicals had 10.48 records per 100 facility-years (46.18% had at least one), against 0.92 (8.36%) for facilities under 100,000 lb.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md">ehs-chemical-peers/docs/insights.md</a><span class="sec">Finding 2</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-chemical-peers/docs/insights.md">Inventory and product type overlap (large holders are concentrated in some product types), so these two findings are not independent.</td>
+<td data-h="Why it matters" class="w">Because records concentrate in a few facilities and the largest inventories, a list ordered by accident history and inventory puts the facilities behind most records first. It is a prioritisation aid and not a finding about any facility.</td>
+</tr>
+<tr id="chem-rank-stability">
+<td data-h="Finding" class="f" data-src="ehs-chemical-peers/docs/insights.md">Ranking the 13 product-type groups with at least 100 facility-years in each half, the rank correlation between their 2010-2016 rate and their 2017-2024 rate is 0.912 (Spearman). Across the 12 chemical families it is 0.769. Rates were lower in the later half in 11 of 13 product types.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/insights.md">ehs-chemical-peers/docs/insights.md</a><span class="sec">Finding 3</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-chemical-peers/docs/insights.md">An accident is on file only if it fell in the five years before a submission. Facilities that stopped filing, or filed more than five years apart, may have unobserved accidents counted as accident-free years. The fall in later-period rates may partly reflect this and also reporting changes; the data cannot separate these.</td>
+<td data-h="Why it matters" class="w">A peer group&#x27;s standing relative to other groups holds up across periods, so it is usable context year to year, even though the level of the rate moved.</td>
+</tr>
+<tr id="grounding-baselines">
+<td data-h="Finding" class="f" data-src="ehs-ai-grounding-eval/results/baselines_breakdown.md">On 63 factual items, the random floor scores 52.1% [45.9, 58.9] while TF-IDF retrieval scores 27.0% [15.4, 40.0] and BM25 retrieval scores 28.6% [17.2, 40.9].</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/baselines_breakdown.md">ehs-ai-grounding-eval/results/baselines_breakdown.md</a><span class="sec">all_factual row</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-ai-grounding-eval/results/assistant_eval.md">Caveat: as in the repository&#x27;s retrieval baselines, the governing passage of every question is in the index (the question text is not removed from it), so retrieval is tested for selecting that passage, not for finding evidence in an unseen corpus. <a class="file" href="https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/assistant_eval.md">results/assistant_eval.md</a></td>
+<td data-h="Why it matters" class="w">Keyword retrieval over regulatory text is not enough on its own to answer EHS compliance questions reliably. Answers need to be checked against the clause they cite.</td>
+</tr>
+<tr id="grounding-item-analysis">
+<td data-h="Finding" class="f" data-src="ehs-ai-grounding-eval/results/item_analysis.md">No retriever solves 45 of the 63 factual items, and the 4 retrievers agree closely (Fleiss kappa 0.980).</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/item_analysis.md">ehs-ai-grounding-eval/results/item_analysis.md</a><span class="sec">Difficulty and Agreement across retrievers</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-ai-grounding-eval/results/item_analysis.md">The 4 retrievers are not independent raters. TF-IDF, BM25, BM25+ and RRF (which fuses TF-IDF and BM25) share one tokenizer and one 68-document index, so high agreement is expected by construction and says little about item quality.</td>
+<td data-h="Why it matters" class="w">Questions that every simple method misses are candidates for review and for human-checked answers. Agreement among similar tools should not be read as accuracy.</td>
+</tr>
+<tr id="grounding-assistant">
+<td data-h="Finding" class="f" data-src="ehs-ai-grounding-eval/results/assistant_eval.md">The grounded assistant answered 41 of 63 factual items. Accuracy was 22.2% with abstentions counted as not correct, and citation precision on answered items was 78.0%. It declined 5 of 5 category-error items. Against the release gate set before the first run (citation precision on answered at least 0.80) it observed 0.780: FAIL.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-ai-grounding-eval/blob/main/results/assistant_eval.md">ehs-ai-grounding-eval/results/assistant_eval.md</a><span class="sec">Headline and Release gate</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-ai-grounding-eval/results/assistant_eval.md">No language model was used. The answer composer is `MockModel`, which is extractive: it quotes the top retrieved corpus passage verbatim and cites its clause.</td>
+<td data-h="Why it matters" class="w">A pass or fail gate fixed in advance, and a rule to decline when unsure, make an EHS assistant&#x27;s limits visible before anyone relies on it.</td>
+</tr>
+<tr id="hfo-suggester">
+<td data-h="Finding" class="f" data-src="ehs-human-factors-ontology/incidents/suggester_eval.md">On 13 held-out CSB investigations (42 coded factor pairs), the curated keyword rules reached precision 0.86 and recall 0.71 (30 true positives, 5 false positives, 12 missed), against precision 0.42 and recall 0.24 for the untuned baseline built from ontology label words.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/incidents/suggester_eval.md">ehs-human-factors-ontology/incidents/suggester_eval.md</a><span class="sec">Held-out cohort</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-human-factors-ontology/incidents/suggester_eval.md">Nothing here is an estimate of performance on other incidents; the held-out cohort is the closest thing to one and it is small, so one pair moves a PIF&#x27;s precision or recall by many points.</td>
+<td data-h="Why it matters" class="w">Rule-based suggestions can point an analyst to human-factor conditions worth checking in an investigation report. A person still decides which conditions apply.</td>
+</tr>
+<tr id="hfo-adopted-taxonomy">
+<td data-h="Finding" class="f" data-src="ehs-human-factors-ontology/README.md">The four context dimensions are not new; they are adopted from IDHEAS-G (NUREG-2198, 2021). The repository encodes 20 PIFs with 90 alignments to SPAR-H, CREAM, HFACS and the HSE PIF list.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-human-factors-ontology/blob/main/README.md">ehs-human-factors-ontology/README.md</a><span class="sec">At a glance and The claim, stated up front</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-human-factors-ontology/README.md">What is contributed is the encoding, the crosswalk and the traceability - and those are worth less than a new taxonomy would be if a new taxonomy were warranted.</td>
+<td data-h="Why it matters" class="w">Putting the same human-factor conditions from several methods in one traceable table shows where different methods use different words for the same condition.</td>
+</tr>
+<tr id="sem-sample-size">
+<td data-h="Finding" class="f" data-src="ehs-risk-sem/docs/methods-note.md">For a five-latent model with three indicators per latent, the test of close fit reaches 80% power at N = 153. Estimating a single path to a standard error of 0.05 needs N = 369. Telling a path of 0.45 from one of 0.30 needs N = 770, and telling -0.25 from -0.20 needs N = 6,884.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-risk-sem/blob/main/docs/methods-note.md">ehs-risk-sem/docs/methods-note.md</a><span class="sec">Abstract</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-risk-sem/docs/methods-note.md">Every number comes from generated data; no real injury data were analysed.</td>
+<td data-h="Why it matters" class="w">Before ranking or weighting safety factors from a model, check whether the sample at hand can support the comparison. Passing fit cutoffs does not show that.</td>
+</tr>
+<tr id="sem-coverage">
+<td data-h="Finding" class="f" data-src="ehs-risk-sem/docs/methods-note.md">Analytic standard errors from the two-step estimator are too narrow at every sample size studied, with 95% coverage between 0.76 and 0.86. A percentile bootstrap restored coverage to 0.925 to 0.975 at N = 500.</td>
+<td data-h="Source"><a class="file" href="https://github.com/priyatham9/ehs-risk-sem/blob/main/docs/methods-note.md">ehs-risk-sem/docs/methods-note.md</a><span class="sec">Abstract</span></td>
+<td data-h="Stated limitation" class="l" data-src="ehs-risk-sem/README.md">Nothing here analyses real injury data. <a class="file" href="https://github.com/priyatham9/ehs-risk-sem/blob/main/README.md">README.md</a></td>
+<td data-h="Why it matters" class="w">An interval that looks precise can mislead. Resampling-based intervals give a more honest range for decisions that depend on an estimate.</td>
+</tr>
+</tbody></table></div></section>
+<!-- END DIGEST-DATA -->
+
+<section class="section" id="method">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">S3</span><h2 class="display">How this page is built</h2></div>
+    <div class="prose">
+      <p>The data block above is generated by <a href="https://github.com/priyatham9/priyatham9.github.io/blob/main/scripts/build_findings_digest.py">scripts/build_findings_digest.py</a>, which reads each source file from the main branch of its repository and extracts the numbers with a fixed pattern. Limitations are verbatim sentences from the sources. The &ldquo;why it matters&rdquo; lines are the only text written for this page and contain no figures. The same rows are embedded as JSON in the page for reuse.</p>
+      <p>These are descriptive results from public data and from simulations. They are not legal advice and not an OSHA or EPA publication.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="rfooter">
+  <div class="wrap rfooter-inner">
+    <a class="btn" href="../../#reports">&larr; All reports</a>
+    <span class="label">Source files linked &middot; numbers checked by a test</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var root=document.documentElement,toggle=document.getElementById("themeToggle"),stored=null;
+try{stored=localStorage.getItem("pc-theme")}catch(e){}
+if(stored==="dark"||stored==="light")root.setAttribute("data-theme",stored);
+toggle.addEventListener("click",function(){
+  var sd=window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var cur=root.getAttribute("data-theme")||(sd?"dark":"light");
+  var nx=cur==="dark"?"light":"dark";root.setAttribute("data-theme",nx);
+  try{localStorage.setItem("pc-theme",nx)}catch(e){}
+});
+})();
+</script>
+<script src="../../assets/kit.js" defer></script>
+</body>
+</html>
