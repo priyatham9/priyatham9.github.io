@@ -251,6 +251,14 @@ code { font-family: var(--font-mono); font-size: .75rem; background: var(--surfa
 .pb-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .pb-row label { font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
 #scrub { flex: 1; min-width: 200px; accent-color: var(--accent); }
+.pb-mc { margin-top: 12px; border: 2px solid var(--rule); background: var(--surface); padding: 12px; display: grid; gap: 10px; }
+.pb-mc h2 { margin: 0; font-size: 1.0625rem; }
+.pb-mc p { margin: 0; max-width: none; font-size: .8125rem; color: var(--ink-2); }
+.pb-mc select, .pb-mc input[type=number] { max-width: 100%; }
+.pb-mc svg { width: 100%; max-width: 640px; height: auto; display: block; }
+.pb-mc .bar { fill: var(--accent); } .pb-mc .exp { fill: none; stroke: var(--ink); stroke-width: 2; } .pb-mc .ax { fill: var(--ink-2); font-family: var(--font-mono); font-size: 11px; }
+.pb-mc progress { width: 160px; }
+.pb-mc-out { font-size: .875rem; color: var(--ink); } .pb-mc-out b { font-family: var(--font-mono); }
 .pb-status { font-family: var(--font-mono); font-size: .75rem; color: var(--ink-2); min-height: 1.4em; }
 .pb-rate { font-size: .8125rem; color: var(--ink-2); }
 .pb-docs { padding-bottom: 20px; } .pb-docs h2 { margin-top: 26px; } .pb-docs p, .pb-docs li { max-width: 80ch; }
@@ -343,6 +351,21 @@ code { font-family: var(--font-mono); font-size: .75rem; background: var(--surfa
       <span class="mono" id="evcount"></span>
     </div>
     <p class="pb-rate" id="ratebox"></p>
+    <section class="pb-mc" id="mc" aria-label="Monte Carlo what-if">
+      <h2>What-if: incidents per plant-year</h2>
+      <p>Runs seeded replications of one simulated plant-year, drawn from the committed public rate for the chosen group. Scenarios are limited to groups that have a rate in the data; no control or mitigation effects are modelled.</p>
+      <div class="pb-row">
+        <label>Scenario <select id="mc-scn"></select></label>
+        <label>Replications <select id="mc-n"><option>100</option><option>500</option><option selected>1000</option></select></label>
+        <label>Seed <input type="number" id="mc-seed" min="1" step="1" value="3" style="width:90px" /></label>
+        <button type="button" id="mc-run">Run what-if</button>
+        <button type="button" id="mc-export" disabled>Export insights</button>
+        <progress id="mc-prog" max="1" value="0" hidden></progress>
+      </div>
+      <div id="mc-src" class="pb-rate"></div>
+      <div id="mc-out" class="pb-mc-out" role="status" aria-live="polite"></div>
+      <div id="mc-chart"></div>
+    </section>
     <p class="pb-status" id="status" role="status" aria-live="polite"></p>
   </div>
 </section>
@@ -365,8 +388,12 @@ code { font-family: var(--font-mono); font-size: .75rem; background: var(--surfa
       <table class="spec"><thead><tr><th>Action</th><th>Parameters</th><th>Submission criteria</th></tr></thead><tbody id="doc-actions"></tbody></table>
       <h2 class="sub-h">Model signals (parameters, not data)</h2>
       <table class="spec"><thead><tr><th>Unit type</th><th>Signal</th><th>Nominal +/- noise</th><th>Limits</th></tr></thead><tbody id="doc-sig"></tbody></table>
+      <h2 class="sub-h">Monte Carlo what-if: method and limits</h2>
+      <p>The what-if panel runs N seeded replications (100, 500 or 1,000; the work is chunked so the page stays responsive). Each replication is one simulated plant-year. The chosen scenario supplies a committed share of plant-years with a release, <code>rate_pct</code>, from <code>groups[...]</code> in <a href="https://github.com/priyatham9/ehs-chemical-peers/blob/main/docs/data/compare.json" target="_blank" rel="noopener noreferrer">ehs-chemical-peers/docs/data/compare.json</a>. That share is converted to a Poisson rate <code>lambda = -ln(1 - p)</code> per year, so the chance of at least one release in a year equals p. The panel shows the histogram of incident counts, the mean with its standard error, the share of replications with a release next to the source rate, and an empirical 90% interval (5th and 95th percentile of the count). The same seed, scenario and N always give the same output.</p>
+      <p>Scenarios are the four inventory bands plus the other release groups in the same file (employee size, release history, number of regulated chemicals, chemical family). Nothing else is selectable, because nothing else has a committed rate. Export insights writes a JSON report (seed, parameters, source citations, results) and a Markdown summary.</p>
+      <p><b>Limits.</b> Poisson assumption: independent releases at a constant rate. No clustering, and no link between a plant's past and future releases, although the data shows groups with a release in the past five years have a higher rate. The source rate is a share of plant-years, so counts above one per year are a modelling extrapolation, not an observation. The site is synthetic, and the result describes a plant drawn from the chosen public group, not any real plant. No effect of controls is modelled or claimed. With small rates most replications are zero, so the empirical interval is coarse and can be narrower than the Wilson interval on the rate itself.</p>
       <div class="caveat"><p><b>Limits.</b> The simulation says nothing about the risk of a real plant or any real layout. A plant-level rate is applied to one synthetic site, so unit-level incident rates are not estimated. Release flags describe where a release came from, not why. Time runs for up to 100 simulated years so that low-rate events can appear, which also means the site does not age, change or learn. The 3D model, dimensions (in drawing units) and unit counts are illustrative. Fire, explosion and runaway flags are recorded and drawn only as part of the incident record. The insight panels cite the exact file and key for every figure and make no causal claim.</p></div>
-      <p class="src-files">Files: <code>work/plant-blueprint.html</code>, <code>work/plant-blueprint.js</code>, <code>work/plant-blueprint-sim.js</code>, <code>scripts/build_plant_blueprint_data.py</code>, <code>tests/test_plant_blueprint.py</code>, <code>tests/plant_sim_check.js</code>. Sources have no <code>docs/insights.md</code> at origin/main, so none is cited.</p>
+      <p class="src-files">Files: <code>work/plant-blueprint.html</code>, <code>work/plant-blueprint.js</code>, <code>work/plant-blueprint-sim.js</code>, <code>work/plant-blueprint-mc.js</code>, <code>scripts/build_plant_blueprint_data.py</code>, <code>tests/test_plant_blueprint.py</code>, <code>tests/plant_sim_check.js</code>, <code>tests/plant_mc_check.js</code>. Sources have no <code>docs/insights.md</code> at origin/main, so none is cited.</p>
     </section>
     <p class="all-cs"><a href="index.html">&larr; All case studies</a></p>
   </div>
@@ -563,6 +590,344 @@ code { font-family: var(--font-mono); font-size: .75rem; background: var(--surfa
     }
    ],
    "key": "groups[rel-inv-*].rate_pct / wilson_pct / exact_pct",
+   "peer_groups": [
+    {
+     "dimension": "size",
+     "events": 60,
+     "exact_pct": [
+      1.257,
+      2.1115
+     ],
+     "id": "rel-size-Under 100",
+     "label": "Under 100",
+     "plant_years": 3649,
+     "rate_pct": 1.6443,
+     "wilson_pct": [
+      1.2796,
+      2.1107
+     ]
+    },
+    {
+     "dimension": "size",
+     "events": 55,
+     "exact_pct": [
+      2.5821,
+      4.4208
+     ],
+     "id": "rel-size-100-249",
+     "label": "100-249",
+     "plant_years": 1611,
+     "rate_pct": 3.414,
+     "wilson_pct": [
+      2.6323,
+      4.4174
+     ]
+    },
+    {
+     "dimension": "size",
+     "events": 53,
+     "exact_pct": [
+      3.771,
+      6.4955
+     ],
+     "id": "rel-size-250+",
+     "label": "250+",
+     "plant_years": 1059,
+     "rate_pct": 5.0047,
+     "wilson_pct": [
+      3.8464,
+      6.4883
+     ]
+    },
+    {
+     "dimension": "history",
+     "events": 356,
+     "exact_pct": [
+      10.906,
+      13.2891
+     ],
+     "id": "rel-hist-release_in_past_5y",
+     "label": "Release in past 5 years",
+     "plant_years": 2952,
+     "rate_pct": 12.0596,
+     "wilson_pct": [
+      10.9339,
+      13.284
+     ]
+    },
+    {
+     "dimension": "history",
+     "events": 354,
+     "exact_pct": [
+      1.3205,
+      1.6284
+     ],
+     "id": "rel-hist-no_release_in_past_5y",
+     "label": "No release in past 5 years",
+     "plant_years": 24106,
+     "rate_pct": 1.4685,
+     "wilson_pct": [
+      1.3242,
+      1.6283
+     ]
+    },
+    {
+     "dimension": "chemicals",
+     "events": 200,
+     "exact_pct": [
+      1.0911,
+      1.4443
+     ],
+     "id": "rel-nchem-1 chemical",
+     "label": "1 chemical",
+     "plant_years": 15891,
+     "rate_pct": 1.2586,
+     "wilson_pct": [
+      1.0966,
+      1.4441
+     ]
+    },
+    {
+     "dimension": "chemicals",
+     "events": 146,
+     "exact_pct": [
+      2.3326,
+      3.2341
+     ],
+     "id": "rel-nchem-2",
+     "label": "2",
+     "plant_years": 5296,
+     "rate_pct": 2.7568,
+     "wilson_pct": [
+      2.3489,
+      3.2332
+     ]
+    },
+    {
+     "dimension": "chemicals",
+     "events": 152,
+     "exact_pct": [
+      3.8403,
+      5.2742
+     ],
+     "id": "rel-nchem-3-4",
+     "label": "3-4",
+     "plant_years": 3365,
+     "rate_pct": 4.5171,
+     "wilson_pct": [
+      3.8657,
+      5.2722
+     ]
+    },
+    {
+     "dimension": "chemicals",
+     "events": 207,
+     "exact_pct": [
+      7.414,
+      9.6681
+     ],
+     "id": "rel-nchem-5+",
+     "label": "5+",
+     "plant_years": 2438,
+     "rate_pct": 8.4906,
+     "wilson_pct": [
+      7.4484,
+      9.6634
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 77,
+     "exact_pct": [
+      2.971,
+      4.6655
+     ],
+     "id": "rel-fam-Formaldehyde",
+     "label": "Formaldehyde",
+     "plant_years": 2053,
+     "rate_pct": 3.7506,
+     "wilson_pct": [
+      3.0114,
+      4.6626
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 50,
+     "exact_pct": [
+      5.3554,
+      9.322
+     ],
+     "id": "rel-fam-Epoxy chain",
+     "label": "Epoxy chain",
+     "plant_years": 699,
+     "rate_pct": 7.1531,
+     "wilson_pct": [
+      5.4677,
+      9.3068
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 318,
+     "exact_pct": [
+      2.7734,
+      3.4542
+     ],
+     "id": "rel-fam-Ammonia",
+     "label": "Ammonia",
+     "plant_years": 10257,
+     "rate_pct": 3.1003,
+     "wilson_pct": [
+      2.7821,
+      3.4537
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 310,
+     "exact_pct": [
+      5.4317,
+      6.7616
+     ],
+     "id": "rel-fam-Chlorine & chlor-alkali",
+     "label": "Chlorine & chlor-alkali",
+     "plant_years": 5106,
+     "rate_pct": 6.0713,
+     "wilson_pct": [
+      5.4487,
+      6.7599
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 190,
+     "exact_pct": [
+      6.0602,
+      8.0146
+     ],
+     "id": "rel-fam-Strong acids",
+     "label": "Strong acids",
+     "plant_years": 2718,
+     "rate_pct": 6.9904,
+     "wilson_pct": [
+      6.0913,
+      8.011
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 10,
+     "exact_pct": [
+      0.6579,
+      2.5014
+     ],
+     "id": "rel-fam-Isocyanates",
+     "label": "Isocyanates",
+     "plant_years": 731,
+     "rate_pct": 1.368,
+     "wilson_pct": [
+      0.7447,
+      2.4997
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 80,
+     "exact_pct": [
+      4.4326,
+      6.8717
+     ],
+     "id": "rel-fam-Reactive oxides",
+     "label": "Reactive oxides",
+     "plant_years": 1439,
+     "rate_pct": 5.5594,
+     "wilson_pct": [
+      4.4895,
+      6.866
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 138,
+     "exact_pct": [
+      3.9932,
+      5.5708
+     ],
+     "id": "rel-fam-Monomers",
+     "label": "Monomers",
+     "plant_years": 2914,
+     "rate_pct": 4.7358,
+     "wilson_pct": [
+      4.0224,
+      5.5683
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 91,
+     "exact_pct": [
+      3.6587,
+      5.527
+     ],
+     "id": "rel-fam-Amines",
+     "label": "Amines",
+     "plant_years": 2011,
+     "rate_pct": 4.5251,
+     "wilson_pct": [
+      3.7001,
+      5.5235
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 19,
+     "exact_pct": [
+      2.6316,
+      6.6915
+     ],
+     "id": "rel-fam-Silanes",
+     "label": "Silanes",
+     "plant_years": 438,
+     "rate_pct": 4.3379,
+     "wilson_pct": [
+      2.7944,
+      6.6754
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 117,
+     "exact_pct": [
+      6.1002,
+      8.721
+     ],
+     "id": "rel-fam-Sulfur compounds",
+     "label": "Sulfur compounds",
+     "plant_years": 1596,
+     "rate_pct": 7.3308,
+     "wilson_pct": [
+      6.152,
+      8.7146
+     ]
+    },
+    {
+     "dimension": "family",
+     "events": 349,
+     "exact_pct": [
+      2.7824,
+      3.4306
+     ],
+     "id": "rel-fam-Flammable gases & liquids",
+     "label": "Flammable gases & liquids",
+     "plant_years": 11279,
+     "rate_pct": 3.0942,
+     "wilson_pct": [
+      2.7903,
+      3.4301
+     ]
+    }
+   ],
    "src": "ehs-chemical-peers:docs/data/compare.json"
   }
  },
@@ -918,6 +1283,7 @@ code { font-family: var(--font-mono); font-size: .75rem; background: var(--surfa
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" crossorigin="anonymous"></script>
 <script src="plant-blueprint-sim.js"></script>
+<script src="plant-blueprint-mc.js"></script>
 <script src="plant-blueprint.js"></script>
 <script src="../assets/kit.js" defer></script>
 </body>

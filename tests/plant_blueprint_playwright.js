@@ -64,6 +64,22 @@ const ok = (n, c, x) => { console.log((c ? "ok   " : "FAIL ") + n + (x ? "  " + 
   const same = await pg.evaluate(() => { const P = window.__plant, D = JSON.parse(document.getElementById("plant-data").textContent); const a = JSON.stringify(P.Sim.systemLog(D, P.params)), b = JSON.stringify(P.Sim.systemLog(D, Object.assign({}, P.params))); return a === b; });
   ok("same seed gives same event log in page", same);
   await pg.evaluate(() => window.scrollTo(0, 0)); await pg.locator(".app").scrollIntoViewIfNeeded(); await pg.screenshot({ path: path.join(out, "plant-blueprint.png") });
+  // Monte Carlo what-if panel
+  await pg.selectOption("#mc-n", "1000"); await pg.fill("#mc-seed", "3");
+  await pg.selectOption("#mc-scn", "rel-inv-100k-1M lb");
+  ok("export disabled before a run", await pg.locator("#mc-export").isDisabled());
+  await pg.click("#mc-run"); await pg.waitForFunction(() => !document.getElementById("mc-export").disabled, null, { timeout: 15000 });
+  const mc1 = await pg.locator("#mc-out").innerText();
+  ok("what-if shows mean, interval and source rate", /1,000 replications/.test(mc1) && /90% interval/.test(mc1) && /1\.3771%/.test(mc1), mc1.slice(0, 80));
+  ok("what-if chart drawn", (await pg.locator("#mc-chart rect.bar").count()) >= 2);
+  await pg.click("#mc-run"); await pg.waitForFunction(() => !document.getElementById("mc-run").disabled);
+  ok("what-if repeat gives identical text", (await pg.locator("#mc-out").innerText()) === mc1);
+  const files = []; pg.on("download", (d) => files.push(d));
+  await pg.click("#mc-export"); await pg.waitForFunction(() => true); for (let i = 0; i < 40 && files.length < 2; i++) await pg.waitForTimeout(100);
+  const names = files.map((d) => d.suggestedFilename()).sort(); ok("export writes json and markdown", names.length === 2 && names[0].endsWith(".json") && names[1].endsWith(".md"), names.join(","));
+  const jtxt = fs.readFileSync(await files.find((d) => d.suggestedFilename().endsWith(".json")).path(), "utf8"), rep = JSON.parse(jtxt);
+  ok("exported json has seed, citation, results", rep.seed === 3 && rep.replications === 1000 && /compare\.json/.test(rep.source_citations[0].file) && rep.results.interval90.length === 2);
+  await pg.locator("#mc").scrollIntoViewIfNeeded(); await pg.screenshot({ path: path.join(out, "plant-blueprint-whatif.png") });
   ok("no console errors (webgl)", errs.length === 0, errs.join(" | "));
   await pg.close();
 

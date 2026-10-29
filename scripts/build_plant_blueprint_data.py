@@ -87,6 +87,14 @@ def build():
                       "rate_pct": g["rate_pct"], "wilson_pct": g["wilson_pct"],
                       "exact_pct": g["exact_pct"]})
 
+    # Other release peer groups (size, history, number of chemicals, chemical family).
+    peer_groups = []
+    for g in comp["groups"]:
+        if g["id"].startswith("rel-") and not g["id"].startswith("rel-inv-"):
+            peer_groups.append({"id": g["id"], "dimension": g["dimension"], "label": g["label"],
+                                "plant_years": g["n"], "events": g["events"], "rate_pct": g["rate_pct"],
+                                "wilson_pct": g["wilson_pct"], "exact_pct": g["exact_pct"]})
+
     qo = rows(OA, "outputs/tables/quality_overall.csv")[0]
     pp = [r for r in rows(OA, "outputs/tables/peer_percentiles_pooled.csv")
           if r["naics3"] == "325" and r["size_band"] == "100-249"][0]
@@ -135,7 +143,7 @@ def build():
         },
         "sim_rates": {
             "release_per_plant_year": {
-                "bands": bands, "src": S_CMP,
+                "bands": bands, "peer_groups": peer_groups, "src": S_CMP,
                 "key": "groups[rel-inv-*].rate_pct / wilson_pct / exact_pct",
             },
             "filing_implausible": {
