@@ -546,7 +546,58 @@
     $("resetview").onclick = function () { scene.resetView(); };
     ["units", "piping", "safety", "notes"].forEach(function (n) { $("ly-" + n).onchange = function () { scene.setLayer(n, $("ly-" + n).checked); }; });
     ["insight", "sensors", "log"].forEach(function (n) { $("tabbtn-" + n).onclick = function () { showTab(n); if (n === "log") renderLog(true); }; });
-    renderRates(); renderDocs();
+    renderRates(); renderDocs(); mcInit();
+  }
+
+  /* ---------------- Monte Carlo what-if ---------------- */
+  var MC = window.PlantMC, mcLast = null, mcBusy = false;
+  function download(name, type, text) {
+    var blob = new Blob([text], { type: type }), a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+  function mcInit() {
+    var sel = $("mc-scn"), last = null, h = "";
+    MC.scenarios(DATA).forEach(function (s) { if (s.group !== last) { if (last) h += "</optgroup>"; h += "<optgroup label=\"" + E(s.group) + "\">"; last = s.group; } h += "<option value=\"" + E(s.id) + "\"" + (s.id === "rel-inv-100k-1M lb" ? " selected" : "") + ">" + E(s.label) + "</option>"; });
+    sel.innerHTML = h + "</optgroup>";
+    $("mc-seed").value = params.seed;
+    sel.onchange = mcSource; mcSource();
+    $("mc-run").onclick = mcRun;
+    $("mc-export").onclick = function () {
+      if (!mcLast) return;
+      var tag = "seed" + mcLast.seed + "-n" + mcLast.n;
+      download("plant-whatif-" + tag + ".json", "application/json", JSON.stringify(MC.report(DATA, mcLast), null, 1));
+      setTimeout(function () { download("plant-whatif-" + tag + ".md", "text/markdown", MC.markdown(DATA, mcLast)); }, 300);
+    };
+  }
+  function mcSource() {
+    var s = MC.scenario(DATA, $("mc-scn").value);
+    $("mc-src").innerHTML = "Source rate: <b>" + fmt(s.rate_pct, 4) + "%</b> of plant-years with a release (" + fmt(s.events) + " / " + fmt(s.plant_years) + "; Wilson " + fmt(s.wilson_pct[0], 4) + "% to " + fmt(s.wilson_pct[1], 4) + "%), <code>groups[" + E(s.id) + "].rate_pct</code> in " + srcLink(DATA.sim_rates.release_per_plant_year.src) + ". Implied Poisson rate " + fmt(MC.lambdaOf(s), 5) + " per plant-year.";
+  }
+  function mcRun() {
+    if (mcBusy) return;
+    var opts = { scenario: $("mc-scn").value, n: +$("mc-n").value, seed: Math.max(1, Math.floor(+$("mc-seed").value) || 1) };
+    mcBusy = true; $("mc-run").disabled = true; $("mc-prog").hidden = false; $("mc-prog").value = 0;
+    MC.runChunked(DATA, opts, function (d, n) { $("mc-prog").value = d / n; }, 100).then(function (res) {
+      mcBusy = false; mcLast = res; $("mc-run").disabled = false; $("mc-prog").hidden = true; $("mc-export").disabled = false;
+      mcShow(res);
+    });
+  }
+  function mcShow(res) {
+    var s = MC.scenario(DATA, res.scenario), lam = res.lambda_per_year;
+    $("mc-out").innerHTML = "Seed " + res.seed + ", " + fmt(res.n) + " replications. Mean <b>" + fmt(res.mean, 4) + "</b> incidents per plant-year (standard error " + fmt(res.se_mean, 4) + ") against the source-implied <b>" + fmt(lam, 4) + "</b>. Replications with a release: <b>" + fmt(res.share_with_release * 100, 2) + "%</b> against the source <b>" + fmt(s.rate_pct, 4) + "%</b>. Empirical 90% interval: <b>" + res.interval90[0] + " to " + res.interval90[1] + "</b> incidents per plant-year.";
+    var H = res.histogram, K = Math.max(H.length, 2), mx = 1, W = 640, Hh = 190, L = 40, B = 150, bw = (W - L - 10) / K, pmf = [], p0 = Math.exp(-lam), k;
+    for (k = 0; k < K; k++) { pmf.push(k === 0 ? p0 : pmf[k - 1] * lam / k); mx = Math.max(mx, (H[k] || 0) / res.n, pmf[k]); }
+    var svg = "<svg viewBox=\"0 0 " + W + " " + Hh + "\" role=\"img\" aria-label=\"Histogram of simulated incidents per plant-year, bars are simulated share, circles are the Poisson share implied by the source rate\">";
+    svg += "<line x1=\"" + L + "\" y1=\"" + B + "\" x2=\"" + W + "\" y2=\"" + B + "\" stroke=\"currentColor\" opacity=\".4\" />";
+    for (k = 0; k < K; k++) {
+      var sh = (H[k] || 0) / res.n, x = L + k * bw, bh = sh / mx * 120;
+      svg += "<rect class=\"bar\" x=\"" + (x + 4) + "\" y=\"" + (B - bh) + "\" width=\"" + Math.max(2, bw - 8) + "\" height=\"" + bh + "\"><title>" + k + " incidents: " + (H[k] || 0) + " replications (" + fmt(sh * 100, 2) + "%)</title></rect>";
+      svg += "<circle class=\"exp\" cx=\"" + (x + bw / 2) + "\" cy=\"" + (B - pmf[k] / mx * 120) + "\" r=\"4\"><title>Poisson share at source rate: " + fmt(pmf[k] * 100, 3) + "%</title></circle>";
+      svg += "<text class=\"ax\" x=\"" + (x + bw / 2) + "\" y=\"" + (B + 16) + "\" text-anchor=\"middle\">" + k + "</text>";
+    }
+    svg += "<text class=\"ax\" x=\"" + L + "\" y=\"14\">max share " + fmt(mx * 100, 1) + "%</text><text class=\"ax\" x=\"" + (W / 2) + "\" y=\"" + (Hh - 6) + "\" text-anchor=\"middle\">incidents in the simulated year (bars: simulated, circles: Poisson at the source rate)</text></svg>";
+    $("mc-chart").innerHTML = svg;
+    $("status").textContent = "What-if finished: " + fmt(res.n) + " replications, seed " + res.seed + ".";
   }
   function renderRates() {
     var r = Sim.rateFor(DATA, params), f = DATA.sim_rates.filing_implausible;

@@ -51,7 +51,7 @@ class PlantBlueprint(unittest.TestCase):
         self.assertNotRegex(h, r"https?://(?!cdnjs\.cloudflare\.com|fonts\.|priyatham9\.github\.io|github\.com|linkedin\.com|schema\.org|www\.w3\.org)[\w.-]+/[^\"' ]*\.js")
 
     def test_no_em_dashes(self):
-        for rel in ("work/plant-blueprint.html", "work/plant-blueprint.js", "work/plant-blueprint-sim.js",
+        for rel in ("work/plant-blueprint.html", "work/plant-blueprint.js", "work/plant-blueprint-sim.js", "work/plant-blueprint-mc.js", "tests/plant_mc_check.js",
                     "scripts/build_plant_blueprint_data.py", "tests/test_plant_blueprint.py", "tests/plant_sim_check.js"):
             self.assertNotIn(chr(0x2014), read(*rel.split("/")), rel)
 
@@ -102,6 +102,11 @@ class PlantBlueprint(unittest.TestCase):
     @unittest.skipUnless(shutil.which("node"), "node not installed")
     def test_simulation_determinism(self):
         r = subprocess.run(["node", os.path.join(ROOT, "tests", "plant_sim_check.js")], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    @unittest.skipUnless(shutil.which("node"), "node not installed")
+    def test_monte_carlo(self):
+        r = subprocess.run(["node", os.path.join(ROOT, "tests", "plant_mc_check.js")], capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
 
 
