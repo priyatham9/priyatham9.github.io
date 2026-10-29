@@ -56,8 +56,14 @@ const ok = (n, c, x) => { console.log((c ? "ok   " : "FAIL ") + n + (x ? "  " + 
   await pg.click("#tabbtn-log");
   const nAlerts = await pg.locator("#tab-log .alert").count(); ok("alerts raised after jump to incident", nAlerts > 0, "alerts=" + nAlerts);
   await pg.screenshot({ path: path.join(out, "plant-blueprint-incident.png") });
+  // pause so the 250 ms sim tick cannot re-render the alert rows between locate and click, then wait on state
+  if ((await pg.locator("#play").getAttribute("aria-pressed")) === "true") await pg.click("#play");
+  await pg.waitForFunction(() => document.getElementById("play").getAttribute("aria-pressed") !== "true");
   await pg.locator("#tab-log button[data-a='acknowledge_alert']").first().click();
-  ok("acknowledge writes an audit entry", /you \(analyst\)/.test(await pg.locator("#tab-log").innerText()));
+  await pg.waitForFunction(() => window.__plant.S.manual.length > 0);
+  {
+  ok("acknowledge writes an audit entry", /you \(analyst\)/.test(await pg.locator("#tab-log").innerText()) && (await pg.evaluate(() => window.__plant.S.manual[0].actor)) === "you (analyst)");
+  }
   const exported = await pg.evaluate(() => window.__plant.Sim.exportLog(window.__plant.S && JSON.parse(document.getElementById("plant-data").textContent), window.__plant.params, window.__plant.S.log));
   ok("export has banner, seed and log", exported.banner && exported.seed === 3 && exported.log.length > 0);
   // determinism in the page: same seed twice gives the same system log

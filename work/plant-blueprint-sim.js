@@ -302,7 +302,7 @@
   /* Governed action: validates submission criteria against state at t, returns an audit entry. */
   function applyAction(log, name, args, t, actor) {
     var st = foldState(log, t), a = st.alerts[args.alert], fail = null;
-    var entry = { at_h: round3(t), actor: actor || "you (analyst)", action: name, objects: { alert: args.alert, unit: a ? a.unit : null }, params: {}, result: "applied" };
+    var entry = { at_h: Math.floor(t * 1000) / 1000, actor: actor || "you (analyst)", action: name, objects: { alert: args.alert, unit: a ? a.unit : null }, params: {}, result: "applied" };
     if (!a) fail = "Alert does not exist yet at this time.";
     else if (name === "acknowledge_alert") { if (a.status !== "open") fail = "Alert is not open."; else if (args.note) entry.params.note = args.note; }
     else if (name === "isolate_unit") {
