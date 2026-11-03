@@ -1,0 +1,399 @@
+{
+ "industry": [
+  {
+   "accidents": "36",
+   "facilities": "28",
+   "facility_years": "383",
+   "group": "Synthetic rubber",
+   "rate_hi": "13.0128",
+   "rate_lo": "6.5833",
+   "rate_per_100fy": "9.3995"
+  },
+  {
+   "accidents": "15",
+   "facilities": "14",
+   "facility_years": "175",
+   "group": "Plastics resins (older code)",
+   "rate_hi": "14.1373",
+   "rate_lo": "4.7974",
+   "rate_per_100fy": "8.5714"
+  },
+  {
+   "accidents": "128",
+   "facilities": "109",
+   "facility_years": "1542",
+   "group": "Petrochemicals",
+   "rate_hi": "9.8698",
+   "rate_lo": "6.9252",
+   "rate_per_100fy": "8.3009"
+  },
+  {
+   "accidents": "15",
+   "facilities": "18",
+   "facility_years": "210",
+   "group": "Dyes & pigments",
+   "rate_hi": "11.7811",
+   "rate_lo": "3.9978",
+   "rate_per_100fy": "7.1429"
+  },
+  {
+   "accidents": "283",
+   "facilities": "301",
+   "facility_years": "4023",
+   "group": "Acids & inorganics",
+   "rate_hi": "7.9037",
+   "rate_lo": "6.2388",
+   "rate_per_100fy": "7.0346"
+  },
+  {
+   "accidents": "9",
+   "facilities": "9",
+   "facility_years": "133",
+   "group": "Explosives",
+   "rate_hi": "12.8457",
+   "rate_lo": "3.0943",
+   "rate_per_100fy": "6.7669"
+  },
+  {
+   "accidents": "309",
+   "facilities": "401",
+   "facility_years": "5422",
+   "group": "Other basic organics (incl. formaldehyde)",
+   "rate_hi": "6.3712",
+   "rate_lo": "5.0812",
+   "rate_per_100fy": "5.699"
+  },
+  {
+   "accidents": "176",
+   "facilities": "261",
+   "facility_years": "3572",
+   "group": "Resins & plastics",
+   "rate_hi": "5.7114",
+   "rate_lo": "4.2261",
+   "rate_per_100fy": "4.9272"
+  },
+  {
+   "accidents": "81",
+   "facilities": "221",
+   "facility_years": "2810",
+   "group": "Compounding & specialty",
+   "rate_hi": "3.5828",
+   "rate_lo": "2.2892",
+   "rate_per_100fy": "2.8826"
+  },
+  {
+   "accidents": "145",
+   "facilities": "415",
+   "facility_years": "5221",
+   "group": "Fertilizer & ag chemicals",
+   "rate_hi": "3.2679",
+   "rate_lo": "2.3436",
+   "rate_per_100fy": "2.7772"
+  },
+  {
+   "accidents": "56",
+   "facilities": "276",
+   "facility_years": "3094",
+   "group": "Industrial gases",
+   "rate_hi": "2.3504",
+   "rate_lo": "1.3672",
+   "rate_per_100fy": "1.81"
+  },
+  {
+   "accidents": "8",
+   "facilities": "42",
+   "facility_years": "513",
+   "group": "Adhesives",
+   "rate_hi": "3.0727",
+   "rate_lo": "0.6733",
+   "rate_per_100fy": "1.5595"
+  },
+  {
+   "accidents": "8",
+   "facilities": "41",
+   "facility_years": "529",
+   "group": "Pharmaceuticals",
+   "rate_hi": "2.9798",
+   "rate_lo": "0.6529",
+   "rate_per_100fy": "1.5123"
+  },
+  {
+   "accidents": "1",
+   "facilities": "9",
+   "facility_years": "119",
+   "group": "Fibers",
+   "rate_hi": "4.6821",
+   "rate_lo": "0.0213",
+   "rate_per_100fy": "0.8403"
+  },
+  {
+   "accidents": "9",
+   "facilities": "95",
+   "facility_years": "1243",
+   "group": "Soaps, cleaners & personal care",
+   "rate_hi": "1.3745",
+   "rate_lo": "0.3311",
+   "rate_per_100fy": "0.7241"
+  },
+  {
+   "accidents": "15",
+   "facilities": "199",
+   "facility_years": "2598",
+   "group": "Ethanol & biofuels",
+   "rate_hi": "0.9523",
+   "rate_lo": "0.3231",
+   "rate_per_100fy": "0.5774"
+  },
+  {
+   "accidents": "3",
+   "facilities": "61",
+   "facility_years": "722",
+   "group": "Paints & coatings",
+   "rate_hi": "1.2143",
+   "rate_lo": "0.0857",
+   "rate_per_100fy": "0.4155"
+  }
+ ],
+ "limitations": [
+  {
+   "doc": "docs/trend.md",
+   "lead": "Late years are under-observed.",
+   "text": "An accident is on file only if a later RMP submission lists it within its five-year history. Facilities whose last submission was before an accident never show it, yet are counted as observed to 2024 if still marked active, or to their last submission year otherwise. This biases recent-year rates downward, and part or all of the decline, especially in 2022-2024, may come from it. The sensitivity set limits the problem for facilities with a 2024 or later submission, but it keeps only survivors still filing, which is itself selective, and it still shows a decline. Neither set removes the bias.",
+   "topic": "Recent years are under-observed"
+  },
+  {
+   "doc": "docs/severity.md",
+   "lead": "RMP-covered facilities only.",
+   "text": "The records are for facilities that file an RMP and hold a regulated substance above its threshold. Accidents at other plants, or involving unlisted substances, are absent.",
+   "topic": "RMP-covered facilities only"
+  },
+  {
+   "doc": "docs/severity.md",
+   "lead": "Not done.",
+   "text": "No dollar-weighted damage analysis (damage is used only as zero or above zero), no cut by initiating event beyond the contributing-cause flags above (the data has no separate initiating-event field), no accident narratives, and no check against the current EPA RMP*Info database.",
+   "topic": "No initiating-event field"
+  },
+  {
+   "doc": "docs/severity.md",
+   "lead": "Reporting thresholds.",
+   "text": "Only accidents that meet EPA's five-year-history criteria (40 CFR 68.42) are on file: a listed substance released with at least one of deaths, injuries, significant property damage, or known offsite consequences such as evacuation, sheltering, or environmental damage. Because many records qualify through an injury, the injury share is high by construction. It must not be read as the chance that an RMP-covered release injures someone, and the data holds no minor releases.",
+   "topic": "Only reportable accidents are on file"
+  }
+ ],
+ "severity": [
+  {
+   "accidents": "868",
+   "measure": "any_injury",
+   "pct": "49.42",
+   "pct_hi": "52.8",
+   "pct_lo": "46.05",
+   "with_measure": "429"
+  },
+  {
+   "accidents": "868",
+   "measure": "onsite_injury",
+   "pct": "49.19",
+   "pct_hi": "52.57",
+   "pct_lo": "45.82",
+   "with_measure": "427"
+  },
+  {
+   "accidents": "868",
+   "measure": "offsite_injury",
+   "pct": "0.23",
+   "pct_hi": "0.83",
+   "pct_lo": "0.03",
+   "with_measure": "2"
+  },
+  {
+   "accidents": "868",
+   "measure": "fatality",
+   "pct": "1.38",
+   "pct_hi": "2.4",
+   "pct_lo": "0.72",
+   "with_measure": "12"
+  },
+  {
+   "accidents": "868",
+   "measure": "evacuation",
+   "pct": "4.61",
+   "pct_hi": "6.22",
+   "pct_lo": "3.31",
+   "with_measure": "40"
+  },
+  {
+   "accidents": "868",
+   "measure": "sheltering",
+   "pct": "9.56",
+   "pct_hi": "11.72",
+   "pct_lo": "7.69",
+   "with_measure": "83"
+  },
+  {
+   "accidents": "868",
+   "measure": "property_damage",
+   "pct": "22.0",
+   "pct_hi": "24.91",
+   "pct_lo": "19.29",
+   "with_measure": "191"
+  }
+ ],
+ "source": {
+  "commit": "eaf1422910181287325ac0c4e05e749f7fd7a837",
+  "csv_paths": {
+   "industry": "outputs/accident_by_subsector.csv",
+   "severity": "outputs/severity_overall.csv",
+   "trend": "outputs/trend_by_year.csv",
+   "trend_tests": "outputs/trend_tests.csv"
+  },
+  "doc_paths": {
+   "insights": "docs/insights.md",
+   "severity": "docs/severity.md",
+   "trend": "docs/trend.md"
+  },
+  "note": "Values are copied as strings from the CSV cells at this commit.",
+  "repo": "priyatham9/ehs-chemical-peers"
+ },
+ "trend": [
+  {
+   "accidents": "73",
+   "facility_years": "1851",
+   "rate_hi": "4.9588",
+   "rate_lo": "3.0913",
+   "rate_per_100fy": "3.9438",
+   "year": "2010"
+  },
+  {
+   "accidents": "82",
+   "facility_years": "1853",
+   "rate_hi": "5.4929",
+   "rate_lo": "3.5195",
+   "rate_per_100fy": "4.4253",
+   "year": "2011"
+  },
+  {
+   "accidents": "67",
+   "facility_years": "1846",
+   "rate_hi": "4.6093",
+   "rate_lo": "2.8128",
+   "rate_per_100fy": "3.6295",
+   "year": "2012"
+  },
+  {
+   "accidents": "97",
+   "facility_years": "1851",
+   "rate_hi": "6.3929",
+   "rate_lo": "4.2496",
+   "rate_per_100fy": "5.2404",
+   "year": "2013"
+  },
+  {
+   "accidents": "79",
+   "facility_years": "1864",
+   "rate_hi": "5.2821",
+   "rate_lo": "3.3554",
+   "rate_per_100fy": "4.2382",
+   "year": "2014"
+  },
+  {
+   "accidents": "62",
+   "facility_years": "1820",
+   "rate_hi": "4.3671",
+   "rate_lo": "2.6118",
+   "rate_per_100fy": "3.4066",
+   "year": "2015"
+  },
+  {
+   "accidents": "57",
+   "facility_years": "1813",
+   "rate_hi": "4.0734",
+   "rate_lo": "2.3812",
+   "rate_per_100fy": "3.144",
+   "year": "2016"
+  },
+  {
+   "accidents": "56",
+   "facility_years": "1813",
+   "rate_hi": "4.0111",
+   "rate_lo": "2.3332",
+   "rate_per_100fy": "3.0888",
+   "year": "2017"
+  },
+  {
+   "accidents": "61",
+   "facility_years": "1805",
+   "rate_hi": "4.3411",
+   "rate_lo": "2.5851",
+   "rate_per_100fy": "3.3795",
+   "year": "2018"
+  },
+  {
+   "accidents": "54",
+   "facility_years": "1805",
+   "rate_hi": "3.9035",
+   "rate_lo": "2.2474",
+   "rate_per_100fy": "2.9917",
+   "year": "2019"
+  },
+  {
+   "accidents": "40",
+   "facility_years": "1795",
+   "rate_hi": "3.0345",
+   "rate_lo": "1.592",
+   "rate_per_100fy": "2.2284",
+   "year": "2020"
+  },
+  {
+   "accidents": "37",
+   "facility_years": "1764",
+   "rate_hi": "2.8911",
+   "rate_lo": "1.4768",
+   "rate_per_100fy": "2.0975",
+   "year": "2021"
+  },
+  {
+   "accidents": "34",
+   "facility_years": "1741",
+   "rate_hi": "2.729",
+   "rate_lo": "1.3524",
+   "rate_per_100fy": "1.9529",
+   "year": "2022"
+  },
+  {
+   "accidents": "45",
+   "facility_years": "1724",
+   "rate_hi": "3.4927",
+   "rate_lo": "1.9039",
+   "rate_per_100fy": "2.6102",
+   "year": "2023"
+  },
+  {
+   "accidents": "24",
+   "facility_years": "1713",
+   "rate_hi": "2.0847",
+   "rate_lo": "0.8977",
+   "rate_per_100fy": "1.4011",
+   "year": "2024"
+  }
+ ],
+ "trend_tests": {
+  "accidents": "868",
+  "accidents_2010_2014": "398",
+  "accidents_2020_2024": "180",
+  "dispersion": "1.727",
+  "facility_years": "27058",
+  "facility_years_2010_2014": "9265",
+  "facility_years_2020_2024": "8737",
+  "mk_p": "4.95e-05",
+  "pct_change_per_year": "-6.18",
+  "rate_2010_2014": "4.2957",
+  "rate_2010_2014_hi": "4.7392",
+  "rate_2010_2014_lo": "3.884",
+  "rate_2020_2024": "2.0602",
+  "rate_2020_2024_hi": "2.3841",
+  "rate_2020_2024_lo": "1.7702",
+  "rate_ratio_per_year": "0.9382",
+  "rr_hi": "0.9532",
+  "rr_lo": "0.9234"
+ }
+}
