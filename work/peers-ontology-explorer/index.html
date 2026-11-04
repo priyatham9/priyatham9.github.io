@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chemical Peers Ontology Explorer</title>
+<meta name="description" content="A portable, Workshop-style explorer over a Foundry-style ontology of US chemical plants built on public EPA RMP and OSHA records. Runs in the browser; no Foundry account.">
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1c2024; --muted:#5b636b; --line:#dcd9d0;
+  --accent:#1f5f8b; --accent-ink:#ffffff; --soft:#e8f0f6; --warn:#8a5a00; --warn-bg:#fdf3dc;
+  --ok:#1d6b43; --ok-bg:#e3f3ea; --bad:#9b2c2c; --bad-bg:#fbe7e7;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171a; --panel:#1d2227; --ink:#e7e9eb; --muted:#9aa3ab; --line:#333a41;
+    --accent:#6db3e0; --accent-ink:#0d1317; --soft:#22313c; --warn:#e8b95a; --warn-bg:#33290f;
+    --ok:#6cc895; --ok-bg:#16301f; --bad:#f08a8a; --bad-bg:#3a1c1c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171a; --panel:#1d2227; --ink:#e7e9eb; --muted:#9aa3ab; --line:#333a41;
+  --accent:#6db3e0; --accent-ink:#0d1317; --soft:#22313c; --warn:#e8b95a; --warn-bg:#33290f;
+  --ok:#6cc895; --ok-bg:#16301f; --bad:#f08a8a; --bad-bg:#3a1c1c;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 48px}
+header.top{padding:24px 0 8px}
+h1{font-size:1.7rem;line-height:1.2;margin:0 0 8px}
+h2{font-size:1.2rem;margin:0 0 4px}
+h3{font-size:1rem;margin:16px 0 6px}
+p{margin:0 0 10px}
+.lede{color:var(--muted);max-width:760px}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+a{color:var(--accent)}
+section.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--muted);vertical-align:middle}
+.badge.demo{background:var(--warn-bg);color:var(--warn);border-color:var(--warn)}
+.banner{background:var(--warn-bg);color:var(--ink);border-left:4px solid var(--warn);padding:10px 12px;border-radius:6px;margin:10px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
+.stat{background:var(--soft);border-radius:8px;padding:8px 10px}
+.stat b{display:block;font-size:1.3rem;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8rem;color:var(--muted)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.8rem;white-space:nowrap}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.pick{cursor:pointer}
+tr.pick:hover td,tr.sel td{background:var(--soft)}
+button,input,select,textarea{font:inherit;color:var(--ink)}
+input[type=search],input[type=text],select,textarea{width:100%;padding:8px 10px;background:var(--bg);border:1px solid var(--line);border-radius:6px}
+button{padding:7px 12px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer;min-height:38px}
+button.alt{background:transparent;color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}
+button.link{border:0;background:none;color:var(--accent);padding:0;min-height:0;text-decoration:underline;text-align:left}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+label{display:block;font-size:.85rem;color:var(--muted);margin:10px 0 3px}
+.grid2{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:860px){.grid2{grid-template-columns:minmax(260px,5fr) 7fr}}
+.results{list-style:none;margin:8px 0 0;padding:0;max-height:360px;overflow:auto;border:1px solid var(--line);border-radius:6px}
+.results li{padding:8px 10px;border-bottom:1px solid var(--line);cursor:pointer}
+.results li:last-child{border-bottom:0}
+.results li:hover,.results li[aria-selected=true]{background:var(--soft)}
+.results .t{font-weight:600}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:3px 14px;font-size:.9rem}
+.kv dt{color:var(--muted)} .kv dd{margin:0;overflow-wrap:anywhere}
+.pill{display:inline-block;padding:0 7px;border-radius:99px;font-size:.78rem;background:var(--soft);margin:1px 2px 1px 0}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.warn{background:var(--warn-bg);color:var(--warn)}
+svg.graph{width:100%;height:auto;max-height:560px;display:block}
+svg.graph text{fill:var(--ink);font-size:11px;pointer-events:none}
+svg.graph .sub{fill:var(--muted);font-size:10px}
+svg.graph line{stroke:var(--line);stroke-width:1.2}
+svg.graph line.hi{stroke:var(--accent);stroke-width:2.4}
+svg.graph line.m2m{stroke-dasharray:5 4}
+svg.graph circle{fill:var(--soft);stroke:var(--accent);stroke-width:1.5;cursor:pointer}
+svg.graph circle.sel{fill:var(--accent)}
+svg.graph circle:focus-visible{outline:2px solid var(--accent)}
+.log{font-family:var(--mono);font-size:.8rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:6px 0;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.err{color:var(--bad)} .okmsg{color:var(--ok)}
+.themebtn{float:right;min-height:32px;padding:3px 10px}
+footer{color:var(--muted);font-size:.85rem;margin-top:24px}
+details summary{cursor:pointer;color:var(--accent)}
+.sr{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <button class="themebtn alt" id="themebtn" type="button" aria-label="Toggle light or dark theme">Theme</button>
+  <h1>Chemical Peers Ontology Explorer</h1>
+  <p class="lede">A portable, Workshop-style app over a Foundry-style ontology of US chemical plants. It joins three public sources (EPA Risk Management Program filings and accident histories, OSHA Form 300A injury logs, OSHA Severe Injury Reports) into <span data-n="object_types">12</span> object types and <span data-n="link_types">15</span> link types. It runs entirely in your browser from one vendored JSON file. It needs no Palantir account and uses no employer data. It is an independent design and is not affiliated with or endorsed by Palantir.</p>
+  <div class="stats" aria-label="Headline counts">
+    <div class="stat"><b data-n="facilities">2,773</b><span>EPA RMP facilities (objects embedded)</span></div>
+    <div class="stat"><b data-n="accidents">2,611</b><span>RMP accidents</span></div>
+    <div class="stat"><b data-n="chemicals">124</b><span>chemicals</span></div>
+    <div class="stat"><b data-n="matches">1,354</b><span>RMP to OSHA matches</span></div>
+    <div class="stat"><b data-n="plants">10,597</b><span>plants in the full ontology</span></div>
+  </div>
+  <p class="small muted">Source: <a id="srclink" href="https://github.com/priyatham9/ehs-chemical-peers">priyatham9/ehs-chemical-peers</a> at commit <code data-n="commit7">eaf1422</code>, built by <code>scripts/build_peers_ontology_data.py</code>. All numbers on this page are read from <code>data.json</code>.</p>
+  <noscript><div class="banner">This page needs JavaScript to read <code>data.json</code> and draw the tables.</div></noscript>
+</header>
+
+<section class="card" id="types">
+  <h2>1. Object types</h2>
+  <p class="muted small">Counts are for the full ontology. Select a row for its definition. "In browser" means the objects themselves are embedded in <code>data.json</code>; "count only" means the type is too large to ship (see Limits).</p>
+  <div class="tablewrap"><table id="typetable"><thead><tr><th>Object type</th><th class="n">Objects</th><th>Key</th><th class="n">Properties</th><th>In this page</th></tr></thead><tbody></tbody></table></div>
+  <div id="typedetail" class="small" style="margin-top:10px"></div>
+</section>
+
+<section class="card" id="links">
+  <h2>2. Link types</h2>
+  <p class="muted small">Nodes are object types, lines are link types (dashed = many to many). Select a node to highlight its links. Resolved, null and dangling are the ontology's own key-integrity check.</p>
+  <svg class="graph" id="graph" viewBox="0 0 760 520" role="img" aria-label="Graph of object types joined by link types"></svg>
+  <div class="tablewrap"><table id="linktable"><thead><tr><th>Link</th><th>From</th><th>To</th><th>Cardinality</th><th class="n">Resolved</th><th class="n">Null</th><th class="n">Dangling</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="card" id="explore">
+  <h2>3. Search and object detail</h2>
+  <div class="grid2">
+    <div>
+      <label for="q">Search a facility (name, company, city, state, EPA ID) or a chemical</label>
+      <input type="search" id="q" placeholder="e.g. Dow, Freeport, chlorine, 100000150034" autocomplete="off">
+      <p class="small muted" id="qinfo"></p>
+      <ul class="results" id="results" role="listbox" aria-label="Search results"></ul>
+    </div>
+    <div id="detail" aria-live="polite"><p class="muted">Select a facility or chemical to see its linked objects and accident history.</p></div>
+  </div>
+</section>
+
+<section class="card" id="actions">
+  <h2>4. Audited actions <span class="badge demo">in-browser demo</span></h2>
+  <div class="banner small">Demo only. The ontology defines <span data-n="actions">4</span> action types. Here they run against an in-memory copy in this tab, checked by the rules in the spec (parameters, submission criteria, edits). Nothing is saved or sent anywhere, there is no user or permission model, and a reload clears the log. The "actor" is just the text you type.</div>
+  <div class="grid2">
+    <div>
+      <div id="acttarget" class="small muted">Select a facility in section 3 first.</div>
+      <label for="actsel">Action</label>
+      <select id="actsel"></select>
+      <div id="actform"></div>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Audit log (<span id="logn">0</span>)</h3>
+      <div id="log"><p class="muted small">No actions applied yet. Rejected submissions change nothing and are not logged, as in the source ontology.</p></div>
+      <button class="alt" type="button" id="resetlog">Reset demo state</button>
+    </div>
+  </div>
+</section>
+
+<section class="card" id="limits">
+  <h2>5. Source and limits</h2>
+  <ul class="small">
+    <li>Data: <code>data.json</code> in this folder, generated from the committed files of <span id="srcrepo"></span> at commit <code id="srcsha"></code> (paths: <span id="srcpaths"></span>). The page does not fetch anything else.</li>
+    <li>Size cap: the full export is about 21 MB, so only <span id="embeddedlist"></span> are embedded. <span id="notembedded"></span> are counts only. Plants are therefore browsable only through their EPA registration; OSHA-only plants are not listed.</li>
+    <li>Holdings are the ten largest per plant (the source's own export limit). The match confidence is the ontology's own rubric over the join method and has not been validated against a third source.</li>
+    <li>The join between EPA and OSHA records is by address and name, not by a shared identifier. Treat each match as a hypothesis the actions above let an analyst review.</li>
+  </ul>
+</section>
+<footer>Independent project on public EPA and OSHA data. Not affiliated with Palantir. Palantir and Foundry are named only to describe the design pattern.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var D=null, S={fac:null,chem:null,log:[],state:{match:{},plant:{}}};
+var $=function(id){return document.getElementById(id)};
+function fmt(n){return n==null?"n/a":Number(n).toLocaleString("en-US")}
+function el(tag,attrs,kids){var e=document.createElement(tag);
+  if(attrs)for(var k in attrs){if(k==="text")e.textContent=attrs[k];else if(k==="class")e.className=attrs[k];else e.setAttribute(k,attrs[k]);}
+  (kids||[]).forEach(function(c){if(c==null)return;e.appendChild(typeof c==="string"?document.createTextNode(c):c)});return e}
+function clear(n){while(n.firstChild)n.removeChild(n.firstChild)}
+function row(cols,rowv){var o={};cols.forEach(function(c,i){o[c]=rowv[i]});return o}
+
+/* theme */
+(function(){var b=$("themebtn");
+  try{var t=localStorage.getItem("peers-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}
+  b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme");
+    if(!cur)cur=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+    var nx=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",nx);
+    try{localStorage.setItem("peers-theme",nx)}catch(e){}});
+})();
+
+fetch("data.json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(init).catch(function(e){
+  var m=el("div",{class:"banner",text:"Could not load data.json ("+e.message+"). If you opened this file directly, serve the folder over HTTP."});
+  document.querySelector("header.top").appendChild(m)});
+
+function init(d){
+  D=d;
+  D.facs=D.facilities.map(function(r){return row(D.facility_cols,r)});
+  D.accs=D.accidents.map(function(r){return row(D.accident_cols,r)});
+  D.mats=D.matches.map(function(r){return row(D.match_cols,r)});
+  D.accByFac={};D.accs.forEach(function(a){(D.accByFac[a.facility]=D.accByFac[a.facility]||[]).push(a)});
+  D.holdByFac={};D.holdByChem={};
+  D.holdings.forEach(function(h){(D.holdByFac[h[0]]=D.holdByFac[h[0]]||[]).push(h);(D.holdByChem[h[1]]=D.holdByChem[h[1]]||[]).push(h)});
+  D.matchByFac={};D.mats.forEach(function(m){(D.matchByFac[m.facility]=D.matchByFac[m.facility]||[]).push(m)});
+  D.accByChem={};D.accs.forEach(function(a){a.chemicals.forEach(function(c){(D.accByChem[c]=D.accByChem[c]||[]).push(a)})});
+  D.pgByKey={};D.peer_groups.forEach(function(g){D.pgByKey[g[0]]=g});
+  D.sbByBand={};D.size_bands.forEach(function(b){D.sbByBand[b[0]]=b});
+  D.otByName={};D.object_types.forEach(function(t){D.otByName[t.api_name]=t});
+  fillNumbers();renderTypes();renderLinks();renderGraph();setupSearch();setupActions();renderSource();
+}
+
+function fillNumbers(){
+  var v={object_types:D.object_types.length,link_types:D.link_types.length,facilities:D.census.RmpRegistration,
+    accidents:D.census.Accident,chemicals:D.census.Chemical,matches:D.census.PlantMatch,plants:D.census.Plant,
+    actions:D.actions.length};
+  document.querySelectorAll("[data-n]").forEach(function(n){var k=n.getAttribute("data-n");
+    if(k==="commit7")n.textContent=D.source.commit.slice(0,7);else if(k in v)n.textContent=fmt(v[k])});
+  $("srclink").href="https://github.com/"+D.source.repo+"/tree/"+D.source.commit;
+}
+
+/* 1. object types */
+function renderTypes(){
+  var tb=$("typetable").tBodies[0];clear(tb);
+  D.object_types.slice().sort(function(a,b){return b.count-a.count}).forEach(function(t){
+    var tr=el("tr",{class:"pick",tabindex:"0","data-t":t.api_name},[
+      el("td",{text:t.display_name+" ("+t.api_name+")"}),el("td",{class:"n",text:fmt(t.count)}),
+      el("td",{text:t.primary_key}),el("td",{class:"n",text:fmt(t.properties.length)}),
+      el("td",null,[el("span",{class:"pill "+(t.embedded?"ok":"warn"),text:t.embedded?"In browser":"Count only"})])]);
+    var go=function(){selectType(t.api_name)};
+    tr.addEventListener("click",go);tr.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});
+    tb.appendChild(tr)});
+}
+function selectType(name){
+  S.type=name;var t=D.otByName[name];
+  document.querySelectorAll("#typetable tr.pick").forEach(function(r){r.classList.toggle("sel",r.getAttribute("data-t")===name)});
+  var box=$("typedetail");clear(box);
+  var links=D.link_types.filter(function(l){return l.source===name||l.target===name});
+  box.appendChild(el("p",null,[el("b",{text:t.display_name+": "}),t.description]));
+  box.appendChild(el("p",null,[el("b",{text:"Properties: "}),t.properties.join(", ")]));
+  box.appendChild(el("p",null,[el("b",{text:"Links: "}),links.map(function(l){return l.api_name}).join(", ")||"none"]));
+  renderGraph();
+}
+
+/* 2. links */
+function renderLinks(){
+  var tb=$("linktable").tBodies[0];clear(tb);
+  D.link_types.forEach(function(l){var g=l.integrity;
+    tb.appendChild(el("tr",null,[el("td",{text:l.api_name}),el("td",{text:l.source}),el("td",{text:l.target}),el("td",{text:l.cardinality.replace(/_/g," ")}),
+      el("td",{class:"n",text:fmt(g.resolved)}),el("td",{class:"n",text:g["null"]==null?"-":fmt(g["null"])}),el("td",{class:"n",text:fmt(g.dangling)})]))});
+}
+function renderGraph(){
+  var svg=$("graph"),NS="http://www.w3.org/2000/svg";clear(svg);
+  var types=D.object_types.map(function(t){return t.api_name}),n=types.length,cx=380,cy=260,R=200,pos={};
+  types.forEach(function(t,i){var a=-Math.PI/2+2*Math.PI*i/n;pos[t]=[cx+R*Math.cos(a)*1.3,cy+R*Math.sin(a)]});
+  function mk(tag,at){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);return e}
+  D.link_types.forEach(function(l){var p=pos[l.source],q=pos[l.target];
+    var hi=S.type&&(l.source===S.type||l.target===S.type);
+    var c=(hi?"hi ":"")+(l.cardinality==="many_to_many"?"m2m":"");
+    var ln=mk("line",{x1:p[0],y1:p[1],x2:q[0],y2:q[1],"class":c});
+    var tt=mk("title",{});tt.textContent=l.api_name+": "+l.source+" to "+l.target+" ("+l.cardinality.replace(/_/g," ")+")";ln.appendChild(tt);svg.appendChild(ln)});
+  types.forEach(function(t){var p=pos[t],ot=D.otByName[t];
+    var c=mk("circle",{cx:p[0],cy:p[1],r:22,"class":S.type===t?"sel":"",tabindex:"0",role:"button","aria-label":t+", "+fmt(ot.count)+" objects"});
+    c.addEventListener("click",function(){selectType(t)});
+    c.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();selectType(t)}});
+    svg.appendChild(c);
+    var a=mk("text",{x:p[0],y:p[1]-28,"text-anchor":"middle"});a.textContent=t;svg.appendChild(a);
+    var b=mk("text",{x:p[0],y:p[1]+4,"text-anchor":"middle","class":"sub",style:S.type===t?"fill:var(--accent-ink)":""});b.textContent=fmt(ot.count);svg.appendChild(b)});
+}
+
+/* 3. search and detail */
+function setupSearch(){
+  var q=$("q");q.addEventListener("input",function(){runSearch(q.value)});runSearch("");
+}
+function runSearch(txt){
+  var t=txt.trim().toLowerCase(),ul=$("results");clear(ul);
+  var out=[];
+  if(t.length<2){$("qinfo").textContent="Type at least 2 characters. "+fmt(D.facs.length)+" facilities and "+fmt(D.chemicals.length)+" chemicals are searchable.";return}
+  D.chemicals.forEach(function(c,i){if(c[0].toLowerCase().indexOf(t)>=0)out.push({k:"chem",i:i})});
+  var nChem=out.length;
+  D.facs.forEach(function(f,i){var hay=(f.name+" "+f.company+" "+f.city+" "+f.state+" "+f.epa_id).toLowerCase();
+    if(hay.indexOf(t)>=0)out.push({k:"fac",i:i})});
+  var nFac=out.length-nChem;
+  $("qinfo").textContent=fmt(nFac)+" facilities and "+fmt(nChem)+" chemicals match"+(out.length>40?" (showing the first 40)":"")+".";
+  out.slice(0,40).forEach(function(r){var li;
+    if(r.k==="chem")li=el("li",{role:"option",tabindex:"0"},[el("div",{class:"t",text:D.chemicals[r.i][0]}),el("div",{class:"small muted",text:"Chemical, "+D.chemicals[r.i][1].join(", ")})]);
+    else{var f=D.facs[r.i];li=el("li",{role:"option",tabindex:"0"},[el("div",{class:"t",text:f.name||"(unnamed)"}),el("div",{class:"small muted",text:"Facility, "+[f.company,f.city,f.state].filter(Boolean).join(", ")+" | EPA "+f.epa_id})])}
+    var go=function(){if(r.k==="chem")showChem(r.i);else showFac(r.i)};
+    li.addEventListener("click",go);li.addEventListener("keydown",function(e){if(e.key==="Enter"){go()}});ul.appendChild(li)});
+}
+function kv(pairs){var dl=el("dl",{class:"kv"});pairs.forEach(function(p){dl.appendChild(el("dt",{text:p[0]}));var dd=el("dd");
+  if(p[1] instanceof Node)dd.appendChild(p[1]);else dd.textContent=p[1]==null||p[1]===""?"n/a":String(p[1]);dl.appendChild(dd)});return dl}
+function linkBtn(txt,fn){var b=el("button",{class:"link",type:"button",text:txt});b.addEventListener("click",fn);return b}
+function table(head,rows,numCols){var t=el("table"),th=el("tr");head.forEach(function(h,i){th.appendChild(el("th",{class:numCols&&numCols.indexOf(i)>=0?"n":"",text:h}))});
+  t.appendChild(el("thead",null,[th]));var tb=el("tbody");
+  rows.forEach(function(r){var tr=el("tr");r.forEach(function(c,i){var td=el("td",{class:numCols&&numCols.indexOf(i)>=0?"n":""});
+    if(c instanceof Node)td.appendChild(c);else td.textContent=c==null||c===""?"n/a":String(c);tr.appendChild(td)});tb.appendChild(tr)});
+  t.appendChild(tb);return el("div",{class:"tablewrap"},[t])}
+
+function showFac(i){
+  S.fac=i;S.chem=null;var f=D.facs[i],box=$("detail");clear(box);
+  var pgk=f.peer_group,pg=pgk&&D.pgByKey[pgk],sb=f.size_band&&D.sbByBand[f.size_band];
+  box.appendChild(el("h3",{text:f.name||"(unnamed)",style:"margin-top:0"}));
+  box.appendChild(el("p",{class:"small muted",text:"Object type RmpRegistration / Plant, EPA facility "+f.epa_id}));
+  var ps=S.state.plant[i]||{review_status:"none"};
+  box.appendChild(kv([["Company",f.company],["Location",[f.city,f.state].filter(Boolean).join(", ")],["Subsector",f.subsector],
+    ["Employees",f.employees==null?null:fmt(f.employees)],["RMP filings",f.rmp_first+" to "+f.rmp_last+(f.active?" (active)":" (inactive)")],
+    ["Inventory",fmt(f.inventory_lb)+" lb ("+f.inventory_band+")"],["Chemical families",(f.families||[]).join(", ")],
+    ["Plant review status (demo state)",ps.review_status]]));
+  box.appendChild(el("h3",{text:"Linked objects"}));
+  var pgDiv=el("div");
+  if(pg)pgDiv.appendChild(el("p",{class:"small",text:"PeerGroup "+pg[0]+": "+fmt(pg[3])+" plants."}));
+  if(sb)pgDiv.appendChild(el("p",{class:"small",text:"SizeBand "+sb[0]+": pooled TRIR "+sb[5]+", one case moves the rate by "+sb[3]+", "+sb[4]+"% of plant-years have zero cases, ranking stability rho "+sb[6]+"."}));
+  box.appendChild(pgDiv);
+  var ms=D.matchByFac[i]||[];
+  box.appendChild(el("h3",{text:"OSHA match ("+ms.length+")"}));
+  if(!ms.length)box.appendChild(el("p",{class:"small muted",text:"No OSHA establishment was matched to this registration."}));
+  ms.forEach(function(m,k){var st=(S.state.match[m.key]||{review_status:m.review_status}).review_status;
+    box.appendChild(el("p",{class:"small"},[el("span",{class:"pill "+(m.confidence==="high"?"ok":m.confidence==="medium"?"warn":"bad"),text:m.confidence+" confidence"})," method "+m.match_method+"; OSHA injury logs for "+fmt(m.osha_log_years)+" years ("+m.osha_first_year+" to "+m.osha_last_year+"); review status (demo state): "+st])) });
+  var hs=D.holdByFac[i]||[];
+  box.appendChild(el("h3",{text:"Chemical holdings ("+hs.length+", top ten per plant)"}));
+  if(hs.length)box.appendChild(table(["Chemical","Pounds"],hs.map(function(h){return [linkBtn(D.chemicals[h[1]][0],function(){showChem(h[1])}),fmt(h[2])]}),[1]));
+  else box.appendChild(el("p",{class:"small muted",text:"None recorded."}));
+  var as=(D.accByFac[i]||[]).slice().sort(function(a,b){return (a.date||"")<(b.date||"")?1:-1});
+  box.appendChild(el("h3",{text:"Accident history ("+as.length+")"}));
+  if(!as.length)box.appendChild(el("p",{class:"small muted",text:"No accidents in this facility's RMP records."}));
+  else box.appendChild(table(["Date","Chemicals","Release","Cause","Fix","Inj.","Deaths","Evac."],as.map(function(a){
+    return [a.date,a.chemicals.map(function(c){return D.chemicals[c][0].replace(/ \[.*$/,"")}).join("; "),(a.release_type||[]).join("; "),(a.cause||[]).join("; "),(a.fix||[]).join("; "),fmt(a.worker_injuries),fmt(a.deaths),fmt(a.evacuated)]}),[5,6,7]));
+  updateTarget();
+}
+function showChem(i){
+  S.chem=i;S.fac=null;var c=D.chemicals[i],box=$("detail");clear(box);
+  var hs=D.holdByChem[i]||[],as=D.accByChem[i]||[];
+  box.appendChild(el("h3",{text:c[0],style:"margin-top:0"}));
+  box.appendChild(el("p",{class:"small muted",text:"Object type Chemical"}));
+  box.appendChild(kv([["Families",c[1].join(", ")],["Facilities holding it (top-ten holdings)",fmt(hs.length)],["Accidents releasing it",fmt(as.length)],
+    ["Deaths in those accidents",fmt(as.reduce(function(s,a){return s+(a.deaths||0)},0))],["Worker injuries in those accidents",fmt(as.reduce(function(s,a){return s+(a.worker_injuries||0)},0))]]));
+  box.appendChild(el("h3",{text:"Largest holders"}));
+  box.appendChild(table(["Facility","Pounds"],hs.slice().sort(function(a,b){return b[2]-a[2]}).slice(0,10).map(function(h){var f=D.facs[h[0]];
+    return [linkBtn((f.name||"(unnamed)")+", "+(f.state||""),function(){showFac(h[0])}),fmt(h[2])]}),[1]));
+  box.appendChild(el("h3",{text:"Most recent accidents (up to 10)"}));
+  box.appendChild(table(["Date","Facility","Deaths","Evac."],as.slice().sort(function(a,b){return (a.date||"")<(b.date||"")?1:-1}).slice(0,10).map(function(a){var f=D.facs[a.facility];
+    return [a.date,linkBtn((f.name||"(unnamed)")+", "+(f.state||""),function(){showFac(a.facility)}),fmt(a.deaths),fmt(a.evacuated)]}),[2,3]));
+  updateTarget();
+}
+
+/* 4. actions */
+function setupActions(){
+  var sel=$("actsel");D.actions.forEach(function(a,i){sel.appendChild(el("option",{value:i,text:a.display_name+" ("+a.api_name+")"}))});
+  sel.addEventListener("change",renderActForm);$("resetlog").addEventListener("click",function(){S.log=[];S.state={match:{},plant:{}};renderLog();updateTarget();if(S.fac!=null)showFac(S.fac)});
+  renderActForm();
+}
+function targetFor(a){
+  var p=a.parameters[0];if(S.fac==null)return null;
+  if(p.object_type==="Plant")return {kind:"plant",key:S.fac,label:D.facs[S.fac].name+" (Plant R"+D.facs[S.fac].epa_id+")"};
+  var ms=D.matchByFac[S.fac]||[];if(!ms.length)return {none:true};
+  return {kind:"match",key:ms[0].key,label:"PlantMatch "+ms[0].key};
+}
+function curState(t){
+  if(t.kind==="match"){var m=D.mats.filter(function(x){return x.key===t.key})[0];return Object.assign({review_status:m.review_status,review_reason:null,review_note:null},S.state.match[t.key]||{})}
+  return Object.assign({review_status:"none",review_reason:null,review_note:null},S.state.plant[t.key]||{});
+}
+function updateTarget(){
+  var a=D.actions[+$("actsel").value],t=targetFor(a),b=$("acttarget");
+  b.textContent=S.fac==null?"Select a facility in section 3 first (actions target a facility or its OSHA match).":t.none?"The selected facility has no OSHA match, so match actions have no target.":"Target: "+t.label;
+  renderActForm();
+}
+function renderActForm(){
+  var a=D.actions[+$("actsel").value],box=$("actform");clear(box);var t=targetFor(a);
+  box.appendChild(el("p",{class:"small muted",text:a.description}));
+  if(!t||t.none)return;
+  var cs=curState(t);box.appendChild(el("p",{class:"small",text:"Current review_status: "+cs.review_status}));
+  var inputs={};
+  a.parameters.slice(1).forEach(function(p){
+    var req=p.required?"required":(p.required_when?"required when "+p.required_when.parameter+" = "+p.required_when.equals:"optional");
+    box.appendChild(el("label",{"for":"p_"+p.api_name,text:p.api_name+" ("+req+(p.min_length?", min "+p.min_length+" chars":"")+(p.max_length?", max "+p.max_length+" chars":"")+")"}));
+    var inp;if(p.allowed_values){inp=el("select",{id:"p_"+p.api_name});inp.appendChild(el("option",{value:"",text:"(choose)"}));p.allowed_values.forEach(function(v){inp.appendChild(el("option",{value:v,text:v}))})}
+    else inp=el("textarea",{id:"p_"+p.api_name,rows:"2"});
+    inputs[p.api_name]=inp;box.appendChild(inp)});
+  box.appendChild(el("label",{"for":"actor",text:"actor (any text; no authentication)"}));
+  var actor=el("input",{type:"text",id:"actor",value:"demo-analyst"});box.appendChild(actor);
+  var msg=el("p",{class:"small","aria-live":"polite",style:"margin-top:10px"});
+  var go=el("button",{type:"button",text:"Submit action"});go.style.marginTop="10px";
+  go.addEventListener("click",function(){
+    var vals={};Object.keys(inputs).forEach(function(k){var v=inputs[k].value.trim();vals[k]=v===""?null:v});
+    var errs=validate(a,t,vals);
+    if(errs.length){msg.className="small err";msg.textContent="Rejected, nothing changed or logged: "+errs.join(" ");return}
+    apply(a,t,vals,actor.value.trim()||"(blank)");msg.className="small okmsg";msg.textContent="Applied and logged.";
+    if(S.fac!=null)showFac(S.fac);
+  });
+  box.appendChild(go);box.appendChild(msg);
+}
+function validate(a,t,vals){
+  var errs=[];
+  a.parameters.slice(1).forEach(function(p){var v=vals[p.api_name];
+    var need=p.required||(p.required_when&&vals[p.required_when.parameter]===p.required_when.equals);
+    if(need&&v==null){errs.push(p.api_name+" is required.");return}
+    if(v==null)return;
+    if(p.allowed_values&&p.allowed_values.indexOf(v)<0)errs.push(p.api_name+" must be one of the allowed values.");
+    if(p.min_length&&v.length<p.min_length)errs.push(p.api_name+" needs at least "+p.min_length+" characters.");
+    if(p.max_length&&v.length>p.max_length)errs.push(p.api_name+" has more than "+p.max_length+" characters.")});
+  var cs=curState(t);
+  a.submission_criteria.forEach(function(c){var cur=cs[c.property],ok=c.operator==="equals"?cur===c.value:c.operator==="not_equals"?cur!==c.value:true;
+    if(!ok)errs.push(c.failure_message)});
+  return errs;
+}
+function apply(a,t,vals,actor){
+  var before=curState(t),after=Object.assign({},before),edits=[];
+  a.edits.forEach(function(e){Object.keys(e.set).forEach(function(k){var v=e.set[k];
+    if(typeof v==="string"&&v.charAt(0)==="$")v=vals[v.slice(1)];
+    after[k]=v;edits.push({property:k,before:before[k],after:v})})});
+  (t.kind==="match"?S.state.match:S.state.plant)[t.key]=after;
+  S.log.push({id:S.log.length+1,action:a.api_name,actor:actor,at:new Date().toISOString(),target:t.label,parameters:vals,edits:edits});
+  renderLog();
+}
+function renderLog(){
+  var box=$("log");clear(box);$("logn").textContent=S.log.length;
+  if(!S.log.length){box.appendChild(el("p",{class:"muted small",text:"No actions applied yet. Rejected submissions change nothing and are not logged, as in the source ontology."}));return}
+  S.log.slice().reverse().forEach(function(l){box.appendChild(el("div",{class:"log",text:JSON.stringify(l,null,1)}))});
+}
+
+function renderSource(){
+  $("srcrepo").appendChild(el("a",{href:"https://github.com/"+D.source.repo,text:D.source.repo}));
+  $("srcsha").textContent=D.source.commit;
+  $("srcpaths").textContent=D.source.paths.join(", ");
+  $("embeddedlist").textContent=D.object_types.filter(function(t){return t.embedded}).map(function(t){return t.api_name}).join(", ");
+  $("notembedded").textContent=D.not_embedded.join(", ");
+}
+})();
+</script>
+</body>
+</html>
