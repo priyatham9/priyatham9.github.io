@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'"
+    />
+    <title>Audit two prediction columns · Local CSV workbench</title>
+    <meta
+      name="description"
+      content="Compare two prediction score columns on the same supplied records. Inspect ranking, calibration and selected rows locally, with exact source hashes and review exports."
+    />
+    <link
+      rel="canonical"
+      href="https://priyatham9.github.io/labs/ai/prediction-audit.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Two score columns. One evaluation cohort."
+    />
+    <meta
+      property="og:description"
+      content="Open a prediction CSV locally, inspect ranking and calibration on the same records, and export a review with its source hash and assumptions."
+    />
+    <meta
+      property="og:url"
+      content="https://priyatham9.github.io/labs/ai/prediction-audit.html"
+    />
+    <meta
+      property="og:image"
+      content="https://priyatham9.github.io/labs/share-assets/prediction-audit.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Open a CSV, inspect ranking and calibration, then export a source-bound review. Processing stays in your browser."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Two score columns. One evaluation cohort."
+    />
+    <meta
+      name="twitter:description"
+      content="A local prediction CSV workbench with paired metrics, record inspection and reproducible exports."
+    />
+    <meta
+      name="twitter:image"
+      content="https://priyatham9.github.io/labs/share-assets/prediction-audit.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="CSV to ranking and calibration to a source-bound review, processed locally."
+    />
+    <link rel="stylesheet" href="prediction-audit.css" />
+    <script type="module" src="prediction-audit.mjs"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to workbench</a>
+    <header class="site-header">
+      <a class="brand" href="../">PC <span>Analytical projects</span></a>
+      <nav aria-label="Project navigation">
+        <a href="../foundry/contract.html">Foundry</a
+        ><a href="../crm/campaign.html">CRM</a
+        ><a href="../finance/filings.html">Finance</a
+        ><a href="prediction-audit.html" aria-current="page"
+          >Prediction audit</a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <div class="heading">
+        <div>
+          <p class="eyebrow">LOCAL CSV / PAIRED PREDICTION REVIEW</p>
+          <h1>Two score columns.<br />One evaluation cohort.</h1>
+          <p class="intro">
+            Inspect what ranking and calibration say about the same supplied
+            records. Keep the evidence separate from a contact or deployment
+            decision.
+          </p>
+        </div>
+        <p class="privacy">
+          <strong>Your CSV stays in this tab.</strong>No upload, account, model
+          call or browser storage. Only the optional public example is fetched.
+          Clearing the input removes the working data and notes.
+        </p>
+      </div>
+      <noscript
+        ><p class="notice">
+          This local workbench needs JavaScript to read a CSV and calculate
+          metrics. No file is submitted to a server.
+        </p></noscript
+      >
+      <div class="workbench">
+        <aside class="input-rail" aria-labelledby="input-title">
+          <div class="rail-title">
+            <h2 id="input-title">Choose the evidence</h2>
+            <button id="clear" type="button" disabled>Clear input</button>
+          </div>
+          <div id="drop-zone" class="drop-zone">
+            <label for="csv-file"
+              ><strong>Open a prediction CSV</strong
+              ><span>Choose a file or drop it here</span></label
+            ><input id="csv-file" type="file" accept=".csv,text/csv" />
+            <p>
+              UTF-8 · up to 10 MiB · 100,000 data rows<br />At most 200 distinct
+              groups
+            </p>
+          </div>
+          <button id="load-example" class="example-button" type="button">
+            Load public campaign example
+          </button>
+          <p class="example-note">
+            Real UCI campaign predictions: A excludes call duration; B includes
+            this post-call information.
+            <a href="../crm/campaign.html">Read the frozen study ↗</a>
+          </p>
+          <details class="schema" open>
+            <summary>Required CSV schema</summary>
+            <code>outcome,score_a,score_b</code>
+            <p>
+              <strong>outcome:</strong> 0 or 1.
+              <strong>score_a / score_b:</strong> finite decimal values from 0
+              to 1.
+            </p>
+            <p>
+              Optional <code>record_id</code> and <code>group</code> columns.
+              IDs and group labels may be blank; no missing outcomes or scores
+              are silently dropped. Duplicate IDs remain separate source rows.
+            </p>
+            <p>
+              Maximum 512 characters per ID/group. Extra columns and malformed
+              values are rejected with a location.
+            </p>
+          </details>
+          <p id="load-status" class="status" role="status">No CSV loaded.</p>
+          <div id="load-error" class="error" role="alert" hidden></div>
+          <section
+            id="source-panel"
+            class="source-panel"
+            hidden
+            aria-labelledby="source-title"
+          >
+            <h3 id="source-title">Current source</h3>
+            <div id="source-details"></div>
+            <details>
+              <summary>Original byte hash</summary>
+              <p id="source-hash" class="hash"></p>
+              <p class="fine">
+                SHA-256 of the exact original bytes, including any UTF-8 BOM and
+                CRLF line endings. A hash identifies bytes; it does not validate
+                the labels or timing.
+              </p>
+            </details>
+          </section>
+
+          <fieldset id="availability" disabled>
+            <legend>Information availability notes</legend>
+            <label for="note-a"
+              >Score A<input
+                id="note-a"
+                type="text"
+                maxlength="2000"
+                placeholder="What was available when A was scored?" /></label
+            ><label for="note-b"
+              >Score B<input
+                id="note-b"
+                type="text"
+                maxlength="2000"
+                placeholder="What was available when B was scored?"
+            /></label>
+            <p class="fine">
+              Optional analyst declarations, included in the review export.
+              Editing a note does not verify feature timing or whether these are
+              held-out predictions.
+            </p>
+          </fieldset>
+        </aside>
+        <div class="evidence">
+          <section
+            id="empty-state"
+            class="empty-state"
+            aria-labelledby="empty-title"
+          >
+            <p class="eyebrow">START WITH YOUR FILE</p>
+            <h2 id="empty-title">Compare ranking.<br />Inspect calibration.</h2>
+            <p>
+              The workbench will show the shared outcome rate, average
+              precision, Brier error, fixed calibration bins and a retrospective
+              top-budget comparison.
+            </p>
+            <ol>
+              <li>Open a CSV with outcomes and two score columns.</li>
+              <li>
+                Inspect the whole cohort before narrowing the record view.
+              </li>
+              <li>
+                Export the review with its source hash, settings and limits.
+              </li>
+            </ol>
+            <p class="fine">
+              Open your CSV to begin, or explore the public campaign example.
+              The example includes post-call information and is intended for
+              retrospective comparison.
+            </p>
+          </section>
+          <div id="results" hidden>
+            <section class="summary-section" aria-labelledby="summary-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">01 / ALL ACCEPTED ROWS</p>
+                  <h2 id="summary-title" tabindex="-1">
+                    The same cohort, side by side.
+                  </h2>
+                </div>
+                <button
+                  id="export-review"
+                  type="button"
+                  aria-describedby="review-export-note"
+                >
+                  Export review JSON ↓
+                </button>
+              </div>
+              <p class="result-navigation">
+                <a href="#input-title">Input and availability notes ↑</a
+                ><a href="#ledger-title">Inspect records ↓</a>
+              </p>
+              <p id="review-export-note" class="fine">
+                Review JSON includes whole-cohort metrics and the selected
+                record, not all raw rows. Keep the original CSV to reproduce
+                this review; export record rows separately below.
+              </p>
+              <p id="cohort-summary" class="cohort-summary"></p>
+              <div id="class-warning" class="boundary-note" hidden></div>
+              <div id="metric-comparison"></div>
+              <p class="score-note">
+                <strong
+                  >Scores are supplied values, not verified
+                  probabilities.</strong
+                >
+                Average precision describes ranking; Brier error compares each
+                score with its binary label. Neither verifies feature
+                availability or generalization to new data.
+              </p>
+              <fieldset id="settings" disabled>
+                <legend>Retrospective ranking check</legend>
+                <label for="budget"
+                  >Highest-scored share<select id="budget">
+                    <option value="0.05">5%</option>
+                    <option value="0.1" selected>10%</option>
+                    <option value="0.2">20%</option>
+                  </select></label
+                >
+                <p class="fine">
+                  Ranks use the complete accepted cohort. Exact ties break by
+                  original row order. Changing this share leaves average
+                  precision, Brier scores and ranks unchanged.
+                </p>
+              </fieldset>
+              <div id="budget-results"></div>
+              <p class="boundary-note">
+                The top-budget check ranks the complete supplied batch
+                retrospectively. Precision is the observed positive fraction
+                among selected records, not the incremental effect of a contact,
+                intervention or deployment.
+              </p>
+              <details>
+                <summary>
+                  Calibration: score bins, observed rates and counts
+                </summary>
+                <div id="calibration"></div>
+              </details>
+            </section>
+            <section class="ledger-section" aria-labelledby="ledger-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">
+                    02 / VIEW THE RECORDS · KEEP THE ANALYSIS SCOPE
+                  </p>
+                  <h2 id="ledger-title">Inspect a row behind the result.</h2>
+                </div>
+              </div>
+              <div class="view-controls">
+                <label for="group-filter"
+                  >Group<select id="group-filter"></select></label
+                ><label for="bin-model"
+                  >Bin score column<select id="bin-model">
+                    <option value="a">Score A</option>
+                    <option value="b">Score B</option>
+                  </select></label
+                ><label for="bin-filter"
+                  >Score bin<select id="bin-filter">
+                    <option value="all">All scores</option>
+                  </select></label
+                >
+              </div>
+              <p id="view-summary" class="view-summary" role="status"></p>
+              <div class="ledger-layout">
+                <div class="ledger">
+                  <div
+                    class="table-scroll"
+                    tabindex="0"
+                    role="region"
+                    aria-label="Filtered record ledger"
+                  >
+                    <table>
+                      <thead>
+                        <tr>
+                          <th scope="col">Source row / ID</th>
+                          <th scope="col">Outcome</th>
+                          <th scope="col">Score A</th>
+                          <th scope="col">Score B</th>
+                        </tr>
+                      </thead>
+                      <tbody id="record-rows"></tbody>
+                    </table>
+                  </div>
+                  <p id="no-records" class="notice" hidden>
+                    No records match these viewing filters. The whole-cohort
+                    metrics above remain unchanged.
+                  </p>
+                  <div class="pagination">
+                    <button id="previous-page" type="button">← Previous</button
+                    ><span id="page-label"></span
+                    ><button id="next-page" type="button">Next →</button>
+                  </div>
+                </div>
+                <aside
+                  id="record-detail"
+                  class="record-detail"
+                  aria-label="Selected record"
+                ></aside>
+              </div>
+              <div class="csv-export">
+                <label for="csv-scope"
+                  >Records to export<select id="csv-scope">
+                    <option value="all">All accepted records</option>
+                    <option value="visible">
+                      Only records matching the viewing filters
+                    </option>
+                  </select></label
+                ><button id="export-csv" type="button">
+                  Export records CSV ↓
+                </button>
+                <p class="fine">
+                  Displayed scores are rounded; exports retain full parsed
+                  numeric values. CSV text IDs and groups are protected against
+                  spreadsheet formula interpretation. Review JSON preserves
+                  original values for its selected record. Filtering does not
+                  exclude records from the analysis.
+                </p>
+              </div>
+            </section>
+            <section class="limits-section" aria-labelledby="limits-title">
+              <p class="eyebrow">03 / WHAT THE FILE CANNOT VERIFY</p>
+              <h2 id="limits-title">A computation is not an assurance.</h2>
+              <ul id="limitations"></ul>
+              <details>
+                <summary>Metric definitions and exact analysis basis</summary>
+                <div id="metric-basis"></div>
+              </details>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>
+        Priyatham Chimmani · Local analytical tools<br />Reproducible
+        comparisons, processed in your browser.
+      </p>
+      <p>
+        The optional example is derived from
+        <a href="https://archive.ics.uci.edu/dataset/222/bank+marketing"
+          >UCI Bank Marketing</a
+        >
+        by Sérgio Moro, Paulo Cortez and Paulo Rita, licensed
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It
+        compares duration-excluded and duration-included predictions from a
+        fixed chronological audit.
+      </p>
+    </footer>
+  </body>
+</html>

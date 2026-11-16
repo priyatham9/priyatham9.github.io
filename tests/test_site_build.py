@@ -46,6 +46,15 @@ class StaticBuild(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'missing.mjs'):
             site.build(self.root)
 
+    def test_public_csv_dependency_preserves_bytes_without_publishing_private_csv(self):
+        self.write('labs/demo/app.mjs', 'fetch("./scores.csv");')
+        original = b'\xef\xbb\xbfoutcome,score_a,score_b\r\n1,0.7,0.8\r\n'
+        (self.root / 'labs/demo/scores.csv').write_bytes(original)
+        self.write('data/private.csv', 'private records')
+        output = site.build(self.root)
+        self.assertEqual((output / 'labs/demo/scores.csv').read_bytes(), original)
+        self.assertFalse((output / 'data/private.csv').exists())
+
     def test_module_data_directory_base(self):
         self.write('labs/demo/app.mjs', 'const base = new URL("./data/", import.meta.url);')
         self.write('labs/demo/data/corpus.json', '[]')

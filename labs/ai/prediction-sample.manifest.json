@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "prediction-audit-sample/1",
+  "title": "UCI campaign heldout predictions — retrospective duration comparison",
+  "file": "prediction-sample.csv",
+  "sha256": "f2347fb8dfc85a59ebfe5a1b8832e744cf538b7954205b2a9e54db67c380023e",
+  "bytes": 869253,
+  "rows": 13216,
+  "sourceArtifact": {
+    "path": "../crm/campaign.data.json",
+    "sha256": "69bdfdbd604d64786f58200dc61e0d50f2cfd89b9a3a57d4aa58fc0908de0705",
+    "schemaVersion": "crm-campaign-audit/1",
+    "protocolSha256": "8f847d7ad5cbbb71aa962dfdde9cfd3a34bb20dc594a4bb46268627ac9dc978b",
+    "analysisSourceSha256": "8c6d5f85994639ffd29fecd90be79829603afe6d6a12304430063aaf4d444934"
+  },
+  "transformation": {
+    "description": "All 13,216 heldout records, in their original published order; no filtering or selection. Only columns are renamed and anonymous source-row/block identifiers are formatted. Scores and binary outcomes retain their published numeric values.",
+    "columns": {
+      "outcome": "records[].outcome",
+      "score_a": "records[].withoutDuration",
+      "score_b": "records[].withDuration",
+      "record_id": "uci-row- + records[].row",
+      "group": "block- + zero-padded records[].blockId"
+    },
+    "encoding": "UTF-8 without BOM; comma delimiter; LF record endings for repository hygiene; header included."
+  },
+  "models": {
+    "a": "Profile/history under stated timing assumptions; excludes duration",
+    "b": "Same model specification plus post-call duration"
+  },
+  "notes": [
+    "Real public-data derived scores, not a fabricated example.",
+    "Model B uses duration known only after the call; this sample is retrospective and cannot establish pre-call utility.",
+    "Groups are contiguous source month-label blocks, not inferred calendar dates or independent clients.",
+    "The source study used a fixed chronological split, no holdout tuning, and no causal allocation claims.",
+    "This CSV preserves the frozen study results; the reusable workbench does not retrain either model."
+  ],
+  "credit": {
+    "dataset": "UCI Bank Marketing — bank-additional-full.csv",
+    "creators": [
+      "Sérgio Moro",
+      "Paulo Cortez",
+      "Paulo Rita"
+    ],
+    "doi": "10.24432/C5K306",
+    "url": "https://archive.ics.uci.edu/dataset/222/bank+marketing",
+    "citation": "Moro, S., Cortez, P., and Rita, P. (2014). A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems. https://doi.org/10.1016/j.dss.2014.03.001",
+    "license": {
+      "spdx": "CC-BY-4.0",
+      "name": "Creative Commons Attribution 4.0 International",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "evidenceUrl": "https://archive.ics.uci.edu/dataset/222/bank+marketing",
+      "pageSha256": "cfc3be59e89fa4e60eca617e42596fcd569cf5a29aeb40ebf0cd28eaaa4e608d",
+      "pageBytes": 328731,
+      "statement": "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.",
+      "changes": "Source CSV bytes retained unchanged. Feature transformations, fitted models, metrics and score exports are derived by this independent audit."
+    },
+    "changes": "Derived fixed-model predictions and this exact column/identifier transformation; original source dataset remains credited under CC BY4.0."
+  }
+}
