@@ -16,3 +16,4 @@ jobs:
       - run: python -m pip install playwright==1.62.0
       - run: python -m playwright install --with-deps chromium
       - run: python scripts/check_project_ui.py
+      - run: python scripts/check_campaign_ui.py

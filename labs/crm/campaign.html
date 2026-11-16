@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Inspect a chronological public-data evaluation of bank campaign models with and without information available only after a call."
+    />
+    <title>Would you know this before the call? · CRM evidence audit</title>
+    <link
+      rel="canonical"
+      href="https://priyatham9.github.io/labs/crm/campaign.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PC · Analytical projects" />
+    <meta
+      property="og:title"
+      content="Would you know this before the call? · CRM evidence audit"
+    />
+    <meta
+      property="og:description"
+      content="A chronological UCI Bank Marketing audit compares the same profile/history model with and without post-call duration. Inspect paired predictions, shifting base rates, calibration and the information boundary. No causal campaign-lift claim."
+    />
+    <meta
+      property="og:url"
+      content="https://priyatham9.github.io/labs/crm/campaign.html"
+    />
+    <meta
+      property="og:image"
+      content="https://priyatham9.github.io/labs/share-assets/crm-campaign.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="UCI Bank Marketing: paired average precision with duration excluded and included, on the same later holdout. Call duration is unknown before the call; retrospective prediction, not causal lift."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Would you know this before the call? · CRM evidence audit"
+    />
+    <meta
+      name="twitter:description"
+      content="Paired chronological predictions, source records and calibration reveal what a post-call duration field can—and cannot—establish before a campaign decision."
+    />
+    <meta
+      name="twitter:image"
+      content="https://priyatham9.github.io/labs/share-assets/crm-campaign.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="UCI Bank Marketing: paired average precision with duration excluded and included, on the same later holdout. Call duration is unknown before the call; retrospective prediction, not causal lift."
+    />
+    <link rel="stylesheet" href="campaign.css" />
+    <script type="module" src="campaign.mjs"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to evidence</a>
+    <header class="site-header">
+      <a class="brand" href="../">PC <span>Analytical projects</span></a>
+      <nav aria-label="Project navigation">
+        <a href="../foundry/contract.html">Foundry</a
+        ><a href="campaign.html" aria-current="page">CRM</a
+        ><a href="../finance/filings.html">Finance</a
+        ><a href="https://ehs-ai-grounding-eval.vercel.app/evidence-audit.html"
+          >AI</a
+        ><a href="https://ehs-osha-analysis.vercel.app/decision-audit.html"
+          >EHS</a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <div class="opening">
+        <div>
+          <p class="eyebrow">CRM / PUBLIC DATA / INFORMATION TIMING</p>
+          <h1>Would you know this<br />before the call?</h1>
+          <p class="intro">
+            An outcome can be easier to predict after the conversation. Compare
+            the same model with and without call duration, then inspect what the
+            model was allowed to know.
+          </p>
+        </div>
+        <aside class="evidence-note">
+          <span>Evidence class</span
+          ><strong>Chronological prediction audit</strong>
+          <p>
+            UCI Bank Marketing. A demonstration of a documented information
+            leak, not a causal campaign experiment.
+          </p>
+          <a href="#protocol">Inspect the protocol ↓</a>
+        </aside>
+      </div>
+      <p id="load-status" role="status">Loading the pinned evaluation…</p>
+      <p id="load-fallback" hidden>
+        The evaluation could not be loaded.
+        <a href="campaign.data.json">Open the data artifact</a> or reload this
+        page.
+      </p>
+      <noscript
+        ><p class="notice">
+          JavaScript is needed for the paired comparison and record inspector.
+          <a href="campaign.data.json"
+            >The complete evaluation artifact remains available.</a
+          >
+        </p></noscript
+      >
+      <div id="audit" hidden>
+        <section class="comparison" aria-labelledby="comparison-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">01 / SAME MODEL · DIFFERENT INFORMATION</p>
+              <h2 id="comparison-title">
+                Same prediction task. Different information.
+              </h2>
+            </div>
+            <a href="#records">Inspect a held-out record ↓</a>
+          </div>
+          <p id="comparison-context" class="scope"></p>
+          <p id="base-rate-shift" class="base-rate-shift"></p>
+          <p class="outcome-definition">
+            <strong>Outcome:</strong> whether the client subscribed to a term
+            deposit (<code>y = yes</code>). This label records an observed
+            result, not the incremental effect of a call.
+          </p>
+          <div class="paired-head">
+            <div class="without">
+              <span class="condition">A / Duration excluded</span
+              ><strong>Profile + prior history</strong>
+              <p id="without-description"></p>
+            </div>
+            <div class="with">
+              <span class="condition">B / Duration included</span
+              ><strong>The same inputs + duration</strong>
+              <p>
+                Includes the realized duration of the last contact. This
+                information is unavailable when deciding whom to call.
+              </p>
+            </div>
+          </div>
+          <div id="metrics"></div>
+          <p id="calibration-warning" class="calibration-warning"></p>
+          <div class="budget-toolbar">
+            <div>
+              <span class="condition">RETROSPECTIVE HELD-OUT RANKING</span>
+              <h3 id="budget-title">The highest-scored 10%</h3>
+            </div>
+            <p>
+              Both models rank the complete later batch together using scores,
+              not outcomes. This assumes the batch is available; it is not an
+              online schedule or a prospectively chosen contact policy.
+            </p>
+          </div>
+          <div id="budget-comparison"></div>
+          <p class="boundary-note">
+            <strong>Prediction is not incremental impact.</strong> Precision
+            among highly ranked records is an observed subscription rate. It
+            does not estimate how many subscriptions a new call would cause or
+            the value of a different contact policy.
+          </p>
+          <details>
+            <summary>Exact metrics, counts and uncertainty</summary>
+            <div
+              id="metric-table"
+              class="table-scroll"
+              tabindex="0"
+              role="region"
+              aria-label="Exact paired evaluation metrics"
+            ></div>
+            <div id="uncertainty"></div>
+          </details>
+          <details>
+            <summary>Do the scores behave like probabilities?</summary>
+            <p>
+              These are uncalibrated logistic-model outputs. A score of 0.8 is
+              not a verified 80% chance for an individual. Fixed score bins
+              compare average predictions with observed outcome rates in the
+              later holdout.
+            </p>
+            <div id="calibration"></div>
+          </details>
+        </section>
+        <section
+          class="record-section"
+          id="records"
+          aria-labelledby="records-title"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">02 / INSPECT THE SAME HELD-OUT RECORD</p>
+              <h2 id="records-title">Follow the information into the score.</h2>
+            </div>
+            <button id="export-record" type="button">
+              Export this review ↓
+            </button>
+          </div>
+          <p id="record-selection" class="scope"></p>
+          <div class="record-controls">
+            <label for="record"
+              >Public dataset row<input
+                id="record"
+                type="number"
+                step="1"
+                inputmode="numeric" /></label
+            ><label for="record-order"
+              >Browse in this order<select id="record-order">
+                <option value="gap">Largest absolute score difference</option>
+                <option value="chronological">Original source order</option>
+              </select></label
+            ><button
+              id="previous-record"
+              type="button"
+              aria-label="Previous record"
+            >
+              ← Previous</button
+            ><button id="next-record" type="button" aria-label="Next record">
+              Next →</button
+            ><button id="copy-link" type="button">Copy review link</button>
+          </div>
+          <div id="record-inspector"></div>
+          <p id="record-status" class="status" role="status"></p>
+        </section>
+        <section
+          class="protocol-section"
+          id="protocol"
+          aria-labelledby="protocol-title"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">03 / WHAT THIS EXPERIMENT CAN ESTABLISH</p>
+              <h2 id="protocol-title">
+                Later records. Explicit information limits.
+              </h2>
+            </div>
+            <a href="campaign.data.json" download
+              >Download the full evaluation ↓</a
+            >
+          </div>
+          <div id="timeline"></div>
+          <div class="protocol-grid">
+            <div>
+              <h3>Model and evaluation</h3>
+              <div id="model-protocol"></div>
+            </div>
+            <div>
+              <h3>Timing and unresolved information</h3>
+              <div id="timing-protocol"></div>
+            </div>
+          </div>
+          <div class="limitations">
+            <h3>What remains unknown</h3>
+            <div id="limitations"></div>
+          </div>
+          <details>
+            <summary>Source, license and reproduction</summary>
+            <div id="provenance"></div>
+          </details>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <p>
+        Priyatham Chimmani · Independent working investigation<br />Public
+        research data; not a live CRM or a recommendation to contact an
+        individual.
+      </p>
+      <a href="decision.html"
+        >Explore the separate constructed cohort examples →</a
+      >
+      <p id="source-credit">
+        Source: UCI Machine Learning Repository · Bank Marketing dataset. Source
+        and license details accompany the evaluation below.
+      </p>
+    </footer>
+  </body>
+</html>
