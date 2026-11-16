@@ -1,10 +1,10 @@
 # Priyatham Chimmani — Personal portfolio
 
-A responsive, dependency-free portfolio built with semantic HTML, CSS, and a small progressive enhancement. Run `node scripts/dev-server.mjs` and open http://127.0.0.1:8000 for the portfolio and verification API. Set `PORT` to change the port. No packages or build step are required for local development. A static-only server also serves the pages, but server verification requires the API.
+The original rich portfolio, evolved with independent working labs and server verification. Original Archivo typography, light/dark themes, evidence-led name hero, architecture map, work filters, research, reports, experience, awards, education, certifications, and command palette are preserved. Optional GSAP animation loads from a CDN; all content remains visible when it is unavailable. Run `node scripts/dev-server.mjs` and open http://127.0.0.1:8000 for the portfolio and verification API. Set `PORT` to change the port. No packages or build step are required for local development. A static-only server also serves the pages, but server verification requires the API.
 
-- `index.html`: editorial landing page with five independent focus areas, research, experience, and contact.
-- `assets/portfolio.css`: responsive styling, keyboard focus states, and reduced-motion support.
-- `assets/portfolio.js`: current-year enhancement; navigation works without JavaScript.
+- `index.html`: rich original portfolio with five independent focus areas and dedicated interactive labs.
+- `assets/kit.css` and `assets/kit.js`: restored original shared navigation, mobile menu, and progressive enhancements.
+- `assets/portfolio.css`: focused layout refinements, lab section, visible animation fallback, keyboard focus states, and reduced-motion support.
 - `labs/`: standalone interactive demonstrations using synthetic data.
 
 The original portfolio remains available at https://priyatham-personal-site.vercel.app and is linked from both the header area and footer. Case studies link back to the original site. Research links point to the public research projects. Demonstrations are not employer production systems.

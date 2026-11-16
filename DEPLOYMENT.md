@@ -12,7 +12,7 @@ python3 -m http.server 8000 --directory dist
 
 The static preview serves the interactive models locally. Server verification additionally requires `node scripts/dev-server.mjs` (port 8000 by default). The API is deployed separately as a Vercel Function; its source is never copied into the static artifact.
 
-Only `index.html`, `404.html`, `assets/`, `labs/`, and `work/peers-ontology-explorer/` are public inputs. The explorer's `data.json` is deliberately public demonstration data. The builder admits web asset extensions, excludes hidden files and test files, rejects symlinks, clears stale output, and checks local HTML, stylesheet, and JavaScript module dependencies. Missing links fail the build. Repository scripts, tests, raw data, configuration, and unrelated work directories are excluded. External original-site links remain external. Runtime API references are accepted only for an implemented API route.
+Only `index.html`, `404.html`, `og.png`, `og.svg`, `assets/`, `labs/`, and `work/peers-ontology-explorer/` are public inputs. The explorer's `data.json` is deliberately public demonstration data. The builder admits web asset extensions, excludes hidden files and test files, rejects symlinks, clears stale output, and checks local HTML, stylesheet, and JavaScript module dependencies. Missing links fail the build. Repository scripts, tests, raw data, configuration, and unrelated work directories are excluded. External original-site links remain external. Runtime API references are accepted only for an implemented API route.
 
 `.github/workflows/site.yml` runs model and Python tests, builds the artifact, and uploads only `dist/`; it does not publish. Existing source-data checks can skip rebuilding the peers dataset when the original source clone is unavailable. No credentials are needed for CI verification.
 
@@ -22,7 +22,7 @@ Use the repository root, Framework Preset **Other**, build command `python3 scri
 
 ## Release procedure
 
-GitHub and Vercel access returned HTTP 403 during preparation. No push, deployment, domain change, or promotion was performed. An account with repository write access and access to the intended Vercel project must complete the release.
+GitHub write access is verified. Existing GitHub-to-Vercel integrations build pushed branches and deploy production merges. Direct access through the ChatGPT Vercel connector remains restricted; use the existing Git integration and verify its build checks and served output.
 
 1. Review the change, run the commands above and the API tests, then commit it to a review branch. Record the tested commit.
 2. Confirm the Vercel team, project, production branch, domain assignments, and current production deployment URL before linking or deploying. Save the existing deployment URL for rollback. The original portfolio at <https://priyatham-personal-site.vercel.app> is a separate live site and should retain its current domain and deployment.

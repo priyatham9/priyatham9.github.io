@@ -6,3 +6,6 @@ $('#source').addEventListener('change',render);$('#rate').addEventListener('inpu
 
 const verify=verification({container:$('#scenario').parentElement,getPayload:()=>({model:'crm',inputs:{cohort:$('#source').value,rate:+$('#rate').value/100}}),getExpected:()=>pipeline($('#source').value,+$('#rate').value/100)});verify.init();
 document.querySelectorAll('input,select').forEach(control=>control.addEventListener('input',()=>verify.invalidate()));$('#reset').addEventListener('click',()=>verify.invalidate());
+
+function announceScenario(){const p=pipeline($('#source').value,+$('#rate').value/100);$('#scenario-status').textContent=`Closing assumption ${$('#rate').value}%. ${p.forecast.toFixed(1)} expected wins; ${p.increment>=0?'plus':'minus'} ${Math.abs(p.increment).toFixed(1)} versus observed.`;}
+$('#rate').addEventListener('change',announceScenario);$('#source').addEventListener('change',announceScenario);$('#reset').addEventListener('click',announceScenario);

@@ -8,6 +8,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_FILES = ('index.html', '404.html')
+OPTIONAL_PUBLIC_FILES = ('og.png', 'og.svg')
 PUBLIC_DIRS = ('assets', 'labs', 'work/peers-ontology-explorer')
 EXTENSIONS = {'.html', '.css', '.js', '.mjs', '.json', '.svg', '.png', '.jpg', '.jpeg',
               '.webp', '.avif', '.gif', '.ico', '.woff', '.woff2', '.ttf', '.txt', '.pdf'}
@@ -79,6 +80,7 @@ def build(root=ROOT, output=None):
         shutil.rmtree(output)
     output.mkdir(parents=True)
     sources = [root / name for name in PUBLIC_FILES]
+    sources.extend(root / name for name in OPTIONAL_PUBLIC_FILES if (root / name).exists())
     for directory in PUBLIC_DIRS:
         base = root / directory
         if base.is_symlink():
