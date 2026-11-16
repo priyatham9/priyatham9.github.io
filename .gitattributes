@@ -1,0 +1,4 @@
+labs/finance/filings.data.json linguist-generated=true
+scripts/finance_filings/sources/*.json.gz linguist-generated=true
+labs/crm/campaign.data.json linguist-generated=true
+scripts/crm_campaign_audit/sources/*.gz linguist-generated=true

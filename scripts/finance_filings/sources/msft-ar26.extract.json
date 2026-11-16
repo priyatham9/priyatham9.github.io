@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "finance-report-extract/1",
+  "sourceId": "msft-ar26",
+  "originalUrl": "https://www.microsoft.com/investor/reports/ar26/index.html",
+  "accession": "0001193125-26-323660",
+  "originalResponseSha256": "513b5a3161adde8c8b2e7d0edc6723d34e9c652cc47d4ab43e6eeb84a84370d0",
+  "originalResponseBytes": 460968,
+  "originalRetrievedAt": "2026-11-16T13:50:57.429770+00:00",
+  "verificationAtCuration": "Every excerpt was matched exactly against whitespace-normalized text of the originally retrieved full response. The response hash was checked before extraction.",
+  "quotedProseWordCount": 70,
+  "excerpts": [
+    {
+      "id": "msft-ppe-2026",
+      "section": "Note 6 — Property and Equipment",
+      "kind": "prose",
+      "text": "As of June 30, 2026, 2025, and 2024, purchases of property and equipment remaining in accounts payable were $26.7 billion, $6.9 billion, and $4.3 billion, respectively."
+    },
+    {
+      "id": "msft-fx",
+      "section": "Note 1 — Accounting Policies / Foreign Currencies",
+      "kind": "prose",
+      "text": "Assets and liabilities recorded in foreign currencies are translated at the exchange rate on the balance sheet date. Revenue and expenses are translated at average rates of exchange prevailing during the year. Translation adjustments resulting from this process are recorded to other comprehensive income."
+    }
+  ]
+}

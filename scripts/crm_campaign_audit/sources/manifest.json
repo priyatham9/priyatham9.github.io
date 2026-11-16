@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "uci-campaign-source/1",
+  "dataset": "UCI Bank Marketing — bank-additional-full.csv",
+  "creators": [
+    "Sérgio Moro",
+    "Paulo Cortez",
+    "Paulo Rita"
+  ],
+  "doi": "10.24432/C5K306",
+  "url": "https://archive.ics.uci.edu/dataset/222/bank+marketing",
+  "archive": {
+    "url": "https://archive.ics.uci.edu/static/public/222/bank+marketing.zip",
+    "sha256": "e0bf5f5de5b846e2f18e9d90606637267d46dfa260e0f17bb12e605db5efbeb4",
+    "bytes": 1023843,
+    "retrievedAt": "2026-11-16T14:31:07.264610+00:00"
+  },
+  "innerArchive": {
+    "member": "bank-additional.zip",
+    "sha256": "a607b5edab6c6c75ce09c39142a77702c38123bd5aa7ae89a63503bbe17d65cd",
+    "bytes": 444572
+  },
+  "data": {
+    "member": "bank-additional/bank-additional-full.csv",
+    "sha256": "74adfc578bf77a7ff4bb1ba4a9f8709d9e3c6907342959c2c8416847e0afb4d8",
+    "bytes": 5834924,
+    "storedFile": "bank-additional-full.csv.gz",
+    "storedSha256": "971b7bbd16fa38d88fe2399afb0b981035d4ee5e9456c91526a9df4265acf21d"
+  },
+  "documentation": {
+    "member": "bank-additional/bank-additional-names.txt",
+    "sha256": "10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26",
+    "bytes": 5458,
+    "excerpts": {
+      "chronology": "bank-additional-full.csv with all examples, ordered by date (from May 2008 to November 2010).",
+      "duration": "Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.",
+      "repeatContacts": "number of contacts performed during this campaign and for this client (numeric, includes last contact)",
+      "sentinel": "999 means client was not previously contacted"
+    }
+  },
+  "license": {
+    "spdx": "CC-BY-4.0",
+    "name": "Creative Commons Attribution 4.0 International",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "evidenceUrl": "https://archive.ics.uci.edu/dataset/222/bank+marketing",
+    "pageSha256": "cfc3be59e89fa4e60eca617e42596fcd569cf5a29aeb40ebf0cd28eaaa4e608d",
+    "pageBytes": 328731,
+    "statement": "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.",
+    "changes": "Source CSV bytes retained unchanged. Feature transformations, fitted models, metrics and score exports are derived by this independent audit."
+  },
+  "citation": "Moro, S., Cortez, P., and Rita, P. (2014). A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems. https://doi.org/10.1016/j.dss.2014.03.001"
+}

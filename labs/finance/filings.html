@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Microsoft FY2026: selected accounts receivable, inventory and payables yield a +$3.262bn balance-change proxy versus −$7.930bn reported operating cash-flow adjustments. These are different measurements, not total CFO."
+    />
+    <title>When balance changes mislead · Finance evidence audit</title>
+    <link rel="stylesheet" href="./filings.css" />
+    <!-- Social preview -->
+    <link
+      rel="canonical"
+      href="https://priyatham9.github.io/labs/finance/filings.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PC · Analytical projects" />
+    <meta
+      property="og:title"
+      content="Two measurements. Opposite cash signs. · Filing evidence audit"
+    />
+    <meta
+      property="og:description"
+      content="Microsoft FY2026: selected accounts receivable, inventory and payables yield a +$3.262bn balance-change proxy versus −$7.930bn reported operating cash-flow adjustments. These are different measurements, not total CFO."
+    />
+    <meta
+      property="og:url"
+      content="https://priyatham9.github.io/labs/finance/filings.html"
+    />
+    <meta
+      property="og:image"
+      content="https://priyatham9.github.io/labs/share-assets/finance-filings.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Microsoft FY2026 selected receivables, inventory and payables: plus $3.262 billion balance-change cash proxy versus minus $7.930 billion reported operating cash-flow adjustments. Pinned official filing evidence; neither figure is total CFO."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Two measurements. Opposite cash signs. · Filing evidence audit"
+    />
+    <meta
+      name="twitter:description"
+      content="Microsoft FY2026: selected accounts receivable, inventory and payables yield a +$3.262bn balance-change proxy versus −$7.930bn reported operating cash-flow adjustments. These are different measurements, not total CFO."
+    />
+    <meta
+      name="twitter:image"
+      content="https://priyatham9.github.io/labs/share-assets/finance-filings.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Microsoft FY2026 selected receivables, inventory and payables: plus $3.262 billion balance-change cash proxy versus minus $7.930 billion reported operating cash-flow adjustments. Pinned official filing evidence; neither figure is total CFO."
+    />
+    <!-- End social preview -->
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to evidence</a>
+    <header>
+      <a class="brand" href="../">PC <span>Analytical projects</span></a>
+      <nav aria-label="Project navigation">
+        <a href="../foundry/contract.html">Foundry</a
+        ><a href="../crm/campaign.html">CRM</a
+        ><a href="./filings.html" aria-current="page">Finance</a
+        ><a href="https://ehs-ai-grounding-eval.vercel.app/evidence-audit.html"
+          >AI</a
+        ><a href="https://ehs-osha-analysis.vercel.app/decision-audit.html"
+          >EHS</a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <div class="eyebrow">FINANCE / PUBLIC FILINGS / EVIDENCE AUDIT</div>
+      <h1>Balance changes can<br />tell a different cash story.</h1>
+      <p class="intro">
+        A balance-sheet proxy and an operating cash-flow adjustment are
+        different measurements. Official filings expose two ways that treating
+        them as interchangeable can mislead.
+      </p>
+      <p class="provenance">
+        Microsoft + Costco · fiscal 2025–2026 · pinned official sources ·
+        <a href="./decision.html">Explore hypothetical policy economics ↗</a>
+      </p>
+      <div class="finding-links" aria-label="Explore measured findings">
+        <button type="button" id="case-sign">
+          <strong>01 / Opposite signs</strong
+          ><span>Microsoft FY2026 · three selected accounts</span></button
+        ><button type="button" id="case-offset">
+          <strong>02 / Hidden cancellation</strong
+          ><span>Costco FY2026 · inventory + payables</span>
+        </button>
+      </div>
+      <p id="load-status" role="status">Loading pinned filing evidence…</p>
+      <p id="load-fallback" hidden>
+        <a href="./filings.data.json"
+          >Open the public evidence dataset directly</a
+        >
+      </p>
+      <div id="audit" hidden>
+        <section class="controls" aria-label="Choose filing and account scope">
+          <label>Company<select id="company"></select></label
+          ><label
+            >Fiscal year<select id="year">
+              <option value="2026">2026</option>
+              <option value="2025">2025</option>
+            </select></label
+          ><label>Account scope<select id="scope"></select></label>
+        </section>
+        <p id="period" class="period"></p>
+        <p id="coverage" class="scope-note"></p>
+        <section class="verdict" aria-labelledby="verdict-title">
+          <div class="eyebrow">WHAT THE SELECTED LINES ESTABLISH</div>
+          <h2 id="verdict-title"></h2>
+          <p id="verdict-text"></p>
+          <p class="limit">
+            This is a selected-account comparison, not total working capital,
+            total operating cash flow or achievable policy cash release. It does
+            not establish an error in either financial statement.
+          </p>
+        </section>
+        <section aria-labelledby="bridge-title">
+          <div class="section-top">
+            <div>
+              <div class="eyebrow">01 / FOLLOW EACH ACCOUNT</div>
+              <h2 id="bridge-title">The difference is in the components.</h2>
+            </div>
+            <span class="units">USD millions · positive = cash source</span>
+          </div>
+          <div id="plot"></div>
+          <div class="legend">
+            <span><i class="proxy-key"></i>Balance-change proxy</span
+            ><span
+              ><i class="reported-key"></i>Reported operating adjustment</span
+            >
+          </div>
+          <p class="scroll-hint">
+            Scroll the ledger horizontally to inspect every amount →
+          </p>
+          <div
+            class="table-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="Selected-account calculation ledger"
+          >
+            <table>
+              <caption>
+                Residual = reported adjustment − proxy. Select an account to
+                inspect its source facts below.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Account</th>
+                  <th scope="col">Opening balance</th>
+                  <th scope="col">Closing balance</th>
+                  <th scope="col">Balance proxy</th>
+                  <th scope="col">Reported adjustment</th>
+                  <th scope="col">Residual</th>
+                </tr>
+              </thead>
+              <tbody id="bridge-rows"></tbody>
+              <tfoot id="bridge-total"></tfoot>
+            </table>
+          </div>
+          <div class="residual-line">
+            <p>Net residual <strong id="net-residual"></strong></p>
+            <p>
+              Sum of absolute component residuals
+              <strong id="gross-residual"></strong>
+            </p>
+          </div>
+          <p id="rounding" class="note"></p>
+          <p class="note">
+            An asset increase uses cash in the proxy; a payable increase
+            supplies it. The proxy uses two point-in-time balances. Reported
+            adjustments come from the period’s cash-flow statement. Agreement in
+            the total can conceal disagreement in individual lines.
+          </p>
+        </section>
+        <section aria-labelledby="fact-title">
+          <div class="section-top">
+            <div>
+              <div class="eyebrow">02 / INSPECT THE EXACT BASIS</div>
+              <h2 id="fact-title">From raw fact to signed amount.</h2>
+            </div>
+            <label>Inspect account<select id="account"></select></label>
+          </div>
+          <p id="sign-rule" class="formula"></p>
+          <p class="scroll-hint">
+            Scroll the fact ledger horizontally for periods and raw values →
+          </p>
+          <div
+            class="table-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="Raw fact provenance"
+          >
+            <table class="fact-table">
+              <caption id="fact-caption"></caption>
+              <thead>
+                <tr>
+                  <th scope="col">Input</th>
+                  <th scope="col">XBRL concept</th>
+                  <th scope="col">Exact period</th>
+                  <th scope="col">Raw USD value</th>
+                </tr>
+              </thead>
+              <tbody id="fact-rows"></tbody>
+            </table>
+          </div>
+          <p id="filing-basis" class="note"></p>
+          <details>
+            <summary>
+              Later comparative facts: check for silent vintage changes
+            </summary>
+            <div id="vintages"></div>
+            <p class="note">
+              Later or same-day alternate annual filings are disclosed here and
+              never substituted. The selected facts come from the pinned
+              original annual accession, as represented in the SEC snapshot
+              retrieved in November 2026. This is not a historical capture of
+              the SEC API made on the original filing date.
+            </p>
+          </details>
+        </section>
+        <section aria-labelledby="evidence-title">
+          <div class="eyebrow">
+            03 / WHAT THE REPORTS EXPLAIN—AND LEAVE OPEN
+          </div>
+          <h2 id="evidence-title">Scope evidence is not a reconciliation.</h2>
+          <div id="evidence"></div>
+          <p class="limit">
+            The residual remains unreconciled in this audit. FX, acquisitions,
+            disposals, noncash changes and classification may affect the
+            relationship. Their individual contributions are not estimated here.
+            These two selected company cases do not estimate how frequently the
+            issue occurs.
+          </p>
+        </section>
+        <section aria-labelledby="method-title">
+          <div class="section-top">
+            <div>
+              <div class="eyebrow">04 / REPRODUCE THE REVIEW</div>
+              <h2 id="method-title">Pinned facts. Explicit selection.</h2>
+            </div>
+            <button type="button" id="export">
+              Download this evidence review · JSON
+            </button>
+          </div>
+          <p id="export-status" role="status"></p>
+          <p>
+            Each fiscal year uses its own original annual filing, including the
+            opening balance reported there. Selection requires exact accession,
+            filing date, USD units and period. Identical duplicates collapse;
+            conflicting duplicates fail. Fiscal-year labels and calendar frames
+            do not select values. Later comparatives and amendments cannot
+            silently overwrite the original.
+          </p>
+          <p>
+            Comparing the common inventory/payables subset aligns the arithmetic
+            scope. It does not make different businesses or fiscal calendars
+            economically comparable. The source reports disclose whole millions;
+            small differences must be read at that precision.
+          </p>
+          <details>
+            <summary>Source URLs, retrieval dates and response hashes</summary>
+            <div id="sources"></div>
+          </details>
+          <p class="note">
+            The downloadable review includes the complete fact ledger,
+            selection, methods, source excerpts, source hashes and a SHA-256
+            digest of the exact public dataset bytes. No accounts, private
+            inputs or network service are required.
+          </p>
+          <p>
+            <a href="./filings.data.json" download
+              >Download complete pinned dataset</a
+            >
+          </p>
+        </section>
+      </div>
+      <noscript
+        ><p>
+          The interactive ledger requires JavaScript.
+          <a href="./filings.data.json"
+            >Read the complete public evidence dataset</a
+          >.
+        </p></noscript
+      >
+      <footer>
+        Independent operational-finance analysis · official public evidence · no
+        investment recommendation
+      </footer>
+    </main>
+    <script type="module" src="./filings.mjs"></script>
+  </body>
+</html>

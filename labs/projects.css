@@ -442,3 +442,136 @@ footer {
     gap: 4px 16px;
   }
 }
+
+.research-feature {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  padding: 36px;
+  background: #e9eee5;
+  border-top: 2px solid #2c5a4b;
+  margin: 28px 0 52px;
+}
+.research-feature h2 {
+  font:
+    400 31px/1.2 Georgia,
+    serif;
+  margin: 10px 0 16px;
+}
+.research-feature p:not(.eyebrow) {
+  font-size: 14px;
+  color: #4b6158;
+  max-width: 60ch;
+}
+.research-feature > a {
+  align-self: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+.secondary-project {
+  display: block;
+  margin-top: 16px;
+  font-size: 12px;
+}
+.audit-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.audit-count strong {
+  font:
+    400 72px/1 Georgia,
+    serif;
+  letter-spacing: -2px;
+}
+.audit-count strong span {
+  font-size: 32px;
+  color: #52675d;
+  letter-spacing: 0;
+}
+.audit-count p {
+  max-width: 28ch;
+  margin: 12px 0 24px;
+}
+.mini-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid #bbcbbf;
+  border-bottom: 1px solid #bbcbbf;
+  padding: 16px 0;
+  gap: 16px;
+  font-size: 11px;
+}
+.mini-breakdown b {
+  display: block;
+  font-size: 25px;
+  font-weight: 500;
+}
+.paired-finding > div {
+  border-top: 1px solid #bbcbbf;
+  padding: 18px 0;
+}
+.paired-finding span {
+  font-size: 12px;
+  display: block;
+}
+.paired-finding strong {
+  font:
+    400 43px/1.25 Georgia,
+    serif;
+  letter-spacing: -1px;
+}
+.paired-finding > div:last-child strong {
+  color: #235c4c;
+}
+.paired-finding small {
+  font-size: 25px;
+  color: #52675d;
+}
+.contract-chain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+}
+.contract-chain > span {
+  border: 1px solid #a8bfb0;
+  padding: 12px 24px;
+  background: #ffffffb3;
+  width: 100%;
+  max-width: 290px;
+  font-weight: 600;
+}
+.contract-chain small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: #52675d;
+}
+.contract-chain > b {
+  font-size: 20px;
+  color: #52705e;
+}
+@media (max-width: 700px) {
+  .research-feature {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 25px;
+  }
+  .research-feature h2 {
+    font-size: 27px;
+  }
+  .paired-finding strong {
+    font-size: 36px;
+  }
+  .audit-count strong {
+    font-size: 64px;
+  }
+  .mini-breakdown {
+    gap: 10px;
+  }
+  .audit-preview {
+    padding: 25px;
+  }
+}

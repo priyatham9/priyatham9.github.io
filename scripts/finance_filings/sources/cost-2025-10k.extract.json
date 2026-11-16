@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "finance-report-extract/1",
+  "sourceId": "cost-2025-10k",
+  "originalUrl": "https://www.sec.gov/Archives/edgar/data/909832/000090983225000101/cost-20250831.htm",
+  "accession": "0000909832-25-000101",
+  "originalResponseSha256": "ddb69176c71fc61956f8e64fb7507082f1126ad8c83f8005fe1931915e84660b",
+  "originalResponseBytes": 1439081,
+  "originalRetrievedAt": "2026-11-16T13:50:58.414384+00:00",
+  "verificationAtCuration": "Every excerpt was matched exactly against whitespace-normalized text of the originally retrieved full response. The response hash was checked before extraction.",
+  "quotedProseWordCount": 0,
+  "excerpts": [
+    {
+      "id": "cost-other-prior",
+      "section": "Consolidated Statements of Cash Flows",
+      "kind": "financial-table",
+      "text": "Changes in operating assets and liabilities: Merchandise inventories 559 ( 2,068 ) 1,228 Accounts payable 404 1,938 ( 382 ) Other operating assets and liabilities, net 801 741 172"
+    },
+    {
+      "id": "cost-capex-prior",
+      "section": "Consolidated Statements of Cash Flows / Supplemental disclosure",
+      "kind": "financial-table",
+      "text": "Capital expenditures included in liabilities $ 193 $ 203 $ 170"
+    }
+  ]
+}
