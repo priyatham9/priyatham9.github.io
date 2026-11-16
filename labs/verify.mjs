@@ -2,7 +2,6 @@ export function verification({ container, getPayload, getExpected }) {
   const box = document.createElement("div");
   box.innerHTML =
     '<button class="secondary" type="button">Verify scenario</button><p class="note" role="status">Compare this scenario with a server calculation.</p>';
-  container.append(box);
   const button = box.querySelector("button"),
     status = box.querySelector("p");
   let generation = 0;
@@ -12,7 +11,20 @@ export function verification({ container, getPayload, getExpected }) {
       status.textContent =
         "Scenario changed. Verify again to compare the current values.";
     },
-    init() {
+    async init() {
+      try {
+        const capability = await fetch("/api/analysis", {
+          headers: { Accept: "application/json" },
+          signal: AbortSignal.timeout(3000),
+        });
+        if (!capability.ok) return;
+        const metadata = await capability.json();
+        if (metadata.version !== "1.0.0" || metadata.synthetic !== true ||
+            !Array.isArray(metadata.models) ||
+            !["finance", "crm"].every(model => metadata.models.includes(model)) ||
+            !metadata.models.includes(getPayload().model)) return;
+      } catch { return; }
+      container.append(box);
       button.addEventListener("click", async () => {
         const current = ++generation,
           payload = getPayload(),

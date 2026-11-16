@@ -60,7 +60,7 @@ test("rejects malformed, unknown, nonfinite and out-of-bounds input", async () =
     413,
   );
   assert.equal(
-    (await handle(new Request("http://localhost", { method: "GET" }))).status,
+    (await handle(new Request("http://localhost", { method: "PUT" }))).status,
     405,
   );
   assert.equal(
@@ -75,6 +75,9 @@ test("HTTP server serves portfolio and API, blocks sensitive files and traversal
   t.after(() => new Promise((resolve) => server.close(resolve)));
   const base = `http://127.0.0.1:${server.address().port}`;
   assert.equal((await fetch(base + "/")).status, 200);
+  const capability = await fetch(base + "/api/analysis");
+  assert.equal(capability.status, 200);
+  assert.deepEqual(await capability.json(), { version: "1.0.0", synthetic: true, models: ["finance", "crm"] });
   const response = await fetch(base + "/api/analysis", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

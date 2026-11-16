@@ -14,7 +14,7 @@ The static preview serves the interactive models locally. Server verification ad
 
 Only `index.html`, `404.html`, `og.png`, `og.svg`, `assets/`, `labs/`, and `work/peers-ontology-explorer/` are public inputs. The explorer's `data.json` is deliberately public demonstration data. The builder admits web asset extensions, excludes hidden files and test files, rejects symlinks, clears stale output, and checks local HTML, stylesheet, and JavaScript module dependencies. Missing links fail the build. Repository scripts, tests, raw data, configuration, and unrelated work directories are excluded. External original-site links remain external. Runtime API references are accepted only for an implemented API route.
 
-`.github/workflows/site.yml` runs model and Python tests, builds the artifact, and uploads only `dist/`; it does not publish. Existing source-data checks can skip rebuilding the peers dataset when the original source clone is unavailable. No credentials are needed for CI verification.
+`.github/workflows/site.yml` runs model and Python tests, builds the artifact, and uploads only `dist/`; it does not publish. The existing GitHub Pages legacy configuration serves the public repository from main, including source files. Its settings cannot be changed by the current integration. Vercel uses the allowlisted dist output and can run the stateless API. Static hosting omits optional server-verification controls while retaining all calculations, sharing, and exports. Existing source-data checks can skip rebuilding the peers dataset when the original source clone is unavailable. No credentials are needed for CI verification.
 
 ## Vercel configuration
 

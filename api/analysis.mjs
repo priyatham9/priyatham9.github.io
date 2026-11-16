@@ -49,8 +49,10 @@ function validate(body) {
   return { model: body.model, inputs };
 }
 export async function handle(request) {
+  if (request.method === "GET")
+    return reply(200, { version: VERSION, synthetic: true, models: ["finance", "crm"] });
   if (request.method !== "POST")
-    return reply(405, { error: "Use POST." }, { Allow: "POST" });
+    return reply(405, { error: "Use GET or POST." }, { Allow: "GET, POST" });
   if (
     !/^application\/json(?:\s*;|$)/i.test(
       request.headers.get("content-type") || "",
