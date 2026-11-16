@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify analytical decision models
-        run: node --test tests/*.test.mjs labs/*/*.test.mjs
+        run: node --test tests/*.test.mjs labs/*.test.mjs labs/*/*.test.mjs
       - name: Verify pinned official filing data
         run: python3 scripts/finance_filings/build.py --check
       - name: Verify financial statement selection and calculations
