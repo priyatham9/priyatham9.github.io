@@ -22,6 +22,8 @@ jobs:
         run: |
           node labs/models.test.mjs
           node labs/signed-scale.test.mjs
+          node labs/scenario-tools.test.mjs
+          node labs/foundry/model.test.mjs
       - name: Test server verification API
         run: node --test tests/analysis.test.mjs
       - name: Build and verify all local dependencies
