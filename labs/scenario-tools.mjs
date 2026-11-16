@@ -1,6 +1,12 @@
-export const MODEL_VERSION = "1.0.0";
+export const MODEL_VERSION = "1.1.0";
 const limits = {
-  finance: { dso: [15, 75, 45], dio: [20, 100, 60], dpo: [10, 75, 30] },
+  finance: {
+    revenue: [0, 1e12, 12000000],
+    cogs: [0, 1e12, 7200000],
+    dso: [15, 75, 45],
+    dio: [20, 100, 60],
+    dpo: [10, 75, 30],
+  },
   crm: { rate: [0, 100, 50] },
 };
 export function readScenario(model, search = "") {
@@ -13,7 +19,7 @@ export function readScenario(model, search = "") {
       value = raw !== null && raw.trim() !== "" ? Number(raw) : NaN;
     result[key] =
       Number.isFinite(value) &&
-      Number.isInteger(value) &&
+      (key === "revenue" || key === "cogs" || Number.isInteger(value)) &&
       value >= min &&
       value <= max
         ? value
@@ -76,7 +82,14 @@ export function downloadCSV(filename, rows) {
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-export function addScenarioTools({ model, container, getState, getRows }) {
+export function addScenarioTools({
+  model,
+  container,
+  getState,
+  getRows,
+  getLabel = () => "Synthetic public demonstration",
+  isValid = () => true,
+}) {
   const controls = document.createElement("div");
   controls.className = "scenario-tools";
   controls.innerHTML =
@@ -84,12 +97,18 @@ export function addScenarioTools({ model, container, getState, getRows }) {
   container.append(controls);
   const status = controls.querySelector("[role=status]");
   controls.querySelector("[data-share]").addEventListener("click", async () => {
+    if (!isValid()) {
+      status.textContent = "Enter valid business assumptions before sharing.";
+      return;
+    }
     const url = scenarioURL(model, getState(), location.href);
     history.replaceState(null, "", url);
     try {
       await navigator.clipboard.writeText(url);
       status.textContent =
-        "Scenario link copied. It contains synthetic inputs only.";
+        model === "finance"
+          ? "Scenario link copied. It includes your entered revenue and cost assumptions."
+          : "Scenario link copied. It contains synthetic inputs only.";
     } catch {
       const fallback = controls.querySelector(".share-fallback");
       fallback.hidden = false;
@@ -100,13 +119,16 @@ export function addScenarioTools({ model, container, getState, getRows }) {
     }
   });
   controls.querySelector("[data-export]").addEventListener("click", () => {
-    downloadCSV(`synthetic-${model}-scenario.csv`, [
-      ["Synthetic public demonstration", model],
+    if (!isValid()) {
+      status.textContent = "Enter valid business assumptions before exporting.";
+      return;
+    }
+    downloadCSV(`${model}-scenario.csv`, [
+      [getLabel(), model],
       ["Model version", MODEL_VERSION],
       ...getRows(),
     ]);
-    status.textContent =
-      "Synthetic scenario exported with assumptions and formulas.";
+    status.textContent = "Scenario exported with assumptions and formulas.";
   });
   return {
     reset() {
@@ -116,14 +138,25 @@ export function addScenarioTools({ model, container, getState, getRows }) {
         "Baseline restored; shared scenario inputs removed from the URL.";
     },
     invalidate() {
-      history.replaceState(
-        null,
-        "",
-        scenarioURL(model, getState(), location.href),
-      );
+      if (model !== "finance")
+        history.replaceState(
+          null,
+          "",
+          scenarioURL(model, getState(), location.href),
+        );
       controls.querySelector(".share-fallback").hidden = true;
       status.textContent =
         "Scenario changed. Share again to copy the current inputs.";
     },
   };
+}
+
+export function parseBusinessAmount(raw) {
+  if (
+    (typeof raw !== "string" && typeof raw !== "number") ||
+    String(raw).trim() === ""
+  )
+    return null;
+  const value = Number(raw);
+  return Number.isFinite(value) && value >= 0 && value <= 1e12 ? value : null;
 }

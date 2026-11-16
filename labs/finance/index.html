@@ -17,7 +17,9 @@
         <a href="../foundry/">Foundry</a><a href="../crm/">CRM</a
         ><a href="../finance/" aria-current="page">Finance</a>
       </nav>
-      <span class="badge">Synthetic public demonstration</span>
+      <span class="badge" id="model-disclosure"
+        >Illustrative model · synthetic example</span
+      >
     </header>
     <main>
       <noscript
@@ -33,8 +35,9 @@
         days into one transparent cash decision.
       </p>
       <div class="controls">
-        <span class="badge">Annual revenue $12.0m · COGS $7.2m</span
-        ><button class="secondary" id="reset">Reset to baseline</button
+        <span class="badge" id="business-summary"
+          >Revenue $12.0m · COGS $7.2m</span
+        ><button class="secondary" id="reset">Reset to example</button
         ><span class="note">Steady state · 365-day convention · USD</span>
       </div>
       <div class="metrics" id="metrics" aria-live="polite"></div>
@@ -42,6 +45,44 @@
         <section class="card">
           <h2>Three operating levers</h2>
           <p class="note">Baseline: DSO 45 · DIO 60 · DPO 30 days</p>
+          <details open>
+            <summary>Business assumptions</summary>
+            <p class="note">
+              Start with the synthetic example or enter annual USD amounts.
+              Inputs stay in this browser unless you choose Verify scenario or
+              Share scenario. Sharing includes entered amounts in the URL. No
+              account or saved history.
+            </p>
+            <div class="controls business-fields">
+              <label for="revenue"
+                >Annual revenue (USD)<input
+                  id="revenue"
+                  type="number"
+                  min="0"
+                  max="1000000000000"
+                  step="any"
+                  value="12000000"
+                  required
+                  aria-describedby="business-status" /></label
+              ><label for="cogs"
+                >Annual cost of goods sold (USD)<input
+                  id="cogs"
+                  type="number"
+                  min="0"
+                  max="1000000000000"
+                  step="any"
+                  value="7200000"
+                  required
+                  aria-describedby="business-status"
+              /></label>
+            </div>
+            <p
+              id="business-status"
+              class="note"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </details>
           <div id="sliders"></div>
         </section>
         <section class="card">
@@ -103,11 +144,11 @@
       <details>
         <summary>About this demonstration</summary>
         <p>
-          All records, names, values and scenarios are synthetic. This
-          independent demonstration illustrates an analytical method; it
-          contains no employer data, personal performance claims, live
-          integrations or production recommendations. Changes stay in this
-          browser and reset on reload.
+          Default values are synthetic examples. Edited amounts are user-entered
+          assumptions in an illustrative model. This independent demonstration
+          illustrates an analytical method; it contains no employer data,
+          personal performance claims, live integrations or production
+          recommendations. Changes stay in this browser and reset on reload.
         </p>
       </details>
       <footer>

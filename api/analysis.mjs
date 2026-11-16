@@ -1,6 +1,6 @@
 import { cash, pipeline } from "../labs/models.mjs";
 
-export const VERSION = "1.0.0";
+export const VERSION = "1.1.0";
 export const MAX_BODY = 4096;
 const defaults = {
   finance: { revenue: 12000000, cogs: 7200000, dso: 45, dio: 60, dpo: 30 },
@@ -50,7 +50,11 @@ function validate(body) {
 }
 export async function handle(request) {
   if (request.method === "GET")
-    return reply(200, { version: VERSION, synthetic: true, models: ["finance", "crm"] });
+    return reply(200, {
+      version: VERSION,
+      demonstration: true,
+      models: ["finance", "crm"],
+    });
   if (request.method !== "POST")
     return reply(405, { error: "Use GET or POST." }, { Allow: "GET, POST" });
   if (
@@ -95,7 +99,7 @@ export async function handle(request) {
       model === "finance" ? cash(inputs) : pipeline(inputs.cohort, inputs.rate);
     return reply(200, {
       version: VERSION,
-      synthetic: true,
+      demonstration: true,
       model,
       inputs,
       result,

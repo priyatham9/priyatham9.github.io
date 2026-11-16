@@ -20,8 +20,8 @@ test("finance independently computes accounting identity and CRM computes weight
   ).json();
   assert.equal(finance.result.nwc, 5000);
   assert.equal(finance.result.ccc, 70);
-  assert.equal(finance.synthetic, true);
-  assert.equal(finance.version, "1.0.0");
+  assert.equal(finance.demonstration, true);
+  assert.equal(finance.version, "1.1.0");
   const crm = await (
     await handle(
       request({ model: "crm", inputs: { cohort: "inbound", rate: 0.8 } }),
@@ -77,7 +77,11 @@ test("HTTP server serves portfolio and API, blocks sensitive files and traversal
   assert.equal((await fetch(base + "/")).status, 200);
   const capability = await fetch(base + "/api/analysis");
   assert.equal(capability.status, 200);
-  assert.deepEqual(await capability.json(), { version: "1.0.0", synthetic: true, models: ["finance", "crm"] });
+  assert.deepEqual(await capability.json(), {
+    version: "1.1.0",
+    demonstration: true,
+    models: ["finance", "crm"],
+  });
   const response = await fetch(base + "/api/analysis", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

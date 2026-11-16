@@ -1,4 +1,9 @@
-export function verification({ container, getPayload, getExpected }) {
+export function verification({
+  container,
+  getPayload,
+  getExpected,
+  isValid = () => true,
+}) {
   const box = document.createElement("div");
   box.innerHTML =
     '<button class="secondary" type="button">Verify scenario</button><p class="note" role="status">Compare this scenario with a server calculation.</p>';
@@ -19,13 +24,26 @@ export function verification({ container, getPayload, getExpected }) {
         });
         if (!capability.ok) return;
         const metadata = await capability.json();
-        if (metadata.version !== "1.0.0" || metadata.synthetic !== true ||
-            !Array.isArray(metadata.models) ||
-            !["finance", "crm"].every(model => metadata.models.includes(model)) ||
-            !metadata.models.includes(getPayload().model)) return;
-      } catch { return; }
+        if (
+          metadata.version !== "1.1.0" ||
+          metadata.demonstration !== true ||
+          !Array.isArray(metadata.models) ||
+          !["finance", "crm"].every((model) =>
+            metadata.models.includes(model),
+          ) ||
+          !metadata.models.includes(getPayload().model)
+        )
+          return;
+      } catch {
+        return;
+      }
       container.append(box);
+      button.disabled = !isValid();
       button.addEventListener("click", async () => {
+        if (!isValid()) {
+          status.textContent = "Enter valid assumptions before verification.";
+          return;
+        }
         const current = ++generation,
           payload = getPayload(),
           expected = getExpected();
@@ -41,7 +59,7 @@ export function verification({ container, getPayload, getExpected }) {
           const data = await response.json();
           if (current !== generation) return;
           const matches =
-            data.synthetic === true &&
+            data.demonstration === true &&
             data.model === payload.model &&
             Object.keys(expected).every((key) =>
               Array.isArray(expected[key])
@@ -52,14 +70,14 @@ export function verification({ container, getPayload, getExpected }) {
                   Math.abs(expected[key] - data.result[key]) < 1e-8,
             );
           status.textContent = matches
-            ? "Verified: the calculation matches this synthetic scenario."
+            ? "Verified: the calculation matches this scenario."
             : "The verification returned different results. Review the scenario before relying on it.";
         } catch {
           if (current === generation)
             status.textContent =
               "Verification is unavailable here. The local scenario still works; no verification has been completed.";
         } finally {
-          button.disabled = false;
+          button.disabled = !isValid();
         }
       });
     },
