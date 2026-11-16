@@ -14,6 +14,7 @@ The original portfolio remains available at https://priyatham-personal-site.verc
 [Open the project directory](https://priyatham9.github.io/labs/) for the new contract-review, channel-decision and financial-policy workspaces, plus independent empirical research audits.
 
 - [Data contract review](labs/foundry/contract.html): import local JSON, inspect typed dependencies and compare a proposed change with its baseline. Review bundles bind exact inputs and diagnostics with SHA-256. This is an independent prototype, not a live Palantir integration.
+- [CRM campaign evidence](labs/crm/campaign.html): inspect two fixed models on a chronological UCI Bank Marketing holdout, with explicit information timing, calibration, source order and record-level exports. This quantifies a documented leakage problem; it does not estimate causal campaign impact.
 - [CRM decision audit](labs/crm/decision.html): separate customer-mix standardization from unresolved-outcome bounds using explicitly constructed cohorts.
 - [Official-filings evidence audit](labs/finance/filings.html): compare selected Microsoft and Costco balance changes with the corresponding reported cash-flow adjustments, including exact filing vintages, account-level differences and rounding limits.
 - [Financial decision audit](labs/finance/decision.html): compare hypothetical operating policies with their full modeled cash flows and costs, with frozen custom scenarios.
@@ -28,3 +29,10 @@ New audit calculations run locally. The original applications and their verifica
 The stateless Node function shares the labs' pure formulas. It rejects unknown fields, nonnumeric values, negative values, rates above 1, days above 3650, dollar inputs above 1 trillion, and bodies above 4096 bytes. It requires no secrets, accounts, database, or external services. This verifies reproducibility of illustrative calculations, rather than real-world forecasting accuracy.
 
 Run backend and HTTP checks with `node --test tests/analysis.test.mjs`.
+
+### Browser regression checks
+
+Install `playwright==1.62.0`, run `python -m playwright install chromium`, then
+`python scripts/check_project_ui.py`. The script serves an isolated local copy
+and checks review gates, frozen policy comparisons, invalid-input recovery,
+source-bound exports and responsive layouts. These checks run in CI.
