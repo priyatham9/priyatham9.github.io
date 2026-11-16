@@ -1,161 +1,64 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="A working-capital model that turns collection, inventory and payment days into one transparent cash decision."
-    />
-    <title>Make cash movement visible. · Analytical labs</title>
-    <link rel="stylesheet" href="../labs.css" />
-  </head>
-  <body>
-    <header>
-      <a href="../../">Priyatham Chimmani / labs</a>
-      <nav aria-label="Lab navigation">
-        <a href="../foundry/">Foundry</a><a href="../crm/">CRM</a
-        ><a href="../finance/" aria-current="page">Finance</a>
-      </nav>
-      <span class="badge" id="model-disclosure"
-        >Illustrative model · synthetic example</span
-      >
-    </header>
-    <main>
-      <noscript
-        ><div class="decision">
-          Enable JavaScript to explore the interactive model. Methodology and
-          assumptions remain available below.
-        </div></noscript
-      >
-      <div class="eyebrow">Independent lab / finance</div>
-      <h1>Make cash<br />movement visible.</h1>
-      <p class="intro">
-        A working-capital model that turns collection, inventory and payment
-        days into one transparent cash decision.
-      </p>
-      <div class="controls">
-        <span class="badge" id="business-summary"
-          >Revenue $12.0m · COGS $7.2m</span
-        ><button class="secondary" id="reset">Reset to example</button
-        ><span class="note">Steady state · 365-day convention · USD</span>
-      </div>
-      <div class="metrics" id="metrics" aria-live="polite"></div>
-      <div class="grid">
-        <section class="card">
-          <h2>Three operating levers</h2>
-          <p class="note">Baseline: DSO 45 · DIO 60 · DPO 30 days</p>
-          <details open>
-            <summary>Business assumptions</summary>
-            <p class="note">
-              Start with the synthetic example or enter annual USD amounts.
-              Inputs stay in this browser unless you choose Verify scenario or
-              Share scenario. Sharing includes entered amounts in the URL. No
-              account or saved history.
-            </p>
-            <div class="controls business-fields">
-              <label for="revenue"
-                >Annual revenue (USD)<input
-                  id="revenue"
-                  type="number"
-                  min="0"
-                  max="1000000000000"
-                  step="any"
-                  value="12000000"
-                  required
-                  aria-describedby="business-status" /></label
-              ><label for="cogs"
-                >Annual cost of goods sold (USD)<input
-                  id="cogs"
-                  type="number"
-                  min="0"
-                  max="1000000000000"
-                  step="any"
-                  value="7200000"
-                  required
-                  aria-describedby="business-status"
-              /></label>
-            </div>
-            <p
-              id="business-status"
-              class="note"
-              role="status"
-              aria-live="polite"
-            ></p>
-          </details>
-          <div id="sliders"></div>
-        </section>
-        <section class="card">
-          <h2>Where the cash sits</h2>
-          <p class="note">
-            Receivables + inventory − payables = net working capital
-          </p>
-          <div id="bars"></div>
-          <div class="decision" id="movement"></div>
-        </section>
-      </div>
-      <section class="card">
-        <h2>A lower number has a cost.</h2>
-        <div class="nodes">
-          <div class="node">
-            <small>COLLECTION / DSO</small><b>Collect sooner</b>
-            <p>
-              May require tighter terms or discounts. Check customer retention
-              and discount cost.
-            </p>
-          </div>
-          <div class="node">
-            <small>INVENTORY / DIO</small><b>Hold less inventory</b>
-            <p>
-              May increase stockouts or expedite costs. Check service levels and
-              demand variability.
-            </p>
-          </div>
-          <div class="node">
-            <small>PAYMENT / DPO</small><b>Pay suppliers later</b>
-            <p>
-              May reduce discounts or stress suppliers. Check contract terms and
-              supply continuity.
-            </p>
-          </div>
-        </div>
-        <p class="note">
-          The model measures cash tied up, not profit or risk. A cash release
-          does not automatically create economic value.
-        </p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Explore working capital, trace cash movements and compare operating scenarios in a transparent finance workbench." />
+  <title>Working capital · Finance workbench</title>
+  <link rel="stylesheet" href="../labs.css" />
+  <link rel="stylesheet" href="./finance.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="../">PC<span>/</span> ANALYTICAL PROJECTS</a>
+    <nav aria-label="Lab navigation"><a href="../foundry/">Foundry</a><a href="../crm/">CRM</a><a href="./" aria-current="page">Finance</a><a href="../ai/">AI</a><a href="https://ehs-osha-analysis.vercel.app/explore.html">EHS <svg class="external-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M4 4h8v8" /></svg></a></nav>
+    <a class="portfolio-link" href="../../">Portfolio <svg class="external-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M4 4h8v8" /></svg></a>
+  </header>
+  <main>
+    <noscript><p class="decision">Enable JavaScript to explore this model. Formulas and assumptions are available below.</p></noscript>
+    <div class="workbench-heading">
+      <div><div class="eyebrow">03 / FINANCE · SCENARIO WORKBENCH</div><h1>Working capital</h1><p>Trace the cash impact of your operating cycle.</p></div>
+      <div class="heading-meta"><span id="model-disclosure">Illustrative model · synthetic example</span><span>USD · steady state · 365 days</span></div>
+    </div>
+    <section class="business-context" aria-labelledby="business-heading">
+      <div class="context-label"><h2 id="business-heading">Business context</h2><span>Annual run rate</span></div>
+      <label for="revenue">Revenue <span>USD / year</span><input id="revenue" type="number" min="0" max="1000000000000" step="any" value="12000000" required aria-describedby="business-status revenue-readable" /><span class="amount-readable" id="revenue-readable">$12,000,000 / year</span></label>
+      <label for="cogs">Cost of goods sold <span>USD / year</span><input id="cogs" type="number" min="0" max="1000000000000" step="any" value="7200000" required aria-describedby="business-status cogs-readable" /><span class="amount-readable" id="cogs-readable">$7,200,000 / year</span></label>
+      <button class="secondary" id="reset" type="button">Reset example ↺</button>
+      <p id="business-status" class="note" role="status"></p>
+    </section>
+    <div class="workbench">
+      <aside class="lever-panel" aria-labelledby="levers-heading">
+        <div class="panel-heading"><div class="eyebrow">INPUTS</div><h2 id="levers-heading">Operating levers</h2><p class="note">Adjust days. See the balance move.</p></div>
+        <div id="mobile-results" class="mobile-results"></div>
+        <div id="sliders"></div>
+        <div class="lever-key"><span class="baseline-tick"></span> Baseline: 45 / 60 / 30 days</div>
+        <div class="preset"><span>Try a scenario</span><button id="improve" class="secondary" type="button">Collect 10 days sooner <span><svg class="external-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M4 4h8v8" /></svg></span></button></div>
+        <p class="local-note">Calculated in your browser. No saved history.</p>
+      </aside>
+      <section class="analysis-panel" aria-label="Scenario analysis">
+        <div id="metrics" class="result-strip" aria-live="polite"></div>
+        <div class="chart-heading"><div><div class="eyebrow">CASH POSITION</div><h2 id="chart-title">Where the cash sits</h2></div><div class="chart-tabs" role="group" aria-label="Chart view"><button id="balance-view" type="button" aria-pressed="true">Balance</button><button id="release-view" type="button" aria-pressed="false">Cash bridge</button></div></div>
+        <p id="chart-description" class="chart-description">Receivables + inventory − payables = net working capital</p>
+        <div id="bars" class="waterfall"></div>
+        <div class="chart-legend"><span><i class="swatch scenario"></i> Scenario balance</span><span><i class="swatch baseline"></i> Baseline</span><span><i class="swatch deduction"></i> Deduction / cash release</span></div>
+        <div id="movement" class="movement" role="status"></div>
       </section>
-      <details>
-        <summary>Exact formulas, assumptions & boundaries</summary>
-        <div class="formula">
-          AR = annual revenue ÷ 365 × DSO<br />Inventory = annual COGS ÷ 365 ×
-          DIO<br />AP = annual COGS ÷ 365 × DPO<br />Net working capital = AR +
-          inventory − AP<br />Cash conversion cycle = DSO + DIO − DPO<br />Cash
-          released = baseline NWC − scenario NWC
-        </div>
-        <p>
-          Uses a constant annual run rate with no seasonality, growth, taxes,
-          FX, bad debts, prepayments or minimum order effects. DSO uses revenue;
-          DIO and DPO use cost of goods sold. Payables assumes purchases
-          approximate COGS. A lower NWC balance represents a one-time
-          steady-state cash release, not recurring annual savings. Display
-          values are rounded; calculations retain full precision.
-        </p>
-      </details>
-      <details>
-        <summary>About this demonstration</summary>
-        <p>
-          Default values are synthetic examples. Edited amounts are user-entered
-          assumptions in an illustrative model. This independent demonstration
-          illustrates an analytical method; it contains no employer data,
-          personal performance claims, live integrations or production
-          recommendations. Changes stay in this browser and reset on reload.
-        </p>
-      </details>
-      <footer>
-        <span>Built to make the decision legible.</span
-        ><a href="../../">Return to portfolio ↗︎</a>
-      </footer>
-    </main>
-    <script type="module" src="./app.mjs"></script>
-  </body>
+    </div>
+    <section class="comparison" aria-labelledby="comparison-heading">
+      <div class="comparison-heading"><div><div class="eyebrow">RECONCILIATION</div><h2 id="comparison-heading">Baseline → scenario</h2></div><div class="pin-controls"><button id="pin" class="secondary" type="button">Pin scenario for comparison</button><button id="restore-pin" class="secondary" type="button" hidden>Restore A</button><button id="clear-pin" class="secondary" type="button" hidden>Clear pin</button></div></div>
+      <div id="comparison-switch" class="comparison-switch" role="group" aria-label="Compare scenario against" hidden><span>Compare with</span><button id="compare-baseline" type="button" aria-pressed="true">Baseline</button><button id="compare-pin" type="button" aria-pressed="false">Pinned A</button></div>
+      <p id="pin-status" class="note" role="status">Baseline holds days at 45 / 60 / 30 with your current annual amounts. Pinning keeps a temporary snapshot until reload.</p>
+      <div id="comparison-table" class="table-wrap" tabindex="0" aria-label="Exact scenario comparison; scroll horizontally if needed"></div>
+      <div class="scenario-actions"><div><strong>Take the scenario with you</strong><p>Share puts annual amounts and days in the URL. Export includes formulas, assumptions and any pinned comparison. Pinned A is not included in shared links.</p></div><div id="scenario-tools"></div></div>
+    </section>
+    <section class="method-area" aria-label="Methodology">
+      <details><summary>Model method & boundaries <span>01</span></summary><div class="method-columns"><div class="formula">AR = annual revenue ÷ 365 × DSO<br />Inventory = annual COGS ÷ 365 × DIO<br />AP = annual COGS ÷ 365 × DPO<br />Net working capital = AR + inventory − AP<br />Cash cycle = DSO + DIO − DPO<br />Cash released = baseline NWC − scenario NWC</div><p>Constant annual run rate; purchases approximate COGS. Excludes seasonality, growth, taxes, FX, bad debts, prepayments and minimum order effects. Cash release is a one-time steady-state balance change, not recurring savings or profit. Display values are rounded; calculations retain full precision.</p></div></details>
+      <details><summary>Commercial tradeoffs <span>02</span></summary><div class="tradeoffs"><p><strong>Collect sooner</strong>Check customer retention, agreed terms and the cost of discounts.</p><p><strong>Hold less inventory</strong>Check stockouts, service levels, demand variability and expedite costs.</p><p><strong>Pay suppliers later</strong>Check contract terms, lost discounts and supply continuity.</p></div></details>
+      <details><summary>Data provenance & verification <span>03</span></summary><p>Defaults are synthetic examples. Edited amounts are your assumptions in an illustrative model. This independent demonstration contains no employer data, performance claims, live integrations or production recommendations. Inputs and pinned comparisons are temporary; sharing deliberately includes inputs in the URL. If server verification is available, choosing it sends the current inputs to the calculation API.</p><div id="verification-tools"></div></details>
+    </section>
+    <footer><span>Independent analytical lab / Finance</span><span>Transparent inputs. Traceable calculations.</span></footer>
+  </main>
+  <script type="module" src="./app.mjs"></script>
+</body>
 </html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f2" />
+    <meta
+      name="description"
+      content="Inspect 68 safety-critical AI evaluation cases, compare minimal pairs, and trace reference answers to authoritative regulatory evidence. A provenance-pinned public corpus explorer."
+    />
+    <title>Grounding inspection · Priyatham / AI lab</title>
+    <link rel="stylesheet" href="studio.css" />
+  </head>
+  <body>
+    <a class="skip" href="#workspace">Skip to case inspector</a>
+    <header class="site-header">
+      <a class="brand" href="../"
+        ><span class="brand-mark">PC</span><span>Analytical projects</span></a
+      >
+      <nav aria-label="Project navigation">
+        <a href="../foundry/">Foundry</a><a href="../crm/">CRM</a
+        ><a href="../finance/">Finance</a
+        ><a href="https://ehs-osha-analysis.vercel.app/explore.html"
+          >EHS explorer</a
+        ><a aria-current="page" href="./">AI studio</a>
+      </nav>
+      <a class="back" href="../../">Portfolio ↗︎</a>
+    </header>
+    <main>
+      <section class="heading">
+        <div>
+          <p class="eyebrow">
+            <span class="blue-dot"></span> APPLIED AI / EVALUATION DESIGN
+          </p>
+          <h1>Grounding inspection<span class="title-dot">.</span></h1>
+          <p class="subtitle">
+            Inspect the distinction between a grounded answer and a plausible
+            mistake.
+          </p>
+        </div>
+        <div class="scope">
+          <span class="scope-dot"></span><strong>Reference corpus</strong
+          ><span>No model has been evaluated here.</span
+          ><a href="#provenance">View provenance ↘</a>
+        </div>
+      </section>
+      <section class="overview" aria-label="Corpus summary">
+        <div class="overview-intro">
+          <span class="eyebrow">THE BENCHMARK</span>
+          <p>One subtle failure.<br /><strong>Eight safety domains.</strong></p>
+          <span class="muted small"
+            >Semantically similar entities.<br />Different regulatory
+            obligations.</span
+          >
+        </div>
+        <div class="stat">
+          <strong id="stat-total">68</strong><span>curated cases</span
+          ><small id="stat-types">63 factual · 5 false premises</small>
+        </div>
+        <div class="stat">
+          <strong id="stat-pairs">23</strong><span>minimal pairs</span
+          ><small>Test both sides of a distinction</small>
+        </div>
+        <div class="stat">
+          <strong id="stat-verified">68<span>/68</span></strong
+          ><span>source anchors verified</span
+          ><small>59 paragraph-local · 9 section-level</small>
+        </div>
+        <details class="coverage" open>
+          <summary class="coverage-label">
+            <span
+              >DOMAIN COVERAGE
+              <span class="mobile-only">· 8 domains</span></span
+            ><span>CASES <span class="coverage-chevron">⌄</span></span>
+          </summary>
+          <div id="domain-chart"></div>
+        </details>
+      </section>
+      <div class="starting-points" aria-label="Suggested investigations">
+        <span>START WITH A DISTINCTION</span
+        ><button data-start="cs-001">
+          Ventilation ≠ elimination <span>↗︎</span></button
+        ><button data-start="prd-010">
+          A disk cannot reseat <span>↗︎</span></button
+        ><button data-start="cs-006">
+          Attendant ≠ supervisor <span>↗︎</span>
+        </button>
+      </div>
+      <div class="workspace-title">
+        <div>
+          <span class="eyebrow">INSPECTION WORKSPACE</span>
+          <p>
+            Select a case. Follow the evidence. Stress-test the distinction.
+          </p>
+        </div>
+        <span class="edition">SOURCE EDITION <strong>2026-08-01</strong></span>
+      </div>
+      <section class="workspace" id="workspace" aria-label="Case exploration">
+        <aside
+          class="case-browser"
+          id="case-browser"
+          aria-label="Find an evaluation case"
+        >
+          <div class="search-wrap">
+            <span aria-hidden="true">⌕</span
+            ><label class="sr-only" for="search"
+              >Search cases, concepts or clauses</label
+            ><input
+              id="search"
+              type="search"
+              placeholder="Search cases, concepts, clauses…"
+              autocomplete="off"
+            /><kbd>/</kbd>
+          </div>
+          <div class="filter-row">
+            <label class="sr-only" for="domain">Regulatory domain</label
+            ><select id="domain">
+              <option value="all">All domains</option></select
+            ><label class="sr-only" for="type">Question type</label
+            ><select id="type">
+              <option value="all">All types</option>
+              <option value="factual">Factual</option>
+              <option value="category_error">False premise</option>
+            </select>
+          </div>
+          <div class="list-toolbar">
+            <label
+              ><input type="checkbox" id="paired" /> Paired cases only</label
+            ><span id="result-count" role="status"></span>
+          </div>
+          <div id="case-list" class="case-list"></div>
+          <div class="browser-foot">
+            <span>PUBLIC BENCHMARK</span
+            ><a href="data/CORPUS_CARD.txt" download>Dataset card ↓</a>
+          </div>
+        </aside>
+        <article
+          class="inspector"
+          id="case-inspector"
+          aria-label="Selected case inspector"
+        >
+          <div id="inspector-content">
+            <p class="loading">Loading the pinned corpus…</p>
+          </div>
+        </article>
+      </section>
+      <section class="method" id="provenance">
+        <div>
+          <p class="eyebrow">A TEST OF DISCRIMINATION</p>
+          <h2>Evidence, before confidence.</h2>
+          <p>
+            This benchmark probes <strong>co-hyponym substitution</strong>: an
+            answer about a neighboring entity instead of the entity asked about.
+            The wrong-answer examples are authored probes, not observed model
+            failures.
+          </p>
+          <p>
+            Inspect the reference and its clause, compare both members of a
+            pair, then use the rubric to design an evaluation. No live model,
+            generated answer, or model accuracy is represented.
+          </p>
+        </div>
+        <div class="provenance">
+          <div class="provenance-top">
+            <span class="eyebrow">REPRODUCIBLE BY DESIGN</span
+            ><a href="data/manifest.json" download>Manifest ↓</a>
+          </div>
+          <dl>
+            <div>
+              <dt>Source</dt>
+              <dd>
+                <a
+                  href="https://github.com/priyatham9/ehs-ai-grounding-eval"
+                  target="_blank"
+                  rel="noopener"
+                  >ehs-ai-grounding-eval ↗︎</a
+                >
+              </dd>
+            </div>
+            <div>
+              <dt>Snapshot</dt>
+              <dd id="source-sha">Loading…</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>
+                <a href="data/source_verification.json" target="_blank"
+                  >Historical eCFR report ↗︎</a
+                >
+              </dd>
+            </div>
+            <div>
+              <dt>License</dt>
+              <dd>
+                <a href="data/LICENSE.txt">MIT · © 2026 Priyatham Chimmani</a>
+              </dd>
+            </div>
+          </dl>
+          <p>
+            Source links open the pinned edition where possible. Historical
+            verification is not a current compliance check. Small corpus; US
+            federal regulations only.
+          </p>
+        </div>
+      </section>
+      <footer>
+        <span
+          >PRIYATHAM CHIMMANI
+          <span class="muted">/ Applied AI, made inspectable.</span></span
+        ><a href="../../">Back to portfolio ↗︎</a>
+      </footer>
+      <div id="toast" class="toast" role="status" hidden></div>
+      <noscript
+        ><p class="noscript">
+          Enable JavaScript to inspect cases. The
+          <a href="data/CORPUS_CARD.txt">dataset card</a>,
+          <a href="data/manifest.json">provenance manifest</a>, and
+          <a href="data/confined_space.json">confined-space corpus</a> are
+          available as static files.
+        </p></noscript
+      >
+      <script type="module" src="studio.mjs"></script>
+    </main>
+  </body>
+</html>

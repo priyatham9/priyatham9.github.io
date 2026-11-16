@@ -1,0 +1,65 @@
+{
+  "repository": "https://github.com/priyatham9/ehs-ai-grounding-eval",
+  "commit": "b6debdd9e76aedaa658ec18ad40f9d2df896ce16",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2026 Priyatham Chimmani",
+  "edition_date": "2026-08-01",
+  "note": "Exact copies from the committed public corpus. Source verification is historical, not a live check. No language model results are included.",
+  "files": [
+    {
+      "file": "confined_space.json",
+      "source_path": "corpus/items/confined_space.json",
+      "sha256": "aec8df1857d4d05c1fe6f310bd173b6c2ceb98962e60203f978d3256a447f902"
+    },
+    {
+      "file": "hazard_communication.json",
+      "source_path": "corpus/items/hazard_communication.json",
+      "sha256": "d0a01d57ad79d6e9be5ceddca7846631d491922b95aac0e7020c89587fb376e6"
+    },
+    {
+      "file": "lockout_tagout.json",
+      "source_path": "corpus/items/lockout_tagout.json",
+      "sha256": "5ec3fcd74637d9dbc3afd6786b006b9be93af10c94e7c7a94894ff05e88d1051"
+    },
+    {
+      "file": "machine_electrical_fire.json",
+      "source_path": "corpus/items/machine_electrical_fire.json",
+      "sha256": "377385cde579753215fb3a0fa1a11eff43534e137252afbe2f1341eb947edb0f"
+    },
+    {
+      "file": "pressure_relief.json",
+      "source_path": "corpus/items/pressure_relief.json",
+      "sha256": "d1c96e3c6b34b07ab96e36ce37ea67b64a4da02d449a27d6536e5b2b7dfc8d3c"
+    },
+    {
+      "file": "process_safety.json",
+      "source_path": "corpus/items/process_safety.json",
+      "sha256": "0e3fb2537d4e4949765a653eb8b4289b322b45c8513a277fe519152da5d0b2b7"
+    },
+    {
+      "file": "recordkeeping.json",
+      "source_path": "corpus/items/recordkeeping.json",
+      "sha256": "34b6c3f2e677b55489f39807cf3d875ad2b42c007321ec67f7c896ae72b72f28"
+    },
+    {
+      "file": "respiratory_and_noise.json",
+      "source_path": "corpus/items/respiratory_and_noise.json",
+      "sha256": "3c6b2c6a58234d4f4d10979314e0eb49cd851c2c74ffa95c214b4baaf9c895dc"
+    },
+    {
+      "file": "source_verification.json",
+      "source_path": "corpus/verification/source_verification.json",
+      "sha256": "9ef2302e765ec3635a3ac1191363e7c37b9ff64d92a5dd4fa02ffb1bca2e56ae"
+    },
+    {
+      "file": "LICENSE.txt",
+      "source_path": "LICENSE",
+      "sha256": "346d0c7b84093009ae7889e949982e51fba2d70ae04e9525ab580de5c7a28dac"
+    },
+    {
+      "file": "CORPUS_CARD.txt",
+      "source_path": "docs/CORPUS_CARD.md",
+      "sha256": "2af3a7cfb40a2da7a79b8ea79c9fe6ea6a55eac3c50e95f89dbfaff2de02e792"
+    }
+  ]
+}

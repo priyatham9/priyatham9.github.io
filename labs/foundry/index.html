@@ -5,175 +5,295 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Investigate a synthetic yield exception through connected batches, equipment and supplier lots. Keep evidence separate from inference."
+      content="A synthetic operations workbench: follow linked objects, inspect yield and moisture evidence, and prepare a review."
     />
-    <title>Follow the object. Question the signal. · Analytical labs</title>
+    <title>Yield investigation · Foundry-pattern lab</title>
     <link rel="stylesheet" href="../labs.css" />
+    <link rel="stylesheet" href="./foundry.css" />
   </head>
-  <body>
-    <header>
-      <a href="../../">Priyatham Chimmani / labs</a>
+  <body class="foundry">
+    <a class="skip-link" href="#workbench">Skip to investigation</a>
+    <header class="app-header">
+      <a class="brand" href="../"
+        ><span class="brand-mark">PC</span> Analytical projects
+      </a>
       <nav aria-label="Lab navigation">
         <a href="../foundry/" aria-current="page">Foundry</a
-        ><a href="../crm/">CRM</a><a href="../finance/">Finance</a>
+        ><a href="../crm/">CRM</a><a href="../finance/">Finance</a
+        ><a href="../ai/">AI</a
+        ><a href="https://ehs-osha-analysis.vercel.app/explore.html">EHS</a>
       </nav>
-      <span class="badge">Synthetic public demonstration</span>
+      <span class="demo-badge"><i></i> Synthetic demo</span>
     </header>
-    <main>
+    <main id="workbench">
       <noscript
-        ><div class="decision">
-          Enable JavaScript to explore the interactive model. Methodology and
-          assumptions remain available below.
-        </div></noscript
+        ><p class="decision">
+          Enable JavaScript to investigate the five synthetic records. This
+          independent prototype has no live integrations.
+        </p></noscript
       >
-      <div class="eyebrow">Independent lab / foundry</div>
-      <h1>Follow the object.<br />Question the signal.</h1>
-      <p class="intro">
-        Investigate a synthetic yield exception through connected batches,
-        equipment and supplier lots. Keep evidence separate from inference.
+      <div class="workspace-title">
+        <div>
+          <div class="eyebrow">Operations intelligence / 01</div>
+          <h1>Yield investigation</h1>
+          <p>
+            Follow a batch through its material, equipment and laboratory
+            evidence.
+          </p>
+        </div>
+        <div class="workspace-meta">
+          <span class="status-pill">Local investigation</span
+          ><span>5 batches · 4 lot results</span>
+        </div>
+      </div>
+      <p class="prototype-note">
+        Independent synthetic ontology-pattern prototype. Not a Palantir
+        product, deployment or integration.
       </p>
-      <p class="note">
-        Independent ontology-pattern prototype. Not a Palantir product,
-        deployment or integration.
-      </p>
-      <div class="controls">
+      <div class="investigation-controls">
         <label>Investigate batch<select id="batch"></select></label
         ><label
-          >Related batch scope<select id="scope">
-            <option value="all">All linked batches</option>
+          >Evidence scope<select id="scope">
+            <option value="all">Same equipment or supplier</option>
             <option value="equipment">Same equipment</option>
             <option value="supplier">Same supplier</option>
           </select></label
-        ><button class="secondary" id="reset">Reset investigation</button>
+        >
+        <div class="controls-hint">
+          Choose a record. Follow a connection.<br />Build a review from the
+          evidence.
+        </div>
       </div>
       <div class="metrics" id="metrics" aria-live="polite"></div>
-      <section class="card">
-        <h2>An object is a starting point.</h2>
-        <p class="note">
-          Each connection resolves to a synthetic entity ID. Selection changes
-          the linked evidence below.
-        </p>
-        <div class="nodes" id="nodes"></div>
-      </section>
-      <div class="grid">
-        <section class="card">
-          <h2>Compare the linked evidence</h2>
+      <div class="view-toolbar">
+        <div class="view-tabs" role="tablist" aria-label="Investigation view">
+          <button
+            id="comparison-tab"
+            role="tab"
+            aria-selected="true"
+            aria-controls="comparison-view"
+            data-view="comparison"
+          >
+            Yield comparison
+          </button>
+          <button
+            id="objects-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="objects-view"
+            data-view="objects"
+            tabindex="-1"
+          >
+            Object map <span>5</span>
+          </button>
+        </div>
+        <button class="secondary" id="reset">Reset</button
+        ><span class="view-hint">One investigation · two views</span>
+      </div>
+      <div
+        class="ontology-layout"
+        id="objects-view"
+        role="tabpanel"
+        aria-labelledby="objects-tab"
+        hidden
+      >
+        <section class="panel graph-panel" aria-labelledby="graph-title">
+          <div class="panel-heading">
+            <div>
+              <span class="section-index">CONNECTED OBJECTS</span>
+              <h2 id="graph-title">Object neighborhood</h2>
+            </div>
+            <span class="mini-label">5 objects · 4 relationships</span>
+          </div>
+          <div class="graph-canvas" id="graph"></div>
+          <div id="mobile-relationships" class="mobile-relationships"></div>
+          <div class="graph-bottom">
+            <span
+              ><i class="legend-dot"></i> Select an object to inspect its
+              source</span
+            ><label class="entity-picker"
+              >Navigate objects<select
+                id="entity-select"
+                aria-label="Navigate objects"
+              ></select
+            ></label>
+          </div>
+        </section>
+        <aside class="panel inspector-panel" aria-labelledby="inspector-title">
+          <div class="panel-heading">
+            <div>
+              <span class="section-index">OBJECT INSPECTOR</span>
+              <h2 id="inspector-title">Selected object</h2>
+            </div>
+            <span class="inspector-icon" aria-hidden="true"
+              ><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 12 12 4M4 4h8v8" /></svg
+            ></span>
+          </div>
+          <div id="inspector" aria-live="polite"></div>
+        </aside>
+      </div>
+      <div
+        class="analysis-layout"
+        id="comparison-view"
+        role="tabpanel"
+        aria-labelledby="comparison-tab"
+      >
+        <section class="panel analysis-panel" aria-labelledby="plot-title">
+          <div class="panel-heading">
+            <div>
+              <span class="section-index">SCOPED COMPARISON</span>
+              <h2 id="plot-title">Yield × lot moisture</h2>
+            </div>
+            <span class="mini-label" id="plot-count"></span>
+          </div>
+          <div class="chart-key">
+            <span><i class="legend-dot green"></i> Selected batch</span
+            ><span><i class="legend-dot blue"></i> Linked batch</span
+            ><span><i class="legend-line"></i> Illustrative threshold</span>
+          </div>
           <div
-            class="table-wrap"
+            id="plot"
             tabindex="0"
             role="region"
-            aria-label="Linked batch evidence table"
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Batch</th>
-                  <th>Equipment</th>
-                  <th>Supplier lot</th>
-                  <th>Yield</th>
-                  <th>Lot laboratory result</th>
-                </tr>
-              </thead>
-              <tbody id="rows"></tbody>
-            </table>
-          </div>
-          <p class="note" id="scope-note"></p>
-          <p class="note">
-            Yield target ≥95%. Moisture screening threshold ≤6%. Thresholds are
-            illustrative, not validated process specifications.
-          </p>
+            aria-label="Yield and moisture comparison chart"
+          ></div>
+          <p class="chart-caption" id="plot-caption"></p>
         </section>
-        <section class="card">
-          <h2>Evidence → hypothesis → action</h2>
+        <section
+          class="panel interpretation-panel"
+          aria-labelledby="interpretation-title"
+        >
+          <div class="panel-heading">
+            <div>
+              <span class="section-index">READ THE SIGNAL</span>
+              <h2 id="interpretation-title">Evidence, then interpretation</h2>
+            </div>
+          </div>
           <div id="evidence"></div>
           <button class="secondary" id="comparator" hidden>
-            Show same-equipment comparator</button
-          ><button id="simulate">Simulate quality review</button>
-          <p id="action" role="status" class="note">
-            A review is simulated locally; no system record is changed.
-          </p>
+            Reveal equipment comparator
+            <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 12 4M4 4h8v8" />
+            </svg>
+          </button>
+          <button class="inspect-linked" id="inspect-linked">
+            Inspect linked objects <span aria-hidden="true">→</span>
+          </button>
         </section>
       </div>
-      <section class="card">
-        <h2>Trace the claim to its source</h2>
-        <p class="note" id="source-result"></p>
+      <section class="panel evidence-panel" aria-labelledby="table-title">
+        <div class="panel-heading">
+          <div>
+            <span class="section-index">REVIEW EVIDENCE</span>
+            <h2 id="table-title">Linked batch records</h2>
+          </div>
+          <span
+            class="mini-label"
+            id="selection-count"
+            aria-live="polite"
+          ></span>
+        </div>
+        <p class="mobile-scroll-hint">
+          Scroll table for yield and laboratory evidence →
+        </p>
         <div
           class="table-wrap"
           tabindex="0"
           role="region"
-          aria-label="Claim source and lineage table"
+          aria-label="Linked batch evidence table"
         >
           <table>
             <thead>
               <tr>
-                <th>Property</th>
-                <th>Synthetic source</th>
-                <th>Join / transformation</th>
-                <th>Freshness</th>
+                <th><span class="sr-only">Include in review</span></th>
+                <th>Batch / inspect</th>
+                <th>Equipment</th>
+                <th>Material lot</th>
+                <th>Accepted yield</th>
+                <th>Lot moisture</th>
+                <th>Result / provenance</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Batch yield</td>
-                <td>Production ledger</td>
-                <td>Accepted output ÷ input mass</td>
-                <td>Final at batch close</td>
-              </tr>
-              <tr>
-                <td>Equipment relationship</td>
-                <td>Run assignment log</td>
-                <td>batch_id → equipment_id</td>
-                <td>Snapshot 08:00 UTC</td>
-              </tr>
-              <tr>
-                <td>Supplier / lot</td>
-                <td>Receiving ledger</td>
-                <td>batch_id → material_lot_id</td>
-                <td>Snapshot 08:00 UTC</td>
-              </tr>
-              <tr>
-                <td>Moisture / quality</td>
-                <td>Laboratory result</td>
-                <td>
-                  material_lot_id → lab_result_id → one lot-level measurement
-                </td>
-                <td>One result pending</td>
-              </tr>
-            </tbody>
+            <tbody id="rows"></tbody>
           </table>
         </div>
+        <p class="note scope-note" id="scope-note"></p>
       </section>
-      <details>
-        <summary>Ontology, interpretation & uncertainty</summary>
+      <section class="panel review-panel" aria-labelledby="review-title">
+        <div class="review-intro">
+          <span class="section-index">LOCAL REVIEW</span>
+          <h2 id="review-title">Prepare a quality review.</h2>
+          <p>
+            Prepare a local quality-review draft with selected records, source
+            relationships and limitations.
+          </p>
+          <span class="local-label">Browser only · No external writes</span>
+        </div>
+        <div class="review-content">
+          <label for="review-note">Reviewer note <span>(optional)</span></label
+          ><textarea
+            id="review-note"
+            rows="2"
+            placeholder="What should the quality owner verify?"
+          ></textarea>
+          <div class="review-actions">
+            <button id="simulate">Prepare review draft</button
+            ><button class="secondary" id="export" disabled>
+              Export review JSON ↓
+            </button>
+          </div>
+          <p id="action" role="status" class="note">
+            Select evidence above, then prepare a review.
+          </p>
+          <div id="draft-preview" hidden></div>
+        </div>
+      </section>
+      <details class="methodology">
+        <summary>Source lineage & interpretation limits</summary>
+        <div class="lineage-grid">
+          <div>
+            <h3>Production ledger</h3>
+            <p>
+              Batch yield = accepted output ÷ input mass. Final at batch close.
+            </p>
+          </div>
+          <div>
+            <h3>Run assignment log</h3>
+            <p>batch_id → equipment_id. Synthetic snapshot at 08:00 UTC.</p>
+          </div>
+          <div>
+            <h3>Receiving ledger</h3>
+            <p>batch_id → material_lot_id → supplier_id.</p>
+          </div>
+          <div>
+            <h3>Laboratory result</h3>
+            <p>
+              material_lot_id → lab_result_id. Moisture is one lot-level
+              measurement; a pending result has no numeric value.
+            </p>
+          </div>
+        </div>
         <p>
-          Objects: Batch, Equipment, Supplier, Material Lot and Laboratory
-          Result. Laboratory values belong to the lot-level result, never to a
-          batch. B-241 and B-242 consume NS-118 and therefore reference the same
-          LAB-118 moisture measurement. A pending result stores no numeric
-          value. A Batch runs on Equipment and consumes a Material Lot supplied
-          by a Supplier. The table scope explicitly selects batches sharing
-          equipment or supplier with the selected batch; comparison commentary
-          identifies records outside the current scope and offers a control to
-          reveal them; it is not a complete production history. Five synthetic
-          records cannot establish causality. Correlated equipment and supplier
-          exposure, missing operating conditions, measurement variation and the
-          pending lab result limit inference. Review actions create only a
-          temporary on-screen draft.
-        </p>
-      </details>
-      <details>
-        <summary>About this demonstration</summary>
-        <p>
-          All records, names, values and scenarios are synthetic. This
-          independent demonstration illustrates an analytical method; it
-          contains no employer data, personal performance claims, live
-          integrations or production recommendations. Changes stay in this
-          browser and reset on reload.
+          B-241 and B-242 share NS-118 and LAB-118. Their two yields are not two
+          independent moisture samples. Scope includes only batches sharing the
+          selected equipment or supplier, not a complete production history.
+          Five synthetic batches cannot establish causality. Equipment and
+          supplier exposure overlap; run settings, composition, measurement
+          variation and sampling comparability are unknown. Yield ≥95% and
+          moisture ≤6% are illustrative thresholds, not validated process
+          specifications.
         </p>
       </details>
       <footer>
-        <span>Built to make the decision legible.</span
-        ><a href="../../">Return to portfolio ↗︎</a>
+        <span
+          >All records and scenarios are synthetic. Changes reset on
+          reload.</span
+        ><a href="../../"
+          >Return to portfolio
+          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4 12 12 4M4 4h8v8" /></svg
+        ></a>
       </footer>
     </main>
     <script type="module" src="./app.mjs"></script>
