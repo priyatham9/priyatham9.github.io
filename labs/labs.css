@@ -437,3 +437,17 @@ button:disabled {
     font-size: 30px;
   }
 }
+
+.business-fields label {
+  flex: 1 1 210px;
+  min-width: 0;
+}
+.business-fields input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+}

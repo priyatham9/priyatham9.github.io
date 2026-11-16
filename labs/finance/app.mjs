@@ -1,9 +1,12 @@
-import { readScenario, addScenarioTools } from "../scenario-tools.mjs";
+import {
+  readScenario,
+  addScenarioTools,
+  parseBusinessAmount,
+} from "../scenario-tools.mjs";
 import { signedScale } from "../signed-scale.mjs";
 import { verification } from "../verify.mjs";
 import { cash } from "../models.mjs";
 const $ = (s) => document.querySelector(s),
-  baseline = cash(),
   money = (n) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -23,14 +26,71 @@ $("#sliders").innerHTML = spec
   .join("");
 const initial = readScenario("finance", location.search);
 spec.forEach(([id]) => ($("#" + id).value = initial[id]));
+$("#revenue").value = initial.revenue;
+$("#cogs").value = initial.cogs;
+function businessValid() {
+  return ["revenue", "cogs"].every(
+    (id) => parseBusinessAmount($("#" + id).value) !== null,
+  );
+}
+function values() {
+  return {
+    ...Object.fromEntries(spec.map(([id]) => [id, +$("#" + id).value])),
+    revenue: parseBusinessAmount($("#revenue").value),
+    cogs: parseBusinessAmount($("#cogs").value),
+  };
+}
+function custom() {
+  const v = values();
+  return v.revenue !== 12000000 || v.cogs !== 7200000;
+}
+function chartMoney(value) {
+  return Math.abs(value) >= 1e9
+    ? new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation: "compact",
+        maximumFractionDigits: 2,
+      }).format(value)
+    : money(value);
+}
 function render() {
-  const values = Object.fromEntries(
-      spec.map(([id]) => [id, +$("#" + id).value]),
+  const valid = businessValid();
+  document
+    .querySelectorAll(
+      "#sliders ~ .scenario-tools button, #sliders ~ div > button",
+    )
+    .forEach((button) => (button.disabled = !valid));
+  ["revenue", "cogs"].forEach((id) =>
+    $("#" + id).setAttribute(
+      "aria-invalid",
+      String(parseBusinessAmount($("#" + id).value) === null),
     ),
-    c = cash(values),
+  );
+  $("#business-status").textContent = valid
+    ? custom()
+      ? "Illustrative scenario; user-entered assumptions. Baseline uses the same revenue and COGS at 45 / 60 / 30 days."
+      : "Synthetic example. Baseline uses the same revenue and COGS at 45 / 60 / 30 days."
+    : "Enter both annual amounts from $0 to $1 trillion. Blank, negative and nonfinite amounts cannot be calculated.";
+  if (!valid) {
+    $("#metrics").innerHTML = "";
+    $("#bars").innerHTML =
+      '<p class="note">Enter valid business assumptions to view the chart.</p>';
+    $("#movement").textContent =
+      "Calculation paused until both amounts are valid.";
+    return;
+  }
+  $("#model-disclosure").textContent = custom()
+    ? "Illustrative model · your assumptions"
+    : "Illustrative model · synthetic example";
+  $("#business-summary").textContent =
+    `Revenue ${chartMoney(values().revenue)} · COGS ${chartMoney(values().cogs)}`;
+  const inputs = values(),
+    baseline = cash({ revenue: inputs.revenue, cogs: inputs.cogs }),
+    c = cash(inputs),
     release = baseline.nwc - c.nwc;
   spec.forEach(
-    ([id]) => ($("#" + id + "-value").textContent = values[id] + " days"),
+    ([id]) => ($("#" + id + "-value").textContent = inputs[id] + " days"),
   );
   $("#metrics").innerHTML = [
     ["Cash conversion cycle", c.ccc + " days", `Baseline ${baseline.ccc} days`],
@@ -40,7 +100,7 @@ function render() {
       money(Math.abs(release)),
       "One-time balance change",
     ],
-    ["Daily cost of goods", money(7200000 / 365), "Annual COGS ÷ 365"],
+    ["Daily cost of goods", money(inputs.cogs / 365), "Annual COGS ÷ 365"],
   ]
     .map(
       ([a, b, d]) =>
@@ -59,7 +119,7 @@ function render() {
     entries
       .map(
         ([label, value], i) =>
-          `<div class="bar-row signed-row"><span>${label}</span><div class="track signed-track" aria-hidden="true"><span class="zero-axis" style="left:${scale.zero}%"></span><div class="fill signed-fill" style="left:${scale.bars[i].left}%;width:${scale.bars[i].width}%;${value < 0 ? "background:#879d90" : ""}"></div></div><b>${money(value)}</b></div>`,
+          `<div class="bar-row signed-row"><span>${label}</span><div class="track signed-track" aria-hidden="true"><span class="zero-axis" style="left:${scale.zero}%"></span><div class="fill signed-fill" style="left:${scale.bars[i].left}%;width:${scale.bars[i].width}%;${value < 0 ? "background:#879d90" : ""}"></div></div><b title="${money(value)}" aria-label="${money(value)}">${chartMoney(value)}</b></div>`,
       )
       .join("");
   $("#movement").innerHTML =
@@ -68,18 +128,20 @@ function render() {
 spec.forEach(([id]) => $("#" + id).addEventListener("input", render));
 $("#reset").addEventListener("click", () => {
   spec.forEach(([id, l, v]) => ($("#" + id).value = v));
+  $("#revenue").value = 12000000;
+  $("#cogs").value = 7200000;
   render();
 });
 render();
 
 const verify = verification({
+  isValid: businessValid,
   container: $("#sliders").parentElement,
   getPayload: () => ({
     model: "finance",
-    inputs: Object.fromEntries(spec.map(([id]) => [id, +$("#" + id).value])),
+    inputs: values(),
   }),
-  getExpected: () =>
-    cash(Object.fromEntries(spec.map(([id]) => [id, +$("#" + id).value]))),
+  getExpected: () => cash(values()),
 });
 verify.init();
 document
@@ -92,16 +154,24 @@ $("#reset").addEventListener("click", () => verify.invalidate());
 const scenarioTools = addScenarioTools({
   model: "finance",
   container: $("#sliders").parentElement,
-  getState: () =>
-    Object.fromEntries(spec.map(([id]) => [id, +$("#" + id).value])),
+  getState: values,
+  isValid: businessValid,
+  getLabel: () =>
+    custom()
+      ? "Illustrative scenario; user-entered assumptions"
+      : "Synthetic public demonstration",
   getRows: () => {
-    const inputs = Object.fromEntries(
-        spec.map(([id]) => [id, +$("#" + id).value]),
-      ),
-      c = cash(inputs);
+    $("#model-disclosure").textContent = custom()
+      ? "Illustrative model · your assumptions"
+      : "Illustrative model · synthetic example";
+    $("#business-summary").textContent =
+      `Revenue ${chartMoney(values().revenue)} · COGS ${chartMoney(values().cogs)}`;
+    const inputs = values(),
+      c = cash(inputs),
+      baseline = cash({ revenue: inputs.revenue, cogs: inputs.cogs });
     return [
-      ["Annual revenue USD", 12000000],
-      ["Annual COGS USD", 7200000],
+      ["Annual revenue USD", inputs.revenue],
+      ["Annual COGS USD", inputs.cogs],
       ...Object.entries(inputs),
       ...Object.entries(c),
       ["Cash released USD", baseline.nwc - c.nwc],
@@ -123,3 +193,12 @@ spec.forEach(([id]) =>
   $("#" + id).addEventListener("input", () => scenarioTools.invalidate()),
 );
 $("#reset").addEventListener("click", () => scenarioTools.reset());
+
+["revenue", "cogs"].forEach((id) =>
+  $("#" + id).addEventListener("input", () => {
+    render();
+    verify.invalidate();
+    scenarioTools.invalidate();
+  }),
+);
+render();
