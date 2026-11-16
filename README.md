@@ -14,6 +14,7 @@ The original portfolio remains available at https://priyatham-personal-site.verc
 [Open the project directory](https://priyatham9.github.io/labs/) for the new contract-review, channel-decision and financial-policy workspaces, plus independent empirical research audits.
 
 - [Data contract review](labs/foundry/contract.html): import local JSON, inspect typed dependencies and compare a proposed change with its baseline. Review bundles bind exact inputs and diagnostics with SHA-256. This is an independent prototype, not a live Palantir integration.
+- [Local prediction review](labs/ai/prediction-audit.html): open a CSV with two score columns and binary outcomes, compare ranking and calibration on the same cohort, inspect records and export a source-bound review. Files are processed in memory without upload or browser storage. Includes an explicitly fetched public example with provenance.
 - [CRM campaign evidence](labs/crm/campaign.html): inspect two fixed models on a chronological UCI Bank Marketing holdout, with explicit information timing, calibration, source order and record-level exports. This quantifies a documented leakage problem; it does not estimate causal campaign impact.
 - [CRM decision audit](labs/crm/decision.html): separate customer-mix standardization from unresolved-outcome bounds using explicitly constructed cohorts.
 - [Official-filings evidence audit](labs/finance/filings.html): compare selected Microsoft and Costco balance changes with the corresponding reported cash-flow adjustments, including exact filing vintages, account-level differences and rounding limits.
@@ -36,3 +37,8 @@ Install `playwright==1.62.0`, run `python -m playwright install chromium`, then
 `python scripts/check_project_ui.py`. The script serves an isolated local copy
 and checks review gates, frozen policy comparisons, invalid-input recovery,
 source-bound exports and responsive layouts. These checks run in CI.
+
+Run `python scripts/check_campaign_ui.py` and
+`python scripts/check_prediction_ui.py` for the empirical campaign and local CSV
+workflows. `node --test labs/ai/prediction-model.test.mjs` verifies parsing,
+metrics, boundary cases and every public-example row against the frozen study.

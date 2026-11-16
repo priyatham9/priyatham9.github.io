@@ -11,7 +11,7 @@ PUBLIC_FILES = ('index.html', '404.html')
 OPTIONAL_PUBLIC_FILES = ('og.png', 'og.svg')
 PUBLIC_DIRS = ('assets', 'labs', 'work/peers-ontology-explorer')
 EXTENSIONS = {'.html', '.css', '.js', '.mjs', '.json', '.svg', '.png', '.jpg', '.jpeg',
-              '.webp', '.avif', '.gif', '.ico', '.woff', '.woff2', '.ttf', '.txt', '.pdf'}
+              '.webp', '.avif', '.gif', '.ico', '.woff', '.woff2', '.ttf', '.txt', '.pdf', '.csv'}
 
 
 class References(HTMLParser):
