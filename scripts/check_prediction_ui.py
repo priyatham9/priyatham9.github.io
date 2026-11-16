@@ -239,10 +239,11 @@ def canceled_hash(context, origin):
     page.add_init_script("""const originalDigest = crypto.subtle.digest.bind(crypto.subtle);
       crypto.subtle.digest = (...args) => new Promise(resolve => {
         window.releaseTestHash = () => resolve(originalDigest(...args));
+        document.documentElement.dataset.testHashPending = 'true';
       });""")
     page.goto(origin + PAGE)
     upload(page, fixture_bytes())
-    page.wait_for_function("typeof window.releaseTestHash === 'function'")
+    expect(page.locator("html")).to_have_attribute("data-test-hash-pending", "true")
     page.locator("#clear").click()
     page.evaluate("window.releaseTestHash()")
     page.wait_for_timeout(150)
