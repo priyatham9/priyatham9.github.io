@@ -1,0 +1,80 @@
+[
+  {
+    "id": "msft-companyfacts",
+    "symbol": "MSFT",
+    "cik": "0000789019",
+    "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+    "retrievedAt": "2026-11-16T13:48:21.143213+00:00",
+    "contentType": "application/json",
+    "sha256": "8c1903c041f5c27e86ed15f37debb1f41882b7904bba129ef9edc76478b1e8ea",
+    "bytes": 4938072,
+    "storedFile": "msft-companyfacts.json.gz",
+    "storedSha256": "f91f307747559598a1af6d62eeb756afaba688fad1f30547d172ea1c1aee9e3f",
+    "storageKind": "complete-factual-response"
+  },
+  {
+    "id": "cost-companyfacts",
+    "symbol": "COST",
+    "cik": "0000909832",
+    "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000909832.json",
+    "retrievedAt": "2026-11-16T13:48:21.767285+00:00",
+    "contentType": "application/json",
+    "sha256": "b675ced201b27ede2b0d26ca6fd873befe96a1afa9679339a2d0b964187dcdff",
+    "bytes": 3694553,
+    "storedFile": "cost-companyfacts.json.gz",
+    "storedSha256": "7030f1b316b121b9a5786a27752a9135ea20cb23cb45d9623eaec842c767998f",
+    "storageKind": "complete-factual-response"
+  },
+  {
+    "id": "msft-ar26",
+    "url": "https://www.microsoft.com/investor/reports/ar26/index.html",
+    "retrievedAt": "2026-11-16T13:50:57.429770+00:00",
+    "contentType": "text/html",
+    "sha256": "513b5a3161adde8c8b2e7d0edc6723d34e9c652cc47d4ab43e6eeb84a84370d0",
+    "bytes": 460968,
+    "storageKind": "curated-report-extract",
+    "accession": "0001193125-26-323660",
+    "extractFile": "msft-ar26.extract.json",
+    "extractSha256": "335decde1af4280671c6975ab01f17383e7292d2de42caf2ae30bbd1c32d84a5",
+    "extractBytes": 1386
+  },
+  {
+    "id": "msft-ar25",
+    "url": "https://www.microsoft.com/investor/reports/ar25/index.html",
+    "retrievedAt": "2026-11-16T13:50:57.648232+00:00",
+    "contentType": "text/html",
+    "sha256": "564154a15ac28c0f7f72f304ae26b74c29cfca9f3eafe8d59595776769d621ca",
+    "bytes": 601259,
+    "storageKind": "curated-report-extract",
+    "accession": "0000950170-25-100235",
+    "extractFile": "msft-ar25.extract.json",
+    "extractSha256": "1a08a9f2792ad36ed65e395b8fa7044b165dd766dfc9b7af228abf2db9747feb",
+    "extractBytes": 1397
+  },
+  {
+    "id": "cost-2026-10k",
+    "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
+    "retrievedAt": "2026-11-16T13:50:58.151205+00:00",
+    "contentType": "text/html",
+    "sha256": "58f8b177a68f0dfd8b4aea6250a709d1762e5ebcdf20d1d62638182d00c9e486",
+    "bytes": 1456603,
+    "storageKind": "curated-report-extract",
+    "accession": "0000909832-26-000093",
+    "extractFile": "cost-2026-10k.extract.json",
+    "extractSha256": "f5a38d9f89c8f059d2bc2a2e8aee7d0ffe460b506f8a5fbc56c94d515f70f0e4",
+    "extractBytes": 1269
+  },
+  {
+    "id": "cost-2025-10k",
+    "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983225000101/cost-20250831.htm",
+    "retrievedAt": "2026-11-16T13:50:58.414384+00:00",
+    "contentType": "text/html",
+    "sha256": "ddb69176c71fc61956f8e64fb7507082f1126ad8c83f8005fe1931915e84660b",
+    "bytes": 1439081,
+    "storageKind": "curated-report-extract",
+    "accession": "0000909832-25-000101",
+    "extractFile": "cost-2025-10k.extract.json",
+    "extractSha256": "1ee57dbbd50c2cf91f3eb91f68b960bf7bb0e8c3c8a3d810bb6575e6651c5c21",
+    "extractBytes": 1231
+  }
+]

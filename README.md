@@ -9,6 +9,18 @@ The original rich portfolio, evolved with independent working labs and server ve
 
 The original portfolio remains available at https://priyatham-personal-site.vercel.app and is linked from both the header area and footer. Case studies link back to the original site. Research links point to the public research projects. Demonstrations are not employer production systems.
 
+## Decision audits and empirical research
+
+[Open the project directory](https://priyatham9.github.io/labs/) for the new contract-review, channel-decision and financial-policy workspaces, plus independent empirical research audits.
+
+- [Data contract review](labs/foundry/contract.html): import local JSON, inspect typed dependencies and compare a proposed change with its baseline. Review bundles bind exact inputs and diagnostics with SHA-256. This is an independent prototype, not a live Palantir integration.
+- [CRM decision audit](labs/crm/decision.html): separate customer-mix standardization from unresolved-outcome bounds using explicitly constructed cohorts.
+- [Official-filings evidence audit](labs/finance/filings.html): compare selected Microsoft and Costco balance changes with the corresponding reported cash-flow adjustments, including exact filing vintages, account-level differences and rounding limits.
+- [Financial decision audit](labs/finance/decision.html): compare hypothetical operating policies with their full modeled cash flows and costs, with frozen custom scenarios.
+- [Research investigations](https://grounded-chi-five.vercel.app/investigations.html): public-data influence, fixed-format AI scoring, simulated inference and ontology translation fidelity.
+
+New audit calculations run locally. The original applications and their verification API below remain available. Run `node --test labs/*/*.test.mjs` to verify the analytical models.
+
 ## Scenario verification API
 
 `POST /api/analysis` with `Content-Type: application/json` accepts `{"model":"finance","inputs":{"dso":30,"dio":60,"dpo":30}}` or `{"model":"crm","inputs":{"cohort":"inbound","rate":0.5}}`. Finance additionally accepts revenue and cogs; omitted fields use lab defaults. CRM cohorts are all, inbound, and outbound. Responses include version, synthetic, model, normalized inputs, and result.

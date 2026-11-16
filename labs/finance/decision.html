@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Compare cash released with finite-horizon economic value, commercial costs and exact break-even frontiers."
+    />
+    <title>Cash release & value · Finance</title>
+    <link rel="stylesheet" href="./decision.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to analysis</a>
+    <header>
+      <a class="brand" href="../">PC <span>Analytical projects</span></a>
+      <nav aria-label="Project navigation">
+        <a href="../foundry/contract.html">Foundry</a
+        ><a href="../crm/decision.html">CRM</a
+        ><a href="./decision.html" aria-current="page">Finance</a
+        ><a href="https://ehs-ai-grounding-eval.vercel.app/evidence-audit.html"
+          >AI</a
+        ><a href="https://ehs-osha-analysis.vercel.app/decision-audit.html"
+          >EHS</a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <div class="eyebrow">FINANCE / POLICY ECONOMICS</div>
+      <h1>When cash release<br />destroys value.</h1>
+      <p class="intro">
+        Faster collection, leaner stock and later payment can release cash. The
+        commercial price of achieving them can outweigh the benefit.
+      </p>
+      <div class="source-line">
+        <span id="provenance"
+          >Illustrative starting assumptions · no empirical business
+          finding</span
+        ><button id="reset" type="button">Reset example</button>
+      </div>
+      <section class="case-picker" aria-labelledby="case-title">
+        <h2 id="case-title">
+          Compare cash release with the price of achieving it
+        </h2>
+        <label>Constructed starting policy<select id="case"></select></label>
+        <p id="case-description" class="note"></p>
+        <p class="note">
+          Loading a case restores the illustrative business context, all
+          commercial inputs and feasible ranges. The cases are assumptions to
+          challenge, not observed company results.
+        </p>
+      </section>
+      <aside
+        id="live-result"
+        class="live-result"
+        aria-label="Current policy result and frozen comparison"
+        hidden
+      >
+        <div class="live-current">
+          <span class="micro-label">CURRENT MODEL · USD</span
+          ><strong id="live-value" role="status"></strong
+          ><span id="live-basis" class="live-basis"></span>
+        </div>
+        <div class="pin-controls">
+          <button id="pin-current" type="button">Pin current</button
+          ><button id="clear-pin" class="secondary" type="button" hidden>
+            Clear pin
+          </button>
+        </div>
+        <div id="live-pinned" class="live-pinned" hidden>
+          <span id="live-pinned-text"></span
+          ><a href="#pinned-title">Inspect comparison ↓</a>
+        </div>
+      </aside>
+      <form id="inputs">
+        <section aria-labelledby="policy-title">
+          <div class="section-top">
+            <h2 id="policy-title">01 / Price the operating change</h2>
+            <span>USD · annual steady-state run rate</span>
+          </div>
+          <div class="policy-grid">
+            <div>
+              <h3>Operating days</h3>
+              <div class="day-head">
+                <span>Measure</span><span>Current</span><span>Policy</span>
+              </div>
+              <div id="days"></div>
+            </div>
+            <div>
+              <h3>Commercial consequences</h3>
+              <div class="cost-grid">
+                <label
+                  >Customer discount, %<input
+                    id="discount"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="any"
+                    value="1"
+                    required /></label
+                ><label
+                  >Share receiving discount, %<input
+                    id="discountShare"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="any"
+                    value="100"
+                    required /></label
+                ><label
+                  >Sales volume lost, %<input
+                    id="salesLoss"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="any"
+                    value="0"
+                    required /></label
+                ><label
+                  >Supplier premium, %<input
+                    id="supplierPremium"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="any"
+                    value="0"
+                    required /></label
+                ><label
+                  >Annual operating cost, $<input
+                    id="annualOperatingCost"
+                    type="number"
+                    min="0"
+                    max="1000000000000"
+                    step="any"
+                    value="0"
+                    required /></label
+                ><label
+                  >Setup cost, $<input
+                    id="setupCost"
+                    type="number"
+                    min="0"
+                    max="1000000000000"
+                    step="any"
+                    value="0"
+                    required
+                /></label>
+              </div>
+            </div>
+          </div>
+          <p class="note">
+            The achieved days and commercial responses are assumptions you
+            supply, not estimated effects. Supplier premium applies to all
+            modeled purchases. Sales loss reduces volume and variable cost
+            together.
+          </p>
+          <details>
+            <summary>
+              Business context, horizon & feasible operating ranges
+            </summary>
+            <div class="cost-grid context-grid">
+              <label
+                >Evidence / policy label<input
+                  id="source-note"
+                  value="Illustrative collection policy"
+                  maxlength="160"
+                  required /></label
+              ><label
+                >Annual revenue, $<input
+                  id="revenue"
+                  type="number"
+                  min="0"
+                  max="1000000000000"
+                  step="any"
+                  value="12000000"
+                  required /></label
+              ><label
+                >Annual variable COGS, $<input
+                  id="cogs"
+                  type="number"
+                  min="0"
+                  max="1000000000000"
+                  step="any"
+                  value="7200000"
+                  required /></label
+              ><label
+                >Annual opportunity cost, %<input
+                  id="rate"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="any"
+                  value="10"
+                  required /></label
+              ><label
+                >Policy horizon, whole years<input
+                  id="years"
+                  type="number"
+                  min="1"
+                  max="100"
+                  step="1"
+                  value="3"
+                  required
+              /></label>
+            </div>
+            <div id="limits" class="limits"></div>
+            <p class="note">
+              These are declared operational constraints, not validated facts.
+              COGS must be variable with sales and no greater than revenue. At
+              the horizon, the policy ends and its working-capital release is
+              reinvested.
+            </p>
+          </details>
+        </section>
+      </form>
+      <p id="error" role="alert" hidden></p>
+      <div id="results">
+        <section class="verdict" aria-labelledby="verdict-title">
+          <div class="eyebrow">02 / CASH IS NOT THE DECISION</div>
+          <h2 id="verdict-title"></h2>
+          <p id="verdict-text"></p>
+        </section>
+        <section aria-labelledby="ledger-title">
+          <div class="section-top">
+            <h2 id="ledger-title">Follow the cash through time</h2>
+            <span id="timing"></span>
+          </div>
+          <div id="ledger" class="ledger"></div>
+          <p class="note">
+            Cash release is shown once at the start and reversed at the end.
+            Financing savings are not added again. The result is pre-tax value
+            under the declared timing and operating assumptions.
+          </p>
+        </section>
+        <section id="pinned-comparison" aria-labelledby="pinned-title" hidden>
+          <div class="section-top">
+            <div>
+              <div class="eyebrow">YOUR FROZEN SCENARIO</div>
+              <h2 id="pinned-title">Compare with the policy you pinned</h2>
+            </div>
+          </div>
+          <p id="pinned-context" class="comparison-context"></p>
+          <p id="pinned-summary" class="frontier-summary"></p>
+          <div
+            class="table-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="Pinned and current custom policy comparison"
+          >
+            <table class="policy-comparison">
+              <caption>
+                Each scenario uses its own complete assumptions. The pin stays
+                in this browser until cleared, reset or reloaded.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Scenario</th>
+                  <th scope="col">Initial release</th>
+                  <th scope="col">Annual cost</th>
+                  <th scope="col">Setup</th>
+                  <th scope="col">NPV</th>
+                  <th scope="col">Feasible?</th>
+                </tr>
+              </thead>
+              <tbody id="pinned-rows"></tbody>
+            </table>
+          </div>
+          <details id="pinned-changes" open>
+            <summary id="pinned-changes-label">Changed assumptions</summary>
+            <div
+              class="table-scroll"
+              tabindex="0"
+              role="region"
+              aria-label="Changed policy assumptions"
+            >
+              <table class="changed-inputs">
+                <thead>
+                  <tr>
+                    <th scope="col">Input</th>
+                    <th scope="col">Pinned</th>
+                    <th scope="col">Current</th>
+                  </tr>
+                </thead>
+                <tbody id="pinned-change-rows"></tbody>
+              </table>
+            </div>
+          </details>
+          <p class="note">
+            This is a comparison of supplied scenarios, not an estimated policy
+            effect. Both complete input sets and results are included in the
+            review export. Selecting or resetting a starting case clears the
+            pin.
+          </p>
+        </section>
+        <section aria-labelledby="comparison-title">
+          <div class="section-top">
+            <div>
+              <h2 id="comparison-title">
+                Same business. Different commercial price.
+              </h2>
+              <p class="note">
+                Both policies use the current business context, horizon,
+                opportunity cost and operating-day constraints.
+              </p>
+            </div>
+            <label
+              >Constructed alternative<select id="comparison-case"></select
+            ></label>
+          </div>
+          <p id="comparison-summary" class="frontier-summary"></p>
+          <div
+            class="table-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="Current and alternative policy comparison"
+          >
+            <table class="policy-comparison">
+              <caption>
+                Starting balances are identical. The alternative retains its
+                stated days and commercial assumptions; it does not inherit
+                costs from your current policy. Scroll horizontally on small
+                screens.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Policy</th>
+                  <th scope="col">DSO / DIO / DPO</th>
+                  <th scope="col">Initial release</th>
+                  <th scope="col">Annual cost</th>
+                  <th scope="col">Setup</th>
+                  <th scope="col">NPV</th>
+                  <th scope="col">Feasible?</th>
+                </tr>
+              </thead>
+              <tbody id="comparison-rows"></tbody>
+            </table>
+          </div>
+          <p id="comparison-assumptions" class="note"></p>
+          <p class="note">
+            A process-based alternative is not evidence that these days can be
+            achieved for the stated cost. Validate both implementation and
+            customer/supplier responses before preferring it.
+          </p>
+        </section>
+        <section aria-labelledby="frontier-title">
+          <div class="section-top">
+            <div>
+              <h2 id="frontier-title">03 / Where does the decision reverse?</h2>
+              <p class="note">
+                Change one consequence while holding the others fixed.
+              </p>
+            </div>
+            <label
+              >Test the cost of<select id="frontier">
+                <option value="discount">Customer discount</option>
+                <option value="salesLoss">Lost sales volume</option>
+                <option value="supplierPremium">Supplier premium</option>
+              </select></label
+            >
+          </div>
+          <p id="frontier-summary" class="frontier-summary"></p>
+          <div id="frontier-chart"></div>
+          <p class="note">
+            ● Current policy &nbsp; / &nbsp; Dashed line: break-even
+          </p>
+          <p class="note">
+            The threshold reprices both recurring contribution and working
+            capital. It is a conditional break-even point, not a measured
+            response or a safe operating target.
+          </p>
+        </section>
+      </div>
+      <section class="method">
+        <h2>What this model assumes</h2>
+        <p>
+          Receivables = net revenue × DSO ÷ 365. Inventory and payables use
+          variable COGS × their days ÷ 365; purchases approximate COGS. Customer
+          discounts reduce revenue; supplier premiums increase COGS. The release
+          is current working capital minus policy working capital. Sales
+          declines can release cash without improving operations.
+        </p>
+        <p>
+          NPV = release − setup − annual commercial cost × annuity factor −
+          terminal reinvestment ÷ (1 + rate)<sup>years</sup>. Equivalently,
+          annual value = rate × release − annual cost − annualized setup. Taxes,
+          seasonality, growth, fixed costs and changes in financing access are
+          excluded. Establish achievable operating days and customer/supplier
+          responses before adopting a policy.
+        </p>
+        <div class="actions">
+          <button id="export" type="button">Export policy review · JSON</button
+          ><span id="export-status" role="status"></span>
+        </div>
+      </section>
+      <noscript
+        ><p>
+          Enable JavaScript to calculate policy value. The method remains
+          readable above.
+        </p></noscript
+      >
+      <footer>
+        Independent finance policy model · calculations stay in this browser
+      </footer>
+    </main>
+    <script type="module" src="./decision-app.mjs"></script>
+  </body>
+</html>

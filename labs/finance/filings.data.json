@@ -1,0 +1,1033 @@
+{
+  "schemaVersion": "finance-filings-audit/1",
+  "asOf": "2026-11-16",
+  "title": "Can balance changes stand in for operating cash-flow adjustments?",
+  "amountUnit": "USD",
+  "method": {
+    "selection": "Each fiscal year uses its own pinned original 10-K accession and filing date, including the opening balance reported in that filing. Require exact USD unit and exact start/end dates; instant facts have no start. Identical repeats collapse; conflicting values fail. No frame/FY-label/latest-value heuristic. Later or same-day alternate annual observations are recorded separately and never substituted. No amended 10-K is silently substituted.",
+    "proxy": "For each selected asset: opening balance − closing balance. For accounts payable: closing balance − opening balance.",
+    "reported": "Multiply IncreaseDecreaseInAccountsReceivable and IncreaseDecreaseInInventories by −1; multiply IncreaseDecreaseInAccountsPayable by +1. These signs match the displayed cash-flow statements.",
+    "residual": "Reported operating adjustment minus balance-change proxy. This difference is unreconciled in this selected-account audit. It is not an attributed reconciliation or an assertion of financial-statement error.",
+    "scope": "Only the selected accounts. Not total working capital, total operating cash flow, free cash flow, policy cash release, or an efficiency measure. Company fiscal periods differ. Do not rank the companies using unequal three-account/two-account coverage.",
+    "precision": "Integer USD facts at published precision. The statements display whole USD millions. If each amount is rounded to the nearest million, three terms per account imply a conservative residual uncertainty bound of ±$1.5 million per account (±$3 million for two; ±$4.5 million for three). This is a conditional rounding bound, not a statistical confidence interval. Zero residual would establish arithmetic agreement, not causal equivalence.",
+    "vintage": "Point-in-time at the pinned annual filing, as represented in the retrieved SEC CompanyFacts snapshot. Original response hashes record the full reports retrieved at curation; compact extracts preserve selected readable evidence. Offline checks verify extract integrity and provenance binding, not unavailable full-report bytes. This is not a reconstructed historical SEC API snapshot.",
+    "causalLimit": "FX, acquisitions, disposals, noncash changes and classification/scope can create differences. This audit does not quantify their contributions and makes no attribution unless a complete bridge is disclosed."
+  },
+  "sources": [
+    {
+      "id": "msft-companyfacts",
+      "symbol": "MSFT",
+      "cik": "0000789019",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+      "retrievedAt": "2026-11-16T13:48:21.143213+00:00",
+      "contentType": "application/json",
+      "sha256": "8c1903c041f5c27e86ed15f37debb1f41882b7904bba129ef9edc76478b1e8ea",
+      "bytes": 4938072,
+      "storedFile": "msft-companyfacts.json.gz",
+      "storedSha256": "f91f307747559598a1af6d62eeb756afaba688fad1f30547d172ea1c1aee9e3f",
+      "storageKind": "complete-factual-response"
+    },
+    {
+      "id": "cost-companyfacts",
+      "symbol": "COST",
+      "cik": "0000909832",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000909832.json",
+      "retrievedAt": "2026-11-16T13:48:21.767285+00:00",
+      "contentType": "application/json",
+      "sha256": "b675ced201b27ede2b0d26ca6fd873befe96a1afa9679339a2d0b964187dcdff",
+      "bytes": 3694553,
+      "storedFile": "cost-companyfacts.json.gz",
+      "storedSha256": "7030f1b316b121b9a5786a27752a9135ea20cb23cb45d9623eaec842c767998f",
+      "storageKind": "complete-factual-response"
+    },
+    {
+      "id": "msft-ar26",
+      "url": "https://www.microsoft.com/investor/reports/ar26/index.html",
+      "retrievedAt": "2026-11-16T13:50:57.429770+00:00",
+      "contentType": "text/html",
+      "sha256": "513b5a3161adde8c8b2e7d0edc6723d34e9c652cc47d4ab43e6eeb84a84370d0",
+      "bytes": 460968,
+      "storageKind": "curated-report-extract",
+      "accession": "0001193125-26-323660",
+      "extractFile": "msft-ar26.extract.json",
+      "extractSha256": "335decde1af4280671c6975ab01f17383e7292d2de42caf2ae30bbd1c32d84a5",
+      "extractBytes": 1386
+    },
+    {
+      "id": "msft-ar25",
+      "url": "https://www.microsoft.com/investor/reports/ar25/index.html",
+      "retrievedAt": "2026-11-16T13:50:57.648232+00:00",
+      "contentType": "text/html",
+      "sha256": "564154a15ac28c0f7f72f304ae26b74c29cfca9f3eafe8d59595776769d621ca",
+      "bytes": 601259,
+      "storageKind": "curated-report-extract",
+      "accession": "0000950170-25-100235",
+      "extractFile": "msft-ar25.extract.json",
+      "extractSha256": "1a08a9f2792ad36ed65e395b8fa7044b165dd766dfc9b7af228abf2db9747feb",
+      "extractBytes": 1397
+    },
+    {
+      "id": "cost-2026-10k",
+      "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
+      "retrievedAt": "2026-11-16T13:50:58.151205+00:00",
+      "contentType": "text/html",
+      "sha256": "58f8b177a68f0dfd8b4aea6250a709d1762e5ebcdf20d1d62638182d00c9e486",
+      "bytes": 1456603,
+      "storageKind": "curated-report-extract",
+      "accession": "0000909832-26-000093",
+      "extractFile": "cost-2026-10k.extract.json",
+      "extractSha256": "f5a38d9f89c8f059d2bc2a2e8aee7d0ffe460b506f8a5fbc56c94d515f70f0e4",
+      "extractBytes": 1269
+    },
+    {
+      "id": "cost-2025-10k",
+      "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983225000101/cost-20250831.htm",
+      "retrievedAt": "2026-11-16T13:50:58.414384+00:00",
+      "contentType": "text/html",
+      "sha256": "ddb69176c71fc61956f8e64fb7507082f1126ad8c83f8005fe1931915e84660b",
+      "bytes": 1439081,
+      "storageKind": "curated-report-extract",
+      "accession": "0000909832-25-000101",
+      "extractFile": "cost-2025-10k.extract.json",
+      "extractSha256": "1ee57dbbd50c2cf91f3eb91f68b960bf7bb0e8c3c8a3d810bb6575e6651c5c21",
+      "extractBytes": 1231
+    }
+  ],
+  "companies": [
+    {
+      "id": "msft",
+      "name": "Microsoft",
+      "business": "Software, cloud and devices",
+      "cik": "0000789019",
+      "accounts": [
+        "receivables",
+        "inventory",
+        "payables"
+      ],
+      "years": [
+        {
+          "fy": 2025,
+          "start": "2024-07-01",
+          "end": "2025-06-30",
+          "opening": "2024-06-30",
+          "accession": "0000950170-25-100235",
+          "filed": "2025-07-30",
+          "reportSource": "msft-ar25",
+          "days": 365,
+          "rows": [
+            {
+              "account": "receivables",
+              "label": "Accounts receivable, net",
+              "balanceTag": "AccountsReceivableNetCurrent",
+              "flowTag": "IncreaseDecreaseInAccountsReceivable",
+              "cashSign": -1,
+              "kind": "asset",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsReceivableNetCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2024-06-30",
+                "value": 56924000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsReceivableNetCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-06-30",
+                "value": 69905000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0001193125-26-323660",
+                    "filed": "2026-07-29",
+                    "form": "10-K",
+                    "value": 69905000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "msft-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInAccountsReceivable",
+                "unit": "USD",
+                "start": "2024-07-01",
+                "end": "2025-06-30",
+                "value": 10581000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0001193125-26-323660",
+                    "filed": "2026-07-29",
+                    "form": "10-K",
+                    "value": 10581000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "msft-companyfacts"
+              },
+              "balanceChange": 12981000000,
+              "balanceProxy": -12981000000,
+              "reportedAdjustment": -10581000000,
+              "residual": 2400000000
+            },
+            {
+              "account": "inventory",
+              "label": "Inventory",
+              "balanceTag": "InventoryNet",
+              "flowTag": "IncreaseDecreaseInInventories",
+              "cashSign": -1,
+              "kind": "asset",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2024-06-30",
+                "value": 1246000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-06-30",
+                "value": 938000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0001193125-26-323660",
+                    "filed": "2026-07-29",
+                    "form": "10-K",
+                    "value": 938000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "msft-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInInventories",
+                "unit": "USD",
+                "start": "2024-07-01",
+                "end": "2025-06-30",
+                "value": -309000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0001193125-26-323660",
+                    "filed": "2026-07-29",
+                    "form": "10-K",
+                    "value": -309000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "msft-companyfacts"
+              },
+              "balanceChange": -308000000,
+              "balanceProxy": 308000000,
+              "reportedAdjustment": 309000000,
+              "residual": 1000000
+            },
+            {
+              "account": "payables",
+              "label": "Accounts payable",
+              "balanceTag": "AccountsPayableCurrent",
+              "flowTag": "IncreaseDecreaseInAccountsPayable",
+              "cashSign": 1,
+              "kind": "liability",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2024-06-30",
+                "value": 21996000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-06-30",
+                "value": 27724000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0001193125-26-323660",
+                    "filed": "2026-07-29",
+                    "form": "10-K",
+                    "value": 27724000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "msft-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInAccountsPayable",
+                "unit": "USD",
+                "start": "2024-07-01",
+                "end": "2025-06-30",
+                "value": 569000000,
+                "accession": "0000950170-25-100235",
+                "filed": "2025-07-30",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0001193125-26-323660",
+                    "filed": "2026-07-29",
+                    "form": "10-K",
+                    "value": 569000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "msft-companyfacts"
+              },
+              "balanceChange": 5728000000,
+              "balanceProxy": 5728000000,
+              "reportedAdjustment": 569000000,
+              "residual": -5159000000
+            }
+          ],
+          "scopes": {
+            "inventoryPayables": {
+              "balanceProxy": 6036000000,
+              "reportedAdjustment": 878000000,
+              "residual": -5158000000,
+              "grossAbsoluteResidual": 5160000000,
+              "roundingBoundIfNearestMillion": 3000000,
+              "offsettingResidual": 2000000,
+              "accounts": [
+                "inventory",
+                "payables"
+              ],
+              "signMismatch": false
+            },
+            "threeAccounts": {
+              "balanceProxy": -6945000000,
+              "reportedAdjustment": -9703000000,
+              "residual": -2758000000,
+              "grossAbsoluteResidual": 7560000000,
+              "roundingBoundIfNearestMillion": 4500000,
+              "offsettingResidual": 4802000000,
+              "accounts": [
+                "receivables",
+                "inventory",
+                "payables"
+              ],
+              "signMismatch": false
+            }
+          },
+          "operatingCashFlow": {
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "start": "2024-07-01",
+            "end": "2025-06-30",
+            "value": 136162000000,
+            "accession": "0000950170-25-100235",
+            "filed": "2025-07-30",
+            "form": "10-K",
+            "identicalRows": 1,
+            "laterAnnualObservations": [
+              {
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "value": 136162000000,
+                "changed": false
+              }
+            ],
+            "sourceId": "msft-companyfacts"
+          }
+        },
+        {
+          "fy": 2026,
+          "start": "2025-07-01",
+          "end": "2026-06-30",
+          "opening": "2025-06-30",
+          "accession": "0001193125-26-323660",
+          "filed": "2026-07-29",
+          "reportSource": "msft-ar26",
+          "days": 365,
+          "rows": [
+            {
+              "account": "receivables",
+              "label": "Accounts receivable, net",
+              "balanceTag": "AccountsReceivableNetCurrent",
+              "flowTag": "IncreaseDecreaseInAccountsReceivable",
+              "cashSign": -1,
+              "kind": "asset",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsReceivableNetCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-06-30",
+                "value": 69905000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsReceivableNetCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2026-06-30",
+                "value": 80876000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInAccountsReceivable",
+                "unit": "USD",
+                "start": "2025-07-01",
+                "end": "2026-06-30",
+                "value": 12737000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "balanceChange": 10971000000,
+              "balanceProxy": -10971000000,
+              "reportedAdjustment": -12737000000,
+              "residual": -1766000000
+            },
+            {
+              "account": "inventory",
+              "label": "Inventory",
+              "balanceTag": "InventoryNet",
+              "flowTag": "IncreaseDecreaseInInventories",
+              "cashSign": -1,
+              "kind": "asset",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-06-30",
+                "value": 938000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2026-06-30",
+                "value": 1397000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInInventories",
+                "unit": "USD",
+                "start": "2025-07-01",
+                "end": "2026-06-30",
+                "value": 461000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "balanceChange": 459000000,
+              "balanceProxy": -459000000,
+              "reportedAdjustment": -461000000,
+              "residual": -2000000
+            },
+            {
+              "account": "payables",
+              "label": "Accounts payable",
+              "balanceTag": "AccountsPayableCurrent",
+              "flowTag": "IncreaseDecreaseInAccountsPayable",
+              "cashSign": 1,
+              "kind": "liability",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-06-30",
+                "value": 27724000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2026-06-30",
+                "value": 42416000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInAccountsPayable",
+                "unit": "USD",
+                "start": "2025-07-01",
+                "end": "2026-06-30",
+                "value": 5268000000,
+                "accession": "0001193125-26-323660",
+                "filed": "2026-07-29",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "msft-companyfacts"
+              },
+              "balanceChange": 14692000000,
+              "balanceProxy": 14692000000,
+              "reportedAdjustment": 5268000000,
+              "residual": -9424000000
+            }
+          ],
+          "scopes": {
+            "inventoryPayables": {
+              "balanceProxy": 14233000000,
+              "reportedAdjustment": 4807000000,
+              "residual": -9426000000,
+              "grossAbsoluteResidual": 9426000000,
+              "roundingBoundIfNearestMillion": 3000000,
+              "offsettingResidual": 0,
+              "accounts": [
+                "inventory",
+                "payables"
+              ],
+              "signMismatch": false
+            },
+            "threeAccounts": {
+              "balanceProxy": 3262000000,
+              "reportedAdjustment": -7930000000,
+              "residual": -11192000000,
+              "grossAbsoluteResidual": 11192000000,
+              "roundingBoundIfNearestMillion": 4500000,
+              "offsettingResidual": 0,
+              "accounts": [
+                "receivables",
+                "inventory",
+                "payables"
+              ],
+              "signMismatch": true
+            }
+          },
+          "operatingCashFlow": {
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "start": "2025-07-01",
+            "end": "2026-06-30",
+            "value": 182935000000,
+            "accession": "0001193125-26-323660",
+            "filed": "2026-07-29",
+            "form": "10-K",
+            "identicalRows": 1,
+            "laterAnnualObservations": [],
+            "sourceId": "msft-companyfacts"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cost",
+      "name": "Costco",
+      "business": "Membership warehouse retail",
+      "cik": "0000909832",
+      "accounts": [
+        "inventory",
+        "payables"
+      ],
+      "years": [
+        {
+          "fy": 2025,
+          "start": "2024-09-02",
+          "end": "2025-08-31",
+          "opening": "2024-09-01",
+          "accession": "0000909832-25-000101",
+          "filed": "2025-10-08",
+          "reportSource": "cost-2025-10k",
+          "days": 364,
+          "rows": [
+            {
+              "account": "inventory",
+              "label": "Inventory",
+              "balanceTag": "InventoryNet",
+              "flowTag": "IncreaseDecreaseInInventories",
+              "cashSign": -1,
+              "kind": "asset",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2024-09-01",
+                "value": 18647000000,
+                "accession": "0000909832-25-000101",
+                "filed": "2025-10-08",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-08-31",
+                "value": 18116000000,
+                "accession": "0000909832-25-000101",
+                "filed": "2025-10-08",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0000909832-26-000093",
+                    "filed": "2026-10-07",
+                    "form": "10-K",
+                    "value": 18116000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "cost-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInInventories",
+                "unit": "USD",
+                "start": "2024-09-02",
+                "end": "2025-08-31",
+                "value": -559000000,
+                "accession": "0000909832-25-000101",
+                "filed": "2025-10-08",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0000909832-26-000093",
+                    "filed": "2026-10-07",
+                    "form": "10-K",
+                    "value": -559000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "cost-companyfacts"
+              },
+              "balanceChange": -531000000,
+              "balanceProxy": 531000000,
+              "reportedAdjustment": 559000000,
+              "residual": 28000000
+            },
+            {
+              "account": "payables",
+              "label": "Accounts payable",
+              "balanceTag": "AccountsPayableCurrent",
+              "flowTag": "IncreaseDecreaseInAccountsPayable",
+              "cashSign": 1,
+              "kind": "liability",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2024-09-01",
+                "value": 19421000000,
+                "accession": "0000909832-25-000101",
+                "filed": "2025-10-08",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-08-31",
+                "value": 19783000000,
+                "accession": "0000909832-25-000101",
+                "filed": "2025-10-08",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0000909832-26-000093",
+                    "filed": "2026-10-07",
+                    "form": "10-K",
+                    "value": 19783000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "cost-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInAccountsPayable",
+                "unit": "USD",
+                "start": "2024-09-02",
+                "end": "2025-08-31",
+                "value": 404000000,
+                "accession": "0000909832-25-000101",
+                "filed": "2025-10-08",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [
+                  {
+                    "accession": "0000909832-26-000093",
+                    "filed": "2026-10-07",
+                    "form": "10-K",
+                    "value": 404000000,
+                    "changed": false
+                  }
+                ],
+                "sourceId": "cost-companyfacts"
+              },
+              "balanceChange": 362000000,
+              "balanceProxy": 362000000,
+              "reportedAdjustment": 404000000,
+              "residual": 42000000
+            }
+          ],
+          "scopes": {
+            "inventoryPayables": {
+              "balanceProxy": 893000000,
+              "reportedAdjustment": 963000000,
+              "residual": 70000000,
+              "grossAbsoluteResidual": 70000000,
+              "roundingBoundIfNearestMillion": 3000000,
+              "offsettingResidual": 0,
+              "accounts": [
+                "inventory",
+                "payables"
+              ],
+              "signMismatch": false
+            }
+          },
+          "operatingCashFlow": {
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "start": "2024-09-02",
+            "end": "2025-08-31",
+            "value": 13335000000,
+            "accession": "0000909832-25-000101",
+            "filed": "2025-10-08",
+            "form": "10-K",
+            "identicalRows": 1,
+            "laterAnnualObservations": [
+              {
+                "accession": "0000909832-26-000093",
+                "filed": "2026-10-07",
+                "form": "10-K",
+                "value": 13335000000,
+                "changed": false
+              }
+            ],
+            "sourceId": "cost-companyfacts"
+          }
+        },
+        {
+          "fy": 2026,
+          "start": "2025-09-01",
+          "end": "2026-08-30",
+          "opening": "2025-08-31",
+          "accession": "0000909832-26-000093",
+          "filed": "2026-10-07",
+          "reportSource": "cost-2026-10k",
+          "days": 364,
+          "rows": [
+            {
+              "account": "inventory",
+              "label": "Inventory",
+              "balanceTag": "InventoryNet",
+              "flowTag": "IncreaseDecreaseInInventories",
+              "cashSign": -1,
+              "kind": "asset",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-08-31",
+                "value": 18116000000,
+                "accession": "0000909832-26-000093",
+                "filed": "2026-10-07",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "InventoryNet",
+                "unit": "USD",
+                "start": null,
+                "end": "2026-08-30",
+                "value": 19324000000,
+                "accession": "0000909832-26-000093",
+                "filed": "2026-10-07",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInInventories",
+                "unit": "USD",
+                "start": "2025-09-01",
+                "end": "2026-08-30",
+                "value": 1153000000,
+                "accession": "0000909832-26-000093",
+                "filed": "2026-10-07",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "balanceChange": 1208000000,
+              "balanceProxy": -1208000000,
+              "reportedAdjustment": -1153000000,
+              "residual": 55000000
+            },
+            {
+              "account": "payables",
+              "label": "Accounts payable",
+              "balanceTag": "AccountsPayableCurrent",
+              "flowTag": "IncreaseDecreaseInAccountsPayable",
+              "cashSign": 1,
+              "kind": "liability",
+              "opening": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2025-08-31",
+                "value": 19783000000,
+                "accession": "0000909832-26-000093",
+                "filed": "2026-10-07",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "closing": {
+                "taxonomy": "us-gaap",
+                "tag": "AccountsPayableCurrent",
+                "unit": "USD",
+                "start": null,
+                "end": "2026-08-30",
+                "value": 22591000000,
+                "accession": "0000909832-26-000093",
+                "filed": "2026-10-07",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "flow": {
+                "taxonomy": "us-gaap",
+                "tag": "IncreaseDecreaseInAccountsPayable",
+                "unit": "USD",
+                "start": "2025-09-01",
+                "end": "2026-08-30",
+                "value": 2755000000,
+                "accession": "0000909832-26-000093",
+                "filed": "2026-10-07",
+                "form": "10-K",
+                "identicalRows": 1,
+                "laterAnnualObservations": [],
+                "sourceId": "cost-companyfacts"
+              },
+              "balanceChange": 2808000000,
+              "balanceProxy": 2808000000,
+              "reportedAdjustment": 2755000000,
+              "residual": -53000000
+            }
+          ],
+          "scopes": {
+            "inventoryPayables": {
+              "balanceProxy": 1600000000,
+              "reportedAdjustment": 1602000000,
+              "residual": 2000000,
+              "grossAbsoluteResidual": 108000000,
+              "roundingBoundIfNearestMillion": 3000000,
+              "offsettingResidual": 106000000,
+              "accounts": [
+                "inventory",
+                "payables"
+              ],
+              "signMismatch": false
+            }
+          },
+          "operatingCashFlow": {
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "start": "2025-09-01",
+            "end": "2026-08-30",
+            "value": 15817000000,
+            "accession": "0000909832-26-000093",
+            "filed": "2026-10-07",
+            "form": "10-K",
+            "identicalRows": 1,
+            "laterAnnualObservations": [],
+            "sourceId": "cost-companyfacts"
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "msft-ppe-2026",
+      "sourceId": "msft-ar26",
+      "section": "Note 6 — Property and Equipment",
+      "quote": "As of June 30, 2026, 2025, and 2024, purchases of property and equipment remaining in accounts payable were $26.7 billion, $6.9 billion, and $4.3 billion, respectively.",
+      "supports": "Accounts payable includes property-and-equipment purchases. Its balance change is not a pure merchandise-supplier financing measure.",
+      "doesNotEstablish": "The note does not reconcile the selected operating cash-flow adjustments to balance changes. Do not assign the residual to capital expenditure.",
+      "fiscalYear": 2026
+    },
+    {
+      "id": "msft-fx",
+      "sourceId": "msft-ar26",
+      "section": "Note 1 — Accounting Policies / Foreign Currencies",
+      "quote": "Assets and liabilities recorded in foreign currencies are translated at the exchange rate on the balance sheet date. Revenue and expenses are translated at average rates of exchange prevailing during the year. Translation adjustments resulting from this process are recorded to other comprehensive income.",
+      "supports": "Reported balance changes can include translation effects.",
+      "doesNotEstablish": "The source does not allocate a quantified translation effect to this audit’s three-account residual.",
+      "fiscalYear": 2026
+    },
+    {
+      "id": "cost-other",
+      "sourceId": "cost-2026-10k",
+      "section": "Consolidated Statements of Cash Flows",
+      "quote": "Changes in operating assets and liabilities: Merchandise inventories ( 1,153 ) 559 ( 2,068 ) Accounts payable 2,755 404 1,938 Other operating assets and liabilities, net 718 801 741",
+      "supports": "The statement separately reports merchandise inventories and accounts payable; other operating balances are grouped.",
+      "doesNotEstablish": "No separately reported receivables cash-flow adjustment is identified here. Missing coverage is not zero.",
+      "fiscalYear": 2026
+    },
+    {
+      "id": "cost-capex",
+      "sourceId": "cost-2026-10k",
+      "section": "Consolidated Statements of Cash Flows / Supplemental disclosure",
+      "quote": "SUPPLEMENTAL DISCLOSURE OF NON-CASH ACTIVITIES: Capital expenditures included in liabilities $ 220 $ 193 $ 203",
+      "supports": "The filing discloses noncash capital expenditure in liabilities.",
+      "doesNotEstablish": "The disclosure says liabilities, not exclusively accounts payable, and does not reconcile this two-account residual.",
+      "fiscalYear": 2026
+    },
+    {
+      "id": "msft-ppe-2026-prior",
+      "sourceId": "msft-ar25",
+      "section": "Note 6 — Property and Equipment",
+      "quote": "As of June 30, 2025, 2024, and 2023, purchases of property and equipment remaining in accounts payable were $6.9 billion, $4.3 billion, and $3.8 billion, respectively.",
+      "supports": "Accounts payable includes property-and-equipment purchases. Its balance change is not a pure merchandise-supplier financing measure.",
+      "doesNotEstablish": "The note does not reconcile the selected operating cash-flow adjustments to balance changes. Do not assign the residual to capital expenditure.",
+      "fiscalYear": 2025
+    },
+    {
+      "id": "msft-fx-prior",
+      "sourceId": "msft-ar25",
+      "section": "Note 1 — Accounting Policies / Foreign Currencies",
+      "quote": "Assets and liabilities recorded in foreign currencies are translated at the exchange rate on the balance sheet date. Revenue and expenses are translated at average rates of exchange prevailing during the year. Translation adjustments resulting from this process are recorded to other comprehensive income.",
+      "supports": "Reported balance changes can include translation effects.",
+      "doesNotEstablish": "The source does not allocate a quantified translation effect to this audit’s three-account residual.",
+      "fiscalYear": 2025
+    },
+    {
+      "id": "cost-other-prior",
+      "sourceId": "cost-2025-10k",
+      "section": "Consolidated Statements of Cash Flows",
+      "quote": "Changes in operating assets and liabilities: Merchandise inventories 559 ( 2,068 ) 1,228 Accounts payable 404 1,938 ( 382 ) Other operating assets and liabilities, net 801 741 172",
+      "supports": "The statement separately reports merchandise inventories and accounts payable; other operating balances are grouped.",
+      "doesNotEstablish": "No separately reported receivables cash-flow adjustment is identified here. Missing coverage is not zero.",
+      "fiscalYear": 2025
+    },
+    {
+      "id": "cost-capex-prior",
+      "sourceId": "cost-2025-10k",
+      "section": "Consolidated Statements of Cash Flows / Supplemental disclosure",
+      "quote": "Capital expenditures included in liabilities $ 193 $ 203 $ 170",
+      "supports": "The filing discloses noncash capital expenditure in liabilities.",
+      "doesNotEstablish": "The disclosure says liabilities, not exclusively accounts payable, and does not reconcile this two-account residual.",
+      "fiscalYear": 2025
+    }
+  ],
+  "excludedCoverage": [
+    {
+      "company": "cost",
+      "account": "receivables",
+      "status": "not-separately-identified",
+      "reason": "Cash-flow statement reports Other operating assets and liabilities, net; a standalone receivables adjustment was not identified. It is excluded, never filled with zero."
+    }
+  ]
+}

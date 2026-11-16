@@ -1,0 +1,3 @@
+# Complete copyrighted reports stay in local release-artifacts outside this repo.
+*.html
+*.html.gz

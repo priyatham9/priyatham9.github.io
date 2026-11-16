@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Test whether cohort conversion rankings survive unresolved outcomes and a common customer mix."
+    />
+    <title>Cohort decision audit · CRM</title>
+    <link rel="stylesheet" href="./decision.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to analysis</a>
+    <header>
+      <a class="brand" href="../">PC <span>Analytical projects</span></a>
+      <nav aria-label="Project navigation">
+        <a href="../foundry/contract.html">Foundry</a
+        ><a href="./decision.html" aria-current="page">CRM</a
+        ><a href="../finance/decision.html">Finance</a
+        ><a href="https://ehs-ai-grounding-eval.vercel.app/evidence-audit.html"
+          >AI</a
+        ><a href="https://ehs-osha-analysis.vercel.app/decision-audit.html"
+          >EHS</a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <div class="eyebrow">CRM / DECISION AUDIT</div>
+      <h1>Can these cohorts<br />justify a decision?</h1>
+      <p class="intro">
+        A higher conversion rate can reflect easier customers or more time to
+        close. Test what the available outcomes actually identify.
+      </p>
+      <div class="source-line">
+        <span id="provenance"
+          >Illustrative starting counts · no empirical business finding</span
+        ><button id="reset" type="button">Reset example</button>
+      </div>
+      <section class="case-picker" aria-labelledby="case-title">
+        <h2 id="case-title">Start with a question you can falsify</h2>
+        <label
+          >Constructed case<select id="case">
+            <option value="mix">
+              Can customer mix reverse a fully observed ranking?
+            </option>
+            <option value="unresolved">
+              Can missing follow-up reverse an apparent lead?
+            </option>
+          </select></label
+        >
+        <p id="case-description" class="note"></p>
+        <p class="note">
+          Loading a case restores its counts, target mix and 90-day horizon.
+          These examples demonstrate identification problems; they are not
+          findings about actual sales channels.
+        </p>
+      </section>
+      <aside
+        id="live-result"
+        class="live-result"
+        aria-label="Current cohort conclusion"
+        hidden
+      >
+        <div>
+          <span class="micro-label">CURRENT FINITE-COHORT RESULT</span
+          ><strong id="live-conclusion" role="status"></strong>
+        </div>
+        <span id="live-gap"></span><a href="#verdict-title">Inspect bounds ↓</a>
+      </aside>
+      <form id="inputs">
+        <section aria-labelledby="data-title">
+          <div class="section-top">
+            <h2 id="data-title">01 / Declare the comparison</h2>
+            <span>All counts are editable</span>
+          </div>
+          <div class="context">
+            <label
+              >Evidence / cohort label<input
+                id="source-note"
+                value="Illustrative cohort"
+                maxlength="160"
+                required /></label
+            ><label
+              >Conversion horizon, days<input
+                id="horizon"
+                type="number"
+                min="1"
+                max="3650"
+                step="1"
+                value="90"
+                required /></label
+            ><label
+              >Target share: segment 1, %<input
+                id="mix"
+                type="number"
+                min="0"
+                max="100"
+                step="any"
+                value="50"
+                required
+            /></label>
+          </div>
+          <p class="note">
+            Count wins <strong>by the horizon</strong>. A known nonwin has been
+            observed through that horizon without a win. An unresolved outcome
+            lacks enough follow-up. Changing the horizon requires reclassifying
+            your counts; this tool has no underlying lead records. Each source
+            must contain both segments.
+          </p>
+          <div
+            class="table-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="Editable cohort counts, horizontally scrollable"
+          >
+            <table class="entry-table">
+              <caption>
+                Enter mutually exclusive outcome counts for each source and
+                customer segment. Scroll horizontally for totals on narrow
+                screens.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Source / segment</th>
+                  <th scope="col">Wins</th>
+                  <th scope="col">Known nonwins</th>
+                  <th scope="col">Unresolved</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody id="counts"></tbody>
+            </table>
+          </div>
+          <p class="note">
+            Use a segment known before source assignment, such as customer size.
+            Both sources are standardized to the same target mix; segment 2
+            receives the remaining share.
+          </p>
+        </section>
+      </form>
+      <p id="error" role="alert" hidden></p>
+      <div id="results">
+        <section class="verdict" aria-labelledby="verdict-title">
+          <div class="eyebrow">02 / WHAT THE DATA SUPPORT</div>
+          <h2 id="verdict-title"></h2>
+          <p id="verdict-text"></p>
+        </section>
+        <section aria-labelledby="bounds-title">
+          <div class="section-top">
+            <h2 id="bounds-title">Observed wins ≠ identified conversion</h2>
+            <span>Same fixed horizon · different denominators</span>
+          </div>
+          <div id="bounds-chart" class="bounds-chart"></div>
+          <div class="legend">
+            <span
+              ><i class="dot"></i>Known-win rate · weighted in the common
+              mix</span
+            ><span
+              ><i class="interval"></i>Attainable conversion after unresolved
+              outcomes</span
+            >
+          </div>
+          <p class="note">
+            Intervals are sharp bounds for these finite cohorts, not confidence
+            intervals. A common mix addresses measured composition; it does not
+            establish a causal channel effect.
+          </p>
+        </section>
+        <section aria-labelledby="evidence-title">
+          <div class="section-top">
+            <h2 id="evidence-title">03 / What would resolve the ranking?</h2>
+            <span>Evidence before spend</span>
+          </div>
+          <div id="evidence"></div>
+          <p class="note">
+            These are best-case counts of <em>favorable</em> resolutions, not
+            promises about the outcomes. Verify observation dates and final
+            dispositions before treating an unresolved case as a nonwin.
+          </p>
+          <p class="next-step">
+            A channel budget decision also needs acquisition cost, customer
+            contribution, capacity, and evidence about the incremental effect of
+            changing allocation. Conversion rankings alone cannot answer it.
+          </p>
+        </section>
+      </div>
+      <section class="method">
+        <h2>Audit trail</h2>
+        <p>
+          For each segment: lower = wins ÷ total; upper = (wins + unresolved) ÷
+          total. Common-mix bounds use your target weights. The source A − B
+          difference runs from A lower − B upper to A upper − B lower. No
+          independent-censoring assumption is imposed.
+        </p>
+        <div class="actions">
+          <button id="export" type="button">
+            Export decision review · JSON</button
+          ><span id="export-status" role="status"></span>
+        </div>
+      </section>
+      <noscript
+        ><p>
+          Enable JavaScript to calculate editable cohort bounds. The method
+          above remains readable.
+        </p></noscript
+      >
+      <footer>
+        Finite-cohort evidence audit · calculations stay in this browser
+      </footer>
+    </main>
+    <script type="module" src="./decision-app.mjs"></script>
+  </body>
+</html>

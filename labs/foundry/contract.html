@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Data contract change review · Independent workbench</title>
+    <meta
+      name="description"
+      content="Import a local JSON data contract, evaluate a proposed change, trace affected consumers and export a reproducible review with integrity digests."
+    />
+    <link rel="stylesheet" href="contract.css" />
+  </head>
+  <body>
+    <a class="skip" href="#workspace">Skip to workbench</a>
+    <header>
+      <a class="brand" href="../">PC <span>Analytical projects</span></a>
+      <nav aria-label="Project navigation">
+        <a href="contract.html" aria-current="page">Data contracts</a
+        ><a href="../crm/decision.html">CRM</a
+        ><a href="../finance/decision.html">Finance</a
+        ><a href="https://ehs-ai-grounding-eval.vercel.app/evidence-audit.html"
+          >AI</a
+        ><a href="https://ehs-osha-analysis.vercel.app/decision-audit.html"
+          >EHS</a
+        >
+      </nav>
+    </header>
+    <main id="workspace">
+      <div class="workbench-heading">
+        <div>
+          <div class="eyebrow">DATA ENGINEERING / CHANGE IMPACT</div>
+          <h1>Data contract change review</h1>
+          <p>
+            Find which consumers need a recheck and where a change breaks their
+            declared contracts.
+          </p>
+        </div>
+        <div class="local-status">
+          <i aria-hidden="true"></i>Local simulation only
+        </div>
+      </div>
+      <p class="independence">
+        Independent workbench inspired by typed objects, lineage and change
+        control. No Palantir product, integration or production connection.
+      </p>
+      <div class="workbench">
+        <aside class="change-panel" aria-labelledby="change-heading">
+          <h2 id="change-heading">01 / Propose a change</h2>
+          <label for="preset"
+            >Load a starter change<select id="preset"></select
+          ></label>
+          <p id="dataset-label" class="micro"></p>
+          <p id="preset-description" class="note"></p>
+          <p class="micro">
+            Starter changes replace both editor buffers. Import or edit JSON for
+            your own graph.
+          </p>
+          <details class="provenance">
+            <summary>Data provenance & scope</summary>
+            <p id="provenance" class="note"></p>
+          </details>
+          <div class="change-summary">
+            <h3>Exact changed nodes</h3>
+            <div id="changes"></div>
+            <p class="micro">
+              Long values are abbreviated here. The JSON editors and export
+              retain both full snapshots.
+            </p>
+          </div>
+          <div class="editor-actions">
+            <button id="open-editors" class="secondary" type="button">
+              Edit contract JSON</button
+            ><button id="reset" class="secondary" type="button">
+              Reset unchanged
+            </button>
+          </div>
+          <div class="imports">
+            <label class="file-label" for="baseline-file"
+              >Import baseline JSON<input
+                id="baseline-file"
+                type="file"
+                accept=".json,application/json" /></label
+            ><span class="micro"
+              >Copies the imported baseline into both editors.</span
+            ><label class="file-label" for="proposal-file"
+              >Import proposal JSON<input
+                id="proposal-file"
+                type="file"
+                accept=".json,application/json"
+            /></label>
+          </div>
+          <p class="micro">
+            Files stay in this browser. Maximum 250 KB; no code or expressions
+            are executed.
+          </p>
+        </aside>
+        <div class="analysis">
+          <div
+            id="evaluation-state"
+            class="evaluation-state"
+            role="status"
+          ></div>
+          <p id="error" role="alert" hidden></p>
+          <div id="results">
+            <section class="impact-summary" aria-labelledby="impact-heading">
+              <div class="section-top">
+                <h2 id="impact-heading">02 / Trace the impact</h2>
+                <span id="node-count" class="micro"></span>
+              </div>
+              <p id="impact-sentence" class="impact-sentence"></p>
+              <div
+                id="impact-strip"
+                class="impact-strip"
+                aria-label="Consumer impact overview"
+              ></div>
+              <div class="legend">
+                <span><i class="affected"></i>Requires recheck</span
+                ><span><i class="invalid"></i>Invalid after change</span
+                ><span><i></i>No dependency path</span>
+              </div>
+              <p class="note">
+                The smallest dependency-closed recheck set uses the union of the
+                before/after graphs. A reachable consumer can recheck
+                successfully without changing its value.
+              </p>
+            </section>
+            <section
+              class="consumer-section"
+              aria-labelledby="consumer-heading"
+            >
+              <div class="section-top">
+                <h2 id="consumer-heading">Consumers, before and after</h2>
+                <span class="micro">Select a row for its exact basis</span>
+              </div>
+              <p class="mobile-scroll-hint micro">
+                Scroll the table sideways to inspect every column.
+              </p>
+              <div
+                class="table-scroll"
+                role="region"
+                aria-label="Consumer comparison table"
+                tabindex="0"
+              >
+                <table>
+                  <caption>
+                    Rates are descriptive. Review rules are simulated; no task
+                    is sent.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Metric / review rule</th>
+                      <th scope="col">Before</th>
+                      <th scope="col">After</th>
+                      <th scope="col">Impact</th>
+                    </tr>
+                  </thead>
+                  <tbody id="consumers"></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="basis" aria-labelledby="basis-heading">
+              <div class="section-top">
+                <h2 id="basis-heading">Selected consumer</h2>
+                <span id="basis-status" class="micro"></span>
+              </div>
+              <h3 id="basis-name"></h3>
+              <p id="basis-explanation" class="note"></p>
+              <ol
+                id="dependency-path"
+                class="dependency-path"
+                aria-label="Shortest dependency path from a changed node"
+              ></ol>
+              <div class="basis-grid">
+                <div>
+                  <h4>Declared direct dependencies</h4>
+                  <ul id="direct-dependencies"></ul>
+                </div>
+                <div>
+                  <h4>Checks for this consumer</h4>
+                  <div id="consumer-diagnostics"></div>
+                </div>
+              </div>
+              <details>
+                <summary>
+                  Inspect the consumer definition and full result
+                </summary>
+                <pre id="consumer-definition"></pre>
+              </details>
+            </section>
+            <section class="gate" aria-labelledby="gate-heading">
+              <div class="section-top">
+                <h2 id="gate-heading">03 / Review gate</h2>
+                <span id="review-status" class="micro"></span>
+              </div>
+              <p id="gate-summary"></p>
+              <div id="diagnostics"></div>
+              <label for="review-note"
+                >Reviewer note<textarea
+                  id="review-note"
+                  rows="2"
+                  placeholder="Record the source checks or follow-up this change needs."
+                ></textarea>
+              </label>
+              <div class="review-actions">
+                <button id="approve" type="button">
+                  Mark local review approved</button
+                ><button id="export" class="secondary" type="button">
+                  Export review bundle · JSON
+                </button>
+              </div>
+              <p id="export-status" class="note" role="status"></p>
+              <p class="micro">
+                Approval is only a state in this page. Critical contract
+                failures block it. Editing either contract clears it. No
+                production data or workflow changes.
+              </p>
+              <details>
+                <summary>Integrity digests</summary>
+                <dl class="digests">
+                  <dt>Baseline · SHA-256</dt>
+                  <dd id="baseline-hash"></dd>
+                  <dt>Proposal · SHA-256</dt>
+                  <dd id="proposal-hash"></dd>
+                </dl>
+                <p class="micro">
+                  The bundle contains both full contracts, diagnostics,
+                  dependency paths, review state and a separate digest over its
+                  canonical JSON payload.
+                </p>
+              </details>
+            </section>
+          </div>
+        </div>
+      </div>
+      <details id="editors" class="editors">
+        <summary>Contract JSON editors</summary>
+        <p class="note">
+          The proposal is a complete contract snapshot. Change values, field
+          contracts, links or consumer bindings, then evaluate. No edits are
+          written back to your files.
+        </p>
+        <div class="editor-grid">
+          <label for="baseline-json"
+            >Baseline contract<textarea
+              id="baseline-json"
+              spellcheck="false"
+              rows="24"
+            ></textarea></label
+          ><label for="proposal-json"
+            >Proposed contract<textarea
+              id="proposal-json"
+              spellcheck="false"
+              rows="24"
+            ></textarea>
+          </label>
+        </div>
+        <button id="evaluate" type="button">Evaluate both snapshots</button>
+      </details>
+      <details class="format">
+        <summary>Contract format, guarantees & limits</summary>
+        <div class="format-grid">
+          <div>
+            <h3>What the contract declares</h3>
+            <p>
+              <code>units</code> declare dimension vectors and positive scales
+              to canonical units. <code>ratioConcepts</code> declare numerator
+              and denominator semantic roles independently of input bindings.
+              Rates must satisfy both the dimension quotient and the conversion
+              equation: calculation multiplier × output-unit scale =
+              numerator-unit scale ÷ denominator-unit scale.
+            </p>
+            <p>
+              <code>types</code> declare fields, links and
+              <code>uniqueBy</code> reporting keys. Every reporting-key
+              component must be present, even when its general-purpose link is
+              optional. Every numeric binding declares its expected
+              <code>unit</code>, <code>concept</code>, <code>grain</code> and
+              <code>aggregation</code>. Rate signatures also carry
+              <code>rateScale</code>, the inverse canonical output-unit scale.
+              This output basis can differ from the numerical calculation
+              multiplier after an explicit unit conversion.
+            </p>
+            <p>
+              <code>objects</code> provide field values and reference targets.
+              <code>metrics</code> use <code>sum</code> or <code>rate</code>;
+              <code>actions</code> compare a typed metric with a declared
+              threshold. A sum’s <code>preserveKeys</code> require shared
+              context, such as one reporting year.
+            </p>
+            <p>
+              Start from the visible JSON schema and replace its contents. Each
+              of types, objects, metrics and actions accepts at most 100
+              entries. Fields accept finite numbers or strings. The evaluator
+              supports no arbitrary code.
+            </p>
+          </div>
+          <div>
+            <h3>What is checked</h3>
+            <p>
+              References, declared value constraints, reporting-key uniqueness,
+              binding signatures, ratio unit algebra and semantic roles,
+              complete reporting identities, matching numerator/denominator
+              cohorts, shared aggregation context, positive denominators,
+              nonadditive measures, duplicate lineage and dependency cycles.
+            </p>
+            <p>
+              Reachability is exact for the declared graph. An undeclared
+              dependency cannot be discovered. Labels, contracts, criticality
+              and thresholds are supplied claims; the tool does not verify their
+              truth or certify the source data.
+            </p>
+            <p>
+              The constructed EHS fixture illustrates denominator and
+              case-definition semantics. Its review thresholds are not validated
+              safety limits, and the rates do not establish risk, causality or
+              cross-site comparability.
+            </p>
+          </div>
+        </div>
+      </details>
+      <noscript
+        ><p>
+          Enable JavaScript to evaluate contracts. The format and limitations
+          above remain available.
+        </p></noscript
+      >
+      <footer>
+        Local JSON → typed contract checks → dependency impact → reproducible
+        review
+      </footer>
+    </main>
+    <script type="module" src="contract.mjs"></script>
+  </body>
+</html>
