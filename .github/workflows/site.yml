@@ -1,0 +1,35 @@
+name: Static site verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test public build and portfolio data
+        run: python3 -m unittest discover -s tests -v
+      - name: Test lab calculation models
+        run: |
+          node labs/models.test.mjs
+          node labs/signed-scale.test.mjs
+          node labs/scenario-tools.test.mjs
+          node labs/foundry/model.test.mjs
+      - name: Test server verification API
+        run: node --test tests/analysis.test.mjs
+      - name: Build and verify all local dependencies
+        run: python3 scripts/build_site.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: static-site
+          path: dist/
+          if-no-files-found: error

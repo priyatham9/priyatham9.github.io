@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="A working-capital model that turns collection, inventory and payment days into one transparent cash decision."
+    />
+    <title>Make cash movement visible. · Analytical labs</title>
+    <link rel="stylesheet" href="../labs.css" />
+  </head>
+  <body>
+    <header>
+      <a href="../../">Priyatham Chimmani / labs</a>
+      <nav aria-label="Lab navigation">
+        <a href="../foundry/">Foundry</a><a href="../crm/">CRM</a
+        ><a href="../finance/" aria-current="page">Finance</a>
+      </nav>
+      <span class="badge">Synthetic public demonstration</span>
+    </header>
+    <main>
+      <noscript
+        ><div class="decision">
+          Enable JavaScript to explore the interactive model. Methodology and
+          assumptions remain available below.
+        </div></noscript
+      >
+      <div class="eyebrow">Independent lab / finance</div>
+      <h1>Make cash<br />movement visible.</h1>
+      <p class="intro">
+        A working-capital model that turns collection, inventory and payment
+        days into one transparent cash decision.
+      </p>
+      <div class="controls">
+        <span class="badge">Annual revenue $12.0m · COGS $7.2m</span
+        ><button class="secondary" id="reset">Reset to baseline</button
+        ><span class="note">Steady state · 365-day convention · USD</span>
+      </div>
+      <div class="metrics" id="metrics" aria-live="polite"></div>
+      <div class="grid">
+        <section class="card">
+          <h2>Three operating levers</h2>
+          <p class="note">Baseline: DSO 45 · DIO 60 · DPO 30 days</p>
+          <div id="sliders"></div>
+        </section>
+        <section class="card">
+          <h2>Where the cash sits</h2>
+          <p class="note">
+            Receivables + inventory − payables = net working capital
+          </p>
+          <div id="bars"></div>
+          <div class="decision" id="movement"></div>
+        </section>
+      </div>
+      <section class="card">
+        <h2>A lower number has a cost.</h2>
+        <div class="nodes">
+          <div class="node">
+            <small>COLLECTION / DSO</small><b>Collect sooner</b>
+            <p>
+              May require tighter terms or discounts. Check customer retention
+              and discount cost.
+            </p>
+          </div>
+          <div class="node">
+            <small>INVENTORY / DIO</small><b>Hold less inventory</b>
+            <p>
+              May increase stockouts or expedite costs. Check service levels and
+              demand variability.
+            </p>
+          </div>
+          <div class="node">
+            <small>PAYMENT / DPO</small><b>Pay suppliers later</b>
+            <p>
+              May reduce discounts or stress suppliers. Check contract terms and
+              supply continuity.
+            </p>
+          </div>
+        </div>
+        <p class="note">
+          The model measures cash tied up, not profit or risk. A cash release
+          does not automatically create economic value.
+        </p>
+      </section>
+      <details>
+        <summary>Exact formulas, assumptions & boundaries</summary>
+        <div class="formula">
+          AR = annual revenue ÷ 365 × DSO<br />Inventory = annual COGS ÷ 365 ×
+          DIO<br />AP = annual COGS ÷ 365 × DPO<br />Net working capital = AR +
+          inventory − AP<br />Cash conversion cycle = DSO + DIO − DPO<br />Cash
+          released = baseline NWC − scenario NWC
+        </div>
+        <p>
+          Uses a constant annual run rate with no seasonality, growth, taxes,
+          FX, bad debts, prepayments or minimum order effects. DSO uses revenue;
+          DIO and DPO use cost of goods sold. Payables assumes purchases
+          approximate COGS. A lower NWC balance represents a one-time
+          steady-state cash release, not recurring annual savings. Display
+          values are rounded; calculations retain full precision.
+        </p>
+      </details>
+      <details>
+        <summary>About this demonstration</summary>
+        <p>
+          All records, names, values and scenarios are synthetic. This
+          independent demonstration illustrates an analytical method; it
+          contains no employer data, personal performance claims, live
+          integrations or production recommendations. Changes stay in this
+          browser and reset on reload.
+        </p>
+      </details>
+      <footer>
+        <span>Built to make the decision legible.</span
+        ><a href="../../">Return to portfolio ↗︎</a>
+      </footer>
+    </main>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>

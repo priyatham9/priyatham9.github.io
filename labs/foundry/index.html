@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Investigate a synthetic yield exception through connected batches, equipment and supplier lots. Keep evidence separate from inference."
+    />
+    <title>Follow the object. Question the signal. · Analytical labs</title>
+    <link rel="stylesheet" href="../labs.css" />
+  </head>
+  <body>
+    <header>
+      <a href="../../">Priyatham Chimmani / labs</a>
+      <nav aria-label="Lab navigation">
+        <a href="../foundry/" aria-current="page">Foundry</a
+        ><a href="../crm/">CRM</a><a href="../finance/">Finance</a>
+      </nav>
+      <span class="badge">Synthetic public demonstration</span>
+    </header>
+    <main>
+      <noscript
+        ><div class="decision">
+          Enable JavaScript to explore the interactive model. Methodology and
+          assumptions remain available below.
+        </div></noscript
+      >
+      <div class="eyebrow">Independent lab / foundry</div>
+      <h1>Follow the object.<br />Question the signal.</h1>
+      <p class="intro">
+        Investigate a synthetic yield exception through connected batches,
+        equipment and supplier lots. Keep evidence separate from inference.
+      </p>
+      <p class="note">
+        Independent ontology-pattern prototype. Not a Palantir product,
+        deployment or integration.
+      </p>
+      <div class="controls">
+        <label>Investigate batch<select id="batch"></select></label
+        ><label
+          >Related batch scope<select id="scope">
+            <option value="all">All linked batches</option>
+            <option value="equipment">Same equipment</option>
+            <option value="supplier">Same supplier</option>
+          </select></label
+        ><button class="secondary" id="reset">Reset investigation</button>
+      </div>
+      <div class="metrics" id="metrics" aria-live="polite"></div>
+      <section class="card">
+        <h2>An object is a starting point.</h2>
+        <p class="note">
+          Each connection resolves to a synthetic entity ID. Selection changes
+          the linked evidence below.
+        </p>
+        <div class="nodes" id="nodes"></div>
+      </section>
+      <div class="grid">
+        <section class="card">
+          <h2>Compare the linked evidence</h2>
+          <div
+            class="table-wrap"
+            tabindex="0"
+            role="region"
+            aria-label="Linked batch evidence table"
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th>Batch</th>
+                  <th>Equipment</th>
+                  <th>Supplier lot</th>
+                  <th>Yield</th>
+                  <th>Lot laboratory result</th>
+                </tr>
+              </thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+          <p class="note" id="scope-note"></p>
+          <p class="note">
+            Yield target ≥95%. Moisture screening threshold ≤6%. Thresholds are
+            illustrative, not validated process specifications.
+          </p>
+        </section>
+        <section class="card">
+          <h2>Evidence → hypothesis → action</h2>
+          <div id="evidence"></div>
+          <button class="secondary" id="comparator" hidden>
+            Show same-equipment comparator</button
+          ><button id="simulate">Simulate quality review</button>
+          <p id="action" role="status" class="note">
+            A review is simulated locally; no system record is changed.
+          </p>
+        </section>
+      </div>
+      <section class="card">
+        <h2>Trace the claim to its source</h2>
+        <p class="note" id="source-result"></p>
+        <div
+          class="table-wrap"
+          tabindex="0"
+          role="region"
+          aria-label="Claim source and lineage table"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Synthetic source</th>
+                <th>Join / transformation</th>
+                <th>Freshness</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Batch yield</td>
+                <td>Production ledger</td>
+                <td>Accepted output ÷ input mass</td>
+                <td>Final at batch close</td>
+              </tr>
+              <tr>
+                <td>Equipment relationship</td>
+                <td>Run assignment log</td>
+                <td>batch_id → equipment_id</td>
+                <td>Snapshot 08:00 UTC</td>
+              </tr>
+              <tr>
+                <td>Supplier / lot</td>
+                <td>Receiving ledger</td>
+                <td>batch_id → material_lot_id</td>
+                <td>Snapshot 08:00 UTC</td>
+              </tr>
+              <tr>
+                <td>Moisture / quality</td>
+                <td>Laboratory result</td>
+                <td>
+                  material_lot_id → lab_result_id → one lot-level measurement
+                </td>
+                <td>One result pending</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <details>
+        <summary>Ontology, interpretation & uncertainty</summary>
+        <p>
+          Objects: Batch, Equipment, Supplier, Material Lot and Laboratory
+          Result. Laboratory values belong to the lot-level result, never to a
+          batch. B-241 and B-242 consume NS-118 and therefore reference the same
+          LAB-118 moisture measurement. A pending result stores no numeric
+          value. A Batch runs on Equipment and consumes a Material Lot supplied
+          by a Supplier. The table scope explicitly selects batches sharing
+          equipment or supplier with the selected batch; comparison commentary
+          identifies records outside the current scope and offers a control to
+          reveal them; it is not a complete production history. Five synthetic
+          records cannot establish causality. Correlated equipment and supplier
+          exposure, missing operating conditions, measurement variation and the
+          pending lab result limit inference. Review actions create only a
+          temporary on-screen draft.
+        </p>
+      </details>
+      <details>
+        <summary>About this demonstration</summary>
+        <p>
+          All records, names, values and scenarios are synthetic. This
+          independent demonstration illustrates an analytical method; it
+          contains no employer data, personal performance claims, live
+          integrations or production recommendations. Changes stay in this
+          browser and reset on reload.
+        </p>
+      </details>
+      <footer>
+        <span>Built to make the decision legible.</span
+        ><a href="../../">Return to portfolio ↗︎</a>
+      </footer>
+    </main>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>
