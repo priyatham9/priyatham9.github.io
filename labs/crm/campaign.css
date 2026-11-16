@@ -115,6 +115,10 @@ footer {
   margin: auto;
   padding: 52px 5% 30px;
 }
+main {
+  /* Keep the footer below the loading viewport until the audit is populated. */
+  min-height: 100vh;
+}
 .opening {
   display: grid;
   grid-template-columns: 1fr 290px;

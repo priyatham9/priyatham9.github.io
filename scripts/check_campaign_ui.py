@@ -153,6 +153,38 @@ def failed_artifacts(context, origin, data):
     print("PASS failed and malformed artifact responses hide all results")
 
 
+def loading_layout(context, origin):
+    page = context.new_page()
+    page.add_init_script("""window.auditLoadingShifts = [];
+      new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          if (!entry.hadRecentInput) window.auditLoadingShifts.push(entry.value);
+        }
+      }).observe({type: 'layout-shift', buffered: true});""")
+    pending = []
+    page.route("**/campaign.data.json", lambda route: pending.append(route))
+    page.goto(origin + "/labs/crm/campaign.html", wait_until="domcontentloaded")
+    expect(page.locator("#load-status")).to_contain_text("Loading")
+    expect(page.locator("#audit")).to_be_hidden()
+    page.evaluate("document.fonts.ready")
+    for width, height in ((1440, 1000), (320, 900), (390, 844)):
+        page.set_viewport_size({"width": width, "height": height})
+        assert page.locator("footer").bounding_box()["y"] >= height, (width, height)
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), width
+    # Isolate asynchronous content arrival from the deliberate viewport changes.
+    page.evaluate("new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))")
+    page.evaluate("window.auditLoadingShifts = []")
+    assert len(pending) == 1
+    pending[0].fulfill(content_type="application/json", body=ARTIFACT.read_bytes())
+    expect(page.locator("#audit")).to_be_visible()
+    expect(page.locator("#record-inspector")).not_to_be_empty()
+    page.evaluate("new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))")
+    page.wait_for_timeout(100)
+    assert page.evaluate("window.auditLoadingShifts.reduce((sum, value) => sum + value, 0)") < 0.001
+    page.close()
+    print("PASS visible loading state reserves the viewport without an arrival layout shift")
+
+
 def main():
     body = ARTIFACT.read_bytes()
     data = json.loads(body)
@@ -173,6 +205,7 @@ def main():
             layouts_and_bins(page, data)
             assert not errors, errors
             assert all(url.startswith(origin + "/") for url in requests), requests
+            loading_layout(context, origin)
             failed_artifacts(context, origin, data)
             browser.close()
     finally:
