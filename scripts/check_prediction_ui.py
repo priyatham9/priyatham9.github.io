@@ -61,7 +61,12 @@ def csv_export(page, scope):
 
 def local_workflow(page, origin):
     requests = []
-    page.on("request", lambda request: requests.append(request.url))
+    page.on(
+        "request",
+        lambda request: requests.append(
+            (request.url, request.method, request.post_data)
+        ),
+    )
     page.goto(origin + PAGE, wait_until="networkidle")
     expect(page.locator("#results")).to_be_hidden()
     expect(page.locator("#empty-state")).to_be_visible()
@@ -155,7 +160,14 @@ def local_workflow(page, origin):
     expect(page.locator("#load-error")).to_contain_text("not valid UTF-8")
     expect(page.locator("#results")).to_be_hidden()
     page.locator("#clear").click()
-    assert requests == [], requests
+    allowed_code = {
+        origin + "/labs/ai/prediction-worker.mjs",
+        origin + "/labs/ai/prediction-model.mjs",
+    }
+    assert all(
+        url in allowed_code and method == "GET" and body is None
+        for url, method, body in requests
+    ), requests
     print(
         "PASS exact BOM/CRLF hash, local-only processing, filters, budgets, safe exports, focus and replacement/clear"
     )
@@ -234,25 +246,65 @@ def public_example(page):
     )
 
 
-def canceled_hash(context, origin):
+def canceled_file_read(context, origin):
     page = context.new_page()
-    page.add_init_script("""const originalDigest = crypto.subtle.digest.bind(crypto.subtle);
-      crypto.subtle.digest = (...args) => new Promise(resolve => {
-        window.releaseTestHash = () => resolve(originalDigest(...args));
-        document.documentElement.dataset.testHashPending = 'true';
-      });""")
+    page.add_init_script("""const originalRead = File.prototype.arrayBuffer;
+      File.prototype.arrayBuffer = function() { return new Promise(resolve => {
+        document.documentElement.dataset.testReadPending = "true";
+        window.releaseTestRead = () => resolve(originalRead.call(this));
+      }); };""")
     page.goto(origin + PAGE)
     upload(page, fixture_bytes())
-    expect(page.locator("html")).to_have_attribute("data-test-hash-pending", "true")
+    expect(page.locator("html")).to_have_attribute("data-test-read-pending", "true")
     page.locator("#clear").click()
-    page.evaluate("window.releaseTestHash()")
+    page.evaluate("window.releaseTestRead()")
     page.wait_for_timeout(150)
     expect(page.locator("#results")).to_be_hidden()
     expect(page.locator("#source-hash")).to_have_text("")
     expect(page.locator("#note-b")).to_have_value("")
     expect(page.locator("#load-status")).to_contain_text("cleared")
     page.close()
-    print("PASS clear during pending hash cannot restore discarded data")
+    print("PASS clear during pending file read cannot restore discarded data")
+
+
+def background_cancellation(context, origin):
+    page = context.new_page()
+    cdp = context.new_cdp_session(page)
+    cdp.send("Emulation.setCPUThrottlingRate", {"rate": 4})
+    page.goto(origin + PAGE, wait_until="networkidle")
+    page.evaluate("""() => {
+      window.workerReplies = 0;
+      window.busyTicks = 0;
+      window.tickTimer = setInterval(() => {
+        if (document.querySelector('#main').getAttribute('aria-busy') === 'true') window.busyTicks++;
+        if (window.busyTicks >= 3) document.documentElement.dataset.busyHeartbeat = 'true';
+      }, 20);
+    }""")
+    body = b"outcome,score_a,score_b,record_id,group\n" + b"".join(
+        f"{i % 7 == 0 and 1 or 0},{(i % 997) / 996},{(i % 991) / 990},row-{i},g-{i % 200}\n".encode()
+        for i in range(100000)
+    )
+    upload(page, body, "cancel-large.csv")
+    expect(page.locator("#load-status")).to_contain_text("background worker")
+    expect(page.locator("html")).to_have_attribute("data-busy-heartbeat", "true")
+    # Click must be handled while analysis is pending, not after a blocked task
+    # completes and renders a result. The old synchronous implementation fails.
+    expect(page.locator("#results")).to_be_hidden()
+    page.locator("#clear").click()
+    expect(page.locator("#load-status")).to_contain_text("cleared")
+    expect(page.locator("#results")).to_be_hidden()
+    upload(page, fixture_bytes(), "replacement.csv")
+    expect(page.locator("#cohort-summary")).to_contain_text("20 accepted rows")
+    page.wait_for_timeout(1200)
+    expect(page.locator("#cohort-summary")).to_contain_text("20 accepted rows")
+    expect(page.locator("#source-hash")).to_have_text(
+        hashlib.sha256(fixture_bytes()).hexdigest()
+    )
+    assert page.locator("#record-rows tr").count() == 20
+    page.close()
+    print(
+        "PASS 4× CPU: timer responds during 100,000-row worker analysis; Clear cancels and replacement stays current"
+    )
 
 
 def main():
@@ -272,7 +324,8 @@ def main():
             local_workflow(page, origin)
             class_and_scale(page)
             public_example(page)
-            canceled_hash(context, origin)
+            canceled_file_read(context, origin)
+            background_cancellation(context, origin)
             assert not errors, errors
             browser.close()
     finally:

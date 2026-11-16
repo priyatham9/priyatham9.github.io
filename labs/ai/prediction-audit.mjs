@@ -1,9 +1,5 @@
-import {
-  parsePredictionCSV,
-  evaluatePredictions,
-  changeBudget,
-  exportRecordsCSV,
-} from "./prediction-model.mjs";
+import { PredictionWorkerClient } from "./prediction-worker-client.mjs";
+import { changeBudget, exportRecordsCSV } from "./prediction-model.mjs";
 
 const $ = (id) => document.getElementById(id);
 const escape = (value) =>
@@ -52,6 +48,7 @@ let audit = null,
   filtered = [],
   selectedOrdinal = null,
   pageIndex = 0;
+const analyzer = new PredictionWorkerClient();
 let operation = 0,
   sampleController = null;
 
@@ -62,15 +59,6 @@ function paint() {
   return new Promise((resolve) =>
     requestAnimationFrame(() => setTimeout(resolve, 0)),
   );
-}
-function hash(bytes) {
-  return crypto.subtle
-    .digest("SHA-256", bytes)
-    .then((buffer) =>
-      Array.from(new Uint8Array(buffer), (v) =>
-        v.toString(16).padStart(2, "0"),
-      ).join(""),
-    );
 }
 function groupLabel(value) {
   return value === null ? "No group value" : value;
@@ -114,6 +102,7 @@ function eraseWorkingState() {
 }
 function clearInput() {
   operation++;
+  analyzer.stop();
   sampleController?.abort();
   sampleController = null;
   eraseWorkingState();
@@ -125,6 +114,7 @@ function clearInput() {
 }
 function beginLoad(message) {
   operation++;
+  if (analyzer.pending) analyzer.stop();
   sampleController?.abort();
   sampleController = null;
   eraseWorkingState();
@@ -155,47 +145,22 @@ function showError(error, token) {
 }
 
 async function acceptBytes(bytes, name, token, exampleManifest = null) {
-  if (bytes.byteLength > MAX_BYTES)
-    throw Error("The original file exceeds the 10 MiB byte limit.");
-  const sha256 = await hash(bytes);
   if (token !== operation) return;
-  if (exampleManifest) {
-    const expected = exampleManifest.sha256;
-    if (
-      !expected ||
-      expected !== sha256 ||
-      exampleManifest.bytes !== bytes.byteLength
-    )
-      throw Error(
-        "The public example bytes do not match their pinned manifest.",
-      );
-  }
-  let text;
-  try {
-    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(
-      bytes,
-    );
-  } catch {
-    throw Error("The file is not valid UTF-8 text.");
-  }
-  await paint();
-  if (token !== operation) return;
-  const parsed = parsePredictionCSV(text, {
-    maxBytes: MAX_BYTES,
-    maxRows: 100000,
-  });
-  if (exampleManifest && parsed.records.length !== exampleManifest.rows)
-    throw Error("The public example row count does not match its manifest.");
-  const evaluated = evaluatePredictions(parsed.records, {
-    budgetFraction: 0.1,
-  });
+  $("load-status").textContent =
+    "Analyzing locally in a background worker… Clear input cancels this analysis.";
+  const {
+    audit: evaluated,
+    columns,
+    byteLength,
+    sha256,
+  } = await analyzer.run(bytes, exampleManifest);
   if (token !== operation) return;
   audit = evaluated;
   source = {
     fileName: name,
-    byteLength: bytes.byteLength,
+    byteLength,
     sha256,
-    columns: parsed.columns,
+    columns,
     kind: exampleManifest ? "public-campaign-example" : "user-selected-csv",
     exampleManifest,
   };
@@ -213,7 +178,7 @@ async function acceptBytes(bytes, name, token, exampleManifest = null) {
   $("load-example").disabled = false;
   $("main").setAttribute("aria-busy", "false");
   $("source-details").innerHTML =
-    `<p><strong>${escape(name)}</strong><br>${count(bytes.byteLength)} original bytes · ${count(audit.n)} accepted data rows</p><p>${exampleManifest ? "Derived public campaign score ledger. This hash identifies the example CSV, not the original UCI source dataset." : "Local file. No records were sent to a server."}</p>`;
+    `<p><strong>${escape(name)}</strong><br>${count(byteLength)} original bytes · ${count(audit.n)} accepted data rows</p><p>${exampleManifest ? "Derived public campaign score ledger. This hash identifies the example CSV, not the original UCI source dataset." : "Local file. No records were sent to a server."}</p>`;
   $("source-hash").textContent = sha256;
   $("group-filter").innerHTML =
     '<option value="all">All groups</option>' +
@@ -223,7 +188,7 @@ async function acceptBytes(bytes, name, token, exampleManifest = null) {
           `<option value="${i}">${escape(groupLabel(g.group))} · ${count(g.n)}</option>`,
       )
       .join("");
-  $("group-filter").disabled = !parsed.columns.includes("group");
+  $("group-filter").disabled = !columns.includes("group");
   $("load-status").textContent =
     `Accepted all ${count(audit.n)} data rows. Both score columns use the same cohort.`;
   renderSummary();
