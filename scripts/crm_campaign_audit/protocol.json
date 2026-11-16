@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "crm-campaign-protocol/1",
+  "frozenAt": "2026-11-16T14:37:01.464741+00:00",
+  "status": "Frozen before inspecting holdout outcomes or fitting either model",
+  "question": "How do retrospective predictive scores change when a documented post-call variable is added to a fixed profile/history model on the same later rows?",
+  "dataSha256": "74adfc578bf77a7ff4bb1ba4a9f8709d9e3c6907342959c2c8416847e0afb4d8",
+  "rows": 41188,
+  "decisionPoint": "Immediately before the recorded call. Profile and prior-campaign fields are assumed already available; the release has no feature-ingestion timestamps to validate this. Neither model is certified deployment-ready.",
+  "split": {
+    "rule": "Take the last complete contiguous month-label block ending at or before floor(0.70*N); preserve original file order. No shuffling or sorting by month/weekday.",
+    "targetTrainFraction": 0.7,
+    "trainLastRow": 27972,
+    "holdoutFirstRow": 27973,
+    "trainRows": 27972,
+    "holdoutRows": 13216,
+    "trainBlockIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "holdoutBlockIds": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "dateLimit": "Contiguous month-label blocks in publisher-declared chronological order; no year or full date is inferred. Rows are not verified unique clients.",
+    "validation": "None: no tuning, threshold search or model selection. The holdout is evaluated once under this specification."
+  },
+  "features": {
+    "profile": [
+      "age",
+      "job",
+      "marital",
+      "education",
+      "default",
+      "housing",
+      "loan"
+    ],
+    "history": [
+      "pdays",
+      "previous",
+      "poutcome"
+    ],
+    "excludedCallMetadata": [
+      "contact",
+      "month",
+      "day_of_week",
+      "campaign"
+    ],
+    "excludedMacro": [
+      "emp.var.rate",
+      "cons.price.idx",
+      "cons.conf.idx",
+      "euribor3m",
+      "nr.employed"
+    ],
+    "availabilityNotes": {
+      "profile": "Assume these profile fields were recorded before the call; timestamps are absent. Age and demographic attributes are descriptive inputs, not a recommendation to target groups.",
+      "history": "Fields explicitly refer to prior campaigns. Assumed in the record before this call; no client identifiers or as-of feature store supplied.",
+      "excludedCallMetadata": "Current/last-call communication, calendar and attempt-count fields are omitted to avoid needing a scheduled-call context assumption. Month is used only to define contiguous audit blocks.",
+      "excludedMacro": "Publication lags and historical release vintages are not supplied; these fields are excluded from both models.",
+      "duration": "Last-contact duration is known only after the call; included solely in the deliberately retrospective comparator."
+    }
+  },
+  "preprocessing": {
+    "numeric": [
+      "age",
+      "previous",
+      "pdaysObserved",
+      "previouslyContacted"
+    ],
+    "categorical": [
+      "job",
+      "marital",
+      "education",
+      "default",
+      "housing",
+      "loan",
+      "poutcome"
+    ],
+    "pdays": "pdays=999 maps to previouslyContacted=0 and pdaysObserved=0; otherwise previouslyContacted=1 and pdaysObserved=pdays. The indicator distinguishes never-contacted from zero observed days.",
+    "duration": "Comparator adds log1p(duration_seconds), then training-only standardization. No other feature or transformation differs.",
+    "numericScaling": "StandardScaler fitted on training rows only; population variance (ddof=0).",
+    "categoricalEncoding": "OneHotEncoder(handle_unknown=ignore,drop=None), categories learned only from training. Literal unknown remains a category if observed in training; unseen holdout levels map to all-zero indicators.",
+    "missing": "Expected numeric fields must be finite; unexpected missing numeric values fail. No rows deleted and no label-dependent imputation."
+  },
+  "model": {
+    "estimator": "sklearn.linear_model.LogisticRegression",
+    "solver": "lbfgs",
+    "penalty": "l2",
+    "C": 1.0,
+    "class_weight": null,
+    "fit_intercept": true,
+    "max_iter": 2000,
+    "tol": 1e-08,
+    "random_state": 20261116,
+    "convergence": "Fail on ConvergenceWarning or n_iter reaching max_iter; do not change solver/hyperparameters after results.",
+    "threads": 1
+  },
+  "metrics": {
+    "averagePrecision": "sklearn average_precision_score: noninterpolated average precision, not trapezoidal PR-AUC. Null when there are no positives.",
+    "brier": "Mean squared error of uncalibrated logistic probability and binary outcome; smaller is better.",
+    "logLoss": "Binary logarithmic loss with labels=[0,1].",
+    "baseline": "Constant probability equal to training prevalence; no holdout fitting or recalibration. Its average precision equals holdout prevalence.",
+    "budgetFraction": 0.1,
+    "budgetRule": "Select ceil(0.10*N) largest scores within the complete retrospective evaluation batch; break exact score ties by source row ordinal ascending. This is not a prospective online call-allocation policy.",
+    "calibrationEdges": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "calibrationRule": "Fixed equal-width bins; left-closed/right-open except final includes1. Empty bins retained with null means/rates. No recalibration."
+  },
+  "resampling": {
+    "method": "Paired resampling with replacement of the 18 complete heldout contiguous month-label blocks; fit models once and retain predictions; use exactly the same drawn block indices for both models.",
+    "replicates": 1000,
+    "seed": 20261116,
+    "quantiles": [
+      0.025,
+      0.975
+    ],
+    "quantileMethod": "linear",
+    "differences": "withDuration minus withoutDuration for averagePrecision, brier and precisionAtBudget; negative Brier difference favors duration.",
+    "undefined": "Count undefined/no-positive AP replicates explicitly and exclude them from that metric interval only; do not substitute zero.",
+    "interpretation": "Descriptive block-resampling sensitivity ranges, not iid confidence intervals, population uncertainty, or a guarantee about future campaigns. Blocks and repeated clients can remain dependent. Replicate row counts vary with block sizes."
+  },
+  "recordBrowser": {
+    "coverage": "All heldout rows; anonymous original row ordinal only, no invented identity.",
+    "defaultRule": "Largest absolute difference between the two predicted probabilities; ties by source row ordinal. Labels do not select showcased records."
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  },
+  "limits": [
+    "Known timing hazard documented by the source, not a newly discovered theory.",
+    "Observational campaign outcomes do not identify effects of calling, targeting, budget changes or call duration.",
+    "Chronological records are not verified client-disjoint; no client identifiers or full timestamps are supplied.",
+    "The source may record last campaign contacts; its rows are not a fully specified online decision log.",
+    "Results concern one institution and historical release; no representative generalization or prospective deployment claim."
+  ]
+}

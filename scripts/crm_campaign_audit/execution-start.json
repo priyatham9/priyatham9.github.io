@@ -1,0 +1,13 @@
+{
+  "startedAt": "2026-11-16T14:41:46.885184+00:00",
+  "analysisSourceSha256": "8c6d5f85994639ffd29fecd90be79829603afe6d6a12304430063aaf4d444934",
+  "protocolSha256": "8f847d7ad5cbbb71aa962dfdde9cfd3a34bb20dc594a4bb46268627ac9dc978b",
+  "dataSha256": "74adfc578bf77a7ff4bb1ba4a9f8709d9e3c6907342959c2c8416847e0afb4d8",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  },
+  "threads": 1
+}
