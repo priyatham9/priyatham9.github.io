@@ -5,167 +5,302 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Trace a single acquisition cohort through the funnel. Separate conversion loss from deal aging, then test one explicit closing assumption."
+      content="Compare acquisition cohorts, inspect stage conversion and test an explicit closing-rate assumption in a synthetic CRM workspace."
     />
-    <title>Find the leak. Test the next move. · Analytical labs</title>
+    <title>Conversion intelligence · Analytical labs</title>
     <link rel="stylesheet" href="../labs.css" />
+    <link rel="stylesheet" href="./crm.css" />
   </head>
   <body>
-    <header>
-      <a href="../../">Priyatham Chimmani / labs</a>
+    <a class="skip-link" href="#workspace">Skip to workspace</a>
+    <header class="app-header">
+      <a class="brand" href="../">PC <span>Analytical projects</span></a>
       <nav aria-label="Lab navigation">
         <a href="../foundry/">Foundry</a
         ><a href="../crm/" aria-current="page">CRM</a
-        ><a href="../finance/">Finance</a>
+        ><a href="../finance/">Finance</a><a href="../ai/">AI</a
+        ><a href="https://ehs-osha-analysis.vercel.app/explore.html">EHS</a>
       </nav>
-      <span class="badge">Synthetic public demonstration</span>
+      <span class="demo-label"><i></i>Synthetic dataset</span>
     </header>
-    <main>
+    <main id="workspace">
       <noscript
-        ><div class="decision">
-          Enable JavaScript to explore the interactive model. Methodology and
-          assumptions remain available below.
-        </div></noscript
+        ><p class="notice">
+          Enable JavaScript to explore cohort conversion. The separate aging
+          snapshot and methodology are available below.
+        </p></noscript
       >
-      <div class="eyebrow">Independent lab / crm</div>
-      <h1>Find the leak.<br />Test the next move.</h1>
-      <p class="intro">
-        Trace a single acquisition cohort through the funnel. Separate
-        conversion loss from deal aging, then test one explicit closing
-        assumption.
-      </p>
-      <div class="controls">
-        <label
-          >Cohort source<select id="source">
+      <div class="workspace-heading">
+        <div>
+          <div class="eyebrow">Acquisition / cohort analysis</div>
+          <h1>Conversion intelligence</h1>
+          <p class="intro">
+            Compare sources. Inspect stage loss. Test a closing assumption.
+          </p>
+        </div>
+        <div class="observation">
+          <span>JANUARY COHORT</span><strong>01 Jan — 30 Apr</strong
+          ><small>Entry: 1–31 Jan · observation ends 30 Apr</small>
+        </div>
+      </div>
+      <div class="toolbar">
+        <label for="source"
+          >Analyze source
+          <select id="source">
             <option value="all">All sources · 240 leads</option>
             <option value="inbound">Inbound · 140 leads</option>
             <option value="outbound">Outbound · 100 leads</option>
           </select></label
-        ><button class="secondary" id="reset">Reset scenario</button
-        ><span class="note"
-          >Cohort entered 1–31 Jan · observed through 30 Apr</span
-        >
+        ><a class="scenario-jump" href="#scenario-title"
+          >Test a closing assumption ↓</a
+        ><button class="secondary" id="reset" type="button">
+          Reset workspace
+        </button>
       </div>
-      <div class="metrics" id="metrics" aria-live="polite"></div>
-      <div class="grid">
-        <section class="card">
-          <h2>One cohort. Five milestones.</h2>
-          <p class="note">
-            Cumulative reached-stage counts; the difference between bars is
-            attrition.
-          </p>
+      <p id="error" class="notice" role="alert" hidden></p>
+      <div
+        class="metrics"
+        id="metrics"
+        aria-label="Selected cohort summary"
+      ></div>
+      <div class="analysis-grid">
+        <section class="conversion-panel" aria-labelledby="conversion-title">
+          <div class="section-heading">
+            <div>
+              <div class="section-index">01 / OBSERVED</div>
+              <h2 id="conversion-title">The path to a win</h2>
+            </div>
+            <span class="small-label"
+              >Select a milestone to inspect its transition</span
+            >
+          </div>
+          <div class="chart-controls" role="group" aria-label="Chart measure">
+            <button type="button" data-measure="conversion" aria-pressed="true">
+              Stage conversion
+            </button>
+            <button type="button" data-measure="reach" aria-pressed="false">
+              Cohort reach
+            </button>
+            <a class="detail-jump" href="#drilldown"
+              >View transition detail ↓</a
+            >
+          </div>
+          <p class="chart-description" id="chart-description"></p>
+          <div class="funnel-head">
+            <span>Milestone</span>
+            <div>
+              <strong class="inbound-key">Inbound</strong
+              ><span>140 entered</span>
+            </div>
+            <div>
+              <strong class="outbound-key">Outbound</strong
+              ><span>100 entered</span>
+            </div>
+          </div>
+          <div class="axis-row" aria-hidden="true">
+            <span></span>
+            <div><span>0%</span><span>50%</span><span>100%</span></div>
+            <div><span>0%</span><span>50%</span><span>100%</span></div>
+          </div>
           <div id="funnel"></div>
-          <p class="note">
-            These are historical milestones, not the current open pipeline.
-            Stage-to-stage rates use the preceding stage as denominator.
+          <div
+            class="drilldown"
+            id="drilldown"
+            tabindex="-1"
+            aria-live="polite"
+            aria-atomic="true"
+          ></div>
+          <p class="data-note">
+            “Not advanced” includes unresolved leads at cutoff; it does not mean
+            closed-lost.
           </p>
         </section>
-        <section class="card">
-          <h2>Change the closing assumption</h2>
-          <p class="muted">
-            What if the same qualified proposal cohort converted differently?
+        <section class="scenario-panel" aria-labelledby="scenario-title">
+          <div class="section-index">02 / SCENARIO</div>
+          <h2 id="scenario-title" tabindex="-1">Test the final conversion</h2>
+          <p class="chart-description">
+            Hold proposal volume fixed. Change only the assumed proposal → won
+            rate.
           </p>
+          <div class="baseline">
+            <span>Observed close rate</span><strong id="observed-rate"></strong
+            ><small id="observed-denominator"></small>
+          </div>
           <div class="slider">
-            <label for="rate"
-              >Proposal → won <strong id="rate-value"></strong></label
-            ><input
+            <div class="slider-heading">
+              <label for="rate">Assumed close rate</label
+              ><span class="rate-entry"
+                ><input
+                  id="rate-value"
+                  aria-label="Assumed close rate percentage"
+                  aria-describedby="rate-entry-error"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="50"
+                /><span>%</span></span
+              >
+            </div>
+            <input
               id="rate"
-              aria-describedby="scenario-status"
+              aria-describedby="scenario-caveat scenario-status"
               type="range"
               min="0"
               max="100"
               value="50"
               step="1"
             />
+            <p
+              class="rate-entry-error"
+              id="rate-entry-error"
+              role="status"
+              hidden
+            >
+              Enter a whole percentage from 0 to 100.
+            </p>
+            <div class="range-axis" aria-hidden="true">
+              <span>0%</span><span>50%</span><span>100%</span>
+            </div>
           </div>
-          <div class="big" id="forecast"></div>
-          <p class="note">
-            Expected wins at the selected rate. Fractional wins are an
-            expectation, not individual deals.
+          <div class="scenario-result">
+            <span class="small-label">EXPECTED WINS</span>
+            <div class="big" id="forecast"></div>
+            <div id="scenario"></div>
+          </div>
+          <div
+            class="scenario-plot"
+            id="scenario-plot"
+            aria-label="Observed and assumed wins compared"
+          ></div>
+          <p id="scenario-caveat" class="data-note">
+            A sensitivity calculation, not a prediction of causal uplift.
+            Fractional wins are expectations, not individual deals.
           </p>
-          <div id="scenario"></div>
           <p
             id="scenario-status"
-            class="note"
+            class="sr-only"
             role="status"
             aria-live="polite"
             aria-atomic="true"
-          >
-            Closing assumption: 50%. Expected wins: 24.0.
-          </p>
+          ></p>
+          <div id="scenario-actions"></div>
         </section>
       </div>
-      <div class="decision" id="decision"></div>
-      <section class="card">
-        <h2>Open proposals: aging as a separate signal</h2>
-        <p class="note">
-          A separate current snapshot. These records are not added to the
-          historical cohort forecast.
-        </p>
-        <div class="table-wrap">
+      <div class="insight-strip" id="decision"></div>
+      <section class="aging-section" aria-labelledby="aging-title">
+        <div class="aging-context">
+          <div class="section-index">03 / SEPARATE SNAPSHOT</div>
+          <h2 id="aging-title">Open proposal aging</h2>
+          <p>
+            42 currently open proposals.<br />A distinct snapshot, across both
+            sources.
+          </p>
+          <div class="aging-highlight">
+            <strong>13 <span>/ 42</span></strong
+            ><span>open proposals aged 31+ days</span>
+          </div>
+          <p class="data-note">
+            These counts do not change with the cohort selector and are never
+            added to the historical forecast. Snapshot date is not supplied.
+          </p>
+        </div>
+        <div
+          class="table-wrap"
+          role="region"
+          aria-label="Open proposal aging table; scroll for review prompts"
+          tabindex="0"
+        >
           <table>
+            <caption>
+              Current open proposals by source and age
+            </caption>
             <thead>
               <tr>
-                <th>Age since proposal</th>
-                <th>Inbound</th>
-                <th>Outbound</th>
-                <th>Next review</th>
+                <th scope="col">Age since proposal</th>
+                <th scope="col">Inbound</th>
+                <th scope="col">Outbound</th>
+                <th scope="col">Total</th>
+                <th scope="col">Review prompt</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>0–14 days</td>
-                <td>9</td>
-                <td>6</td>
+                <th scope="row">0–14 days</th>
+                <td class="heat heat-3">9</td>
+                <td class="heat heat-2">6</td>
+                <td>15</td>
                 <td>Confirm next step</td>
               </tr>
               <tr>
-                <td>15–30 days</td>
-                <td>6</td>
-                <td>8</td>
+                <th scope="row">15–30 days</th>
+                <td class="heat heat-2">6</td>
+                <td class="heat heat-3">8</td>
+                <td>14</td>
                 <td>Validate decision date</td>
               </tr>
               <tr>
-                <td>31+ days</td>
-                <td>3</td>
-                <td>10</td>
+                <th scope="row">31+ days</th>
+                <td class="heat heat-1">3</td>
+                <td class="heat heat-4">10</td>
+                <td>13</td>
                 <td>Requalify before forecasting</td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">All open</th>
+                <td>18</td>
+                <td>24</td>
+                <td>42</td>
+                <td>Counts, not close probabilities</td>
+              </tr>
+            </tfoot>
           </table>
+          <p class="data-note">
+            Cell shading encodes count: darker = more open proposals. Review
+            prompts are suggested questions, not findings.
+          </p>
         </div>
       </section>
       <details>
-        <summary>Model, definitions & data quality</summary>
+        <summary>Methodology & data definitions</summary>
         <p>
-          Each lead is counted once per milestone reached. Sources are mutually
-          exclusive and sum to the all-source cohort at every stage. Historical
-          won deals are final as of the observation cutoff. Lost / not won =
-          entered − won, including unresolved leads at cutoff; this is not a
-          formal closed-lost rate. All synthetic proposals have the same assumed
-          opportunity to close in the scenario. No timing, value, intervention
-          cost or causal uplift is modeled. Attribution and stage definitions
-          must be validated before applying this method to real CRM data.
+          Each lead is counted once per milestone reached. Inbound and outbound
+          are mutually exclusive and sum to the all-source cohort at every
+          milestone. Historical wins are observed through 30 Apr. Not won =
+          entered − won, including unresolved leads at cutoff. Not advanced =
+          previous milestone − next milestone; this is not a formal closed-lost
+          classification. Source comparisons are descriptive; different lead
+          quality and selection effects may explain differences.
+        </p>
+        <p>
+          All proposals have the same assumed opportunity to close in the
+          scenario. No timing, deal value, intervention cost or causal uplift is
+          modeled. Source attribution and milestone definitions must be
+          validated before applying this method to real CRM data.
         </p>
         <div class="formula">
-          Expected wins = proposals reached × selected closing rate<br />Incremental
-          wins = expected wins − observed wins<br />Cohort win rate = observed
-          wins ÷ leads entered
+          Stage conversion = next milestone ÷ preceding milestone<br />Expected
+          wins = proposals reached × assumed close rate<br />Incremental wins =
+          expected wins − observed wins<br />Cohort win rate = observed wins ÷
+          entered leads
         </div>
       </details>
       <details>
-        <summary>About this demonstration</summary>
+        <summary>About this dataset & workspace</summary>
         <p>
-          All records, names, values and scenarios are synthetic. This
-          independent demonstration illustrates an analytical method; it
-          contains no employer data, personal performance claims, live
-          integrations or production recommendations. Changes stay in this
-          browser and reset on reload.
+          All counts and scenarios are synthetic. This independent demonstration
+          contains no employer data, live CRM integration or performance claim.
+          The aggregate dataset has no individual lead records. Inputs are
+          reflected in the URL; share a scenario to preserve them, or reset to
+          restore the baseline. CSV exports include the selected cohort,
+          assumptions and formulas.
         </p>
       </details>
       <footer>
-        <span>Built to make the decision legible.</span
-        ><a href="../../">Return to portfolio ↗︎</a>
+        <span>Conversion intelligence / synthetic public demonstration</span
+        ><a href="../../">Return to portfolio</a>
       </footer>
     </main>
     <script type="module" src="./app.mjs"></script>

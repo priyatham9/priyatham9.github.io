@@ -24,6 +24,7 @@ jobs:
           node labs/signed-scale.test.mjs
           node labs/scenario-tools.test.mjs
           node labs/foundry/model.test.mjs
+          node --test labs/foundry/graph.test.mjs labs/crm/derive.test.mjs labs/finance/compare.test.mjs labs/ai/model.test.mjs
       - name: Test server verification API
         run: node --test tests/analysis.test.mjs
       - name: Build and verify all local dependencies

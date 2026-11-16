@@ -63,6 +63,9 @@ def verify(output, dynamic_routes=()):
                 errors.append(f'{page.relative_to(output)}: dependency escapes public root: {url}')
                 continue
             candidates = [target, target / 'index.html']
+            # Module URL bases may point at a directory of fetched resources.
+            if page.suffix in {'.js', '.mjs'} and path.endswith('/') and target.is_dir():
+                continue
             if not target.suffix:
                 candidates.append(target.with_suffix('.html'))
             if not any(candidate.is_file() for candidate in candidates):

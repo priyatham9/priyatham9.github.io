@@ -46,6 +46,16 @@ class StaticBuild(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'missing.mjs'):
             site.build(self.root)
 
+    def test_module_data_directory_base(self):
+        self.write('labs/demo/app.mjs', 'const base = new URL("./data/", import.meta.url);')
+        self.write('labs/demo/data/corpus.json', '[]')
+        site.build(self.root)
+
+    def test_missing_module_data_directory_fails(self):
+        self.write('labs/demo/app.mjs', 'const base = new URL("./missing/", import.meta.url);')
+        with self.assertRaisesRegex(ValueError, 'missing/'):
+            site.build(self.root)
+
     def test_missing_css_dependency_fails(self):
         self.write('labs/demo/index.html', '<link href="./style.css" rel="stylesheet">')
         self.write('labs/demo/style.css', 'body { background: url("missing.png") }')
